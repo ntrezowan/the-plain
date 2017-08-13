@@ -3,8 +3,8 @@ title: "Patching/Updating SharePoint 2016"
 updated: 2015-09-06 15:56
 ---
 1. Download the SharePoint 2016 update releases from Microsoft website;
-[https://technet.microsoft.com/en-us/library/mt715807(v=office.16).aspx](https://technet.microsoft.com/en-us/library/mt715807(v=office.16).aspx)
-   Please check Todd Klindt’s website to find what type of updates each version has including the build number;
+[https://technet.microsoft.com/en-us/library/mt715807(v=office.16).aspx](https://technet.microsoft.com/en-us/library/mt715807(v=office.16).aspx).  
+Please check Todd Klindt’s website to find what type of updates each version has including the build number;
 [http://www.toddklindt.com/blog/Builds/SharePoint-2016-Builds.aspx](http://www.toddklindt.com/blog/Builds/SharePoint-2016-Builds.aspx)
 2. Open `SharePoint 2016 Management Shell` and run the following command to take a full backup of the current farm;  
 ```
