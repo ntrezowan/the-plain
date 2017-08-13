@@ -1,5 +1,5 @@
 ---
-title: Lorem Ipsum
+title: "Patching/Updating SharePoint 2016"
 updated: 2015-09-06 15:56
 ---
 
