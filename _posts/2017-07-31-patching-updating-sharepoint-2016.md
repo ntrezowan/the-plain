@@ -15,13 +15,13 @@ PS > Backup-SPFarm -Directory <BackupFolder> -BackupMethod Full -Verbose
 PS > Suspend-SPEnterpriseSearchServiceApplication –Identity “Search Service Application”
 ```  
 Go to `CA > General Application Settings > Farm Search Administration > Search Server Application` and you will now see `Administrative Status` shows as `Paused: for external request`
-4. Remove the web fronts from the load balancer and install the update on the web fronts first. This way, if we encounter any issue after patching, it will not break any of the application servers. Reboot the web fronts after patching if necessary.
-   After reboot, check if the updates are properly installed by going to `Control Panel > Program and Features > View Installed Updates`. Also, open CA from the web front servers to see if IIS is working or not. 
-5. Now install the updates in Application Servers and reboot if necessary. 
-   After reboot, check if the updates are properly installed by going to `Control Panel > Program and Features > View Installed Updates`. Also, open CA from the application servers to see if IIS is working or not. 
+4. Remove the web fronts from the load balancer and install the update on the web fronts first. This way, if we encounter any issue after patching, it will not break any of the application servers. Reboot the web fronts after patching if necessary.  
+After reboot, check if the updates are properly installed by going to `Control Panel > Program and Features > View Installed Updates`. Also, open CA from the web front servers to see if IIS is working or not. 
+5. Now install the updates in Application Servers and reboot if necessary.  
+After reboot, check if the updates are properly installed by going to `Control Panel > Program and Features > View Installed Updates`. Also, open CA from the application servers to see if IIS is working or not. 
 6. Remove `WSS_Logging` database from Availability Group if there are two SQL servers in a cluster with Always On Availability
-7. Run `SharePoint 2016 Products Configuration Wizard` at the server where CA is installed first. After it finishes, open CA to verify the server status.
-   You can also run Configuration Wizard from Management Shell using the following command;   
+7. Run `SharePoint 2016 Products Configuration Wizard` at the server where CA is installed first. After it finishes, open CA to verify the server status.  
+You can also run Configuration Wizard from Management Shell using the following command;   
 ```
 PS > psconfig.exe -cmd helpcollections -installall -cmd secureresources -cmd services -install -cmd installfeatures -cmd applicationcontent -install -cmd upgrade -inplace b2b -force -wait
 ```
