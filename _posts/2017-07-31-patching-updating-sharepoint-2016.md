@@ -14,13 +14,11 @@ updated: 2015-09-06 15:56
 PS > Backup-SPFarm -Directory <BackupFolder> -BackupMethod Full -Verbose
 ```
 
-3. Stop `Search Service Application` on the Search servers since we do not want it to crawl during the patching period. Run the following command to stop Search Service Application;
-
+3. Stop `Search Service Application` on the Search servers since we do not want it to crawl during the patching period. Run the following command to stop Search Service Application;  
 ```
 PS > Suspend-SPEnterpriseSearchServiceApplication –Identity “Search Service Application”
-```
-
-   Go to `CA > General Application Settings > Farm Search Administration > Search Server Application` and you will now see `Administrative Status` shows as `Paused: for external request`
+```  
+Go to `CA > General Application Settings > Farm Search Administration > Search Server Application` and you will now see `Administrative Status` shows as `Paused: for external request`
 
 4. Remove the web fronts from the load balancer and install the update on the web fronts first. This way, if we encounter any issue after patching, it will not break any of the application servers. Reboot the web fronts after patching if necessary.
 
