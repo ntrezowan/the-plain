@@ -3,7 +3,7 @@ layout: post
 title: "Setup SIP for Nokia E63"
 comments: false
 description: "Setup SIP for Nokia E63"
-keywords: "dummy content"
+keywords: "sip, setup, configure, nokia, e63, voip"
 ---
 This tutorial is to configure your Nokia E63 phone so that you can use it as a VOIP phone in your corporate office's IP telephony system.
 
