@@ -1,5 +1,8 @@
 ---
 title: "Installing IPplan on CentOS"
+comments: false
+description: "Installing IPplan on CentOS"
+keywords: "ipplan, install, centos, apache, mysql"
 ---
 Operating System: _CentOS_  
 Web Server: _Apache_  
