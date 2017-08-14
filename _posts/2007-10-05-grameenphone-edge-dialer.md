@@ -6,7 +6,6 @@ Phone : _Nokia 7610i_
 
 ___
 
-
 1. Run the following command as root to load the USB driver;  
 ```
 # /sbin/modprobe usbserial vendor=0x  
