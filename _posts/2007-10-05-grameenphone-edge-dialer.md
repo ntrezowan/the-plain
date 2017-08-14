@@ -102,7 +102,6 @@ CONNECT
 5. If you still having problem browsing the internet, add the GrameenPhone DNS at `/etc/resolvr.conf`;  
 ```
 # vi /etc/resolv.conf
-```
 
 [Sample configuration]
 
@@ -112,5 +111,5 @@ nameserver X.X.X.X
 
 6. Finally, restart the DNS server;  
 ```
-\# service named restart
+# service named restart
 ```
