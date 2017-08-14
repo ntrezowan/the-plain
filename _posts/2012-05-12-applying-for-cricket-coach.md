@@ -1,5 +1,9 @@
 ---
 title: "Applying for National Team Cricket Coach Position"
+comments: false
+description: "Applying for National Team Cricket Coach Position"
+keywords: "bangladesh, cricket, coach, application, recruit"
+published: false
 ---
 
 
