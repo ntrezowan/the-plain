@@ -1,5 +1,8 @@
 ---
 title: "Installing OTRS on CentOS"
+comments: false
+description: "Installing OTRS on CentOS"
+keywords: "otrs, install, centos, apache, mysql"
 ---
 Operating System: _CentOS_  
 Web Server: _Apache_  
