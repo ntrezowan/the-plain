@@ -7,8 +7,6 @@ title: "Digging into NSLOOKUP"
 PS > nslookup -querytype=a google.com
 Server:  cdns01.comcast.net
 Address:  2001:558:feed::1
-```
-```
 Non-authoritative answer:
 Name:    google.com
 Addresses:  74.125.196.102
