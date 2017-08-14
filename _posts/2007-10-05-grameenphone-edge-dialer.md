@@ -112,5 +112,5 @@ nameserver X.X.X.X
 
 6. Finally, restart the DNS server;  
 ```
-# service named restart
+\# service named restart
 ```
