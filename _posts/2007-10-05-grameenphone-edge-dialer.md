@@ -60,10 +60,8 @@ Stupid Mode = 1
 
 4. Dial the modem from your machine;  
 ```
-# wvdial
-
-[Sample output]
-
+# wvdial  
+[Sample output]  
 --> WvDial: Internet dialer version 1.54.0
 --> Warning: section [Dialer bg] does not exist in wvdial.conf.
 --> Cannot get information for serial port.
@@ -99,10 +97,8 @@ CONNECT
 
 5. If you still having problem browsing the internet, add the GrameenPhone DNS at `/etc/resolvr.conf`;  
 ```
-# vi /etc/resolv.conf
-
-[Sample configuration]
-
+# vi /etc/resolv.conf  
+[Sample configuration]  
 nameserver X.X.X.X
 nameserver X.X.X.X
 ```
