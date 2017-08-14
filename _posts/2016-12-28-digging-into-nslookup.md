@@ -1,5 +1,8 @@
 ---
 title: "Digging into NSLOOKUP"
+comments: false
+description: "Digging into NSLOOKUP"
+keywords: "nslookup, example, a-record, ns-record, mx-record, srv, dns query"
 ---
 
 1. A-record - This record outputs the IP address of a domain (e.g. google.com). It also tells which DNS server is doing the forward lookup and in this example, it's cdns01.comcast.net;  
