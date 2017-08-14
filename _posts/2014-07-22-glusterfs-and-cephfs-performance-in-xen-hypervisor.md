@@ -797,12 +797,11 @@ id 	pool	image	snap	device
 
 ___
 
-### **E Installing Benchmark Tools**
+# E. Installing Benchmark Tools
 
-#### **5.1 Installing iozone**
+## 5.1 Installing iozone
 
 1. Since we are using 64-bit operating system, it will be good if we use 64-bit version of iozone. But iozone only provides 32-bit version of RPM package, so we will use Source RPM, compile it to a 64-bit RPM package and then install it. Initially, we will install `rpm-build`, `make` and `gcc` to resolve the dependencies for `rpmbuild`; 
-
 ```
 # yum install rpm-build
 # yum install make
@@ -810,7 +809,6 @@ ___
 ```
 
 2. Now we will download iozone source RPM from the authors site and rebuild it according to our OS architecture;
-
 ```
 # cd /tmp/
 # wget http://iozone.org/src/current/iozone-3-424.src.rpm
@@ -818,31 +816,25 @@ ___
 ```
 
 3. The newly build RPM package will be stored in the following location, from there we can install the package;
-
 ```
 # cd ~/rpmbuild/RPMS/x86_64/
 # rpm -ivh iozone-3-424.x86_64.rpm 
 ```
 
 4. Finally, iozone is installed in the following location and we can run iozone from here; 
-
 ```
 # cd /opt/iozone/bin/
 # ./iozone –a
 ```
 
 5. For client2 (Ubuntu OS), iozone is available in the default repository;
-
 ```
 # apt-get install iozone3
 ```
 
-<br />
-
-#### **5.2 Installing Bonnie++**
+## 5.2 Installing Bonnie++
 
 1. Bonnie++ does not come with the default CentOS repo list. So we have to frist add `RPMForge` repository and then we can install it;
-
 ```
 # rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt
 # rpm -K rpmforge-release-0.5.3-1.el6.rf.*.rpm
@@ -850,49 +842,36 @@ ___
 ```
 
 2. Now we can install Bonnie++ using yum;
-
 ```
 # yum install bonnie++
 ```
 
 3. For client2, Bonnie++ is available in the default repository;
-
 ```
 # apt-get install bonnie++
 ```
 
 ___
 
-<br />
+# F. Results
 
-### **F Results**
-
-#### **6.1 IOzone**
+## 6.1 IOzone
 
 Create a 100 GB File using iozone;
-
-
 ```
 # iozone /mnt/distributed/10GB-dist.img –t 4 –r 512k -s 10g –i 0 –i 1 –i 2 | tee –a /root/client1/Distributed/iozone-10g-512k.txt
 ```
 
 `/mnt/distributed/10GB-dist.img` – we are using the Gluster distributed file system mounted in the client machines to create dummy files (such as, iozone.DUMMY.1, iozone.DUMMY.2, iozone.DUMMY.3 iozone.DUMMY.4) to measure the throughput.
 
-<br />
-
 [Parameters]
 
 `r` – Record size or Block size, since most of the spinning disk has a block size of 512k, we have also tested with 1024k and 2048k
-
 `t` – indicates iozone to run in throughput mode, we have also used 4 threads/processes during the measurement
-
 `s` – size of the file to test, here 10-dist.img has a file size of 10 GB, so we are using this file to test the throughput
-
 `i – 0` - write and rewrite  
 `i - 1` - read and reread  
 `1 - 2` - random read and random write  
-
-<br />
 
 We are exporting the result in the txt file to create graph afterword’s.  
 
@@ -913,164 +892,130 @@ We are exporting the result in the txt file to create graph afterword’s.
 • iozone-10g-1024.txt  
 • iozone-10g-2048.txt  
 
-
 We cannot completely rely on testing `1GB-dist.img` because iozone start buffereing while file size is less than the memory, so we will only focus on 4GB, 8GB and 10GB measurement and 1GB will be only used for reference.
 
-<br />
-
-**6.1.1 iozone performance in GlusterFS**
-
+### 6.1.1 iozone performance in GlusterFS
 
 In this experiment, we are using the Gluster file system distributed volume which is mounted in the client machine and this directory has used to create dummy files (for example iozone.DUMMY.1, iozone.DUMMY.2 etc) for I/O benchmarking. We have used different file block size (512K, 1024K, 2048K) and different file size (1GB, 4GB, 8GB, 10GB) to get more diverse results. All the testing is run in throughput mode with 4 threads/process and we have taken the average throughput per process. In Figure-1 and Figure-2 we have seen that, file operations such as Write, Read, Re-write, Re-read, Random Write are better in Client1 than Client2 where Random read operation is still bad on both machines. Also note to mention that Client2 works better on Write and Re-write operation than other file operations. In Random read operation, the bigger the file block size, the performance gets better. 
-
-<br /> 
 
 *Figure 1*
 
 ![Figure 1](http://ntrezowan.github.com/images/gfs1-iozone.jpg)
 
-<br />
-
 *Figure 2*
 
 ![Figure 2](http://ntrezowan.github.com/images/gfs2-iozone.jpg)
 
-
-
-**6.1.2 iozone performance in CephFS**
+### 6.1.2 iozone performance in CephFS
  
-
 *Figure 1*
 
 ![Figure 1](http://ntrezowan.github.com/images/cfs1-iozone.jpg)
-
-<br />
 
 *Figure 2*
 
 ![Figure 2](http://ntrezowan.github.com/images/cfs2-iozone.jpg)
 
+## 6.2 dd
 
-<br />
+### 6.2.1 GlusterFS Testbed
 
-#### **6.2 dd**
-
-**6.2.1 GlusterFS Testbed**
-
-**6.2.1.1 client1**
+#### 6.2.1.1 client1
 
 1. Creating 1GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 1000 times;
-
 ```
 #  dd if=/dev/zero of=/mnt/distributed/1GB-dist.img bs=1024k count=1000 oflag=direct
 ```
 
 2. Creating 4GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 4000 times;
-
 ```
 #  dd if=/dev/zero of=/mnt/distributed/4GB-dist.img bs=1024k count=4000 oflag=direct
 ```
 
 3. Creating 8GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 8000 times;
-
 ```
 #  dd if=/dev/zero of=/mnt/distributed/8GB-dist.img bs=1024k count=8000 oflag=direct
 ```
 
 4. Creating 10GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 10000 times;
-
 ```
 #  dd if=/dev/zero of=/mnt/distributed/10GB-dist.img bs=1024k count=10000 oflag=direct
 ```
 
-**6.2.1.2 client2**
+#### 6.2.1.2 client2
 
 1. Creating 1GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 1000 times;
-
 ```
 #  dd if=/dev/zero of=/mnt/distributed/1GB-dist.img bs=1024k count=1000 oflag=direct
 ```
 
 2. Creating 4GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 4000 times;
-
 ```
 #  dd if=/dev/zero of=/mnt/distributed/4GB-dist.img bs=1024k count=4000 oflag=direct
 ```
 
 3. Creating 8GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 8000 times;
-
 ```
 #  dd if=/dev/zero of=/mnt/distributed/8GB-dist.img bs=1024k count=8000 oflag=direct
 ```
 
 4. Creating 10GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 10000 times;
-
 ```
 #  dd if=/dev/zero of=/mnt/distributed/10GB-dist.img bs=1024k count=10000 oflag=direct
 ```
 
-**6.2.2 CephFS Testbed**
+### 6.2.2 CephFS Testbed
 
-**6.2.2.1 client1**
+#### 6.2.2.1 client1
 
 1. Creating 1GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 1000 times;
-
 ```
 #  sudo dd if=/dev/zero of=/mnt/distributed/1GB-dist.img bs=1024k count=1000 oflag=direct
 ```
 
 2. Creating 4GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 4000 times;
-
 ```
 #  sudo dd if=/dev/zero of=/mnt/distributed/4GB-dist.img bs=1024k count=4000 oflag=direct
 ```
 
 3. Creating 8GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 8000 times;
-
 ```
 #  sudo dd if=/dev/zero of=/mnt/distributed/8GB-dist.img bs=1024k count=8000 oflag=direct
 ```
 
 4. Creating 10GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 10000 times;
-
 ```
 #  sudo dd if=/dev/zero of=/mnt/distributed/10GB-dist.img bs=1024k count=10000 oflag=direct
 ```
 
-**6.2.2.2 client2**
+#### 6.2.2.2 client2
 
 1. Creating 1GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 1000 times;
-
 ```
 #  sudo dd if=/dev/zero of=/mnt/distributed/1GB-dist.img bs=1024k count=1000 oflag=direct
 ```
 
 2. Creating 4GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 4000 times;
-
 ```
 #  sudo dd if=/dev/zero of=/mnt/distributed/4GB-dist.img bs=1024k count=4000 oflag=direct
 ```
 
 3. Creating 8GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 8000 times;
-
 ```
 #  sudo dd if=/dev/zero of=/mnt/distributed/8GB-dist.img bs=1024k count=8000 oflag=direct
 ```
 
 4. Creating 10GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 10000 times;
-
 ```
 #  sudo dd if=/dev/zero of=/mnt/distributed/10GB-dist.img bs=1024k count=10000 oflag=direct
 ```
 
-**6.2.3 dd Performance for GlusterFS and CephFS**
+### 6.2.3 dd Performance for GlusterFS and CephFS
 
 *Figure 1*
 
 ![Figure 1](http://ntrezowan.github.com/images/dd.jpg)
 
-<br />
-
-### **G Summary**
+# G. Summary
 Ceph and Gluster file system emerge good technologies to the storage system even if their internal structure are different. Gluster file system performance appear practically solid than Ceph file system which is still in development stage. Both file system supports data de-duplication with fail-over and load balancing which is expected in clustered storage. Ceph file system can be installed and managed very efficiently because a single node interface is capable of managing the entire cluster where in Gluster file system, every node have to managed separately for different purposes. Both file system can be deployed in virtual environments and in cloud computing platform from where clients can manage their user space. These two file system are open-source which gives alternative solution to expensive storage system and also supports most of the inexpenvive and commodity hardware.
 
