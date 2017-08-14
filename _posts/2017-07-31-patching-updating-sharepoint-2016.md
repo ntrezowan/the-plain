@@ -3,7 +3,7 @@ title: "Patching/Updating SharePoint 2016"
 comments: false
 description: "Patching/Updating SharePoint 2016"
 keywords: "sharepoint, 2016, patch, upgrade, update, farm"
-published: false
+published: true
 ---
 1. Download the SharePoint 2016 update releases from Microsoft website;
 [https://technet.microsoft.com/en-us/library/mt715807(v=office.16).aspx](https://technet.microsoft.com/en-us/library/mt715807(v=office.16).aspx).  
