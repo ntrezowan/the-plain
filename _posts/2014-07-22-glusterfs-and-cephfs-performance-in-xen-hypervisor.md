@@ -9,7 +9,6 @@ keywords: "dummy content"
 # A. Host/Virtual Machines
 ## 1.1 Virtual Machine Information
 ### 1.1.1 GlusterFS Configuration
-
 Hostname | gfs1 | gfs2 | gfs3
 --- | --- | --- | ---
 Operating System | CentOS 6.5 | CentOS 6.5 | CentOS 6.5 
@@ -48,29 +47,25 @@ Disk (7200 RPM) | 300 GB | 300 GB | 300 GB | 300 GB
 Network (1GB) | NAT+Bridged | NAT+Bridged | NAT+Bridged | NAT+Bridged
 IP Address | 192.168.26.230 | 192.168.26.231 | 192.168.26.232 | 192.168.26.233
 
-### **B. Installing Xen Hypervisor**
+# B. Installing Xen Hypervisor
 
 1. Install Xen4 CentOS stack from the repository;
-
 ```
 # yum install centos-release-xen
 ```
 
 2. Install Xen itself;
-
 ```
 # yum install xen
 # /etc/init.d/xend start
 ```
 
 3. With the default installation, Xen hypervisor runs above the host linux kernel, so we need to change the boot order of the linux kernel to dom0(Host operating system). The `centoso-release-xen` installer includes a script called `grub-bootxen.sh` which will change the host operating systems boot order configuration with a predefined value;
-
 ```
 # /usr/bin/grub-bootxen.sh
 ```
 
 Which will change `/boot/grub/grub.conf` to the following configuration;
-
 ```
 # cat /boot/grub/grub.conf | more
 title CentOS (3.4.46-8.el6.centos.alt.x86_64) 
@@ -81,55 +76,43 @@ module /initramfs-3.4.46-8.el6.centos.alt.x86_64.img
 ```
 
 4. After the reboot, Xen is loaded properly and to verify;
-
 ```
 # xm info
 ```
 
 5. Now we need to install `libvirthich` which will create an internal NAT network for the virtual machines behind the default network card. To install `libvirt` and its dependecies, we will use the following command;
-
 ```
 # yum install libvirt python-virtinst libvirt-daemon-xen
 ```
-
 Restart `dom0` machine to make it active.
 
 6. Now install `virt-manager` which is a GUI based virtual machine manager interface for Xen;
-
 ```
 # yum install virt-manager
 # /etc/init.d/libvirtd start
 ```
 
 7. Since we need to access these virtual machines from other virtual machine hosted in other machines, we need to have a bridged network connection for the guest machines and use them as default interface for guest machine. To do so, we will copy the current configuration from `ifcfg-eth0` and will make necessary changes to create a bridged network;
-
 ```
 # cp /etc/sysconfig/network-scrpit/ifcfg-eth0 /etc/sysconfig/network-scrpit/ifcfg-br0
 # vi /etc/syconfig/network-script/ifcfg-br0
-
 DEVICE=br0
 TYPE=Bridge
 vi /etc/sysconfig/network-scrpt/ifcfg-eth0
 BRIDGE=br0
 ```
-
 And
-
 ```
 # vi /etc/sysconfig/network-scrpit/ifcfg-eth0 /etc/sysconfig/network-scrpit/ifcfg-eth0
-
 BRIDGE=br0
 ```
 
 8. Now we need to restart the network service;
-
 ```
 # /etc/init.d/network restart
 ```
 
 9. Xen is ready and we can start installing virtual machines there.
-
-<br />
 
 #### **2.1 Installing virtual machine for GlusterFS/Ceph/Client**
 
