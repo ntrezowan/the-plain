@@ -2,7 +2,7 @@
 title: "Digging into NSLOOKUP"
 ---
 
-1. A-record - This record outputs the IP address of a domain (e.g. google.com). It also tells which DNS server is doing the forward lookup and in this example, it's cdns01.comcast.net;
+1. A-record - This record outputs the IP address of a domain (e.g. google.com). It also tells which DNS server is doing the forward lookup and in this example, it's cdns01.comcast.net;  
 ```
 PS C:\> nslookup -querytype=a google.com
 Server:  cdns01.comcast.net
@@ -18,7 +18,7 @@ Addresses:  74.125.196.102
           74.125.196.139
 ```
 
-2. NS-record - This record output all the Non-authoritative DNS servers information of a domain (e.g. google.com);
+2. NS-record - This record output all the Non-authoritative DNS servers information of a domain (e.g. google.com);  
 ```
 PS C:\> nslookup -querytype=ns google.com
 Server:  cdns01.comcast.net
@@ -36,7 +36,7 @@ ns3.google.com  internet address = 216.239.36.10
 ns2.google.com  internet address = 216.239.34.10
 ```
 
-3. MX-record - This record output all the mail servers information of a domain (e.g. google.com);
+3. MX-record - This record output all the mail servers information of a domain (e.g. google.com);  
 ```
 PS C:\> nslookup -querytype=mx google.com
 Server:  cdns01.comcast.net
@@ -55,7 +55,7 @@ aspmx.l.google.com      internet address = 74.125.21.27
 aspmx.l.google.com      AAAA IPv6 address = 2607:f8b0:4002:c0c::1b
 ```
 
-4. SRV-record - This record outputs information such as serial, priority, primary mail server etc. of a domain (e.g. google.com);
+4. SRV-record - This record outputs information such as serial, priority, primary mail server etc. of a domain (e.g. google.com);  
 ```
 PS> nslookup -querytype=srv google.com
 Server:  cdns01.comcast.net
@@ -71,7 +71,7 @@ google.com
         default TTL = 60 (1 min)
 ```
 
-5. To specify a particular DNS (e.g. OpenDNS) to resolve a domain name (e.g. google.com) instead of my DNS;
+5. To specify a particular DNS (e.g. OpenDNS) to resolve a domain name (e.g. google.com) instead of my DNS;  
 ```
 PS C:\> nslookup google.com 208.67.222.222
 Server:  cdns01.comcast.net
@@ -87,7 +87,7 @@ Addresses:  74.125.196.102
           74.125.196.139
 ```
 
-6. We can specify a port for a DNS query;
+6. We can specify a port for a DNS query;  
 ```
 PS > nslookup -port 67 google.com
 Server:  cdns01.comcast.net
@@ -103,7 +103,7 @@ Addresses:  74.125.196.102
           74.125.196.139
 ```
 
-7. We can enable debugging which will show all the packets exchange information while resolving a DNS record;
+7. We can enable debugging which will show all the packets exchange information while resolving a DNS record;  
 ```
 PS C:\> nslookup
 Default Server:  cdns01.comcast.net
