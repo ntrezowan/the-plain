@@ -6,11 +6,11 @@ description: "GlusterFS and CephFS Performance in Xen Hypervisor"
 keywords: "dummy content"
 ---
 
-# A. Host/Virtual Machines**
+# A. Host/Virtual Machines
 
-## 1.1 Virtual Machine Information**
+## 1.1 Virtual Machine Information
 
-### 1.1.1 GlusterFS Configuration**  
+### 1.1.1 GlusterFS Configuration
 
 Hostname | gfs1 | gfs2 | gfs3
 --- | --- | --- | ---
@@ -20,7 +20,7 @@ Disk | 100 GB | 100 GB | 100 GB
 Network | Bridged | Bridged | Bridged
 IP Address | 192.168.26.234 | 192.168.26.235 | 192.168.26.236
 
-### 1.1.2 CephFS Configuration**  
+### 1.1.2 CephFS Configuration
 
 Hostname | gfs1 | gfs2 | gfs3
 --- | --- | --- | ---
@@ -30,7 +30,7 @@ Disk | 100 GB | 100 GB | 100 GB
 Network | Bridged | Bridged | Bridged
 IP Address | 192.168.26.237 | 192.168.26.238 | 192.168.26.239
 
-### 1.1.3 Clients Configuration**  
+### 1.1.3 Clients Configuration
 
 Hostname | client1 | client2
 --- | --- | ---
@@ -40,7 +40,7 @@ Disk | 100 GB | 100 GB
 Network | Bridged | Bridged
 IP Address | 192.168.26.240 | 192.168.26.241
 
-## 1.2 Host Machine Information**  
+## 1.2 Host Machine Information
 
 Hostname | server1 | server2 | server3 | server4
 --- | --- | --- | --- | ---
