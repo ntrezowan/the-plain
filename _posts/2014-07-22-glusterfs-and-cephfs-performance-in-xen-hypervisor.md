@@ -48,6 +48,8 @@ Disk (7200 RPM) | 300 GB | 300 GB | 300 GB | 300 GB
 Network (1GB) | NAT+Bridged | NAT+Bridged | NAT+Bridged | NAT+Bridged
 IP Address | 192.168.26.230 | 192.168.26.231 | 192.168.26.232 | 192.168.26.233
 
+___
+
 # B. Installing Xen Hypervisor
 
 1. Install Xen4 CentOS stack from the repository;
@@ -114,11 +116,10 @@ BRIDGE=br0
 
 9. Xen is ready and we can start installing virtual machines there.
 
-#### **2.1 Installing virtual machine for GlusterFS/Ceph/Client**
+## 2.1 Installing virtual machine for GlusterFS/Ceph/Client
 
 Based on the above Host machine configuration, we need to create 8 virtual machine out of which 3 machines will be used for GlusterFS and 3 machines will be used for Ceph File System. Remaining 2 machines will be used as client machines. Out of these 8 machines, 7 of them will have CentOS 6.5 and one of the client machine will have Ubuntu 14.04.
 Below is a sample configuration used to create 7 CentOS virtual machines;
-
 ```
 # virt-install \ 
 --name=server1 \ 
@@ -132,9 +133,7 @@ Below is a sample configuration used to create 7 CentOS virtual machines;
 --os-type=linux \ 
 --os-variant=rhel6
 ```
-
 Below is the configuration used to create 1 Ubuntu virtual machine;
-
 ```
 # virt-install \ 
 --name=client2 \ 
@@ -148,10 +147,7 @@ Below is the configuration used to create 1 Ubuntu virtual machine;
 --os-type=linux \ 
 --os-variant=ubuntuquantal
 ```
-
-<br />
-
-#### **2.2 Post Installation requirments**
+## 2.2 Post Installation requirments
 
 1. Configure network for all of these three servers  
 2. Configure `/etc/host`s file so that they can resolve each other hostname to IP  
@@ -160,9 +156,7 @@ Below is the configuration used to create 1 Ubuntu virtual machine;
 
 ___
 
-<br />
-
-### **C Installing and configuring GlusterFS**
+# C. Installing and configuring GlusterFS
 
 *gfs1 – Admin node + Gluster node 1*  
 *gfs2 – Gluster node 2 (Monitor daemon, Object storage)*  
@@ -170,36 +164,29 @@ ___
 *client1 – CentOS*  
 *client2 – Ubuntu* 
 
-<br />
-
-#### **3.1 Install GlusterFS on the storage servers**
+### 3.1 Install GlusterFS on the storage servers
 
 1. Installing required packages since we have installed the minimal version of CentOS;
-
 ```
 # yum install wget
 ```
 
 2. At first, we will add GlusterFS repo in our repositories;
-
 ```
 # wget -P /etc/yum.repos.d http://download.gluster.org/pub/gluster/glusterfs/LATEST/CentOS/glusterfs-epel.repo
 ```
 
 3. Now installing Gluster in those three servers one by one;
-
 ```
 # yum install glusterfs glusterfs-server glusterfs-fuse 
 ```
 
 4. GlusterFS is installed, now start it for the first time;
-
 ```
 # /etc/init.d/glusterd start
 ```
 
 5. Check the installed version of the GlusterFS;
-
 ```
 # glusterfsd --version
 glusterfs 3.5.0 built on Apr 23 2014 12:53:55
@@ -208,23 +195,18 @@ Copyright (c) 2006-2013 Red Hat, Inc. http://www.redhat.com/
 ```
 
 6. Finally, we want GlusterFS to start automatically at startup. To do that, we will use the following command;
-
 ```
 #  chkconfig glusterfsd on
 ```
 
-<br />
-
-#### **3.2 Installing GlusterFS on the client machines**
+### 3.2 Installing GlusterFS on the client machines
 
 1. The client only require glusterfs and glusterfs-fuse to communicate with the servers;
-
 ```
 # yum -y install glusterfs glusterfs-fuse
 ```
 
 2. Now check the installed version of the GlusterFS;
-
 ```
 # glusterfsd --version
 glusterfs 3.5.1 built on Jun 24 2014 15:09:41
@@ -232,12 +214,9 @@ Repository revision: git://git.gluster.com/glusterfs.git
 Copyright (c) 2006-2013 Red Hat, Inc. http://www.redhat.com/
 ```
 
-<br />
-
-#### **3.3 Creating a trusted pool among the storage servers**
+### 3.3 Creating a trusted pool among the storage servers
 
 1. To create a trusted pool, we have to make sure that all these servers can resolve each other hostname, we will manually enter this information in the `/etc/hosts` file to map IP to hostname;
-
 ```
 # vi nano /etc/hosts
 192.168.26.230    server1
@@ -253,42 +232,33 @@ Copyright (c) 2006-2013 Red Hat, Inc. http://www.redhat.com/
 ```
 
 2. We need to restart the network service to make this change effective;
-
 ```
 # /etc/init.d/network restart
 ```
 
 3. Now we will probe from `gfs1` to `gfs2` and from `gfs1` to `gfs3`. We are not going to probe l`ocahost/gfs1`, since we are running these commands from this machines;
-
 ```
 # gluster peer probe gfs2
 Probe successful
-
 # gluster peer probe gfs3
 Probe successful
 ```
 
 4. Finally, verify the newly created trusted pool and check if all the servers are participating or not;
-
 ```
 # gluster peer status
 Number of Peers: 2
-
 Hostname: gfs2
 Uuid: 1d6711ad-880c-48de-a81d-9bfa06adf775
 State: Peer in Cluster (Connected)
-
 Hostname: gfs3
 Uuid: cbda474e-efd7-4bc8-9c6c-4456bf4ec1b6
 State: Peer in Cluster (Connected)
 ```
 
-<br />
-
-#### **3.4 Creating a distributed volume in the trusted pool**
+## 3.4 Creating a distributed volume in the trusted pool
 
 1. At first, check if TCP connection between three servers are functional or not;
-
 ```
 # netstat -tap | grep glusterfsd
 tcp        0      0 *:49152                     *:*                         LISTEN      3858/glusterfsd     
@@ -296,14 +266,12 @@ tcp        0      0 gfs1:exp1                   gfs1:24007                  ESTA
 tcp        0      0 gfs1:49152                  gfs2:1016                   ESTABLISHED 3858/glusterfsd     
 tcp        0      0 gfs1:49152                  gfs1:1020                   ESTABLISHED 3858/glusterfsd     
 tcp        0      0 gfs1:49152                  gfs3:1016                   ESTABLISHED 3858/glusterfsd 
-
 # netstat -tap | grep glusterfsd
 tcp        0      0 *:49152                     *:*                         LISTEN      3716/glusterfsd     
 tcp        0      0 gfs2:exp1                   gfs2:24007                  ESTABLISHED 3716/glusterfsd     
 tcp        0      0 gfs2:49152                  gfs2:1020                   ESTABLISHED 3716/glusterfsd     
 tcp        0      0 gfs2:49152                  gfs3:1015                   ESTABLISHED 3716/glusterfsd     
 tcp        0      0 gfs2:49152                  gfs1:1014                   ESTABLISHED 3716/glusterfsd 
-
 # netstat -tap | grep glusterfsd
 tcp        0      0 *:49152                     *:*                         LISTEN      3733/glusterfsd     
 tcp        0      0 gfs3:exp1                   gfs3:24007                  ESTABLISHED 3733/glusterfsd     
@@ -313,24 +281,20 @@ tcp        0      0 gfs3:49152                  gfs2:1015                   ESTA
 ```
 
 2. Now create the first volume, `dist-volume` for all these three servers;
-
 ```
 # gluster volume create dist-volume gfs1:/dist1 gfs2:/dist2 gfs3:/dist3
 volume create: dist-volume: success: please start the volume to access data
 ```
 
 3. Volume has created without any error, now start the volume;
-
 ```
 # gluster volume start dist-volume
 volume start: dist-volume: success
 ```
 
 4. Finally, verify volume information;
-
 ```
 # gluster volume info
- 
 Volume Name: dist-volume
 Type: Distribute
 Volume ID: 6bc03033-1df5-45a6-ba9e-aa34786df129
@@ -344,14 +308,12 @@ Brick3: gfs3:/dist3
 ```
 
 5. Now, we need to verify if this distributed volume, `dist-volume` is actually working as it supposed to or not. From `client1`, we will mount this volume and then randomly create some files, download some files from the internet and check if these files are distributed among those three servers. At first, we need to create a directory in the client machine to mount the disk and then mount it;
-
 ```
 # mkdir /mnt/distributed
 # mount.glusterfs gfs1:/dist-volume /mnt/distributed/
 ```
 
 6. Verify if it is mounted properly;
-
 ```
 # mount
 /dev/xvda2 on / type ext4 (rw)
@@ -365,7 +327,6 @@ gfs1:/dist-volume on /mnt/distributed type fuse.glusterfs (rw,default_permission
 ```
 
 7. Check the available disk space for `client1`;
-
 ```
 # df -h
 Filesystem         Size  Used Avail Use% Mounted on
@@ -376,7 +337,6 @@ gfs1:/dist-volume  279G  2.8G  262G   2% /mnt/distributed
 ```
 
 8. Now create some files from `client1` machine and check if distribution is working amount the servers;
-
 ```
 # touch test1
 # touch test2
@@ -392,7 +352,6 @@ gfs1:/dist-volume  279G  2.8G  262G   2% /mnt/distributed
 ```
 
 9. Check if the files are successfully created;
-
 ```
 # ls -l
 total 77813
@@ -410,7 +369,6 @@ total 77813
 ```
 
 10. Finally, check from all these three servers to see if these 11 files are distributed or not;
-
 ```
 # ls -l /dist1/
 total 0
@@ -418,7 +376,6 @@ total 0
 -rw-r--r-- 2 root root 0 Jun 25 07:23 test3
 -rw-r--r-- 2 root root 0 Jun 25 07:24 test6
 -rw-r--r-- 2 root root 0 Jun 25 07:24 test7
-
 # ls -l /dist2/
 total 77820
 -rw-r--r-- 2 root root 79679864 Jun 16 16:54 linux-3.15.1.tar.xz
@@ -427,7 +384,6 @@ total 77820
 -rw-r--r-- 2 root root        0 Jun 25 07:23 test4
 -rw-r--r-- 2 root root        0 Jun 25 07:23 test5
 -rw-r--r-- 2 root root        0 Jun 25 07:24 test9
-
 # ls -l /dist3/
 total 0
 -rw-r--r-- 2 root root 0 Jun 25 07:24 test8
@@ -436,31 +392,25 @@ total 0
 
 11. We can see that all the files are distributed among all three storage servers.
 
-<br />
-
-#### **3.5 Creating a replicated volume in the trusted pool**
+## 3.5 Creating a replicated volume in the trusted pool
 
 1. Create the first replicated volume, `rep-volume` for all these three servers;
-
 ```
 # gluster volume create rep-volume replica 3 gfs1:/rep1 gfs2:/rep2 gfs3:/rep3 force
 volume create: rep-volume: success: please start the volume to access data
 ```
 
 2. Volume has created without any error, now start the volume;
-
 ```
 # gluster volume start rep-volume
 volume start: rep-volume: success
 ```
 
 3. Finally, verify volume information;
-
 ```
 # gluster volume start rep-volume
 volume start: rep-volume: success
 # gluster volume info rep-volume
- 
 Volume Name: rep-volume
 Type: Replicate
 Volume ID: f7765efe-163f-42ab-9fd9-41df18db0f9c
@@ -474,14 +424,12 @@ Brick3: gfs3:/rep3
 ```
 
 4. Now, we need to verify if this replicated volume, `rep-volume` is actually working as it supposed to or not. From client1, we will mount this volume and then randomly create some files and check if its completed replicated among those three servers or not. At first, we need to create a directory in the client machine to mount the disk and then mount it;
-
 ```
 # mkdir /mnt/replicated
 # mount.glusterfs gfs1:/rep-volume /mnt/replicated/
 ```
 
 5. Verify if it is mounted properly; 
-
 ```
 # mount
 /dev/xvda2 on / type ext4 (rw)
@@ -496,7 +444,6 @@ gfs1:/rep-volume on /mnt/replicated type fuse.glusterfs (rw,default_permissions,
 ```
 
 6. Check the available disk space for client1; 
-
 ```
 # df -h
 Filesystem         Size  Used Avail Use% Mounted on
@@ -508,7 +455,6 @@ gfs1:/rep-volume    91G  926M   85G   2% /mnt/replicated
 ```
 
 7. Now create some files from client1 machine and check if distribution is working amount the servers; 
-
 ```
 # touch rep1
 # touch rep2
@@ -517,7 +463,6 @@ gfs1:/rep-volume    91G  926M   85G   2% /mnt/replicated
 ```
 
 8. Check if the files are successfully created;
-
 ```
 # ls -l
 total 77813
@@ -535,7 +480,6 @@ total 77813
 ```
 
 9. Now check from all these three servers to see if these 4 files are replicated or not;
-
 ```
 # ls -l /rep1/
 total 0
@@ -543,14 +487,12 @@ total 0
 -rw-r--r-- 2 root root 0 Jun 25 07:43 rep2
 -rw-r--r-- 2 root root 0 Jun 25 07:43 rep3
 -rw-r--r-- 2 root root 0 Jun 25 07:43 rep4
-
 # ls -l /rep2/
 total 0
 -rw-r--r-- 2 root root 0 Jun 25 07:43 rep1
 -rw-r--r-- 2 root root 0 Jun 25 07:43 rep2
 -rw-r--r-- 2 root root 0 Jun 25 07:43 rep3
 -rw-r--r-- 2 root root 0 Jun 25 07:43 rep4
-
 # ls -l /rep3/
 total 0
 -rw-r--r-- 2 root root 0 Jun 25 07:43 rep1
@@ -561,31 +503,25 @@ total 0
 
 10. We can see that all the files are distributed among all three servers.
 
-<br />
-
-#### **3.6 Creating a stripped volume in the trusted pool**
+## 3.6 Creating a stripped volume in the trusted pool
 
 1. Now create the first replicated volume, `strip-volume` for all these three servers;
-
 ```
 # gluster volume create strip-volume strip 3 gfs1:/strip1 gfs2:/strip2 gfs3:/strip3 force
 volume create: strip-volume: success: please start the volume to access data
 ```
 
 2. Volume has created without any error, now start the volume;
-
 ```
 # gluster volume start strip-volume
 volume start: strip-volume: success
 ```
 
 3. Finally, verify volume information; 
-
 ```
 # gluster volume start strip-volume
 volume start: rep-volume: success
 # gluster volume info strip-volume
- 
 Volume Name: strip-volume
 Type: Stripe
 Volume ID: 2eb5e39e-c891-4cc9-be5d-1315b284e0e1
@@ -599,14 +535,12 @@ Brick3: gfs3:/strip3
 ```
 
 4. Now, we need to verify if this stripped volume, `strip-volume` is actually working as it supposed to or not. From client1, we will mount this volume and then create a large file and check if its stripped among those three servers or not. At first, we need to create a directory in the client machine to mount the disk and then mount it; 
-
 ```
 # mkdir /mnt/stripped
 # mount.glusterfs gfs1:/strip-volume /mnt/stripped/
 ```
 
 5. Verify if it is mounted properly; 
-
 ```
 # mount
 /dev/xvda2 on / type ext4 (rw)
@@ -622,7 +556,6 @@ gfs1:/strip-volume on /mnt/stripped type fuse.glusterfs (rw,default_permissions,
 ```
 
 6. Check the available disk space for client1; 
-
 ```
 # df -h
 Filesystem          Size  Used Avail Use% Mounted on
@@ -635,7 +568,6 @@ gfs1:/strip-volume  279G  2.8G  262G   2% /mnt/stripped
 ```
 
 7. We are going to create a 100 GB file and check if its stripped amount these three servers or not;  
-
 ```
 # dd if=/dev/zero of=/mnt/stripped/stripped-image.img bs=102400k count=1000
 1000+0 records in
@@ -644,7 +576,6 @@ gfs1:/strip-volume  279G  2.8G  262G   2% /mnt/stripped
 ```
 
 8. Now check from all these three servers to see if these 4 files are replicated or not; 
-
 ```
 # ls -lh /strip1/
 total 33G
@@ -660,9 +591,6 @@ total 33G
 9. We can see that all the files are stripped among all three servers.
 
 ___
-
-<br />
-
 
 ### **D Installing and configuring CephFS**
 
