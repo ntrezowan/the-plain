@@ -7,9 +7,7 @@ keywords: "dummy content"
 ---
 
 # A. Host/Virtual Machines
-
 ## 1.1 Virtual Machine Information
-
 ### 1.1.1 GlusterFS Configuration
 
 Hostname | gfs1 | gfs2 | gfs3
