@@ -1016,6 +1016,8 @@ In this experiment, we are using the Gluster file system distributed volume whic
 
 ![Figure 1](http://ntrezowan.github.com/images/dd.jpg)
 
+___
+
 # G. Summary
 Ceph and Gluster file system emerge good technologies to the storage system even if their internal structure are different. Gluster file system performance appear practically solid than Ceph file system which is still in development stage. Both file system supports data de-duplication with fail-over and load balancing which is expected in clustered storage. Ceph file system can be installed and managed very efficiently because a single node interface is capable of managing the entire cluster where in Gluster file system, every node have to managed separately for different purposes. Both file system can be deployed in virtual environments and in cloud computing platform from where clients can manage their user space. These two file system are open-source which gives alternative solution to expensive storage system and also supports most of the inexpenvive and commodity hardware.
 
