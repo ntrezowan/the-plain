@@ -1,5 +1,9 @@
 ---
 title: "Installing self-signed certificate in Windows Servers"
+comments: false
+description: "Installing self-signed certificate in Windows Servers"
+keywords: "self-signed, ssl, certificate, create, windows, servers, IIS"
+published: false
 ---
 
 1. Open IIS from the server you want to install the certificate and click on Server Certification;  
