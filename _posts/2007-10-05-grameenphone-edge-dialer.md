@@ -4,20 +4,21 @@ title: "GrameenPhone EDGE dialer for Fedora"
 
 Operating System: _Fedora 4_  
 Phone : _Nokia 7610i_  
+
 ___
 
 
-1. Run the following command as root to load the USB driver;  
-```
-# /sbin/modprobe usbserial vendor=0x 
+1. Run the following command as root to load the USB driver;
 
+```
+# /sbin/modprobe usbserial vendor=0x  
 Product=0x
 ```
 
-2. Now create the dialer;  
-```
-# wvdialconf create
+2. Now create the dialer;
 
+```
+# wvdialconf create  
 Scanning your serial ports for a modem.
 PortScan<*1>: S0 S1 S2 S3
 WvModem<*1>: Cannot get information for serial port.
@@ -27,8 +28,7 @@ ttyACM0<*1>: ATQ0 V1 E1 S0=0 -- OK
 ttyACM0<*1>: ATQ0 V1 E1 S0=0 &C1 -- OK
 ttyACM0<*1>: ATQ0 V1 E1 S0=0 &C1 &D2 -- OK
 ttyACM0<*1>: ATQ0 V1 E1 S0=0 &C1 &D2 +FCLASS=0 --
-OK
-
+OK  
 ttyACM0<*1>: Modem Identifier: ATI -- Nokia
 ttyACM0<*1>: Speed 4800: AT -- OK
 ttyACM0<*1>: Speed 9600: AT -- OK
@@ -40,15 +40,15 @@ ttyACM0<*1>: Speed 230400: AT -- OK
 ttyACM0<*1>: Speed 460800: AT -- OK
 ttyACM0<*1>: Max speed is 460800; that should be safe.
 ttyACM0<*1>: ATQ0 V1 E1 S0=0 &C1 &D2 +FCLASS=0 --
-OK
-
+OK  
 Found an USB modem on /dev/ttyACM0.
 Modem configuration written to create.
 ttyACM0: Speed 460800; init "ATQ0 V1 E1 S0=0
 &C1 &D2 +FCLASS=0"
 ```
 
-3. Add the following sample configuration in `/etc/wvdial.conf` (remove if there is any earlier entries);  
+3. Add the following sample configuration in `/etc/wvdial.conf` (remove if there is any earlier entries);
+
 ```
 [Dialer Defaults]
 Modem =
@@ -63,11 +63,11 @@ Password = B
 Stupid Mode = 1
 ```
 
-4. Dial the modem from your machine;  
+4. Dial the modem from your machine;
+
 ```
 # wvdial
-```
-
+```  
 [Sample output]
 
 ```
@@ -104,18 +104,21 @@ CONNECT
 --> pppd: Modem
 ```
 
-5. If you still having problem browsing the internet, add the GrameenPhone DNS at `/etc/resolvr.conf`;  
+5. If you still having problem browsing the internet, add the GrameenPhone DNS at `/etc/resolvr.conf`;
+
+
 ```
 # vi /etc/resolv.conf
 ```
 
 [Sample configuration]
-```
-nameserver X.X.X.X
-nameserver X.X.X.X
-```
 
-6. Finally, restart the DNS server;  
+```
+nameserver X.X.X.X
+nameserver X.X.X.X
+```
+6. Finally, restart the DNS server;
+
 ```
 # service named restart
 ```
