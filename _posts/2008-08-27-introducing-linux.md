@@ -1,5 +1,8 @@
 ---
 title: "Introducing Linux"
+comments: false
+description: "Introducing Linux"
+keywords: "linus torvalds, email, linux, kernel, first"
 ---
 **August 1991**
 
