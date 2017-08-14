@@ -1,6 +1,7 @@
 ---
 title: "Installing AWStats on CentOS"
 ---
+
 1. Download [GeoIP](http://www.maxmind.com/app/geolitecountryhttp://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz) and [GeoLiteCity](http://www.maxmind.com/app/geolitecityhttp://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz) from maxmind.com and move it to `/tmp`
 
 2. Install EPEL software repository, to download AWStats and install optional components for Geotracking;
@@ -36,7 +37,7 @@ title: "Installing AWStats on CentOS"
 5. Open Apache configuration file and add an entry for this new subdomain;
 ```
 # vi /etc/httpd/conf/httpd.conf
-```
+```  
 Add the following lines in `httpd.conf`;
 ```
 <virtualhost *:80>
