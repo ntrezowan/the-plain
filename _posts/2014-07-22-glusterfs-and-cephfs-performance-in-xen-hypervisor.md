@@ -9,6 +9,7 @@ keywords: "dummy content"
 # A. Host/Virtual Machines
 ## 1.1 Virtual Machine Information
 ### 1.1.1 GlusterFS Configuration
+
 Hostname | gfs1 | gfs2 | gfs3
 --- | --- | --- | ---
 Operating System | CentOS 6.5 | CentOS 6.5 | CentOS 6.5 
@@ -63,9 +64,8 @@ IP Address | 192.168.26.230 | 192.168.26.231 | 192.168.26.232 | 192.168.26.233
 3. With the default installation, Xen hypervisor runs above the host linux kernel, so we need to change the boot order of the linux kernel to dom0(Host operating system). The `centoso-release-xen` installer includes a script called `grub-bootxen.sh` which will change the host operating systems boot order configuration with a predefined value;
 ```
 # /usr/bin/grub-bootxen.sh
-```
-
-Which will change `/boot/grub/grub.conf` to the following configuration;
+```  
+Which will change `/boot/grub/grub.conf` to the following configuration;  
 ```
 # cat /boot/grub/grub.conf | more
 title CentOS (3.4.46-8.el6.centos.alt.x86_64) 
