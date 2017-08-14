@@ -1,5 +1,8 @@
 ---
 title: "Installing SSL for Apache Tomcat using Java keytool"
+comments: false
+description: "Installing SSL for Apache Tomcat using Java keytool"
+keywords: "ssl, certificate, install, java, keytool, windows, apache, tomcat"
 ---
 
 ### A. Creating new keystore to install a new certificate
