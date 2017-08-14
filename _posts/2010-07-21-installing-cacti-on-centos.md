@@ -1,5 +1,8 @@
 ---
 title: "Installing Cacti on CentOS"
+comments: false
+description: "Installing Cacti on CentOS"
+keywords: "cacti, install, centos, apache, mysql"
 ---
 
 #### Installing prerequisites
