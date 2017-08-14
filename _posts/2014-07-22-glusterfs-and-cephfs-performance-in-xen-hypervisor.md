@@ -592,7 +592,7 @@ total 33G
 
 ___
 
-### **D Installing and configuring CephFS**
+# D. Installing and configuring CephFS
 
 *ceph1 – Admin node*  
 *ceph2 – Ceph node 1 (Monitor daemon, Object storage)*  
@@ -600,32 +600,25 @@ ___
 *client1 – CentOS*  
 *client2 – Ubuntu*  
 
-<br />
-
-#### **4.1 Install CephFS on the storage servers**
+## 4.1 Install CephFS on the storage servers
 
 1. Create a new Ceph user and set password;
-
 ```
 # useradd –d /home/ceph –m ceph
 # passwd ceph
 ```
 
 2. Give this new user root previliges;
-
 ```
 # echo “ceph ALL = (root) NOPASSWD:ALL” | sudo tee /etc/sudoers.d/ceph
 # chmod 440 /etc/sudoers.d/ceph
 ```
 
 3. Add Ceph repositiory to CentOS machine;
-
 ```
 # sudo nano /etc/yum.repos.d/ceph.repo
 ```
-
 And add the following lines
-
 ```
 [ceph-noarch]
 name=Ceph noarch packages
@@ -635,33 +628,25 @@ gpgcheck=1
 type=rpm-md
 gpgkey=https://ceph.com/git/?p=ceph.git;a=blob_plain;f=keys/release.asc
 ```
-
 Update the repository. 
-
 ```
 # sudo yum update
 ```
 
 4. Install Ceph;
-
 ```
 # sudo yum install ceph-deploy
 ```
 
 4. Create unattented SSH access between ceph1, ceph2 and ceph3;
-
 ```
 # ssh-keygen
 ```
-	
 Edit SSH config file to allow all cluster to talk with each other;
-
 ```
 # nano ~./ssh/config
 ```
-
 Add the following line in the file;
-
 ```
 Host ceph1
 Hostname ceph1
@@ -673,15 +658,11 @@ Host ceph02
 Hostname ceph3
 User ceph
 ```
-
 Give permission to this file;
-
 ```
 # chmod 600 ~/.ssh/config
 ```
-
 Now copy this SSH public key to all the nodes;
-
 ```
 # ssh-copy-id ceph1
 # ssh-copy-id ceph2
@@ -689,26 +670,22 @@ Now copy this SSH public key to all the nodes;
 ```
 
 5. Create directory for Ceph Cluster in the Admin node;
-
 ```
 # mkdir ceph-cluster
 # cd ceph-cluster
 ```
 
 6. Configure Ceph Cluster;
-
 ```
 # ceph-deploy new ceph1 ceph2 ceph3
 ```
 
 7. Deploy Ceph on all nodes;
-
 ```
 # ceph-deploy install ceph1 ceph2 ceph3
 ```
 
-9. Disable `cephx` authentication which is used between to nodes to authenticate each other. In this way we can consume less operational overhead;
-
+8. Disable `cephx` authentication which is used between to nodes to authenticate each other. In this way we can consume less operational overhead;
 ```
 # nano /home/ceph/ceph-cluster/ceph.conf
 Change this file to the following;
@@ -716,21 +693,17 @@ auth_server_required=none
 auth_cluster_required=none
 mon_clock_drift_allowed=10
 ```
-
 Now restart Ceph;
-
 ```
 # sudo /etc/init.d/ceph restart
 ```
 
 9. Install configuration for monitoring and keys;
-
 ```
 # ceph-deploy –overwrite-conf mon create-initial
 ```
 
 10. Create directories in all the storage node where Ceph will be mounted;
-
 ```
 # mkdir /home/ceph/ceph-storage1
 # mkdir /home/ceph/ceph-storage2
@@ -738,26 +711,22 @@ Now restart Ceph;
 ```
 
 11. Prepare Object Storage Daemon;
-
 ```
 # ceph-deploy osd prepare ceph1:/ceph-storage1 ceph2:/ceph-storage2 ceph3:/ceph-storage3
 ```
 
 12. Activate Object Storage Daemon;
-
 ```
 # ceph-deploy osd activate ceph1:/ceph-storage1 ceph2:/ceph-storage2 ceph3:/ceph-storage3
 ```
 
 13. Configure Meta Data Server;
-
 ```
 # ceph-deploy admin ceph1
 # ceph-deploy mds create ceph1
 ```
 
 14. Check MDS Status;
-
 ```
 # ceph mds stat
 E32: 1/1/1 up {0=ceph=up:active}
@@ -765,54 +734,43 @@ E32: 1/1/1 up {0=ceph=up:active}
 ```
 
 15. Configure NTP to sync between nodes;
-
 ```
 # yum install ntp
 # ntpdate
 ```
 
 16. *Special note:* All CentOS machine have to add ceph in require tty like this;
-
 ```
 # sudo visudo
 ```
-
 And change the following line;
-
 ```
 Defaults:ceph !requiretty
 ```
 
-<br />
-
-#### **4.2 Ceph Client Installation**
+## 4.2 Ceph Client Installation
 
 1. From Admin node (ceph1), install ceph client;
-
 ```
 # ceph-deploy install client1 client2
 ```
 
 2. From Admin node (ceph1), copy Ceph configuration file and keyring to client1 and client2;
-
 ```
 # ceph-deploy admin client1 client2
 ```
 
 3. From client node (client1), create a Block Device Image of 100 GB to Ceph file system;
-
 ```
 # rbd create storage1 –size 102400
 ```
 
 4. Map the image to a block device	
-
 ```
 # sudo rbd map storage1
 ```
 
 5. Check RBD mapping;
-
 ```
 # rbd showmapped
 id 	pool	image	snap	device
@@ -820,20 +778,17 @@ id 	pool	image	snap	device
 ```
 
 6. Use this block device and create an `ext4` file system;
-
 ```
 # sudo mkfs.ext4 /dev/rbd/rbd/storage1
 ```
 
 7. Mount the file system in client machine;
-
 ```
 # sudo mkdir /mnt/storage1
 # sudo mount /dev/rbd/rbd/storage1 /mnt/storage1
 ```
 
 8. Check the file system; 
-
 ```
 # df –h
 ```
@@ -841,8 +796,6 @@ id 	pool	image	snap	device
 9. Do step 3-8 for client2 and here Block Device Image will be `storage2` and mount point will be `/mnt/storage2`.
 
 ___
-
-<br />
 
 ### **E Installing Benchmark Tools**
 
