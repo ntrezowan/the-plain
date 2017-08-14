@@ -4,7 +4,7 @@ title: "Digging into NSLOOKUP"
 
 1. A-record - This record outputs the IP address of a domain (e.g. google.com). It also tells which DNS server is doing the forward lookup and in this example, it's cdns01.comcast.net;  
 ```
-PS C:\> nslookup -querytype=a google.com
+PS > nslookup -querytype=a google.com
 Server:  cdns01.comcast.net
 Address:  2001:558:feed::1
 
@@ -20,7 +20,7 @@ Addresses:  74.125.196.102
 
 2. NS-record - This record output all the Non-authoritative DNS servers information of a domain (e.g. google.com);  
 ```
-PS C:\> nslookup -querytype=ns google.com
+PS > nslookup -querytype=ns google.com
 Server:  cdns01.comcast.net
 Address:  2001:558:feed::1  
 Non-authoritative answer:
@@ -36,7 +36,7 @@ ns2.google.com  internet address = 216.239.34.10
 
 3. MX-record - This record output all the mail servers information of a domain (e.g. google.com);  
 ```
-PS C:\> nslookup -querytype=mx google.com
+PS > nslookup -querytype=mx google.com
 Server:  cdns01.comcast.net
 Address:  2001:558:feed::1  
 Non-authoritative answer:
@@ -53,7 +53,7 @@ aspmx.l.google.com      AAAA IPv6 address = 2607:f8b0:4002:c0c::1b
 
 4. SRV-record - This record outputs information such as serial, priority, primary mail server etc. of a domain (e.g. google.com);  
 ```
-PS> nslookup -querytype=srv google.com
+PS > nslookup -querytype=srv google.com
 Server:  cdns01.comcast.net
 Address:  2001:558:feed::1  
 google.com
@@ -68,7 +68,7 @@ google.com
 
 5. To specify a particular DNS (e.g. OpenDNS) to resolve a domain name (e.g. google.com) instead of my DNS;  
 ```
-PS C:\> nslookup google.com 208.67.222.222
+PS > nslookup google.com 208.67.222.222
 Server:  cdns01.comcast.net
 Address:  2001:558:feed::1  
 Non-authoritative answer:
@@ -98,7 +98,7 @@ Addresses:  74.125.196.102
 
 7. We can enable debugging which will show all the packets exchange information while resolving a DNS record;  
 ```
-PS C:\> nslookup
+PS > nslookup
 Default Server:  cdns01.comcast.net
 Address:  2001:558:feed::1  
 > set debug
