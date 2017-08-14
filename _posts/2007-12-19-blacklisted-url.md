@@ -1,5 +1,8 @@
 ---
 title: "Blacklisted URL"
+comments: false
+description: "Blacklisted URL"
+keywords: "blacklisted, url, google"
 ---
 
 Yesterday, all my troubles seemed so far away  
