@@ -2,7 +2,7 @@
 title: "Installing SSL for Apache Tomcat using Java keytool"
 ---
 
-#### 1. Creating new keystore to install a new certificate
+### 1. Creating new keystore to install a new certificate
 
 In this example, we are assuming that Java and Apache Tomcat are installed to their default location.  
 Java Keytool location: `C:\Program Files\Java\jre\bin\`  
@@ -81,7 +81,7 @@ keystoreFile="conf/SSL/keystore-example.com.jks"
 
 ___
 
-#### 2. Renewing license for an existing keystore
+### 2. Renewing license for an existing keystore
 
 
 1. Take a backup of the current site certificate;
@@ -108,7 +108,7 @@ C:\Program Files\Apache Tomcat\conf\SSL\>C:\Program Files\Java\jre\bin\keytool -
 ___
 
 
-#### 3. Installing root certificate
+### 3. Installing root certificate
 
 
 Obtain the root certificate from the CA and then we need to import it to the `cacerts` keystore file located in `C:\Program Files\Java\jre\lib\security\` folder.
