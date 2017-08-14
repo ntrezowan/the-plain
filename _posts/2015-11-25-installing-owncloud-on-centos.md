@@ -79,7 +79,6 @@ The printenv PATH output is required to verify if php-fpm can have access to all
 # cat owncloud.key
 # chmod 600 owncloud.crt
 # chmod 600 owncloud.key
-
 This crt/key is only valid for one year.
 ```
 
