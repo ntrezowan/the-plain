@@ -36,8 +36,8 @@ title: "Installing AWStats on CentOS"
 
 5. Open Apache configuration file and add an entry for this new subdomain;
 ```
-# vi /etc/httpd/conf/httpd.conf
-```  
+# vi /etc/httpd/conf/httpd.conf  
+```
 Add the following lines in `httpd.conf`;
 ```
 <virtualhost *:80>
