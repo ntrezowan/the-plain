@@ -1,9 +1,9 @@
 ---
 title: "GrameenPhone EDGE dialer for Fedora"
 ---
-
 Operating System: _Fedora 4_  
 Phone : _Nokia 7610i_  
+
 ___
 
 
