@@ -43,7 +43,6 @@ Enter keystore password:
 
 3. Use `example.com.csr` to get a new certificate From a CA. Save intermediate certificate as `intermediate.cer` and site certificate as `example.com.p7b`. Copy both to `C:\Users\Administrator\Desktop\` folder on the server.
 
-
 4. Import intermediate certificate to the keystore;
 
 ```
@@ -51,7 +50,6 @@ C:\Program Files\Apache Tomcat\conf\SSL\>C:\Program Files\Java\jre\bin\keytool -
 Enter keystore password:
 Certificate was added to keystore
 ```
-
 
 5. Verify that intermediate certificate is imported correctly;
 
