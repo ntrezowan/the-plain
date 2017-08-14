@@ -1,5 +1,8 @@
 ---
 title: "Installing OpenNMS on Ubuntu Server"
+comments: false
+description: "Installing OpenNMS on Ubuntu Server"
+keywords: "opennms, install, ubuntu, postgresql"
 ---
 
 #### Adding OpenNMS repository
