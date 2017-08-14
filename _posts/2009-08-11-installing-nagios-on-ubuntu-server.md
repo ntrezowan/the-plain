@@ -1,5 +1,8 @@
 ---
 title: "Installing Nagios on Ubuntu Server"
+comments: false
+description: "Installing Nagios on Ubuntu Server"
+keywords: "nagios, install, ubuntu, apache, mysql"
 ---
 Operating System: _Ubuntu Server_  
 Web Server: _Apache_  
