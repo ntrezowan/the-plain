@@ -3,7 +3,7 @@ layout: post
 title: "GlusterFS and CephFS Performance in Xen Hypervisor"
 comments: false
 description: "GlusterFS and CephFS Performance in Xen Hypervisor"
-keywords: "dummy content"
+keywords: "glusterfs, cephfs, performance, xen, hypervisor, virtual, machine"
 ---
 
 # A. Host/Virtual Machines
