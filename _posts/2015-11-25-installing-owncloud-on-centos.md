@@ -1,5 +1,8 @@
 ---
 title: "Installing OwnCloud on CentOS"
+comments: false
+description: "Installing OwnCloud on CentOS"
+keywords: "owncloud, install, centos, nginx, mariadb"
 ---
 Operating System: _CentOS-7 64-bit_  
 Web Server: _Nginx v1.8.0_  
