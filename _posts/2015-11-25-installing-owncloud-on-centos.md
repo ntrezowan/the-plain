@@ -10,7 +10,7 @@ VM: _vSphere ESXi 5.5_
   
 ___
 
-*__STEPS:__*
+*__Steps:__*
 
 1. Importing web server (nginx) repository;  
 ```
