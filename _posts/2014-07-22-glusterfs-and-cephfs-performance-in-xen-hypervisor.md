@@ -7,7 +7,6 @@ keywords: "dummy content"
 ---
 
 ### **A Host/Virtual Machines**
-<br />
 
 #### **1.1 Virtual Machine Information**
 
@@ -21,8 +20,6 @@ Disk | 100 GB | 100 GB | 100 GB
 Network | Bridged | Bridged | Bridged
 IP Address | 192.168.26.234 | 192.168.26.235 | 192.168.26.236
 
-<br />
-
 **1.1.2 CephFS Configuration**  
 
 Hostname | gfs1 | gfs2 | gfs3
@@ -32,8 +29,6 @@ RAM | 2 GB | 2 GB | 2 GB
 Disk | 100 GB | 100 GB | 100 GB
 Network | Bridged | Bridged | Bridged
 IP Address | 192.168.26.237 | 192.168.26.238 | 192.168.26.239
-
-<br />
 
 **1.1.3 Clients Configuration**  
 
@@ -45,8 +40,6 @@ Disk | 100 GB | 100 GB
 Network | Bridged | Bridged
 IP Address | 192.168.26.240 | 192.168.26.241
 
-<br />
-
 #### **1.2 Host Machine Information**  
 
 Hostname | server1 | server2 | server3 | server4
@@ -56,8 +49,6 @@ RAM (DDR3) | 4 GB | 4 GB | 4 GB | 4 GB
 Disk (7200 RPM) | 300 GB | 300 GB | 300 GB | 300 GB
 Network (1GB) | NAT+Bridged | NAT+Bridged | NAT+Bridged | NAT+Bridged
 IP Address | 192.168.26.230 | 192.168.26.231 | 192.168.26.232 | 192.168.26.233
-
-<br />
 
 ### **B Installing Xen Hypervisor**
 
