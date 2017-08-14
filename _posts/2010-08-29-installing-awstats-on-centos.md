@@ -1,5 +1,8 @@
 ---
 title: "Installing AWStats on CentOS"
+comments: false
+description: "Installing AWStats on CentOS"
+keywords: "awstats, install, centos, apache, mysql"
 ---
 
 1. Download [GeoIP](http://www.maxmind.com/app/geolitecountryhttp://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz) and [GeoLiteCity](http://www.maxmind.com/app/geolitecityhttp://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz) from maxmind.com and move it to `/tmp`
