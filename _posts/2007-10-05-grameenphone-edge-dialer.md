@@ -7,6 +7,7 @@ published: true
 ---
 Operating System: _Fedora 4_  
 Hardware : _Nokia 7610i_
+
 ___
 
 1. Run the following command as root to load the USB driver;  
