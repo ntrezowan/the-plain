@@ -13,7 +13,6 @@ ___
 1. Run the following command as root to load the USB driver;  
 ```
 # /sbin/modprobe usbserial vendor=0x  
-
 Product=0x
 ```
 
