@@ -314,7 +314,7 @@ ___
 
 **Backup OTRS**
 
-`scripts/backup.pl` script can be used to backup all important OTRS data including Config, Application and Database;
+`scripts/backup.pl` script can be used to backup OTRS configuration including application and database configuration;
 ```
 # ./backup.pl -d /backup/
 Backup /backup//2005-09-12_14-28/Config.tar.gz ... done
@@ -327,7 +327,7 @@ Application.tar.gz Config.tar.gz DatabaseBackup.sql.gz
 
 **Restore OTRS**
 
-`scripts/restore.pl` script can be used to restore all important OTRS data including Config, Application and Database;
+`scripts/restore.pl` script can be used to restore OTRS configuration including application and database configuration;
 ```
 # ./restore.pl -b /backup/2005-09-12_14-28 -d /opt/otrs/
 Restore /backup/2005-09-12_14-28//Config.tar.gz ...
@@ -341,21 +341,21 @@ linux:/opt/otrs/scripts#
 
 **Backup-restoration policy**
 
-A cron job handles automated backup operation which is set to take complete backup of otrs system in a folder called `backup` under root privilege. The backup script will create backup of `Config.tar.gz`, `Application.tar.gz` and `Database.tar.gz` which will be used for further restoration.
-To configure cron, following command has to be executed;
+A cron job handles automated backup operation which is set to take full backup of OTRS system in a folder called `backup` under root. The backup script will create three backup files called `Config.tar.gz`, `Application.tar.gz` and `Database.tar.gz`.  
+To configure cron, the following command has to be executed;
 ```
 # crontab –e
 05 12 * * * /opt/otrs/scripts/backup.pl –d /backup
 ```
 
-In this crontab, the backup script will take an automated backup at 12.05 hours every day and saved it to `/backup` folder. With a HA enabled setup, both `otrs01` and `otrs02` will provide backup process individually by themselves. In the same way, restore process for both servers will be handled manually.
+In this crontab, the backup script will take an automated backup at 12.05 every day and saved it to `/backup` folder. With a HA enabled setup, both `otrs01` and `otrs02` will provide backup process individually by themselves. In the same way, restore process for both servers will be handled manually.
 
 ___
 
 
 **Sample configuration**
 
-Here is a sample configuration after finising the web installation;
+Here is a sample configuration after finishing the web installation;
 ```
 SysConfig>Core>SecureMode: Yes
 SysConfig>Core>ProductName: xyz.com
