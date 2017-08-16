@@ -24,7 +24,7 @@ PS. Yes - it's free of any minix code, and it has a multi-threaded fs. It is NOT
 
 ___
 
-**October 5, 1991**
+**October 05, 1991**
 
 *From: torvalds@klaava.Helsinki.FI (Linus Benedict Torvalds)*  
 *Newsgroups: comp.os.minix*  
