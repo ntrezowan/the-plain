@@ -48,7 +48,7 @@ ___
 
 #### C. Install Nagios
 
-1. Create a directory and download Nagios in there;
+1. Create a directory and download Nagios;
 ```
 # mkdir ~/downloads
 # cd ~/downloads
@@ -57,13 +57,13 @@ ___
 # cd ~/downloads
 ```
 
-2. Extract the Nagios source code tarball;
+2. Extract Nagios core;
 ```
 # tar xzf nagios-3.x.x.tar.gz
 # cd nagios-3.x.x
 ```
 
-3. Run the Nagios configure script;
+3. Run Nagios configure script;
 ```
 # ./configure --with-command-group=nagcmd
 # make all
@@ -73,26 +73,27 @@ ___
 # make install-commandmode
 ```
 
-4. Edit the `/usr/local/nagios/etc/objects/contacts.cfg` config file according to your requirement;
+4. Edit `/usr/local/nagios/etc/objects/contacts.cfg` config file according to your requirement;
 ```
 # vi /usr/local/nagios/etc/objects/contacts.cfg
 ```
 
-5. Install the Nagios web config file in the apache `conf.d` directory;
+5. Install Nagios web config file in apache `conf.d` directory;
 ```
 # make install-webconf
 ```
-6. Create a `nagiosadmin` account for logging into the Nagios web interface using `.htaccess`;
+
+6. Create `nagiosadmin` account for logging into the Nagios web interface using `.htaccess`;
 ```
 # htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
 ```
 
-7. Restart Apache;
+7. Restart Apache web server;
 ```
 # /etc/init.d/apache2 reload
 ```
 
-9. Extract the Nagios plugins source code tarball;
+9. Extract Nagios plugins;
 ```
 # cd ~/downloads
 # tar xzf nagios-plugins-1.x.xx.tar.gz
@@ -106,23 +107,19 @@ ___
 # make install
 ```
 
-11. Set Nagios to automatically start when the system boots;
+11. Set Nagios daemon to automatically start when the system boots;
 ```
 # ln -s /etc/init.d/nagios /etc/rcS.d/S99nagios
 ```
 
-12. Verify Nagios configuration files;
+12. Verify Nagios configuration;
 ```
 # /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
 ```
 
 There should no be any error in the output, otherwise check your configuration.
 
-___
-
-
-#### D. Start Nagios
-
+13. Start Nagios;
 ```
 # /etc/init.d/nagios start
 ```
@@ -130,4 +127,4 @@ ___
 ___
 
 
-Now browse to http://localhost/nagios and log in as `nagiosadmin` using password `nagios`.
+Browse to http://localhost/nagios and log in as `nagiosadmin` using password `nagios`.
