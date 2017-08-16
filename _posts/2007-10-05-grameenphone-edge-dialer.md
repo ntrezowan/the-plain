@@ -5,8 +5,8 @@ description: "GrameenPhone EDGE dialer for Fedora"
 keywords: "GrameenPhone, edge, fedora, nokia, 7610"
 published: true
 ---
-Operating System: _Fedora 4_  
-Hardware : _Nokia 7610i_
+  Operating System: _Fedora 4_  
+  Hardware : _Nokia 7610i_
 
 ___
 
