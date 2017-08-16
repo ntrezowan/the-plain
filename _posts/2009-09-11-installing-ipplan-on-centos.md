@@ -93,6 +93,11 @@ pass .1.3.6.1.4.1.4413.4.1 /usr/bin/ucd5820stat
 # service snmpd restart
 ```
 
+___
+
+Go to `http://example.com/ipplan/admin/install.php` to continue with the web based installation.
+
+___
 
 
 **Backup IPplan database**
@@ -104,7 +109,3 @@ pass .1.3.6.1.4.1.4413.4.1 /usr/bin/ucd5820stat
 ```
 # mysql -u ipplan -pblink182 ipplan < ipplan.sql
 ```
-
-___
-
-Go to `http://example.com/ipplan/admin/install.php` to continue with the web based installation.
