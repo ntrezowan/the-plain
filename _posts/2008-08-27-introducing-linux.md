@@ -4,7 +4,7 @@ comments: false
 description: "Introducing Linux"
 keywords: "linus torvalds, email, linux, kernel, first"
 ---
-**August 1991**
+**August 25, 1991**
 
 *From: torvalds@klaava.Helsinki.FI (Linus Benedict Torvalds)*  
 *Newsgroups: comp.os.minix*  
@@ -24,7 +24,7 @@ PS. Yes - it's free of any minix code, and it has a multi-threaded fs. It is NOT
 
 ___
 
-**September 1991**
+**October 5, 1991**
 
 *From: torvalds@klaava.Helsinki.FI (Linus Benedict Torvalds)*  
 *Newsgroups: comp.os.minix*  
