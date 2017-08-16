@@ -12,7 +12,7 @@ ___
 
 1. Run the following command as root to load the USB driver;  
 ```
-# /sbin/modprobe usbserial vendor=0x  
+# /sbin/modprobe usbserial vendor=0x
 Product=0x
 ```
 
@@ -47,7 +47,7 @@ ttyACM0: Speed 460800; init "ATQ0 V1 E1 S0=0
 &C1 &D2 +FCLASS=0"
 ```
 
-3. Add the following sample configuration in `/etc/wvdial.conf` (remove if there is any earlier entries);  
+3. Add the following configuration in `/etc/wvdial.conf` (remove if there is any earlier entries);
 ```
 [Dialer Defaults]
 Modem =
