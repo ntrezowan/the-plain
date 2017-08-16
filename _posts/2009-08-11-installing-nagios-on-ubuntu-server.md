@@ -21,7 +21,7 @@ ___
 # sudo apt-get install libgd2-xpm-dev
 ```
 
-#### B. Create user/group for Nagios
+#### B. Create user and group for Nagios
 
 1. Create a new Nagios user and set the password;
 ```
@@ -39,14 +39,12 @@ ___
 # /usr/sbin/usermod -G nagios nagios
 ```
 
-4. Create a new `nagcmd` group for allowing external commands to be submitted through the web interface. Add both the Nagios user and the Apache user to the group;
+4. Create a new `nagcmd` group for allowing external commands to pass through the web interface. Add both the Nagios user and the Apache user into this group;
 ```
 # /usr/sbin/groupadd nagcmd
 # /usr/sbin/usermod -a -G nagcmd nagios
 # /usr/sbin/usermod -a -G nagcmd www-data
 ```
-
-___
 
 #### C. Install Nagios
 
