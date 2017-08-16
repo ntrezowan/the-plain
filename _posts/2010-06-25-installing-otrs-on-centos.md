@@ -10,7 +10,7 @@ Database: _MySQL_
 
 ___
 
-#### Install OTRS
+#### A. Install OTRS
 
 1. Download the source `tar.gz` or `tar.bz2` file from [OTRS](https://www.otrs.com/) website. Unpack the archive for example with tar into the /opt directory and rename the directory from otrs-2.4.x to otrs;
 ```
@@ -48,7 +48,7 @@ SetPermissions.sh { Home directory of the OTRS user } { OTRS user } { Web server
 ___
 
 
-#### Install Perl modules
+#### B. Install Perl modules
 
 1. Use RPM's for installing Perl with additional dependencies;
 ```
@@ -115,7 +115,7 @@ PostMaster.pl syntax OK
 
 ___
 
-#### Configure Apache
+#### C. Configure Apache
 
 1. Install Apache with the latest build;
 ```
@@ -202,7 +202,7 @@ MaxRequestsPerChild 400
 ___
 
 
-#### Install MySQL
+#### D. Install MySQL
 
 1. Install MySQL as backend database;
 ```
@@ -224,7 +224,7 @@ mysql> FLUSH PRIVILEGES;
 
 ___
 
-#### Configure High Availability
+#### E. Configure High Availability
 
 1. Assign hostname `otrs01` as primary node with IP address `192.168.1.1` to `eth0`. Assign hostname `otrs02` to secondary node with IP address `192.168.1.2` to `eth0`.  
 `192.168.1.100` will be used for Apache web server to integrate with HA.  
@@ -301,7 +301,7 @@ Now start `heartbeat` where `otrs01` will be master and `otrs02` will work as sl
 ___
 
 
-#### Finish Web Installation
+#### F. Finish Web Installation
 
 Go to `http://192.168.1.100/otrs/installer.pl` for post installation with web interface. Leave all parameter unchanged (e.g. root password or database name).
 
@@ -310,7 +310,7 @@ OTRS Customer URL: `http://192.168.1.100/otrs/customer.pl`
 
 ___
 
-#### Backup OTRS
+**Backup OTRS**
 
 `scripts/backup.pl` script can be used to backup all important OTRS data including Config, Application and Database;
 ```
@@ -323,7 +323,7 @@ linux:/opt/otrs/scripts# ls /backup/2005-09-12_14-28/
 Application.tar.gz Config.tar.gz DatabaseBackup.sql.gz
 ```
 
-#### Restore OTRS
+**Restore OTRS**
 
 `scripts/restore.pl` script can be used to restore all important OTRS data including Config, Application and Database;
 ```
@@ -337,7 +337,7 @@ compress SQL-file...
 linux:/opt/otrs/scripts#
 ```
 
-#### Backup-restoration policy
+**Backup-restoration policy**
 
 A cron job handles automated backup operation which is set to take complete backup of otrs system in a folder called `backup` under root privilege. The backup script will create backup of `Config.tar.gz`, `Application.tar.gz` and `Database.tar.gz` which will be used for further restoration.
 To configure cron, following command has to be executed;
@@ -351,7 +351,7 @@ In this crontab, the backup script will take an automated backup at 12.05 hours 
 ___
 
 
-#### NOTES
+**Sample configuration**
 
 Here is a sample configuration after finising the web installation;
 ```
