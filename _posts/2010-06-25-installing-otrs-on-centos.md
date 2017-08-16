@@ -210,7 +210,7 @@ ___
 # service mysql restart
 ```
 
-2. Create a  database in MySQL to grant access to OTRS system;
+2. Create a database in MySQL to grant access for OTRS system;
 ```
 # mysql
 mysql> CREATE USER 'otrs' IDETIFIED BY 'otrs';
