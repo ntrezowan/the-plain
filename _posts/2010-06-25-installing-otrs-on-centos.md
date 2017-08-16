@@ -122,7 +122,7 @@ ___
 # yum -y install httpd*
 # /etc/init.d/httpd restart
 ```
-Use the example configuration file called `conf.d` in `otrs/scripts/` directory which will fit for your version for the Apache web server, named either `apache2` or `apache2-httpd-new.include.conf`. Check if both of these files having the following line in common;
+Use example configuration file called `conf.d` in `otrs/scripts/` directory that fits for your version of OTRS for the Apache web server, named either `apache2` or `apache2-httpd-new.include.conf`. Check if both of these files have the following lines in common;
 ```
 LoadModule cgi_module /usr/lib/apache2/modules/mod_cgi.so
 ```
@@ -192,7 +192,7 @@ PerlSetupEnv On
 MaxRequestsPerChild 400
 ```
 
-2. Set the hostname in `/etc/resolv.conf` for global access;
+2. Set hostname in `/etc/resolv.conf` for global access;
 ```
 # vi /etc/resolv.conf
 # vi /etc/hosts
