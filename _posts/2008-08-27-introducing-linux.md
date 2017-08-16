@@ -13,7 +13,7 @@ keywords: "linus torvalds, email, linux, kernel, first"
 *Message-ID: <1991aug25 .205708.9541=".205708.9541" klaava.helsinki.fi="klaava.helsinki.fi">*  
 *Date: 25 Aug 91 20:57:08 GMT*  
 *Organization: University of Helsinki*  
-
+  
 
 Hello everybody out there using minix -  
 I'm doing a (free) operating system (just a hobby, won't be big and professional like gnu) for 386(486) AT clones. This has been brewing since april, and is starting to get ready.I'd like any feedback on things people like/dislike in minix, as my OS resembles it somewhat (same physical layout of the file-system(due to practical reasons) among other things). I've currently ported bash(1.08) and gcc(1.40),and things seem to work.This implies that I'll get something practical within a few months, andI'd like to know what features most people would want. Any suggestions are welcome, but I won't promise I'll implement them :-)
@@ -32,7 +32,7 @@ ___
 *Message-ID: <1991oct5 .054106.4647=".054106.4647" klaava.helsinki.fi="klaava.helsinki.fi">*  
 *Date: 5 Oct 91 05:41:06 GMT*  
 *Organization: University of Helsinki*  
-
+  
 
 Do you pine for the nice days of minix-1.1, when men were men and wrote their own device drivers?  
 Are you without a nice project and just dying to cut your teeth on a OS you can try to modify for your needs? Are you finding it frustrating when everything works on minix? No more all-nighters to get a nifty program working? Then this post might be just for you :-)  
