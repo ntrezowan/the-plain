@@ -107,7 +107,7 @@ nameserver X.X.X.X
 nameserver X.X.X.X
 ```
 
-6. Finally, restart DNS server;  
+6. Finally, restart DNS daemon;  
 ```
 # service named restart
 ```
