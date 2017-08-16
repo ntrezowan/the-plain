@@ -93,32 +93,32 @@ ___
 # /etc/init.d/apache2 reload
 ```
 
-9. Extract Nagios plugins;
+8. Extract Nagios plugins;
 ```
 # cd ~/downloads
 # tar xzf nagios-plugins-1.x.xx.tar.gz
 # cd nagios-plugins-1.x.xx/
 ```
 
-10. Compile and install Nagios plugins;
+9. Compile and install Nagios plugins;
 ```
 #./configure --with-nagios-user=nagios --with-nagios-group=nagios
 # make
 # make install
 ```
 
-11. Set Nagios daemon to automatically start when the system boots;
+10. Set Nagios daemon to automatically start when the system boots;
 ```
 # ln -s /etc/init.d/nagios /etc/rcS.d/S99nagios
 ```
 
-12. Verify Nagios configuration;
+11. Verify Nagios configuration;
 ```
 # /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
 ```  
-There should no be any error in the output, otherwise check your configuration.
+If there is any error in the output, check your configuration.
 
-13. Start Nagios;
+12. Start Nagios;
 ```
 # /etc/init.d/nagios start
 ```
@@ -126,4 +126,4 @@ There should no be any error in the output, otherwise check your configuration.
 ___
 
 
-Browse to http://localhost/nagios and log in as `nagiosadmin` using password `nagios`.
+Browse to [http://localhost/nagios](http://localhost/nagios) and log in as `nagiosadmin` using password `nagios`.
