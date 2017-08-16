@@ -16,7 +16,7 @@ ___
 Product=0x
 ```
 
-2. Now create the dialer;  
+2. Now create a new dialer;  
 ```
 # wvdialconf create
 Scanning your serial ports for a modem.
@@ -47,7 +47,7 @@ ttyACM0: Speed 460800; init "ATQ0 V1 E1 S0=0
 &C1 &D2 +FCLASS=0"
 ```
 
-3. Add the following configuration in `/etc/wvdial.conf` (remove if there is any earlier entries);
+3. Add the following configuration in `/etc/wvdial.conf` (remove if there is any existing entries);
 ```
 [Dialer Defaults]
 Modem =
@@ -99,7 +99,7 @@ CONNECT
 --> pppd: Modem
 ```
 
-5. If you still having problem browsing the internet, add the GrameenPhone DNS to `/etc/resolvr.conf`;  
+5. If you are having issue browsing internet, add GrameenPhone DNS to `/etc/resolvr.conf`;  
 ```
 # vi /etc/resolv.conf
 [Sample configuration]
@@ -107,7 +107,7 @@ nameserver X.X.X.X
 nameserver X.X.X.X
 ```
 
-6. Finally, restart the DNS server;  
+6. Finally, restart DNS server;  
 ```
 # service named restart
 ```
