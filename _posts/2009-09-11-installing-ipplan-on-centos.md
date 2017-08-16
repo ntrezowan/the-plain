@@ -27,7 +27,7 @@ ___
 # mysqladmin -u root -p create ipplan
 ```
 
-4. Create an user `ipplan` for the database;
+4. Create an user `ipplan` for the database `ipplan`;
 ```
 # mysql -u root -p ipplan
 ```
@@ -69,7 +69,7 @@ Add the following lines in crontab;
 0 9,12,15 * * * php /var/www/html/ipplan/contrib/ipplan-poller.php - hostname -c 1 -f /var/www/html/ipplan/ingane-networks.txt
 ```
 
-10. Finally, configure `snmpd.conf`;
+10. Configure `snmpd.conf`;
 ```
 # vi /etc/snmp/snmpd.conf
 ```
@@ -95,7 +95,7 @@ pass .1.3.6.1.4.1.4413.4.1 /usr/bin/ucd5820stat
 
 ___
 
-Go to `http://example.com/ipplan/admin/install.php` to continue with the web based installation.
+Go to [http://example.com/ipplan/admin/install.php](http://example.com/ipplan/admin/install.php) to continue with the web based installation.
 
 ___
 
