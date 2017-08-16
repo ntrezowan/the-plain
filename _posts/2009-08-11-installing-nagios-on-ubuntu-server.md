@@ -10,9 +10,9 @@ keywords: "nagios, install, ubuntu, apache, mysql"
 
 ___
 
-##### Install required packages
+#### A. Install dependencies
 
-1. Install packages necessary for Nagios (such as Apache, GCC etc.);
+1. Install packages necessary to run Nagios (such as Apache, GCC etc.);
 ```
 # sudo apt-get install apache2
 # sudo apt-get install libapache2-mod-php5
@@ -21,9 +21,7 @@ ___
 # sudo apt-get install libgd2-xpm-dev
 ```
 
-___
-
-#### Create user/group for Nagios
+#### B. Create user/group for Nagios
 
 1. Create a new Nagios user and set the password;
 ```
@@ -50,7 +48,7 @@ ___
 
 ___
 
-#### Install Nagios
+#### C. Install Nagios
 
 1. Create a directory and download Nagios in there;
 ```
@@ -125,7 +123,7 @@ There should no be any error in the output, otherwise check your configuration.
 ___
 
 
-#### Start Nagios
+#### D. Start Nagios
 
 ```
 # /etc/init.d/nagios start
