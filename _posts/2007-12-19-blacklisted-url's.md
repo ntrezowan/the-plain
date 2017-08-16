@@ -1,5 +1,5 @@
 ---
-title: "Blacklisted URL"
+title: "Blacklisted URL's"
 comments: false
 description: "Blacklisted URL"
 keywords: "blacklisted, url, google"
@@ -9,8 +9,8 @@ Yesterday, all my troubles seemed so far away
 Now it looks as though they are here to stay  
 Oh I believe in yesterday...
   
-*And in yesterday, I was googling for blacklisted URL's*  
-*and those troubles look like this...*
+And in yesterday, I was googling for blacklisted URL's  
+and those troubles look like this...
 
 ___
 
