@@ -115,8 +115,7 @@ ___
 12. Verify Nagios configuration;
 ```
 # /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
-```
-
+```  
 There should no be any error in the output, otherwise check your configuration.
 
 13. Start Nagios;
