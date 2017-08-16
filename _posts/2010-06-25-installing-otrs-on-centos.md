@@ -12,23 +12,23 @@ ___
 
 #### A. Install OTRS
 
-1. Download the source `tar.gz` or `tar.bz2` file from [OTRS](https://www.otrs.com/) website. Unpack the archive for example with tar into the /opt directory and rename the directory from otrs-2.4.x to otrs;
+1. Download source `tar.gz` or `tar.bz2` file from [OTRS](https://www.otrs.com/) website. Unpack the archive into `/opt` directory and rename the directory from `otrs-2.4.x` to `otrs`;
 ```
 # tar xf /tmp/otrs-2.4.x.tar.gz
 # mv otrs-2.4.-x /opt/otrs
 ```
-Or install CentOS build RPM for OTRS;
+You can also install RPM build in CentOS;
 ```
 # rpm -ivh --aid --force otrs-2.4.7-01.noarch.rpm --nodeps
 ```
 
-2. Add a new user for OTRS whether home directory of this new user should be /opt/otrs;
+2. Add an user for OTRS with home directory `/opt/otrs`;
 ```
 # useradd -r -d /opt/otrs/ -c 'OTRS' otrs
 # usermod -G nogroup otrs
 ```
 
-3. Copy some sample configuration files to the OTRS folder for further operation. These files are located in `/opt/otrs/Kernel` and `/opt/otrs/Kernel/Config` and have the suffix `.dist`;
+3. Copy sample configuration files from source folder to OTRS folder for further operation. These source files are located at `/opt/otrs/Kernel` and `/opt/otrs/Kernel/Config` and will have the suffix `.dist`;
 ```
 # cd otrs/Kernel/
 # cp Config.pm.dist Config.pm
@@ -42,7 +42,7 @@ Or install CentOS build RPM for OTRS;
 ```
 [Sample command with interchangable parameter]
 ```
-SetPermissions.sh { Home directory of the OTRS user } { OTRS user } { Web server user } [ Group of the OTRS user ] [ Group of the web server user ]
+SetPermissions.sh {Home directory of the OTRS user} {OTRS user} {Web server user} [Group of the OTRS user] [Group of the web server user]
 ```
 
 ___
