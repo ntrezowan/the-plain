@@ -6,8 +6,7 @@ keywords: "GrameenPhone, edge, fedora, nokia, 7610"
 published: true
 ---
 Operating System: _Fedora 4_  
-Phone : _Nokia 7610i_
-
+Hardware : _Nokia 7610i_
 ___
 
 1. Run the following command as root to load the USB driver;  
