@@ -226,9 +226,9 @@ ___
 
 #### E. Configure High Availability for PostgreSQL Database
 
-If you are using PostgreSQL as backend database, then follow below steps to configure high availability for the application;
+If you are using PostgreSQL as backend database, then follow below steps to configure high availability for OTRS;
 
-1. Assign hostname `otrs01` as primary node with IP address `192.168.1.1` to `eth0`. Assign hostname `otrs02` to secondary node with IP address `192.168.1.2` to `eth0`.  
+1. Assign hostname `otrs01` as primary node with IP address `192.168.1.1` to `eth0`. Assign hostname `otrs02` as secondary node with IP address `192.168.1.2` to `eth0`.  
 `192.168.1.100` will be used for Apache web server to integrate with HA.  
 Download and install the `heartbeat` package;
 ```
@@ -246,7 +246,7 @@ Download and install the `heartbeat` package;
 ```
 # vi /etc/ha.d/authkeys
 ```
-Now add these two lines;
+Add the following two lines;
 ```
 auth 2
 2 sha1 test-ha
@@ -258,7 +258,7 @@ auth 2
 # chmod 600 /etc/ha.d/authkeys
 ```
 
-5. Edit the `ha.cf` file;
+5. Modify the `ha.cf` file;
 ```
 # vi /etc/ha.d/ha.cf
 ```
@@ -276,7 +276,7 @@ node otrs01
 node otrs02
 ```
 
-6. Now edit the `haresources` file;
+6. Modify `haresources` file;
 ```
 # vi /etc/ha.d/haresources
 ```
@@ -289,7 +289,7 @@ otrs 01 192.168.1.100 httpd
 ```
 # vi /etc/httpd/conf/httpd.conf
 ```
-Add this line in httpd.conf;
+Add the following line in httpd.conf;
 ```
 Listen 192.168.1.100:80
 ```
@@ -305,10 +305,10 @@ ___
 
 #### F. Finish Web Installation
 
-Go to `http://192.168.1.100/otrs/installer.pl` for post installation with web interface. Leave all parameter unchanged (e.g. root password or database name).
+Go to [http://192.168.1.100/otrs/installer.pl](http://192.168.1.100/otrs/installer.pl) for post installation with web interface. Leave all parameter unchanged (e.g. root password or database name).
 
-OTRS Agent URL: `http://192.168.1.100/otrs/index.pl`  
-OTRS Customer URL: `http://192.168.1.100/otrs/customer.pl`  
+OTRS Agent URL: [http://192.168.1.100/otrs/index.pl](http://192.168.1.100/otrs/index.pl)  
+OTRS Customer URL: [http://192.168.1.100/otrs/customer.pl](http://192.168.1.100/otrs/customer.pl)  
 
 ___
 
