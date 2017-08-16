@@ -224,7 +224,9 @@ mysql> FLUSH PRIVILEGES;
 
 ___
 
-#### E. Configure High Availability
+#### E. Configure High Availability for PostgreSQL Database
+
+If you are using PostgreSQL as backend database, then follow below steps to configure high availability for the application;
 
 1. Assign hostname `otrs01` as primary node with IP address `192.168.1.1` to `eth0`. Assign hostname `otrs02` to secondary node with IP address `192.168.1.2` to `eth0`.  
 `192.168.1.100` will be used for Apache web server to integrate with HA.  
