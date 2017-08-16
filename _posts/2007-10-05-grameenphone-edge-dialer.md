@@ -13,14 +13,12 @@ ___
 1. Run the following command as root to load the USB driver;  
 ```
 # /sbin/modprobe usbserial vendor=0x
-```
-```
 Product=0x
 ```
 
 2. Now create the dialer;  
 ```
-# wvdialconf create  
+# wvdialconf create
 Scanning your serial ports for a modem.
 PortScan<*1>: S0 S1 S2 S3
 WvModem<*1>: Cannot get information for serial port.
