@@ -1,7 +1,7 @@
 ---
-title: "GrameenPhone EDGE dialer for Fedora"
+title: "Creating EDGE dialer for GrameenPhone"
 comments: false
-description: "GrameenPhone EDGE dialer for Fedora"
+description: "Creating EDGE dialer for GrameenPhone"
 keywords: "GrameenPhone, edge, fedora, nokia, 7610"
 published: true
 ---
