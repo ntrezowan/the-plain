@@ -50,7 +50,7 @@ ___
 
 #### B. Install Perl modules
 
-1. Use RPM's for installing Perl with additional dependencies;
+1. Use RPM build to install Perl with additional dependencies;
 ```
 # yum -y install perl*
 # rpm -ivh --aid --force perl-CGI-3.42.8el5.noarch.rpm --nodeps
@@ -61,7 +61,7 @@ ___
 # rpm -ivh --aid --force perl-GD-Graph-1.43-0.2.el4.noarch.rpm --nodeps
 ```
 
-2. Now check the installed modules;
+2. Check installed modules;
 ```
 # cd /opt/otrs/bin/
 # ./otrs.checkModules
