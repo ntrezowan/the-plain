@@ -29,7 +29,7 @@ ___
 # passwd nagios
 ```
 
-2 Create a new Nagios group;
+2. Create a new Nagios group;
 ```
 # /usr/sbin/groupadd nagios
 ```
