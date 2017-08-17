@@ -48,7 +48,7 @@ ___
 6. Open Apache configuration file and add an entry for this new subdomain;
 ```
 # vi /etc/httpd/conf/httpd.conf  
-```  
+```
 Add the following lines in `httpd.conf`;
 ```
 <virtualhost *:80>
@@ -60,7 +60,7 @@ ScriptAlias /cgi-bin/ /var/www/html/example.com/cgi-bin/
 CustomLog logs/example.com_access_log combined
 ErrorLog logs/example.com_error_log
 </VirtualHost>
-```  
+```
 For AWStats subdomain, add the following in `httpd.conf`;
 ```
 <virtualhost *:80>
