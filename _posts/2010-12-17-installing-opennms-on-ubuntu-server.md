@@ -4,8 +4,13 @@ comments: false
 description: "Installing OpenNMS on Ubuntu Server"
 keywords: "opennms, install, ubuntu, postgresql"
 ---
+> Operating System: _Ubuntu_  
+> Web Server: _Apache_  
+> Database: _PostgreSQL_  
 
-#### Adding OpenNMS repository
+___
+
+#### A. Adding OpenNMS repository
 
 1. Add the repository from `/etc/apt/sources.list.d`;
 ```
@@ -29,15 +34,15 @@ Add OpenNMS PGP key;
 ___
 
 
-#### Installing and configuring OpenNMS
+#### B. Installing and configuring OpenNMS
 
-1. Install OpenNMS using OpenMNS repo;
+1. Install OpenNMS;
 ```
 # sudo apt-get install opennms
 ```
 It will install OpenNMS along with PostgreSQL database.
 
-2. Now edit `pg_hba.conf` to grant permission to postgres user to access the database without password;
+2. Edit `pg_hba.conf` to grant permission to `postgres` user to have access to the database without password;
 ```
 # cd /etc/postgresql/8.4/main/
 # nano pg_hba.conf
@@ -47,7 +52,8 @@ Add the following lines;
 local all all trust
 host all all 127.0.0.1/32 trust
 ```
-Now edit `postgresql.conf` to change the `listen_addresses`;
+
+3. Edit `postgresql.conf` to change the `listen_addresses`;
 ```
 # nano postgresql.conf
 ```
@@ -56,12 +62,13 @@ Add the following lines;
 listen_addresses = 'localhost'
 max_connections = 100
 ```
-Start postgresql database;
+
+4. Start PostgreSQL database;
 ```
 # /etc/init.d/postgresql restart
 ```
 
-3. Prepare OpenNMS database;
+5. Prepare OpenNMS database;
 ```
 # sudo -u postgres createdb -U postgres -E UNICODE opennms
 ```
@@ -72,7 +79,7 @@ Check if the database is working properly;
 
 ___
 
-#### Installing IPLIKE
+#### C. Installing IPLIKE
 
 1. Install IPLIKE as postgres user, to do so we need to create a postgres system account;
 ```
@@ -100,4 +107,4 @@ root@opennms:~# sudo service opennms start
 
 ___
 
-Browse to `http://localhost:8980/opennms/` and log in as `admin` using password `admin`.
+Browse to [http://localhost:8980/opennms/](http://localhost:8980/opennms/) and log in as `admin` using password `admin`.
