@@ -34,10 +34,9 @@ Proxy server address: 8.9.10.11 (if any, then use the Proxy server IP; otherwise
 2. Again from your phone, go to -  
 `Menu > Tools > Settings > Connection > Internet Tel. Settings` and choose the newly created SIP configuration (e.g. *VOIP_company_name*).
 
-3. After selecting the name, now choose the `SIP Profiles` and press `OK`.
+3. After selecting the name, choose the `SIP Profiles` and press `OK`.
 
 4. To check your SIP status, go to -  
 `Menu > Connect > Internet Tel. Registration Status`.  
-
 You should see the name in the list and it will show as `Not Registered`.  
 Press `OK` and soon your phone will registered with the Asterisk server.
