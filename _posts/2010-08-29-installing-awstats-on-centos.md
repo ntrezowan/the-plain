@@ -49,7 +49,7 @@ ___
 ```
 # vi /etc/httpd/conf/httpd.conf  
 ```
-Add the following lines in `httpd.conf`;
+Add the following lines in `httpd.conf`;  
 ```
 <virtualhost *:80>
 ServerAdmin admin@example.com
