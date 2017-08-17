@@ -197,4 +197,4 @@ To restore Cacti rrd data;
 
 ___
 
-Browse to [http://localhost/nagios](http://localhost/nagios) and log in as `admin` using password `admin`.
+Browse to [http://localhost/cacti](http://localhost/cacti) and log in as `admin` using password `admin`.
