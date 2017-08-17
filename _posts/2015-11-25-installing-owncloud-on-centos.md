@@ -178,7 +178,7 @@ access_log off;
 }
 ```
 
-13. Setup Nginx, MariaDB and php-fpm to start automatically and reboot the server;  
+13. Setup Nginx, MariaDB and php-fpm to start automatically at startup and reboot the server;  
 ```
 # systemctl enable nginx mariadb php-fpm
 # init 6
