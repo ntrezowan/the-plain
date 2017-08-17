@@ -181,7 +181,7 @@ ___
 
 To customize your OwnCloud footer text, change it to the following;  
 ```
-# nano  /usr/share/nginx/html/owncloud/lib/private/defaults.php
+# vi /usr/share/nginx/html/owncloud/lib/private/defaults.php
 [Sample output]
 function __construct() {
        $this->l = \OC::$server->getL10N('lib');
