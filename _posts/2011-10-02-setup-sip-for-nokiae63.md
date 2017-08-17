@@ -15,7 +15,6 @@ ___
     - `Menu > Tools > Settings > Connection > SIP Settings`.  
     - Choose `Options` and select `Add New`.  
     - Select `Use Default Profile`.  
-
 Here is a sample SIP profile;
 ```
 [Sample configuration]
