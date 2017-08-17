@@ -11,8 +11,12 @@ ___
 
 *__Steps:__*
 
-1. From your phone, go to;<br />
-`Menu > Tools > Settings > Connection > SIP Settings`. Then choose `Options` and select `Add New`. Now, select `Use Default Profile`. Here is a sample sip profile;
+1. From your phone, go to;  
+`Menu > Tools > Settings > Connection > SIP Settings`.  
+Choose `Options` and select `Add New`.  
+Now, select `Use Default Profile`.  
+
+Here is a sample sip profile;
 ```
 [Sample configuration]
 Change just the following settings in the profile while leaving all others as default;
