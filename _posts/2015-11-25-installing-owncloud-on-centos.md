@@ -4,18 +4,15 @@ comments: false
 description: "Installing OwnCloud on CentOS"
 keywords: "owncloud, install, centos, nginx, mariadb"
 ---
-Operating System: _CentOS-7 64-bit_  
-Web Server: _Nginx v1.8.0_  
-Database: _MariaDB v5.5.44_  
-PHP: _FastCGI-PM v5.4.16_  
-VM: _vSphere ESXi 5.5_  
-  
+> Operating System: _CentOS-7 64-bit_  
+> Web Server: _Nginx v1.8.0_  
+> Database: _MariaDB v5.5.44_  
+> PHP: _FastCGI-PM v5.4.16_  
+> VM: _vSphere ESXi 5.5_  
   
 ___
 
-*__Steps:__*
-
-1. Importing web server (nginx) repository;  
+1. Importing web server (Nginx) repository;  
 ```
 # yum -y install epel-release
 # rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
