@@ -178,12 +178,14 @@ To backup Cacti rrd data;
 ```
 
 **Restore Cacti database**
+
 To restore Cacti MySQL database;
 ```
 # mysql -p cacti < cacti.mysql
 ```
 
 **Restore Cacti RRD**
+
 To restore Cacti rrd data;
 ```
 # cd rra
