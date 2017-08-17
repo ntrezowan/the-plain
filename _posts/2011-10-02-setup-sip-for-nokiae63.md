@@ -16,19 +16,18 @@ ___
 Choose `Options` and select `Add New`.  
 Select `Use Default Profile`.  
 ```
-[Sample configuration]
-Change just the following settings in the profile while leaving all others as default;
+[Sample configuration - Change only the following settings in the profile while leaving others as default]
 Profile Name: VOIP_company_name
-Public Username: xxx@4.5.6.7 (xxx - IP phone extension; 4.5.6.7 - Asterisk server IP)
-Proxy Server: 8.9.10.11 (if any, then use the Proxy server IP; otherwise leave it blank)
+Public Username: xxx@4.5.6.7    <-  xxx - IP phone extension; 4.5.6.7 - Asterisk server IP)
+Proxy Server: 8.9.10.11         <-  if any, then use the Proxy server IP; otherwise leave it blank
 Realm: password
 Username: your_name
 Password: your_password
 Allow loose routing: Yes
 Transport Type: UDP
 Port: 5060
-Register Server: 4.5.6.7 (Asterisk server IP)
-Proxy server address: 8.9.10.11 (if any, then use the Proxy server IP; otherwise leave it blank)
+Register Server: 4.5.6.7        <-  Asterisk server IP
+Proxy server address: 8.9.10.11 <-  if any, then use the Proxy server IP; otherwise leave it blank)
 ```
 
 2. Again from your phone, go to -  
