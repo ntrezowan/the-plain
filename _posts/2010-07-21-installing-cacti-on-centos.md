@@ -4,6 +4,11 @@ comments: false
 description: "Installing Cacti on CentOS"
 keywords: "cacti, install, centos, apache, mysql"
 ---
+> Operating System: _CentOS_  
+> Web Server: _Apache_  
+> Database: _MySQL_  
+
+___
 
 #### A. Installing prerequisites
 
