@@ -12,10 +12,9 @@ This tutorial is to configure your Nokia E63 phone so that you can use it as a V
 ___
 
 1. From your phone, go to -  
-    - `Menu > Tools > Settings > Connection > SIP Settings`.  
-    - Choose `Options` and select `Add New`.  
-    - Select `Use Default Profile`.  
-
+`Menu > Tools > Settings > Connection > SIP Settings`.  
+Choose `Options` and select `Add New`.  
+Select `Use Default Profile`.  
 ```
 [Sample configuration]
 Change just the following settings in the profile while leaving all others as default;
