@@ -4,12 +4,20 @@ comments: false
 description: "Installing AWStats on CentOS"
 keywords: "awstats, install, centos, apache, mysql"
 ---
+> Operating System: _CentOS_  
+> Web Server: _Apache_  
+> Database: _MySQL_  
 
-1. Download [GeoIP](http://www.maxmind.com/app/geolitecountryhttp://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz) and [GeoLiteCity](http://www.maxmind.com/app/geolitecityhttp://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz) from maxmind.com and move it to `/tmp`
+___
 
-2. Install EPEL software repository, to download AWStats and install optional components for Geotracking;
+1. Install EPEL software repository, and then install AWStats;
 ```
+# yum install epel-release
 # yum install awstats
+```
+
+2. Download [GeoIP](http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz) and [GeoLiteCity](http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz) from maxmind.com and move it to `/tmp`
+```
 # mkdir /var/www/html/GeoIP
 # cd /var/www/html/GeoIP
 # mv /tmp/GeoIP.dat.gz GeoIP.dat.gz
