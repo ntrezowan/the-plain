@@ -22,10 +22,10 @@ PS > Suspend-SPEnterpriseSearchServiceApplication –Identity “Search Service 
 Go to `CA > General Application Settings > Farm Search Administration > Search Server Application` and now `Administrative Status` will show as `Paused: for external request`.
 
 4. Remove the web fronts from load balancer and install the update on the web fronts first. This way, if we encounter any issue after patching, it will not break any of the application servers. Reboot the web fronts if necessary.  
-After reboot, check if the updates are properly installed by going to `Control Panel > Program and Features > View Installed Updates`. Also, open CA from the web fronts to see if IIS is working or not. 
+After reboot, check if the updates are properly installed by going to `Control Panel > Program and Features > View Installed Updates`. Also, open CA from the web fronts to see if IIS is working or not
 
 5. Install the update in Application Servers and reboot if necessary.  
-After reboot, check if the updates are properly installed by going to `Control Panel > Program and Features > View Installed Updates`. Also, open CA from the application servers to see if IIS is working or not. 
+After reboot, check if the updates are properly installed by going to `Control Panel > Program and Features > View Installed Updates`. Also, open CA from the application servers to see if IIS is working or not 
 
 6. Remove `WSS_Logging` database from Availability Group if there are two SQL servers in a cluster with Always On Availability
 
@@ -35,16 +35,16 @@ You can also run Configuration Wizard from Management Shell using the following 
 PS > psconfig.exe -cmd helpcollections -installall -cmd secureresources -cmd services -install -cmd installfeatures -cmd applicationcontent -install -cmd upgrade -inplace b2b -force -wait
 ```
 
-8. Run Configuration Wizard in the web fronts and other application servers.
+8. Run Configuration Wizard in the web fronts and other application servers
 
 9. Run the following command to check `Configuration Database version`;  
 ```
 PS > (get-spfarm).buildversion
 ```
 
-10. Go to `CA > Upgrade and Migration > Check product and patch installation status` and verify the installed `Version` for each server in the farm.
+10. Go to `CA > Upgrade and Migration > Check product and patch installation status` and verify the installed `Version` for each server in the farm
 
-11. Go to `CA > Upgrade and Migration > Check Upgrade Status` and verify if all the servers in the farm shows as `Succeeded`.
+11. Go to `CA > Upgrade and Migration > Check Upgrade Status` and verify if all the servers in the farm shows as `Succeeded`
 
 12. Add `WSS_Logging` database to the Availability Group if there are two SQL servers in a cluster with Always On Availability
 
