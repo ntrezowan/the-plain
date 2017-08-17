@@ -4,7 +4,7 @@ comments: false
 description: "Installing SSL for Apache Tomcat using Java keytool"
 keywords: "ssl, certificate, install, java, keytool, windows, apache, tomcat"
 ---
-Default folder location for Java and Apache Tomcat are as below;    
+Path for Java and Apache Tomcat are as below;    
 Java Keytool location: `C:\Program Files\Java\jre\bin\`  
 Tomcat config location: `C:\Program Files\Apache Tomcat\conf\`  
 Tomcat keystore location: `C:\Program Files\Apache Tomcat\conf\SSL\`
@@ -13,7 +13,7 @@ ___
 
 #### A. Creating new keystore to install a new certificate
 
-1. Open CMD as admin and create new keystore (SHA-2) in the Tomcat keystore folder;  
+1. Open Command Prompt as Administrator and create new keystore (SHA-2) in the Tomcat keystore folder;  
 ```
 C:\Program Files\Apache Tomcat\conf\SSL\>C:\Program Files\Java\jre\bin\keytool -genkey -alias example.com -keyalg RSA -keystore keystore-example.com.jks -keysize 2048  
 Enter keystore password:
@@ -36,7 +36,7 @@ Enter key password for <example.com>
         (RETURN if same as keystore password):
 Re-enter new password:
 ```
-The password you have used here will be used every time you try to open/modify this newly created keystore file.
+The password that is used here will require every time we open/modify this newly created keystore file.
 
 2. Generate a new CSR for `example.com` domain;
 ```
@@ -58,7 +58,6 @@ Certificate was added to keystore
 C:\Program Files\Apache Tomcat\conf\SSL\>C:\Program Files\Java\jre\bin\keytool -list -v -alias intermediate -keystore keystore-example.com.jks
 ```
 
-
 6. Import site certificate (example.com) to the keystore;
 ```
 C:\Program Files\Apache Tomcat\conf\SSL\>C:\Program Files\Java\jre\bin\keytool -import -alias example.com -trustcacerts -file C:\Users\Administrator\Desktop\example.com.p7b -keystore keystore-example.com.jks
@@ -66,14 +65,12 @@ Enter keystore password:
 Certificate reply was installed in keystore
 ```
 
-
 7. Verify that site certificate is imported correctly;
 ```
 C:\Program Files\Apache Tomcat\conf\SSL\>C:\Program Files\Java\jre\bin\keytool -list -v -alias example.com -keystore keystore-example.com.jks
 ```
 
-
-8. Open `server.xml` file using Notepad located in `C:\Program Files\Apache Tomcat\conf\` and look for `keystoreFile` string. Modify it to the following;
+8. Open `server.xml` file located in `C:\Program Files\Apache Tomcat\conf\` using Notepad and look for `keystoreFile` string. Modify it to the following;
 ```
 keystoreFile="conf/SSL/keystore-example.com.jks"
 ```
@@ -93,7 +90,7 @@ C:\Program Files\Apache Tomcat\conf\SSL\>C:\Program Files\Java\jre\bin\keytool -
 ```
 Also take a backup of the `keystore-example.com.jks` keystore file.
 
-2. Renew the certificate from the same CA and save it as `example.com.p7b` format. Copy the file to `C:\Users\Administrator\Desktop\` folder in the server;
+2. Obtain the renewed certificate from CA and save it as `example.com.p7b` format. Copy the file to `C:\Users\Administrator\Desktop\` folder in the server;
 ```
 C:\Program Files\Apache Tomcat\conf\SSL\>C:\Program Files\Java\jre\bin\keytool -import -alias example.com -trustcacerts -file C:\Users\Administrator\Desktop\example.com.p7b -keystore keystore-example.com.jks
 Enter keystore password:
@@ -106,6 +103,7 @@ C:\Program Files\Apache Tomcat\conf\SSL\>C:\Program Files\Java\jre\bin\keytool -
 ```
 
 4. Restart Apache Tomcat service from Windows Services.
+
 5. Verify the changes by visiting hosted site's certificate.
 
 ___
@@ -114,9 +112,9 @@ ___
 #### C. Installing root certificate
 
 
-Obtain the root certificate from the CA and then we need to import it to the `cacerts` keystore file located in `C:\Program Files\Java\jre\lib\security\` folder.
+1. Obtain the root certificate from CA and then import it to the `cacerts` keystore file located in `C:\Program Files\Java\jre\lib\security\` folder.
 
-1. To install a root CA certificate, obtain the root certificate and save it as root.cer. Copy the file to `C:\Users\Administrator\Desktop\` folder in the server. Run the following command to import the certificate;
+1. To install a root CA certificate, copy the root certificate to `C:\Users\Administrator\Desktop\` folder and save as `root.cer`. Run the following command to import the certificate;
 ```
 C:\Program Files\Java\jre\lib\security\>C:\Program Files\Java\jre\bin\keytool -import -trustcacerts -alias rootca -file C:\Users\Administrator\Desktop\root.cer -keystore cacerts
 Enter keystore password:
