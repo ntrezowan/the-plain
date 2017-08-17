@@ -4,7 +4,7 @@ comments: false
 description: "Installing OpenNMS on Ubuntu Server"
 keywords: "opennms, install, ubuntu, postgresql"
 ---
-> Operating System: _Ubuntu_  
+> Operating System: _Ubuntu Server_  
 > Web Server: _Apache_  
 > Database: _PostgreSQL_  
 
