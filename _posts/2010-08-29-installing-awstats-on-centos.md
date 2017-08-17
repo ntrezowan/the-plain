@@ -132,4 +132,4 @@ Now, set permission and restart crond;
 
 ___
 
-Browse to `http://stats.example.com/cgi-bin/awstats.pl` to see site stats for  `example.com`.
+Browse to [http://stats.example.com/cgi-bin/awstats.pl](http://stats.example.com/cgi-bin/awstats.pl) to see site stats for  `example.com`.
