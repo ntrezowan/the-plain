@@ -40,7 +40,7 @@ ___
 # mysql -u root –p
 ```
 
-5. Configure php-fpm and add permission for web server in php-fpm. Start php-fpm and Nginx daemon;  
+5. Configure php-fpm;  
 ```
 # nano /etc/php-fpm.d/www.conf
 ```
@@ -64,16 +64,25 @@ php_admin_flag[log_errors] = on
 php_value[session.save_handler] = files
 php_value[session.save_path] = /var/lib/php/session
 ```
+
+6. Add permission for the web server in php-fpm;
 ```
 # mkdir -p /var/lib/php/session
 # chown nginx:nginx -R /var/lib/php/session/
+```
+7. Start php-fpm and Nginx daemon;
+```
 # systemctl start php-fpm
 # systemctl start nginx
-# printenv PATH
-The printenv PATH output is required to verify if php-fpm can have access to all the env[PATH]. If "env[PATH]" and "printenv PATH" are different, then define those paths.
 ```
 
-6. Create self-signed SSL certification with default configuration;  
+8. Verify if php-fpm can access environment path;
+```
+# printenv PATH
+```
+The printenv PATH output is required to verify if php-fpm can have access to all the env[PATH]. If "env[PATH]" and "printenv PATH" are different, then define those paths.
+
+9. Create self-signed SSL certification with default configuration;  
 ```
 # mkdir -p /etc/nginx/cert/
 # cd /etc/nginx/cert/
@@ -86,7 +95,7 @@ The printenv PATH output is required to verify if php-fpm can have access to all
 This crt/key is only valid for one year.
 ```
 
-7. Download OwnCloud [source](https://github.com/owncloud), extracting the tar.bz2 in `/tmp` and then move it into Nginx html folder;  
+10. Download OwnCloud [source](https://github.com/owncloud), extracting the tar.bz2 in `/tmp` and then move it into Nginx html folder;  
 ```
 # cd /tmp/
 # wget https://download.owncloud.org/community/owncloud-8.2.1.tar.bz2
@@ -96,13 +105,13 @@ This crt/key is only valid for one year.
 # chown nginx:nginx -R owncloud/
 ```
 
-8. Create `data` folder where OwnCloud will store all the user files;  
+11. Create `data` folder where OwnCloud will store all the user files;  
 ```
 # mkdir -p owncloud/data/
 # chown nginx:nginx -R owncloud/data/
 ```
 
-9. Edit Nginx configuration so that it only accepts HTTPS connection;  
+12. Edit Nginx configuration so that it only accepts HTTPS connection;  
 ```
 # cd /etc/nginx/conf.d/
 # mv default.conf default
@@ -169,7 +178,7 @@ access_log off;
 }
 ```
 
-10. Setup Nginx, MariaDB and php-fpm to start automatically and reboot the server;  
+13. Setup Nginx, MariaDB and php-fpm to start automatically and reboot the server;  
 ```
 # systemctl enable nginx mariadb php-fpm
 # init 6
