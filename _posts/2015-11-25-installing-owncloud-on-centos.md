@@ -12,18 +12,18 @@ keywords: "owncloud, install, centos, nginx, mariadb"
   
 ___
 
-1. Importing web server (Nginx) repository;  
+1. Import web server (Nginx) repository;  
 ```
 # yum -y install epel-release
 # rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
 ```
 
-2. Installing web server, database and other dependencies;  
+2. Install web server, database and other dependencies;  
 ```
 # yum -y install nginx mariadb mariadb-server php-fpm php-cli php-gd php-mcrypt php-mysql php-pear php-xml bzip2
 ```
 
-3. SELINUX is enabled by default, so creating rules for HTTP/HTTPS traffic in both iptables and SELINUX;  
+3. SELINUX is enabled by default, so create iptables and SELINUX rule to allow HTTP/HTTPS traffic;  
 ```
 # iptables -I INPUT -p tcp --dport 80 -j ACCEPT
 # iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
@@ -32,7 +32,7 @@ ___
 # firewall-cmd –reload
 ```
 
-4. Starting MariaDB, removing default configuration and setting root password;  
+4. Start MariaDB, remove default configuration and set the root password;  
 ```
 # systemctl start mariadb
 # mysql_secure_installation
@@ -40,7 +40,7 @@ ___
 # mysql -u root –p
 ```
 
-5. Configuring php-fpm, adding permission for web server in php-fpm and starting these processes;  
+5. Configure php-fpm and add permission for web server in php-fpm. Start php-fpm and Nginx daemon;  
 ```
 # nano /etc/php-fpm.d/www.conf
 [Sample configuration]
@@ -69,7 +69,7 @@ php_value[session.save_path] = /var/lib/php/session
 The printenv PATH output is required to verify if php-fpm can have access to all the env[PATH]. If "env[PATH]" and "printenv PATH" are different, then define those paths.
 ```
 
-6. Creating SSL certification for the server with default configuration;  
+6. Create self-signed SSL certification with default configuration;  
 ```
 # mkdir -p /etc/nginx/cert/
 # cd /etc/nginx/cert/
@@ -82,7 +82,7 @@ The printenv PATH output is required to verify if php-fpm can have access to all
 This crt/key is only valid for one year.
 ```
 
-7. Downloading OwnCloud source, extracting the tar.bz2 in /tmp and then moving it to Nginx html folder;  
+7. Download OwnCloud [source](https://github.com/owncloud), extracting the tar.bz2 in `/tmp` and then move it into Nginx html folder;  
 ```
 # cd /tmp/
 # wget https://download.owncloud.org/community/owncloud-8.2.1.tar.bz2
@@ -92,13 +92,13 @@ This crt/key is only valid for one year.
 # chown nginx:nginx -R owncloud/
 ```
 
-8. Creating 'data' folder where OwnCloud will store all the user files;  
+8. Create `data` folder where OwnCloud will store all the user files;  
 ```
 # mkdir -p owncloud/data/
 # chown nginx:nginx -R owncloud/data/
 ```
 
-9. Editing Nginx configuration so that it forces user to use HTTPS connection;  
+9. Edit Nginx configuration so that it only accepts HTTPS connection;  
 ```
 # cd /etc/nginx/conf.d/
 # mv default.conf default
@@ -165,18 +165,21 @@ access_log off;
 }
 ```
 
-10. Setting Nginx, MariaDB and php-fpm at startup and finally rebooting the system;  
+10. Setup Nginx, MariaDB and php-fpm to start automatically and reboot the server;  
 ```
 # systemctl enable nginx mariadb php-fpm
+# init 6
 ```
-
-Now browse to https://your_IP/ and log in as `admin` using password `admin`.
 
 ___
 
-**NOTES:**
+Browse to [https://your_IP/](https://your_IP/) and log in as `admin` using password `admin`.
 
-To customize your OwnCloud footer text, change the bold letters from the file below;  
+___
+
+**Customize OwnCloud Footer**
+
+To customize your OwnCloud footer text, change it to the following;  
 ```
 # nano  /usr/share/nginx/html/owncloud/lib/private/defaults.php
 [Sample output]
@@ -193,7 +196,7 @@ function __construct() {
        $this->defaultAndroidClientUrl = 'https://play.google.com/store/apps/details?id=com.owncloud.android';
        $this->defaultDocBaseUrl = 'https://doc.owncloud.org';
        $this->defaultDocVersion = $version[0] . '.' . $version[1]; // used to generate doc links
-       $this->defaultSlogan = $this->l->t('Florida State University');
+       $this->defaultSlogan = $this->l->t('your_company_name');
        $this->defaultLogoClaim = '';
        $this->defaultMailHeaderColor = '#1d2d44'; /* header color of mail notifications */
 ```
