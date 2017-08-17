@@ -11,7 +11,7 @@ ___
 
 *__Steps:__*
 
-1. From your phone, go to;  
+1. From your phone, go to -  
 `Menu > Tools > Settings > Connection > SIP Settings`.  
 Choose `Options` and select `Add New`.  
 Now, select `Use Default Profile`.  
