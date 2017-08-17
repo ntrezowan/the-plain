@@ -26,23 +26,23 @@ ___
 # gunzip GeoLiteCity.dat.gz
 ```
 
-3. Edit default AWStats config;
+3. Edit AWStats config;
 ```
 # cd /etc/awstats
 # cp awstats.model.conf awstats.model.conf.orig
-# cp awstats.model.conf.orig awstats.stats.xyz.com.conf
+# cp awstats.model.conf.orig awstats.stats.example.com.conf
 ```
 
-3. Now a create directories for the new subdomain `stats.xyz.com`;
+3. Create directories for new subdomain `stats.example.com`;
 ```
-# mkdir /var/www/html/stats.xyz.com
-# mkdir /var/www/html/stats.xyz.com/cgi-bin
+# mkdir /var/www/html/stats.example.com
+# mkdir /var/www/html/stats.example.com/cgi-bin
 ```
 
-4. Copy the AWStats program files to newly created `stats.xyz.com/cgi-bin` directory;
+4. Copy AWStats files to newly created `stats.example.com/cgi-bin` directory;
 ```
 # cd /usr/share/awstats/wwwroot/
-# cp -R * /var/www/html/stats.xyz.com/
+# cp -R * /var/www/html/stats.example.com/
 ```
 
 5. Open Apache configuration file and add an entry for this new subdomain;
@@ -52,13 +52,13 @@ ___
 Add the following lines in `httpd.conf`;
 ```
 <virtualhost *:80>
-ServerAdmin admin@xyz.com
-ServerName xyz.com
-ServerAlias www.xyz.com
-DocumentRoot /var/www/html/xyz.com
-ScriptAlias /cgi-bin/ /var/www/html/xyz.com/cgi-bin/
-CustomLog logs/xyz.com_access_log combined
-ErrorLog logs/xyz.com_error_log
+ServerAdmin admin@example.com
+ServerName example.com
+ServerAlias www.example.com
+DocumentRoot /var/www/html/example.com
+ScriptAlias /cgi-bin/ /var/www/html/example.com/cgi-bin/
+CustomLog logs/example.com_access_log combined
+ErrorLog logs/example.com_error_log
 </VirtualHost>
 ```
 For AWStats subdomain, add the following in `httpd.conf`;
