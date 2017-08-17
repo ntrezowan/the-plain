@@ -72,7 +72,8 @@ max_connections = 100
 ```
 # sudo -u postgres createdb -U postgres -E UNICODE opennms
 ```
-Check if the database is working properly;
+
+6. Check if the database is working properly;
 ```
 # psql -U postgres --host=localhost opennms
 ```
