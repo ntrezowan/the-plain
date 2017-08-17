@@ -2,10 +2,10 @@
 title: "Digging into NSLOOKUP"
 comments: false
 description: "Digging into NSLOOKUP"
-keywords: "nslookup, example, a-record, ns-record, mx-record, srv, dns query"
+keywords: "nslookup, example, a-record, ns-record, mx-record, srv, dns query, windows"
 ---
 
-1. A-record - This record outputs the IP address of a domain (e.g. google.com). It also tells which DNS server is doing the forward lookup and in this example, it's cdns01.comcast.net;  
+1. A-record - This record outputs the IP address of a domain (e.g. google.com). It also shows which DNS server is doing the forward lookup and in this example, it's `cdns01.comcast.net`;  
 ```
 PS > nslookup -querytype=a google.com
 Server:  cdns01.comcast.net
@@ -36,7 +36,7 @@ ns3.google.com  internet address = 216.239.36.10
 ns2.google.com  internet address = 216.239.34.10
 ```
 
-3. MX-record - This record output all the mail servers information of a domain (e.g. google.com);  
+3. MX-record - This record outputs all the mail server information of a domain (e.g. google.com);  
 ```
 PS > nslookup -querytype=mx google.com
 Server:  cdns01.comcast.net
@@ -68,7 +68,7 @@ google.com
         default TTL = 60 (1 min)
 ```
 
-5. To specify a particular DNS (e.g. OpenDNS) to resolve a domain name (e.g. google.com) instead of my DNS;  
+5. To specify a particular DNS (e.g. OpenDNS) to resolve a domain name (e.g. google.com) instead of own ISP DNS;  
 ```
 PS > nslookup google.com 208.67.222.222
 Server:  cdns01.comcast.net
@@ -83,7 +83,7 @@ Addresses:  74.125.196.102
           74.125.196.139
 ```
 
-6. We can specify a port for a DNS query;  
+6. To specify a port for a DNS query;  
 ```
 PS > nslookup -port 67 google.com
 Server:  cdns01.comcast.net
@@ -98,7 +98,7 @@ Addresses:  74.125.196.102
           74.125.196.139
 ```
 
-7. We can enable debugging which will show all the packets exchange information while resolving a DNS record;  
+7. Debugging will show all the packet exchanged while resolving a DNS record;  
 ```
 PS > nslookup
 Default Server:  cdns01.comcast.net
