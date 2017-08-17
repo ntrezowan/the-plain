@@ -1,7 +1,7 @@
 ---
-title: "Installing SSL for Apache Tomcat using Java keytool"
+title: "Installing SSL for Apache Tomcat using Java keytool on Windows Server"
 comments: false
-description: "Installing SSL for Apache Tomcat using Java keytool"
+description: "Installing SSL for Apache Tomcat using Java keytool on Windows Server"
 keywords: "ssl, certificate, install, java, keytool, windows, apache, tomcat"
 ---
 Path for Java and Apache Tomcat are as below;    
