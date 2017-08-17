@@ -61,19 +61,19 @@ CustomLog logs/example.com_access_log combined
 ErrorLog logs/example.com_error_log
 </VirtualHost>
 ```
-For AWStats subdomain, add the following in `httpd.conf`;
+For AWStats subdomain, add the following in `httpd.conf`;  
 ```
 <virtualhost *:80>
-ServerAdmin admin.awstats@xyz.com
-ServerName stats.xyz.com
-DocumentRoot /var/www/html/stats.xyz.com
-ScriptAlias /cgi-bin/ /var/www/html/stats.xyz.com/cgi-bin/
-CustomLog logs/xyz.com.stats_access_log combined
-ErrorLog logs/xyz.com.stats_error_log
-Alias /classes "/var/www/html/stats.xyz.com/classes/"
-Alias /css "/var/www/html/stats.xyz.com/css/"
-Alias /icon "/var/www/html/stats.xyz.com/icon/"
-ScriptAlias /awstats/ "/var/www/html/stats.xyz.com/cgi-bin/"
+ServerAdmin admin.awstats@example.com
+ServerName stats.example.com
+DocumentRoot /var/www/html/stats.example.com
+ScriptAlias /cgi-bin/ /var/www/html/stats.example.com/cgi-bin/
+CustomLog logs/example.com.stats_access_log combined
+ErrorLog logs/example.com.stats_error_log
+Alias /classes "/var/www/html/stats.example.com/classes/"
+Alias /css "/var/www/html/stats.example.com/css/"
+Alias /icon "/var/www/html/stats.example.com/icon/"
+ScriptAlias /awstats/ "/var/www/html/stats.example.com/cgi-bin/"
 </VirtualHost>
 ```
 
@@ -83,7 +83,7 @@ ScriptAlias /awstats/ "/var/www/html/stats.xyz.com/cgi-bin/"
 ```
 Add the following lines;
 ```
-<Directory "/var/www/html/stats.xyz.com">
+<Directory "/var/www/html/stats.example.com">
 DirectoryIndex awstats.pl
 Options ExecCGI
 Options FollowSymLinks
@@ -93,16 +93,16 @@ Order allow,deny
 Allow from all
 ```
 
-7. Now edit the `awstats.stats.xyz.com.conf` and add the following lines;
+7. Now edit the `awstats.stats.example.com.conf` and add the following lines;
 ```
-# vi /etc/awstats/awstats.stats.xyz.com.conf
+# vi /etc/awstats/awstats.stats.example.com.conf
 ```
 Add/edit the following lines;
 ```
-LogFile="/var/log/httpd/xyz.com_access_log"
-SiteDomain="stats.xyz.com"
-HostAliases="stats.xyz.com"
-DirData="/var/www/html/stats.xyz.com/"
+LogFile="/var/log/httpd/example.com_access_log"
+SiteDomain="stats.example.com"
+HostAliases="stats.example.com"
+DirData="/var/www/html/stats.example.com/"
 LoadPlugin="geoip GEOIP_STANDARD /var/www/html/GeoIP/GeoIP.dat"
 LoadPlugin="geoip_city_maxmind GEOIP_STANDARD /var/www/html/GeoIP/GeoLiteCity.dat"
 ```
@@ -114,7 +114,7 @@ LoadPlugin="geoip_city_maxmind GEOIP_STANDARD /var/www/html/GeoIP/GeoLiteCity.da
 
 9. Run AWStats perl script to automatically update stats;
 ```
-# perl /var/www/html/stats.xyz.com/cgi-bin/awstats.pl -config=stats.xyz.com -update
+# perl /var/www/html/stats.example.com/cgi-bin/awstats.pl -config=stats.example.com -update
 ```
 
 10. To update AWStats automatically every hour, create a cronjob;
@@ -123,7 +123,7 @@ LoadPlugin="geoip_city_maxmind GEOIP_STANDARD /var/www/html/GeoIP/GeoLiteCity.da
 ```
 Add the following line;
 ```
-perl /var/www/html/stats.xyz.com/cgi-bin/awstats.pl -config=stats.xyz.com -update > /dev/null 2>&1
+perl /var/www/html/stats.example.com/cgi-bin/awstats.pl -config=stats.example.com -update > /dev/null 2>&1
 ```
 Now, set permission and restart crond;
 ```
@@ -132,4 +132,4 @@ Now, set permission and restart crond;
 
 ___
 
-Browse to `http://stats.xyz.com/cgi-bin/awstats.pl` to see site stats for  `xyz.com`.
+Browse to `http://stats.example.com/cgi-bin/awstats.pl` to see site stats for  `example.com`.
