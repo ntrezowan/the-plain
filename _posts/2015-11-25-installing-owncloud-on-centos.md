@@ -43,7 +43,9 @@ ___
 5. Configure php-fpm and add permission for web server in php-fpm. Start php-fpm and Nginx daemon;  
 ```
 # nano /etc/php-fpm.d/www.conf
+```
 [Sample configuration]
+```
 # grep -v "^;" /etc/php-fpm.d/www.conf | grep -v "^$"
 [www]
 listen = 127.0.0.1:9000
@@ -61,6 +63,8 @@ php_admin_value[error_log] = /var/log/php-fpm/www-error.log
 php_admin_flag[log_errors] = on
 php_value[session.save_handler] = files
 php_value[session.save_path] = /var/lib/php/session
+```
+```
 # mkdir -p /var/lib/php/session
 # chown nginx:nginx -R /var/lib/php/session/
 # systemctl start php-fpm
