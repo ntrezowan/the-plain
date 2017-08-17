@@ -81,7 +81,7 @@ ___
 
 #### C. Installing IPLIKE
 
-1. Install IPLIKE as postgres user, to do so we need to create a postgres system account;
+1. Install IPLIKE as `postgres` user, to do so we need to create a postgres system account;
 ```
 # useradd postgres
 # sudo -u postgres
@@ -102,7 +102,7 @@ ___
 
 4. Start OpenNMS;
 ```
-root@opennms:~# sudo service opennms start
+# sudo service opennms start
 ```
 
 ___
