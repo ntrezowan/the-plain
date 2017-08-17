@@ -1,3 +1,23 @@
+__Servers:__  
+
+
+App1  <- Application Server  
+App2  <- Application Server  
+Web1  <- Web front Server  
+Web2  <- Web front Server 
+
+This configuration where we have two application servers, two web front servers and two SQL servers. Both applications servers will have Admin, Crawl, Content Processing, Indexing, Query Processing and Analytics and both web front servers will have Query Processing and Indexing
+
+| Hostname | Role        | Component |
+|----------|-------------|-----------|
+| App1     | Application | Admin, Crawl, Content Processing, Indexing, Query Processing, Analytics |
+| App2     | Application | Admin, Crawl, Content Processing, Indexing, Query Processing, Analytics |
+| Web1     | Web Front   | Indexing, Query Processing | 
+| Web2     | Web Front   | Indexing, Query Processing |
+
+
+___
+
 1. Save Search Service Application into a variable;
 ```
 $ssa = Get-SPEnterpriseSearchServiceApplication
@@ -27,14 +47,9 @@ Get-SPEnterpriseSearchServiceInstance -Identity $hostC
 Get-SPEnterpriseSearchServiceInstance -Identity $hostD
 ```
 
-5. If it is a new Search Service Application and no topology exist, then run the following command to create a new topology;
+5. Since it is a new Search Service Application, run the following command to create a new topology;
 ```
 $newTopology = New-SPEnterpriseSearchTopology -SearchApplication $ssa
-```
-
-6. If we have an exisitng topology, then clone it. Search service can have multiple topology but only one can be active a time. We will activate our current topology later;
-```
-$clone = $ssa.ActiveTopology.Clone()
 ```
 
 7. Configure `App1` and `App2` to have Admin, Crawl, Content Processing, Indexing, Query Processing and Analytics;
@@ -75,4 +90,25 @@ Set-SPEnterpriseSearchTopology -Identity $newTopology
 Get-SPEnterpriseSearchTopology -SearchApplication $ssa
 ```
 
+11. Check the status of the index components;
+```
+Get-SPEnterpriseSearchStatus -SearchApplication $ssa -Text
+```
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+6. If we have an exisitng topology, then clone it. Search service can have multiple topology but only one can be active a time. We will activate our current topology later;
+```
+$clone = $ssa.ActiveTopology.Clone()
+```
