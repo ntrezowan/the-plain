@@ -33,19 +33,19 @@ ___
 # cp awstats.model.conf.orig awstats.stats.example.com.conf
 ```
 
-3. Create directories for new subdomain `stats.example.com`;
+4. Create directories for new subdomain `stats.example.com`;
 ```
 # mkdir /var/www/html/stats.example.com
 # mkdir /var/www/html/stats.example.com/cgi-bin
 ```
 
-4. Copy AWStats files to newly created `stats.example.com/cgi-bin` directory;
+5. Copy AWStats files to newly created `stats.example.com/cgi-bin` directory;
 ```
 # cd /usr/share/awstats/wwwroot/
 # cp -R * /var/www/html/stats.example.com/
 ```
 
-5. Open Apache configuration file and add an entry for this new subdomain;
+6. Open Apache configuration file and add an entry for this new subdomain;
 ```
 # vi /etc/httpd/conf/httpd.conf  
 ```
@@ -77,7 +77,7 @@ ScriptAlias /awstats/ "/var/www/html/stats.example.com/cgi-bin/"
 </VirtualHost>
 ```
 
-6. Next, edit `/etc/httpd/conf.d/awstats.conf` to include directory path for new subdomain;
+7. Next, edit `/etc/httpd/conf.d/awstats.conf` to include directory path for new subdomain;
 ```
 # vi /etc/httpd/conf.d/awstats.conf
 ```
@@ -93,7 +93,7 @@ Order allow,deny
 Allow from all
 ```
 
-7. Now edit the `awstats.stats.example.com.conf` and add the following lines;
+8. Now edit the `awstats.stats.example.com.conf` and add the following lines;
 ```
 # vi /etc/awstats/awstats.stats.example.com.conf
 ```
@@ -107,17 +107,17 @@ LoadPlugin="geoip GEOIP_STANDARD /var/www/html/GeoIP/GeoIP.dat"
 LoadPlugin="geoip_city_maxmind GEOIP_STANDARD /var/www/html/GeoIP/GeoLiteCity.dat"
 ```
 
-8. Restart Apache web server;
+9. Restart Apache web server;
 ```
 # service httpd restart
 ```
 
-9. Run AWStats perl script to automatically update stats;
+10. Run AWStats perl script to automatically update stats;
 ```
 # perl /var/www/html/stats.example.com/cgi-bin/awstats.pl -config=stats.example.com -update
 ```
 
-10. To update AWStats automatically every hour, create a cronjob;
+11. To update AWStats automatically every hour, create a cronjob;
 ```
 # cd /etc/cron.hourly && vi 01awstats
 ```
