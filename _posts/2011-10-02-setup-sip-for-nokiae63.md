@@ -6,7 +6,7 @@ description: "Setup SIP for Nokia E63"
 keywords: "sip, setup, configure, nokia, e63, voip"
 ---
 This tutorial is to configure your Nokia E63 phone so that you can use it as a VOIP phone in your corporate office's IP telephony system.
-> PBX: _Asterisk_  
+> VoIP: _Asterisk_  
 > Hardware: _Nokia E63_    
 
 ___
