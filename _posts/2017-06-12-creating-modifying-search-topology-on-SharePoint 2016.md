@@ -140,6 +140,7 @@ Get-SPEnterpriseSearchServiceApplication | Get-SPEnterpriseSearchTopology |? {$_
 ___
 
 **Changing Index path**
+
 Default index location is at `C:\Program Files\Microsoft Office Servers\16.0\Data\Office Server\Applications` which may create issue since it's reading/writing to a slow I/O hard disk. To change the location and move it to a flash drive, run the following command;
 ```
 New-SPEnterpriseSearchIndexComponent -SearchTopology $clone -SearchServiceInstance $ssa -IndexPartition 0 -RootDirectory Z:\FlashDrive\Index\0
