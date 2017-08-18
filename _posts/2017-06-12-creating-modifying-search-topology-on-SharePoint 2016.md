@@ -20,8 +20,8 @@ __Farm__
 1. Create a new Search application `Search Service Application` with database name `SharePoint_Search`; 
 ```
 $ssa = New-SPEnterpriseSearchServiceApplication -Name "Search Service Application" -DatabaseName "SharePoint_Search" -ApplicationPool "Search Service AppPool" -AdminApplicationPool "Search Service AdminAppPool"
-
 ```
+
 2. Create a new proxy for Search application `Search Service Application Proxy`; 
 ```
 New-SPEnterpriseSearchServiceApplicationProxy -Name "Search Service Application Proxy" -SearchApplication $ssa
