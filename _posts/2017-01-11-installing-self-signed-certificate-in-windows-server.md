@@ -43,5 +43,5 @@ published: true
 12. Select Type `HTTPS` and click Edit;  
 ![Figure 12](http://ntrezowan.github.com/images/self-signed-12.png)
 
-13. Type the domain name as Host name, choose the new SSL certificate and click Ok. You can also view the certificate for verification by clicking View;  
+13. Type the domain name as Host name/Host header, choose the new SSL certificate and click OK. You can also verify the certificate by clicking View;  
 ![Figure 13](http://ntrezowan.github.com/images/self-signed-13.png)
