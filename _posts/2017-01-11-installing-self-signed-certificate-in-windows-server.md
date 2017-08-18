@@ -8,9 +8,9 @@ published: true
 
 1. Open IIS from the server you want to install the certificate and click on Server Certification;
 
-![Figure 1](http://ntrezowan.github.com/images/self-signed-1.png)
+![Figure 1a](http://ntrezowan.github.com/images/self-signed-1.png)
 
-![self-signed-1](self-signed-1.png)
+![Figure 1b](http://ntrezowan.github.com/images/self-signed-2.png)
 
 2. Click on `Create Self-Signed Certificate`;  
 
