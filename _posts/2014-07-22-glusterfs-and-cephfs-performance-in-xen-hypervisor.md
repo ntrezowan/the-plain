@@ -158,11 +158,11 @@ ___
 
 # C. Installing and configuring GlusterFS
 
-*gfs1 – Admin node + Gluster node 1*  
-*gfs2 – Gluster node 2 (Monitor daemon, Object storage)*  
-*gfs3 – Gluster node 3 (Monitor daemon, Object storage)*  
-*client1 – CentOS*  
-*client2 – Ubuntu* 
+> *gfs1 – Admin node + Gluster node 1*  
+> *gfs2 – Gluster node 2 (Monitor daemon, Object storage)*  
+> *gfs3 – Gluster node 3 (Monitor daemon, Object storage)*  
+> *client1 – CentOS*  
+> *client2 – Ubuntu* 
 
 ### 3.1 Install GlusterFS on the storage servers
 
@@ -594,11 +594,11 @@ ___
 
 # D. Installing and configuring CephFS
 
-*ceph1 – Admin node*  
-*ceph2 – Ceph node 1 (Monitor daemon, Object storage)*  
-*ceph3 – Ceph node 2 (Monitor daemon, Object storage)*  
-*client1 – CentOS*  
-*client2 – Ubuntu*  
+> *ceph1 – Admin node*  
+> *ceph2 – Ceph node 1 (Monitor daemon, Object storage)*  
+> *ceph3 – Ceph node 2 (Monitor daemon, Object storage)*  
+> *client1 – CentOS*  
+> *client2 – Ubuntu*  
 
 ## 4.1 Install CephFS on the storage servers
 
