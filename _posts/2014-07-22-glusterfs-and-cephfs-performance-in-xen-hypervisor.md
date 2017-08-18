@@ -898,23 +898,23 @@ We cannot completely rely on testing `1GB-dist.img` because iozone start buffere
 
 In this experiment, we are using the Gluster file system distributed volume which is mounted in the client machine and this directory has used to create dummy files (for example iozone.DUMMY.1, iozone.DUMMY.2 etc) for I/O benchmarking. We have used different file block size (512K, 1024K, 2048K) and different file size (1GB, 4GB, 8GB, 10GB) to get more diverse results. All the testing is run in throughput mode with 4 threads/process and we have taken the average throughput per process. In Figure-1 and Figure-2 we have seen that, file operations such as Write, Read, Re-write, Re-read, Random Write are better in Client1 than Client2 where Random read operation is still bad on both machines. Also note to mention that Client2 works better on Write and Re-write operation than other file operations. In Random read operation, the bigger the file block size, the performance gets better. 
 
-*Figure 1*
+*GlusterFS CentOS Client*
 
-![Figure 1](http://ntrezowan.github.com/images/gfs1-iozone.jpg)
+![GlusterFS CentOS Client](http://ntrezowan.github.com/images/gfs1-iozone.jpg)
 
-*Figure 2*
+*GlusterFS Ubuntu Client*
 
-![Figure 2](http://ntrezowan.github.com/images/gfs2-iozone.jpg)
+![GlusterFS Ubuntu Client](http://ntrezowan.github.com/images/gfs2-iozone.jpg)
 
 ### 6.1.2 iozone performance in CephFS
  
-*Figure 1*
+*CephFS CentOS Client*
 
-![Figure 1](http://ntrezowan.github.com/images/cfs1-iozone.jpg)
+![Ceph CentOS Client](http://ntrezowan.github.com/images/cfs1-iozone.jpg)
 
-*Figure 2*
+*CephFS Ubuntu Client*
 
-![Figure 2](http://ntrezowan.github.com/images/cfs2-iozone.jpg)
+![Ceph Ubuntu Client](http://ntrezowan.github.com/images/cfs2-iozone.jpg)
 
 ## 6.2 dd
 
@@ -1012,9 +1012,9 @@ In this experiment, we are using the Gluster file system distributed volume whic
 
 ### 6.2.3 dd Performance for GlusterFS and CephFS
 
-*Figure 1*
+*dd performance*
 
-![Figure 1](http://ntrezowan.github.com/images/dd.jpg)
+![dd performance](http://ntrezowan.github.com/images/dd.jpg)
 
 ___
 
