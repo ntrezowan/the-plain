@@ -5,8 +5,6 @@ description: "Creating/Modifying Search Topology on SharePoint 2016"
 keywords: "sharepoint, 2016, search, topology, create, modify, multiple, search, servers"
 ---
 
-#### A. Configuring a new Search Topology
-
 | Hostname | Role        | Components                                                              |
 |----------|-------------|-------------------------------------------------------------------------|
 | App1     | Application | Admin, Crawl, Content Processing, Indexing, Query Processing, Analytics |
@@ -14,6 +12,7 @@ keywords: "sharepoint, 2016, search, topology, create, modify, multiple, search,
 | Web1     | Web Front   | Indexing, Query Processing                                              |
 | Web2     | Web Front   | Indexing, Query Processing                                              |
 
+#### A. Configuring a new Search Topology
 
 1. Create a new Search application `Search Service Application` with database name `SharePoint_Search`; 
 ```
