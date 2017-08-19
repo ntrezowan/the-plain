@@ -5,8 +5,6 @@ description: "Creating/Modifying Search Topology on SharePoint 2016"
 keywords: "sharepoint, 2016, search, topology, create, modify, multiple, search, servers"
 ---
 
-__Farm__
-
 | Hostname | Role        | Components                                                              |
 |----------|-------------|-------------------------------------------------------------------------|
 | App1     | Application | Admin, Crawl, Content Processing, Indexing, Query Processing, Analytics |
