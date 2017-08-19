@@ -45,9 +45,9 @@ ___
 # cp -R * /var/www/html/stats.example.com/
 ```
 
-6. Open Apache configuration file and add an entry for this new subdomain;  
+6. Open Apache configuration file and add an entry for this new subdomain;
 ```
-# vi /etc/httpd/conf/httpd.conf  
+# vi /etc/httpd/conf/httpd.conf
 ```
 Add the following lines in `httpd.conf`;
 ```
