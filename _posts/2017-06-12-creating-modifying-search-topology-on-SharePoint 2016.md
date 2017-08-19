@@ -30,15 +30,15 @@ New-SPEnterpriseSearchServiceApplicationProxy -Name "Search Service Application 
 $ssa = Get-SPEnterpriseSearchServiceApplication
 ```
 
-4. Define variables (hostA, hostB...) for each servers that will be included in the Search Topology;
+4. Define variables (hostA, hostB...) for each servers that will be included in the Search topology;
 ```
-$hostA = Get-SPEnterpriseSearchServiceInstance -Identity "App1"
-$hostB = Get-SPEnterpriseSearchServiceInstance -Identity "App2"
-$hostC = Get-SPEnterpriseSearchServiceInstance -Identity "Web1"
-$hostD = Get-SPEnterpriseSearchServiceInstance -Identity "Web2"
+$hostA = Get-SPEnterpriseSearchServiceInstance | ?{$_.Server -match "App1"}
+$hostB = Get-SPEnterpriseSearchServiceInstance | ?{$_.Server -match "App2"}
+$hostC = Get-SPEnterpriseSearchServiceInstance | ?{$_.Server -match “Web1"}
+$hostD = Get-SPEnterpriseSearchServiceInstance | ?{$_.Server -match "Web2"}
 ```
 
-5. Start Search Service in all the servers that will be included in the Search Topology;
+5. Start Search Service in all the servers that will be included in the Search topology;
 ```
 Start-SPEnterpriseSearchServiceInstance -Identity $hostA
 Start-SPEnterpriseSearchServiceInstance -Identity $hostB
@@ -54,9 +54,9 @@ Get-SPEnterpriseSearchServiceInstance -Identity $hostC
 Get-SPEnterpriseSearchServiceInstance -Identity $hostD
 ```
 
-7. Run the following command to create a new topology;
+7. Clone current active topology;
 ```
-$newTopology = New-SPEnterpriseSearchTopology -SearchApplication $ssa
+$clone = $sa.ActiveTopology.Clone()
 ```
 
 8. Configure `App1` and `App2` to have Admin, Crawl, Content Processing, Indexing, Query Processing and Analytics;
@@ -87,20 +87,29 @@ New-SPEnterpriseSearchQueryProcessingComponent -SearchTopology $newTopology -Sea
 New-SPEnterpriseSearchIndexComponent -SearchTopology $newTopology -SearchServiceInstance $hostD -IndexPartition 0
 ```
 
-10. Activate the topology;
+10. Activate clone topology;
 ```
-Set-SPEnterpriseSearchTopology -Identity $newTopology
+$clone.Activate()
 ```
 
-11. Verify the topology;
+11. Go to `CA > General Application Settings > Farm Search Administration > Search Server Application`. All the servers will be listed under Search Application Topology.
+
+12. Verify the topology;
 ```
 Get-SPEnterpriseSearchTopology -SearchApplication $ssa
-```
+```  
+This will print all the topologies including the inactive one.
 
-12. Check the status of the index components;
+13. Check the status of the index components;
 ```
 Get-SPEnterpriseSearchStatus -SearchApplication $ssa -Text
 ```
+
+14.	To remove inactive topologies, run the following command;
+```
+Get-SPEnterpriseSearchServiceApplication | Get-SPEnterpriseSearchTopology |? {$_.State -eq "Inactive"} |% { Remove-SPEnterpriseSearchTopology -Identity $_ -Confirm:$false}
+```
+
 ___
 
 #### B. Modifying an existing Search Topology
@@ -111,28 +120,28 @@ $ssa = Get-SPEnterpriseSearchServiceApplication
 $active = Get-SPEnterpriseSearchTopology -SearchApplication $ssa -Active
 ```
 
-3. Clone the topology;
+2. Clone the active topology;
 ```
 $clone = New-SPEnterpriseSearchTopology -SearchApplication $ssa -Clone -SearchTopology $active
 ```
 
-4. Wait for the indexes to be replicated and then we can remove old index component. To remove old index, we need to find `ComponentId`. Run the following command to find `ComponentId`;
+3. Wait for indexes to be replicated and then we can remove old index component from the clone topology. To remove old index, we need to find `ComponentId`. Run the following command to find `ComponentId` of the server under the clone topology;
 ```
 Get-SPEnterpriseSearchComponent -SearchTopology $clone
-```
-It will be something like `c8309775-dcf3-4a07-8598-05dbc98b04b0`.
+```  
+For example, App2 will have an index with ComponentId, `c8309775-dcf3-4a07-8598-05dbc98b04b0`.
 
-5. Run the following command to remove the component that we have already cloned;
+4. Run the following command to remove the index from the server;
 ```
-Remove-SPEnterpriseSearchComponent -Identity 'c8309775-dcf3-4a07-8598-05dbc98b04b0' -SearchTopology $ clone
+Remove-SPEnterpriseSearchComponent -Identity 'c8309775-dcf3-4a07-8598-05dbc98b04b0' -SearchTopology $clone
 ```
 
-6. Activate the new cloned topology;
+5. Activate the new cloned topology;
 ```
 $clone.Activate()
 ```
 
-7. Remove old inactive topology;
+6. To remove inactive topologies, run the following command;
 ```
 Get-SPEnterpriseSearchServiceApplication | Get-SPEnterpriseSearchTopology |? {$_.State -eq "Inactive"} |% { Remove-SPEnterpriseSearchTopology -Identity $_ -Confirm:$false}
 ```
@@ -146,7 +155,4 @@ Default index location is at `C:\Program Files\Microsoft Office Servers\16.0\Dat
 New-SPEnterpriseSearchIndexComponent -SearchTopology $clone -SearchServiceInstance $ssa -IndexPartition 0 -RootDirectory Z:\FlashDrive\Index\0
 ```
 We need to run this command before activing the topology.
-
-
-
 
