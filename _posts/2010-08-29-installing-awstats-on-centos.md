@@ -61,7 +61,7 @@ CustomLog logs/example.com_access_log combined
 ErrorLog logs/example.com_error_log
 </VirtualHost>
 ```
-For AWStats subdomain, add the following in httpd.conf;
+For AWStats subdomain, add the following in `httpd.conf`;  
 ```
 <virtualhost *:80>
 ServerAdmin admin.awstats@example.com
