@@ -25,6 +25,8 @@ kramdown:
     input:          GFM
 sass:
     style:          :compressed
+plugins:
+  - jekyll-seo-tag
 
 # Other Params
 include:            [ "robots.txt" ]
