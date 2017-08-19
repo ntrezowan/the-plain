@@ -25,14 +25,13 @@ kramdown:
     input:          GFM
 sass:
     style:          :compressed
-plugins:
-  - jekyll-seo-tag
 
 # Other Params
 include:            [ "robots.txt" ]
 exclude:            [ "LICENSE", "README.md", "CNAME", "vendor", "Gemfile" ]
 gems:
   - jekyll-sitemap
+  - jekyll-seo-tag
 
 
 
