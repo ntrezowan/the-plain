@@ -46,7 +46,7 @@ Run the script from `SharePoint 2016 Management Shell`;
 PS > .\SMTPTest.ps1
 True
 ```
-If it returns `False`, reboot the server. Sometimes SMTP does not reflect on the farm even if we restart `SharePoint Timer Service`.
+If it returns `False`, reboot the server. Sometimes SMTP changes does not reflect on the farm even if we restart `SharePoint Timer Service`.
 
 ___
 
