@@ -1,8 +1,8 @@
 ---
-title: "Patching/Updating SharePoint 2016"
+title: "Configuring SMTP in SharePoint 2016"
 comments: false
-description: "Patching/Updating SharePoint 2016"
-keywords: "sharepoint, 2016, patch, upgrade, update, farm"
+description: "Configuring SMTP in SharePoint 2016"
+keywords: "sharepoint, 2016, smtp, email, farm"
 published: true
 ---
 1. Download SharePoint 2016 update releases from Microsoft website;  
