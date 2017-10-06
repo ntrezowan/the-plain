@@ -7,7 +7,7 @@ published: true
 ---
 1. Go to `CA > System Settings > Configure outgoing e-mail settings` and configure as following;  
 ```
-Outbound SMTP server: 
+Outbound SMTP server: smtp@example.com
 From address: sharepoint@example.com
 Reply-to-address: sharepoint@example.com
 Use TLS connection encryption: Yes (if you want to encrypt emails)
@@ -15,14 +15,30 @@ SMTP server port: 25 (Default)
 Character set: 65000 (Unicode UTF-8)
 ```
 
-2. Open `SharePoint 2016 Management Shell` and run the following command to take a full backup of the current farm;  
+2. Go to `CA > Application Management > Manage Web Application` to view all the web applications. Select a web application and click on `General Settings > Outgoing E-Mail settings` from the ribbon and verify web application specific SMTP setting;  
 ```
-PS > Backup-SPFarm -Directory <BackupFolder> -BackupMethod Full -Verbose
+Outbound SMTP server: smtp@example.com
+From address: sharepoint@example.com
+Reply-to-address: sharepoint@example.com
+Use TLS connection encryption: Yes (if you want to encrypt emails)
+SMTP server port: 25 (Default)
+Character set: 65000 (Unicode UTF-8)
 ```
 
-3. Stop `Search Service Application` on the Search servers since we do not want Search to crawl while patching. Run the following command to stop Search Service Application;  
+3. Save the following script as `SMTPTest.ps1` and run it from `SharePoint 2016 Management Shell`;  
 ```
-PS > Suspend-SPEnterpriseSearchServiceApplication –Identity “Search Service Application”
+$sd = New-Object System.Collections.Specialized.StringDictionary
+$sd.Add("to","xyz@example.com")
+$sd.Add("from","sharepoint@xyz.com")
+$sd.Add("subject","Test Email from WA: SharePoint1")
+$w = Get-SPWeb http://SharePoint1
+$body = "Test email sent from SharePoint1"
+try {
+    [Microsoft.SharePoint.Utilities.SPUtility]::SendEmail($w,$sd,$body)
+}
+finally {
+    $w.Dispose()
+}
 ```  
 Go to `CA > General Application Settings > Farm Search Administration > Search Server Application` and now `Administrative Status` will show as `Paused: for external request`.
 
