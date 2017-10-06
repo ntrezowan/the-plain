@@ -20,7 +20,7 @@ Character set: 65000 (Unicode UTF-8) [Default]
 Outbound SMTP server: smtp@test.com
 From address: sharepoint@test.com
 Reply-to-address: sharepoint@test.com
-Use TLS connection encryption: No (emails will be send at plain text)
+Use TLS connection encryption: No (emails will be send in plain text)
 SMTP server port: 25 [Default]
 Character set: 65000 (Unicode UTF-8) [Default]
 ```
