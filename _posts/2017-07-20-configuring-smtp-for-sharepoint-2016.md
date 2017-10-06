@@ -24,9 +24,7 @@ Use TLS connection encryption: No (emails will be send at plain text)
 SMTP server port: 25 (Default)
 Character set: 65000 (Unicode UTF-8)
 ```
-
 You can use different SMTP server for each web application as shown above. 
-
 3. Save the following script as `SMTPTest.ps1` and run it from `SharePoint 2016 Management Shell`;  
 ```
 $sd = New-Object System.Collections.Specialized.StringDictionary
