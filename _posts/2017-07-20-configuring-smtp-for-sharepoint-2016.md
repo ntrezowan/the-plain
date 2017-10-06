@@ -48,5 +48,16 @@ True
 ```
 If it returns `False`, reboot the server. Sometimes SMTP does not reflect on the farm even if we restart `SharePoint Timer Service`.
 
-4. Remove the web fronts from load balancer and install the update on the web fronts first. This way, if we encounter any issue after patching, it will not break any of the application servers. Reboot the web fronts if necessary.  
-After reboot, check if the updates are properly installed by going to `Control Panel > Program and Features > View Installed Updates`. Also, open CA from the web fronts to see if IIS is working or not
+___
+
+#### Configuring SMTP for Nintex Workflow
+If you are using Nintex Workflow in your farm, then go to `CA > Nintex Administration > Messaging and notifications` and configure as following;
+```
+Outbound SMTP server: smtp@example.com
+SMTP server requires authentication -> Tick if you have a AD service account for Nintex to send/receive emails
+From Address: sharepoint-workflow@example.com
+Reply To Address: sharepoint-workflow@example.com
+Character set: 65000 (Unicode UTF-8)
+Use css styles in HTML emails: Yes (if Nintex is using HTML formatting in emails)
+Location of stylesheet containing email styles: /_layouts/NintexWorkflow/htmleditorstyle.css
+```
