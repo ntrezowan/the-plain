@@ -8,10 +8,10 @@ published: true
 1. Go to` CA > System Settings > Configure outgoing e-mail settings` and configure as following;  
 ```
 Outbound SMTP server: 
-From address:
-Reply-to-address:
-Use TLS connection encryption: 
-SMTP server port:
+From address: sharepoint@example.com
+Reply-to-address: sharepoint@example.com
+Use TLS connection encryption: Yes (if you want to encrypt emails)
+SMTP server port: 25 (Default)
 Character set: 65000 (Unicode UTF-8)
 ```
 
