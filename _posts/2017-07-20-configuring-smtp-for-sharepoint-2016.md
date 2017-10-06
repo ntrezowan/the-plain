@@ -15,15 +15,17 @@ SMTP server port: 25 (Default)
 Character set: 65000 (Unicode UTF-8)
 ```
 
-2. Go to `CA > Application Management > Manage Web Application` to view all the web applications. Select a web application and click on `General Settings > Outgoing E-Mail settings` from the ribbon and verify web application specific SMTP setting;  
+2. Go to `CA > Application Management > Manage Web Application` to view all the web applications. Select a web application and click on `General Settings > Outgoing E-Mail settings` from the ribbon to verify web application specific SMTP setting;  
 ```
-Outbound SMTP server: smtp@example.com
-From address: sharepoint@example.com
-Reply-to-address: sharepoint@example.com
-Use TLS connection encryption: Yes (if you want to encrypt emails)
+Outbound SMTP server: smtp@test.com
+From address: sharepoint@test.com
+Reply-to-address: sharepoint@test.com
+Use TLS connection encryption: No (emails will be send at plain text)
 SMTP server port: 25 (Default)
 Character set: 65000 (Unicode UTF-8)
 ```
+
+You can use different SMTP server for each web application as shown above. 
 
 3. Save the following script as `SMTPTest.ps1` and run it from `SharePoint 2016 Management Shell`;  
 ```
