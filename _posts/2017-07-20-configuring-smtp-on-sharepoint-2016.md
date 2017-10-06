@@ -1,7 +1,7 @@
 ---
-title: "Configuring SMTP in SharePoint 2016"
+title: "Configuring SMTP on SharePoint 2016"
 comments: false
-description: "Configuring SMTP in SharePoint 2016"
+description: "Configuring SMTP on SharePoint 2016"
 keywords: "sharepoint, 2016, smtp, nintex, workflow, email, farm"
 published: true
 ---
