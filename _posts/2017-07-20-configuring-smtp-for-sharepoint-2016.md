@@ -26,7 +26,7 @@ Character set: 65000 (Unicode UTF-8)
 ```
 You can use different SMTP server for each web application as shown above.
 
-3. Save the following script as `SMTPTest.ps1` and run it from `SharePoint 2016 Management Shell`;  
+3. Save the following script as `SMTPTest.ps1`. This script will allow us to test if a particular web application can send email using SMTP;  
 ```
 $sd = New-Object System.Collections.Specialized.StringDictionary
 $sd.Add("to","xyz@example.com")
