@@ -5,7 +5,7 @@ description: "Configuring SMTP in SharePoint 2016"
 keywords: "sharepoint, 2016, smtp, email, farm"
 published: true
 ---
-1. Go to` CA > System Settings > Configure outgoing e-mail settings` and configure as following;  
+1. Go to `CA > System Settings > Configure outgoing e-mail settings` and configure as following;  
 ```
 Outbound SMTP server: 
 From address: sharepoint@example.com
