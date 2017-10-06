@@ -24,7 +24,8 @@ Use TLS connection encryption: No (emails will be send at plain text)
 SMTP server port: 25 (Default)
 Character set: 65000 (Unicode UTF-8)
 ```
-You can use different SMTP server for each web application as shown above. 
+You can use different SMTP server for each web application as shown above.
+
 3. Save the following script as `SMTPTest.ps1` and run it from `SharePoint 2016 Management Shell`;  
 ```
 $sd = New-Object System.Collections.Specialized.StringDictionary
@@ -45,7 +46,7 @@ Run the script from `SharePoint 2016 Management Shell`;
 PS > .\SMTPTest.ps1
 True
 ```
-If it returns `False`, reboot the server. 
+If it returns `False`, reboot the server. Sometimes SMTP does not reflect on the farm even if we restart `SharePoint Timer Service`.
 
 4. Remove the web fronts from load balancer and install the update on the web fronts first. This way, if we encounter any issue after patching, it will not break any of the application servers. Reboot the web fronts if necessary.  
 After reboot, check if the updates are properly installed by going to `Control Panel > Program and Features > View Installed Updates`. Also, open CA from the web fronts to see if IIS is working or not
