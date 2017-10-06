@@ -5,10 +5,15 @@ description: "Configuring SMTP in SharePoint 2016"
 keywords: "sharepoint, 2016, smtp, email, farm"
 published: true
 ---
-1. Download SharePoint 2016 update releases from Microsoft website;  
-[https://technet.microsoft.com/en-us/library/mt715807(v=office.16).aspx](https://technet.microsoft.com/en-us/library/mt715807(v=office.16).aspx).  
-Check Todd Klindt’s website to find what type of updates each version has including the build number;  
-[http://www.toddklindt.com/blog/Builds/SharePoint-2016-Builds.aspx](http://www.toddklindt.com/blog/Builds/SharePoint-2016-Builds.aspx)
+1. Go to` CA > System Settings > Configure outgoing e-mail settings` and configure as following;  
+```
+Outbound SMTP server: 
+From address:
+Reply-to-address:
+Use TLS connection encryption: 
+SMTP server port:
+Character set: 65000 (Unicode UTF-8)
+```
 
 2. Open `SharePoint 2016 Management Shell` and run the following command to take a full backup of the current farm;  
 ```
