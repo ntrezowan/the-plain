@@ -85,4 +85,46 @@ end {}
 Get-Content C:\serverlist.txt | Get-LocalUsers | Export-Csv C:\server-admin.csv
 ```
 
+---
+
+#### Check if RDP is running in a remote machine
+```
+param(
+     [parameter(Mandatory=$true,ValueFromPipeline=$true)][string[]]$Computer
+     )
+$results = @()
+foreach($name in $Computer){
+        $result = "" | select Name,RDP
+        $result.name = $name
+        try{
+           $socket = New-Object Net.Sockets.TcpClient($name, 3389)
+           if($socket -eq $null){
+                 $result.RDP = $false
+           }else{
+                 $result.RDP = $true
+                 $socket.close()
+           }
+        }
+        catch{
+                 $result.RDP = $false
+        }
+        $results += $result
+}
+return $results
+```
+
+Sample out:
+
+```
+Computer[0]: Server1
+Computer[1]: 
+
+Name        RDP
+----        ---
+Server1     True
+```
+
+If it returns `TRUE`, then default RDP port 3389 is open to accept connection.
+
+---
 
