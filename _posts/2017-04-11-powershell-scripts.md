@@ -340,7 +340,7 @@ $serviceInstance.Provision()
 
 ---
 
-#### Monitor SharePoint Web Application availability
+#### Monitor SharePoint 2016 Web Application availability
 This script will check the URL of each web application and will send an email if there is any issue;
 ```
 function sendMail($site){
