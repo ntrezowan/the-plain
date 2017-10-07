@@ -14,6 +14,12 @@ $server= get-content C:\serverlist.txt
     get-wmiobject win32_operatingsystem -computer $i | select ` csname,caption,osarchitecture,servicepackmajorversion
     }
 ```
+Sample output:
+```
+csname caption                  osarchitecture servicepackmajorversion
+------ -------                  -------------- -----------------------
+HAL9   Microsoft Windows 10 Pro 64-bit                               0
+```
 
 2. Generate a new CSR for `example.com` domain;
 
