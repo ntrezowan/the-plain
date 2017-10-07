@@ -7,7 +7,8 @@ published: true
 ---
 #### "Database is in compatibility range and upgrade is recommended"
 
-1. Go to `CA > Upgrade and Migration > Review database status` and find if the database `Status` is showing as `Database is in compatibility range and upgrade is recommended`  
+1. Go to `CA > Upgrade and Migration > Review database status` and find if the database `Status` is showing as `Database is in compatibility range and upgrade is recommended`
+
 2. It can also be checked by running the following command in `SharePoint 2016 Management Shell`;
 ```
 stsadm -o LocalUpgradeStatus
@@ -21,6 +22,7 @@ Sample output:
 [0] site collection(s) still need upgrade.
 [49] other objects encountered, [0] of them still need upgrade or cannot be upgraded.
 ```
+
 3. Run the following command in `SharePoint 2016 Management Shell` to upgrade the database;
 ```
 Get-SPWebApplication "http://WebApplication1:9999" | Get-SPContentDatabase | Upgrade-SPContentDatabase
@@ -35,6 +37,7 @@ Performing the operation "Upgrade-SPContentDatabase" on target
 100.00% : SPContentDatabase Name=SharePoint_AdminContent
 Finalizing the upgrade...
 ```
+
 4. Go to `CA > Upgrade and Migration > Review database status` and now it will show as `No action required`
 
 ---
@@ -45,10 +48,12 @@ Finalizing the upgrade...
 ```
 PS > Disable-SPSessionStateService
 ```
+
 2. Enable `Session State Service` while specifying database server hostname and database name;
 ```
 PS > Enable-SPSessionStateService -DatabaseServer SPDB2016 -DatabaseName SP_StateService
 ```
+
 3. Check `Session State Service` status;
 ```
 PS > Get-SPSessionStateService
@@ -65,9 +70,12 @@ True    01:00:00 SPDB2016             SP_StateService      d914996f-0604-40ba-9d
 #### ULS log are not writing in Diagonstic folder”
 
 This can happen when we start sharing the log folder with other users. To solve issue, do the following;
-1. Go to `Services` and find which user is running `SharePoint Tracking Service`;  
+1. Go to `Services` and find which user is running `SharePoint Tracking Service`;
+
 2. Go to `Computer Management > Local Users and Groups > Group > Performance Log Users`. Add `SharePoint Tracking Service account` (Default is `Local Service`) to `Performance Log Users` group  
-3. Check the log folder and if it still does not start writing in the folder, then restart `SharePoint Tracking Service` from `Services`  
+
+3. Check the log folder and if it still does not start writing in the folder, then restart `SharePoint Tracking Service` from `Services`
+
 4. Also verify if the following users have `Read`, `Write` and `Special Permission` on the log folder;  
 ```
 WSS_RESTRICTED_WPG_V4(Server1\WSS_RESTRICTED_WPG_V4)
