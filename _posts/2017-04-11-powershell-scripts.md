@@ -11,15 +11,20 @@ published: true
 $server= get-content C:\serverlist.txt
     foreach ($i in $server)
     {
-    get-wmiobject win32_operatingsystem -computer $i | Format-Table csname, caption,OSArchitecture,ServicePackMajorVersion -AutoSize
+    get-wmiobject win32_operatingsystem -computer $i | Format-Table csname, caption,OSArchitecture,ServicePackMajorVersion,ProductType -AutoSize
     }
 ```
 Sample output:
 ```
-csname caption                  OSArchitecture ServicePackMajorVersion
------- -------                  -------------- -----------------------
-HAL9   Microsoft Windows 10 Pro 64-bit                               0
+csname caption                  OSArchitecture ServicePackMajorVersion ProductType
+------ -------                  -------------- ----------------------- -----------
+HAL9   Microsoft Windows 10 Pro 64-bit                               0           1
 ```
+Here,
+ProductType 1 -> WorkStation
+ProductType 2 -> Domain Controller
+ProductType 3 -> Server
+
 
 2. Generate a new CSR for `example.com` domain;
 
