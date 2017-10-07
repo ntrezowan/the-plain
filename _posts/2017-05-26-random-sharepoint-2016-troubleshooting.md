@@ -6,6 +6,7 @@ keywords: "sharepoint, 2016, blob, cache, web application, availability, monitor
 published: true
 ---
 #### "Database is in compatibility range and upgrade is recommended"
+
 1. Go to `CA > Upgrade and Migration > Review database status` and find if the database `Status` is showing as `Database is in compatibility range and upgrade is recommended`  
 2. It can also be checked by running the following command in `SharePoint 2016 Management Shell`;
 ```
@@ -39,6 +40,7 @@ Finalizing the upgrade...
 ---
 
 #### "Expired sessions are not being deleted from the ASP.NET Session State database."
+
 1. From `SharePoint 2016 Management Shel`l, run the following to disable `Session State Service`;
 ```
 PS > Disable-SPSessionStateService
@@ -61,6 +63,7 @@ True    01:00:00 SPDB2016             SP_StateService      d914996f-0604-40ba-9d
 ---
 
 #### ULS log are not writing in Diagonstic folder”
+
 This can happen when we start sharing the log folder with other users. To solve issue, do the following;
 1. Go to `Services` and find which user is running `SharePoint Tracking Service`;  
 2. Go to `Computer Management > Local Users and Groups > Group > Performance Log Users`. Add `SharePoint Tracking Service account` (Default is `Local Service`) to `Performance Log Users` group  
