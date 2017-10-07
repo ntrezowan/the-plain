@@ -322,3 +322,18 @@ True
 Press Enter to continue...: 
 ```
 
+---
+
+#### Start/Stop Distributed Cache in SharePoint 2016
+To stop distributed cache, run the following in `SharePoint 2016 Management Shell`;
+```
+$instanceName ="SPDistributedCacheService Name=AppFabricCachingService"
+$serviceInstance = Get-SPServiceInstance | ? {($_.service.tostring()) -eq $instanceName -and ($_.server.name) -eq $env:computername}
+$serviceInstance.Unprovision()
+```
+To start distributed cache, run the following in `SharePoint 2016 Management Shell`;
+```
+$instanceName ="SPDistributedCacheService Name=AppFabricCachingService"
+$serviceInstance = Get-SPServiceInstance | ? {($_.service.tostring()) -eq $instanceName -and ($_.server.name) -eq $env:computername}
+$serviceInstance.Provision()
+```
