@@ -393,6 +393,7 @@ This script can be scheduled in Task Scheduler to run in every 5/10/15 minutes d
 ---
 
 #### Flush BLOB cache of Web Application in SharePoint 2016
+Run this script in `SharePoint 2016 Management Shell` to clear BLOB cache;
 ```
 $webApp = Get-SPWebApplication "http://WebApplication1"
 [Microsoft.SharePoint.Publishing.PublishingCache]::FlushBlobCache($webApp)
