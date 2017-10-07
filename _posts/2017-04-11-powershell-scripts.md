@@ -5,15 +5,17 @@ description: "PowerShell scripts"
 keywords: "sharepoint, 2016, smtp, nintex, workflow, email, farm"
 published: true
 ---
-1. Go to `CA > System Settings > Configure outgoing e-mail settings` and configure as following;  
+#### Find operating system, OS architecture and service pack version of remote computers
+
 ```
-Outbound SMTP server: smtp@example.com
-From address: sharepoint@example.com
-Reply-to-address: sharepoint@example.com
-Use TLS connection encryption: Yes (if you want to encrypt emails)
-SMTP server port: 25 [Default]
-Character set: 65000 (Unicode UTF-8) [Default]
+$server= get-content C:\serverlist.txt
+    foreach ($i in $server)
+    {
+    get-wmiobject win32_operatingsystem -computer $i | select ` csname,caption,osarchitecture,servicepackmajorversion
+    }
 ```
+
+2. Generate a new CSR for `example.com` domain;
 
 2. Go to `CA > Application Management > Manage Web Application` to view all the web applications. Select a web application and click on `General Settings > Outgoing E-Mail settings` from the ribbon to verify web application specific SMTP setting;  
 ```
