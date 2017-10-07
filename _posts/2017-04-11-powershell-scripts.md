@@ -21,10 +21,8 @@ csname caption                  OSArchitecture ServicePackMajorVersion ProductTy
 HAL9   Microsoft Windows 10 Pro 64-bit                               0           1
 ```
 Here,
-ProductType 1 -> WorkStation
-
-ProductType 2 -> Domain Controller
-
+ProductType 1 -> WorkStation  
+ProductType 2 -> Domain Controller  
 ProductType 3 -> Server
 
 
