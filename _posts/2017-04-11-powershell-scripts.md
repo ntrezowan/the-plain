@@ -16,7 +16,7 @@ $server= get-content C:\serverlist.txt
 ```
 Sample output:
 ```
-csname caption                  osarchitecture servicepackmajorversion
+csname caption                  OSArchitecture ServicePackMajorVersion
 ------ -------                  -------------- -----------------------
 HAL9   Microsoft Windows 10 Pro 64-bit                               0
 ```
