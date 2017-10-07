@@ -128,3 +128,201 @@ If it returns `TRUE`, then default RDP port 3389 is open to accept connection.
 
 ---
 
+#### Find OS version, OS architecture, Hostname, Domain, CNAME, # of Processors, RAM, Disks, IP address, Windows Licensing Status, UAC Status, Firewall Setting, SNMP Install Status and will check if the machine is physical or virtual
+```
+CLS
+    
+Write-Host ""
+Write-Host "OS Version: "
+Write-Host "-----------"
+Get-CimInstance Win32_OperatingSystem | Select-Object  Caption | ForEach{ $_.Caption }
+Write-Host ""
+Write-Host ""
+
+Write-Host "OS Architecture: "
+Write-Host "----------------"
+Get-CimInstance Win32_OperatingSystem | Select-Object  OSArchitecture | ForEach{ $_.OSArchitecture }
+Write-Host ""
+Write-Host ""
+
+Write-Host "Hostname: "
+Write-Host "---------"
+Get-CimInstance Win32_OperatingSystem | Select-Object  CSName | ForEach{ $_.CSName }
+Write-Host ""
+Write-Host ""
+
+Write-Host "Domain Name: "
+Write-Host "------------"
+Get-CimInstance Win32_ComputerSystem | Select-Object Domain | ForEach{ $_.Domain }
+Write-Host ""
+Write-Host ""
+
+Write-Host "CNAME: "
+Write-Host "------"
+[System.Net.Dns]::GetHostByName(($env:computerName)) | FL HostName | Out-String | %{ "{0}" -f $_.Split(':')[1].Trim() };
+Write-Host ""
+Write-Host ""
+
+Write-Host "Number of Processors: "
+Write-Host "---------------------"
+Get-CimInstance Win32_ComputerSystem -ComputerName localhost | Select-Object NumberOfLogicalProcessors | ForEach{ $_.NumberOfLogicalProcessors}
+Write-Host ""
+Write-Host ""
+
+Write-Host "RAM (in GB): "
+Write-Host "------------"
+Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum | Foreach {"{0:N2}" -f ([math]::round(($_.Sum / 1GB),2))}
+Write-Host ""
+Write-Host ""
+
+Write-Host "Disk Spaces (in GB):"
+Write-Host "--------------------"
+Write-Host ""
+Get-CimInstance win32_logicaldisk | where caption -eq "C:" | foreach-object {write "$($_.caption) $('{0:N2}' -f ($_.Size/1gb)) GB total, $('{0:N2}' -f ($_.FreeSpace/1gb)) GB free "}
+Get-CimInstance win32_logicaldisk | where caption -eq "D:" | foreach-object {write "$($_.caption) $('{0:N2}' -f ($_.Size/1gb)) GB total, $('{0:N2}' -f ($_.FreeSpace/1gb)) GB free "}
+Get-CimInstance win32_logicaldisk | where caption -eq "E:" | foreach-object {write "$($_.caption) $('{0:N2}' -f ($_.Size/1gb)) GB total, $('{0:N2}' -f ($_.FreeSpace/1gb)) GB free "}
+Get-CimInstance win32_logicaldisk | where caption -eq "F:" | foreach-object {write "$($_.caption) $('{0:N2}' -f ($_.Size/1gb)) GB total, $('{0:N2}' -f ($_.FreeSpace/1gb)) GB free "}
+Get-CimInstance win32_logicaldisk | where caption -eq "G:" | foreach-object {write "$($_.caption) $('{0:N2}' -f ($_.Size/1gb)) GB total, $('{0:N2}' -f ($_.FreeSpace/1gb)) GB free "}
+Write-Host ""
+Write-Host ""
+
+Write-Host "Physical or Virtual:"
+Write-Host "--------------------"
+Get-WmiObject win32_computersystem | ForEach{ $_.model}
+Write-Host ""
+Write-Host ""
+
+Write-Host "IP Address: "
+Write-Host "-----------"
+Get-NetIPConfiguration
+Write-Host ""
+Write-Host ""
+
+Write-Host "Windows Licensing Status: "
+Write-Host "------------------------"
+Get-CimInstance -ClassName SoftwareLicensingProduct | where PartialProductKey | select LicenseStatus | ForEach{ $_.LicenseStatus}
+Write-Host ""
+Write-Host "[1 = License activated; 0 = License not activated]"
+Write-Host ""
+Write-Host ""
+
+Write-Host "UAC Status: "
+Write-Host "-----------"
+(Get-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System).EnableLUA 
+Write-Host ""
+Write-Host "[1 = UAC Active; 0 = UAC not active]"
+Write-Host ""
+Write-Host ""
+
+Write-Host "Firewall Setting: "
+Write-Host "-----------------"
+netsh advfirewall show domain state
+Write-Host ""
+Write-Host ""
+
+Write-Host "SNMP Install Status: "
+Write-Host "-------------------"
+$srv=Get-WindowsFeature *snmp-service*
+$srv.Installed
+Write-Host ""
+Write-Host ""
+
+PAUSE
+```
+
+Sample Output:
+```
+OS Version: 
+-----------
+Microsoft Windows Server 2012 R2 Datacenter
+
+
+OS Architecture: 
+----------------
+64-bit
+
+
+Hostname: 
+---------
+Server1
+
+
+Domain Name: 
+------------
+dc.example.com
+
+
+CNAME: 
+------
+Server1.dc.example.com
+
+
+Number of Processors: 
+---------------------
+8
+
+
+RAM (in GB): 
+------------
+12.00
+
+
+Disk Spaces (in GB):
+--------------------
+
+C: 79.66 GB total, 43.38 GB free 
+D: 80.00 GB total, 64.17 GB free 
+
+
+Physical or Virtual:
+--------------------
+VMware Virtual Platform
+
+
+IP Address: 
+-----------
+
+
+InterfaceAlias       : HSMV-VL-2708
+InterfaceIndex       : 12
+InterfaceDescription : vmxnet3 Ethernet Adapter
+NetProfile.Name      : example.com
+IPv4Address          : 10.10.10.2
+IPv4DefaultGateway   : 10.10.10.1
+DNSServer            : 10.10.1.1
+                       10.10.1.2
+
+
+
+Windows Licensing Status: 
+------------------------
+1
+
+[1 = License activated; 0 = License not activated]
+
+
+UAC Status: 
+-----------
+0
+
+[1 = UAC Active; 0 = UAC not active]
+
+
+Firewall Setting: 
+-----------------
+
+Domain Profile Settings: 
+----------------------------------------------------------------------
+State                                 OFF
+Ok.
+
+
+
+SNMP Install Status: 
+-------------------
+True
+
+
+Press Enter to continue...: 
+```
+
