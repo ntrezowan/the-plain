@@ -1,7 +1,7 @@
 ---
-title: "PowerShell scripts"
+title: "Random PowerShell scripts"
 comments: false
-description: "PowerShell scripts"
+description: "Random PowerShell scripts"
 keywords: "sharepoint, 2016, smtp, nintex, workflow, email, farm"
 published: true
 ---
@@ -389,3 +389,14 @@ checkIfSiteUp($web)
 }
 ```
 This script can be scheduled in Task Scheduler to run in every 5/10/15 minutes depending on the requirement.
+
+---
+
+#### Flush BLOB cache of Web Application in SharePoint 2016
+```
+$webApp = Get-SPWebApplication "http://WebApplication1"
+[Microsoft.SharePoint.Publishing.PublishingCache]::FlushBlobCache($webApp)
+Write-Host "Flushed the BLOB cache for:" $webApp
+```
+
+---
