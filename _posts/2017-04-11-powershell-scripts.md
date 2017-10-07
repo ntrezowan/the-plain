@@ -32,7 +32,7 @@ $cre = get-credential
 Send-MailMessage -To you@example.com -From me@example.com -SmtpServer smtp.example.com -Credential $cre -Subject "Testing SMTP from $hostname " -Body "Did you got it?"
 ```
 
-#### Print remote machine Name, DeviceID, VolumeName, Total Size and Free Size (in GB)
+#### Print remote machine Name, Device ID, Volume Name, Total Size and Free Size (in GB)
 ```
 clear 
 $cre = Get-Credential
