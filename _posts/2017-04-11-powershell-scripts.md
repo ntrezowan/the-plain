@@ -5,13 +5,13 @@ description: "PowerShell scripts"
 keywords: "sharepoint, 2016, smtp, nintex, workflow, email, farm"
 published: true
 ---
-#### Find operating system, OS architecture and service pack version of remote computers
+#### Find operating system, OS architecture and service pack version of remote computer from text file;
 
 ```
 $server= get-content C:\serverlist.txt
     foreach ($i in $server)
     {
-    get-wmiobject win32_operatingsystem -computer $i | select ` csname,caption,osarchitecture,servicepackmajorversion
+    get-wmiobject win32_operatingsystem -computer $i | Format-Table csname, caption,OSArchitecture,ServicePackMajorVersion -AutoSize
     }
 ```
 Sample output:
