@@ -36,7 +36,7 @@ Send-MailMessage -To you@example.com -From me@example.com -SmtpServer smtp.examp
 ```
 clear 
 $cre = Get-Credential
-$file = Get-Content  C:\Users\haquer\Desktop\computers.txt
+$file = Get-Content  C:\serverlist.txt
  
 foreach ($args in $file) { 
 Get-WmiObject win32_logicaldisk -Credential $cre -ComputerName $args -Filter "Drivetype=3"  |  
