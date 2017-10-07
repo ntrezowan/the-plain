@@ -66,10 +66,8 @@ This can happen when we start sharing the log folder with other users. To solve 
 2. Go to `Computer Management > Local Users and Groups > Group > Performance Log Users`. Add `SharePoint Tracking Service account` (Default is `Local Service`) to `Performance Log Users` group  
 3. Check the log folder and if it still does not start writing in the folder, then restart `SharePoint Tracking Service` from `Services`  
 4. Also verify if the following users have `Read`, `Write` and `Special Permission` on the log folder;  
-```
-WSS_RESTRICTED_WPG_V4(Server1\WSS_RESTRICTED_WPG_V4)
-WSS_ADMIN_WPG(Server1\WSS_ADMIN_WPG)
-WSS_WPG(Server1\WSS_WPG)
-```
+`WSS_RESTRICTED_WPG_V4(Server1\WSS_RESTRICTED_WPG_V4)`
+`WSS_ADMIN_WPG(Server1\WSS_ADMIN_WPG)`
+`WSS_WPG(Server1\WSS_WPG)`
 
 ---
