@@ -5,7 +5,7 @@ description: "PowerShell scripts"
 keywords: "sharepoint, 2016, smtp, nintex, workflow, email, farm"
 published: true
 ---
-#### Find operating system, OS architecture and service pack version of remote computer from text file;
+#### Find OS, OSArchitecture and Service Pack version of remote machines
 
 ```
 $server= Get-Content C:\serverlist.txt
@@ -27,7 +27,7 @@ ProductType 3 -> Server
 
 ---
 
-#### Testing if a server can send email using the SMTP server;
+#### Testing if a server can send email using SMTP server
 ```
 $cre = Get-Credential
 $comp= hostname
@@ -36,7 +36,7 @@ Send-MailMessage -To you@example.com -From me@example.com -SmtpServer smtp.examp
 
 ---
 
-#### Print remote machine Name, Device ID, Volume Name, Total Size and Free Size (in GB)
+#### Print remote machine Hostname, Device ID, Volume Name, Total Size and Free Size (in GB)
 ```
 clear 
 $cre = Get-Credential
@@ -47,7 +47,6 @@ Get-WmiObject win32_logicaldisk -Credential $cre -ComputerName $args -Filter "Dr
 ft SystemName,DeviceID,VolumeName,@{Label="Total Size";Expression={$_.Size / 1gb -as [int] }},@{Label="Free Size";Expression={$_.freespace / 1gb -as [int] }} -AutoSize 
 }
 ```
-
 Sample output:
 ```
 SystemName DeviceID VolumeName    Total Size Free Size
@@ -59,7 +58,7 @@ Server1    F:       SysState              30        30
 
 ---
 
-#### Find users in the Administrators group of remote machines
+#### Find users in the Administrators group of remote machine
 ```
 clear 
 $cre = Get-Credential 
@@ -84,10 +83,11 @@ end {}
 } 
 Get-Content C:\serverlist.txt | Get-LocalUsers | Export-Csv C:\server-admin.csv
 ```
+This script will create a `server-admin.csv` file with two columns (ComputerName:Administrators)
 
 ---
 
-#### Check if RDP is running in a remote machine
+#### Check if RDP is running in remote machine
 ```
 param(
      [parameter(Mandatory=$true,ValueFromPipeline=$true)][string[]]$Computer
@@ -112,9 +112,7 @@ foreach($name in $Computer){
 }
 return $results
 ```
-
-Sample out:
-
+Sample output:
 ```
 Computer[0]: Server1
 Computer[1]: 
@@ -123,12 +121,11 @@ Name        RDP
 ----        ---
 Server1     True
 ```
-
-If it returns `TRUE`, then default RDP port 3389 is open to accept connection.
+If it returns `TRUE`, then default RDP port `3389` is open to accept connection.
 
 ---
 
-#### Find OS version, OS architecture, Hostname, Domain, CNAME, # of Processors, RAM, Disks, IP address, Windows Licensing Status, UAC Status, Firewall Setting, SNMP Install Status and will check if the machine is physical or virtual
+#### Find OS version, OS Architecture, Hostname, Domain, CNAME, # of Processors, RAM, Disks, IP address, Windows Licensing Status, UAC Status, Firewall Setting, SNMP Install Status and will check if the machine is physical or virtual
 ```
 CLS
     
@@ -229,8 +226,7 @@ Write-Host ""
 
 PAUSE
 ```
-
-Sample Output:
+Sample output:
 ```
 OS Version: 
 -----------
