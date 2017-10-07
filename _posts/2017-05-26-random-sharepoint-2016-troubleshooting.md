@@ -67,7 +67,7 @@ True    01:00:00 SPDB2016             SP_StateService      d914996f-0604-40ba-9d
 
 ---
 
-#### ULS log are not writing in Diagonstic folder”
+#### "ULS log are not writing in Diagonstic folder"
 
 This can happen when we start sharing the log folder with other users. To solve issue, do the following;
 1. Go to `Services` and find which user is running `SharePoint Tracking Service`;
