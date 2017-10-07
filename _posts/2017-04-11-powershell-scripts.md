@@ -53,6 +53,35 @@ Server1    D:       Data and Logs         60        43
 Server1    F:       SysState              30        30
 ```
 
+#### Find users in the Administrators group of remote machines
+```
+clear 
+$cre = Get-Credential 
+
+function Get-LocalUsers { 
+    param( 
+    [Parameter(Mandatory=$true,valuefrompipeline=$true)] 
+    [string]$strComputer) 
+    begin {} 
+    Process { 
+        $adminlist ="" 
+        $computer = [ADSI]("WinNT://" + $strComputer + ",computer") 
+        $AdminGroup = $computer.psbase.children.find("Administrators") 
+        $Adminmembers= $AdminGroup.psbase.invoke("Members") | %{$_.GetType().InvokeMember("Name", 'GetProperty', $null, $_, $null)} 
+        foreach ($admin in $Adminmembers) { $adminlist = $adminlist + $admin + "," } 
+        $Computer = New-Object psobject 
+        $computer | Add-Member noteproperty ComputerName $strComputer 
+        $computer | Add-Member noteproperty Administrators $adminlist 
+        Write-Output $computer
+        } 
+end {} 
+} 
+Get-Content C:\serverlist.txt | Get-LocalUsers | Export-Csv C:\server-admin.csv
+```
+
+
+
+
 2. Go to `CA > Application Management > Manage Web Application` to view all the web applications. Select a web application and click on `General Settings > Outgoing E-Mail settings` from the ribbon to verify web application specific SMTP setting;  
 ```
 Outbound SMTP server: smtp@test.com
