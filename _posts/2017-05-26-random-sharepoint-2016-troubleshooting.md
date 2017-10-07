@@ -39,34 +39,23 @@ Finalizing the upgrade...
 ---
 
 #### "Expired sessions are not being deleted from the ASP.NET Session State database."
-1. Go to `CA > Upgrade and Migration > Review database status` and find if the database `Status` is showing as `Database is in compatibility range and upgrade is recommended`
-2. It can also be checked by running the following command in `SharePoint 2016 Management Shell`;
+1. From `SharePoint 2016 Management Shel`l, run the following to disable `Session State Service`;
 ```
-stsadm -o LocalUpgradeStatus
+PS > Disable-SPSessionStateService
 ```
-Sample output:
+2. Enable `Session State Service` while specifying database server hostname and database name;
 ```
-...
-[11] content database(s) encountered.
-[1] content database(s) still need upgrade or cannot be upgraded.
-[11] site collection(s) are contained in the content databases.
-[0] site collection(s) still need upgrade.
-[49] other objects encountered, [0] of them still need upgrade or cannot be upgraded.
+PS > Enable-SPSessionStateService -DatabaseServer SPDB2016 -DatabaseName SP_StateService
 ```
-3. Run the following command in `SharePoint 2016 Management Shell` to upgrade the database;
+3. Check `Session State Service` status;
 ```
-Get-SPWebApplication "http://WebApplication1:9999" | Get-SPContentDatabase | Upgrade-SPContentDatabase
+PS > Get-SPSessionStateService
 ```
 Sample output:
 ```
-Confirm
-Are you sure you want to perform this action?
-Performing the operation "Upgrade-SPContentDatabase" on target
-"SharePoint_AdminContent".
-[Y] Yes [A] Yes to All [N] No [L] No to All [S] Suspend [?] Help (default is "Y"):Y
-100.00% : SPContentDatabase Name=SharePoint_AdminContent
-Finalizing the upgrade...
+Enabled Timeout  Database Server      Database Catalog     Database Id
+------- -------  ---------------      ----------------     -----------
+True    01:00:00 SPDB2016             SP_StateService      d914996f-0604-40ba-9dd1-0d15a3d482e3
 ```
-4. Go to `CA > Upgrade and Migration > Review database status` and now it will show as `No action required`
 
 ---
