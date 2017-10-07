@@ -22,7 +22,9 @@ HAL9   Microsoft Windows 10 Pro 64-bit                               0          
 ```
 Here,
 ProductType 1 -> WorkStation
+
 ProductType 2 -> Domain Controller
+
 ProductType 3 -> Server
 
 
