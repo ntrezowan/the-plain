@@ -6,10 +6,19 @@ keywords: "sharepoint, 2016, blob, cache, web application, availability, monitor
 published: true
 ---
 #### Database is in compatibility range and upgrade is recommended
-1. Go to `CA > Upgrade and Migration > Review database status` and find if the database `Status` is showing as `Database is in compatibility range and upgrade is recommended`.
+1. Go to `CA > Upgrade and Migration > Review database status` and find if the database `Status` is showing as `Database is in compatibility range and upgrade is recommended`
 2. It can also be checked by running the following command in `SharePoint 2016 Management Shell`;
 ```
-
+stsadm -o LocalUpgradeStatus
+```
+Sample output:
+```
+...
+[11] content database(s) encountered.
+[1] content database(s) still need upgrade or cannot be upgraded.
+[11] site collection(s) are contained in the content databases.
+[0] site collection(s) still need upgrade
+[49] other objects encountered, [0] of them still need upgrade or cannot be upgraded.
 ```
 3. Run the following command in `SharePoint 2016 Management Shell` to upgrade the database;
 ```
