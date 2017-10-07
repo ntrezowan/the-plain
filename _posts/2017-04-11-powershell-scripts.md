@@ -26,7 +26,12 @@ ProductType 2 -> Domain Controller
 ProductType 3 -> Server
 
 
-2. Generate a new CSR for `example.com` domain;
+#### Testing if a server can send email using the SMTP server;
+```
+$cre = get-credential
+Send-MailMessage -To you@example.com -From me@example.com -SmtpServer smtp.example.com -Credential $cre -Subject "Testing SMTP from $hostname " -Body "Did you got it?"
+```
+
 
 2. Go to `CA > Application Management > Manage Web Application` to view all the web applications. Select a web application and click on `General Settings > Outgoing E-Mail settings` from the ribbon to verify web application specific SMTP setting;  
 ```
