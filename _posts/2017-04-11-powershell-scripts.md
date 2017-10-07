@@ -337,3 +337,55 @@ $instanceName ="SPDistributedCacheService Name=AppFabricCachingService"
 $serviceInstance = Get-SPServiceInstance | ? {($_.service.tostring()) -eq $instanceName -and ($_.server.name) -eq $env:computername}
 $serviceInstance.Provision()
 ```
+
+---
+
+#### Monitor SharePoint Web Application status
+This script will check the URL of each web application and will send an email if there is any issue;
+```
+function sendMail($site){
+$smtpServer = "smtp.example.com"
+ 
+$msg = new-object Net.Mail.MailMessage
+$smtp = new-object Net.Mail.SmtpClient($smtpServer)
+ 
+$msg.From = "sharepoint@example.com"
+$msg.ReplyTo = "sharepoint@example.com"
+$msg.To.Add("me@example.com")
+$msg.Priority = [System.Net.Mail.MailPriority]::High
+$msg.subject = "ALERT: "+$site+" IS UNAVAILABLE"
+$msg.body = "SharePoint Web Application $site is unavailable."
+ 
+#Sending email
+$smtp.Send($msg)
+}
+ 
+function checkIfSiteUp($url){
+$webclient = new-object System.Net.WebClient
+$webClient.UseDefaultCredentials = $true
+
+try {
+$page = $webclient.DownloadString($url)
+$errorPage = $page.Contains("Troubleshoot issues with Microsoft SharePoint Foundation.")
+$serverError = $page.Contains("Server Error")
+$configDBOffline = $page.Contains("Cannot connect to the configuration database.")
+$readOnly = $page.Contains("We apologize for any inconvenience, but we've made the site read only while we're making some improvements.")
+if ($errorPage -or $serverError -or $configDBOffline -or $readOnly) {
+sendMail($url)
+}
+}
+catch {
+sendMail($url)
+}
+}
+ 
+$shptWebs = @("http://WebApplication1",
+"http://WebApplication2",
+"https://WebApplication3")
+ 
+foreach ($web in $shptWebs)
+{
+checkIfSiteUp($web)
+}
+```
+This script can be scheduled in Task Scheduler to run in every 5/10/15 minutes depending on the requirement.
