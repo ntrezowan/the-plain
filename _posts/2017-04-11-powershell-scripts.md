@@ -25,6 +25,7 @@ ProductType 1 -> WorkStation
 ProductType 2 -> Domain Controller  
 ProductType 3 -> Server
 
+---
 
 #### Testing if a server can send email using the SMTP server;
 ```
@@ -32,6 +33,8 @@ $cre = Get-Credential
 $comp= hostname
 Send-MailMessage -To you@example.com -From me@example.com -SmtpServer smtp.example.com -Credential $cre -Subject "Testing SMTP from $comp" -Body "Did you got it?"
 ```
+
+---
 
 #### Print remote machine Name, Device ID, Volume Name, Total Size and Free Size (in GB)
 ```
@@ -53,6 +56,8 @@ Server1    C:                             60        22
 Server1    D:       Data and Logs         60        43
 Server1    F:       SysState              30        30
 ```
+
+---
 
 #### Find users in the Administrators group of remote machines
 ```
