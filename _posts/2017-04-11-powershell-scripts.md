@@ -32,6 +32,26 @@ $cre = get-credential
 Send-MailMessage -To you@example.com -From me@example.com -SmtpServer smtp.example.com -Credential $cre -Subject "Testing SMTP from $hostname " -Body "Did you got it?"
 ```
 
+#### Print remote machine Name, DeviceID, VolumeName, Total Size and Free Size (in GB)
+```
+clear 
+$cre = Get-Credential
+$file = Get-Content  C:\Users\haquer\Desktop\computers.txt
+ 
+foreach ($args in $file) { 
+Get-WmiObject win32_logicaldisk -Credential $cre -ComputerName $args -Filter "Drivetype=3"  |  
+ft SystemName,DeviceID,VolumeName,@{Label="Total Size";Expression={$_.Size / 1gb -as [int] }},@{Label="Free Size";Expression={$_.freespace / 1gb -as [int] }} -autosize 
+}
+```
+
+Sample output:
+```
+SystemName DeviceID VolumeName    Total Size Free Size
+---------- -------- ----------    ---------- ---------
+Server1    C:                             60        22
+Server1    D:       Data and Logs         60        43
+Server1    F:       SysState              30        30
+```
 
 2. Go to `CA > Application Management > Manage Web Application` to view all the web applications. Select a web application and click on `General Settings > Outgoing E-Mail settings` from the ribbon to verify web application specific SMTP setting;  
 ```
