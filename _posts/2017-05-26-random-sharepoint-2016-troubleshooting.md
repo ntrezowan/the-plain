@@ -60,12 +60,12 @@ True    01:00:00 SPDB2016             SP_StateService      d914996f-0604-40ba-9d
 
 ---
 
-#### ULS logs are not writing in Diagonstic folder”
+#### ULS log are not writing in Diagonstic folder”
 This can happen when we start sharing the logs folder with other users. To solve issue, do the following;
-1. Go to `Services` and find which user is running `SharePoint Tracking Service`;
-2. Go to `Computer Management > Local Users and Groups > Group > Performance Log Users`. Add `SharePoint Tracking Service account` (Default is `Local Service`) to `Performance Log Users` group.
-3. Check the log folder and if it still does not start writing in the folder, then restart `SharePoint Tracking Service` from `Services`
-4. Also verify if the following users have Read, Write and Special Permission on the log folder;
+1. Go to `Services` and find which user is running `SharePoint Tracking Service`;  
+2. Go to `Computer Management > Local Users and Groups > Group > Performance Log Users`. Add `SharePoint Tracking Service account` (Default is `Local Service`) to `Performance Log Users` group  
+3. Check the log folder and if it still does not start writing in the folder, then restart `SharePoint Tracking Service` from `Services`  
+4. Also verify if the following users have Read, Write and Special Permission on the log folder;  
 ```
 WSS_RESTRICTED_WPG_V4(Server1\WSS_RESTRICTED_WPG_V4)
 WSS_ADMIN_WPG(Server1\WSS_ADMIN_WPG)
