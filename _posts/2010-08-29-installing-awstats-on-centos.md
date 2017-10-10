@@ -65,18 +65,18 @@ Add the following lines in `httpd.conf`;
 
 7. For AWStats subdomain, add the following in `httpd.conf`;
 ```
-<virtualhost *:80>
-ServerAdmin admin.awstats@example.com
-ServerName stats.example.com
-DocumentRoot /var/www/html/stats.example.com
-ScriptAlias /cgi-bin/ /var/www/html/stats.example.com/cgi-bin/
-CustomLog logs/example.com.stats_access_log combined
-ErrorLog logs/example.com.stats_error_log
-Alias /classes "/var/www/html/stats.example.com/classes/"
-Alias /css "/var/www/html/stats.example.com/css/"
-Alias /icon "/var/www/html/stats.example.com/icon/"
-ScriptAlias /awstats/ "/var/www/html/stats.example.com/cgi-bin/"
-</VirtualHost>
+    <virtualhost *:80>
+    ServerAdmin admin.awstats@example.com
+    ServerName stats.example.com
+    DocumentRoot /var/www/html/stats.example.com
+    ScriptAlias /cgi-bin/ /var/www/html/stats.example.com/cgi-bin/
+    CustomLog logs/example.com.stats_access_log combined
+    ErrorLog logs/example.com.stats_error_log
+    Alias /classes "/var/www/html/stats.example.com/classes/"
+    Alias /css "/var/www/html/stats.example.com/css/"
+    Alias /icon "/var/www/html/stats.example.com/icon/"
+    ScriptAlias /awstats/ "/var/www/html/stats.example.com/cgi-bin/"
+    </VirtualHost>
 ```  
 
 8. Next, edit `/etc/httpd/conf.d/awstats.conf` to include directory path for new subdomain;
