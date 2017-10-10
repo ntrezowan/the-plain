@@ -85,14 +85,14 @@ Add the following lines in `httpd.conf`;
 ```
 Add the following lines;
 ```
-<Directory "/var/www/html/stats.example.com">
-DirectoryIndex awstats.pl
-Options ExecCGI
-Options FollowSymLinks
-Options None
-AllowOverride None
-Order allow,deny
-Allow from all
+    <Directory "/var/www/html/stats.example.com">
+    DirectoryIndex awstats.pl
+    Options ExecCGI
+    Options FollowSymLinks
+    Options None
+    AllowOverride None
+    Order allow,deny
+    Allow from all
 ```
 
 9. Now edit the `awstats.stats.example.com.conf` and add the following lines;
