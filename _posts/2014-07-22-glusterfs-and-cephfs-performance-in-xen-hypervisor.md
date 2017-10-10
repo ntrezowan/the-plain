@@ -866,9 +866,9 @@ Create a 100 GB File using iozone;
 
 [Parameters]
 
-`r` – Record size or Block size, since most of the spinning disk has a block size of 512k, we have also tested with 1024k and 2048k
-`t` – indicates iozone to run in throughput mode, we have also used 4 threads/processes during the measurement
-`s` – size of the file to test, here 10-dist.img has a file size of 10 GB, so we are using this file to test the throughput
+`r` – Record size or Block size, since most of the spinning disk has a block size of 512k, we have also tested with 1024k and 2048k  
+`t` – indicates iozone to run in throughput mode, we have also used 4 threads/processes during the measurement  
+`s` – size of the file to test, here 10-dist.img has a file size of 10 GB, so we are using this file to test the throughput  
 `i – 0` - write and rewrite  
 `i - 1` - read and reread  
 `1 - 2` - random read and random write  
