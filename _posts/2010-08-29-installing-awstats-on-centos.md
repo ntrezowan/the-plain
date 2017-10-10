@@ -3,6 +3,7 @@ title: "Installing AWStats on CentOS"
 comments: false
 description: "Installing AWStats on CentOS"
 keywords: "awstats, install, centos, apache, mysql"
+published: true
 ---
 > Operating System: _CentOS_  
 > Web Server: _Apache_  
@@ -16,7 +17,7 @@ ___
 # yum install awstats
 ```
 
-2. Download [GeoIP](http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz) and [GeoLiteCity](http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz) from maxmind.com and move it to `/tmp`
+2. Download [GeoIP](http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz) and [GeoLiteCity](http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz) from maxmind.com and move it to `tmp`;
 ```
 # mkdir /var/www/html/GeoIP
 # cd /var/www/html/GeoIP
@@ -31,7 +32,7 @@ ___
 # cd /etc/awstats
 # cp awstats.model.conf awstats.model.conf.orig
 # cp awstats.model.conf.orig awstats.stats.example.com.conf
-```
+```  
 
 4. Create directories for new subdomain `stats.example.com`;
 ```
@@ -48,7 +49,7 @@ ___
 6. Open Apache configuration file and add an entry for this new subdomain;
 ```
 # vi /etc/httpd/conf/httpd.conf
-```
+```  
 Add the following lines in `httpd.conf`;
 ```
 <virtualhost *:80>
@@ -60,7 +61,7 @@ ScriptAlias /cgi-bin/ /var/www/html/example.com/cgi-bin/
 CustomLog logs/example.com_access_log combined
 ErrorLog logs/example.com_error_log
 </VirtualHost>
-```
+```  
 
 7. For AWStats subdomain, add the following in `httpd.conf`;
 ```
@@ -76,9 +77,9 @@ Alias /css "/var/www/html/stats.example.com/css/"
 Alias /icon "/var/www/html/stats.example.com/icon/"
 ScriptAlias /awstats/ "/var/www/html/stats.example.com/cgi-bin/"
 </VirtualHost>
-```
+```  
 
-7. Next, edit `/etc/httpd/conf.d/awstats.conf` to include directory path for new subdomain;
+8. Next, edit `/etc/httpd/conf.d/awstats.conf` to include directory path for new subdomain;
 ```
 # vi /etc/httpd/conf.d/awstats.conf
 ```
@@ -94,7 +95,7 @@ Order allow,deny
 Allow from all
 ```
 
-8. Now edit the `awstats.stats.example.com.conf` and add the following lines;
+9. Now edit the `awstats.stats.example.com.conf` and add the following lines;
 ```
 # vi /etc/awstats/awstats.stats.example.com.conf
 ```
@@ -108,17 +109,18 @@ LoadPlugin="geoip GEOIP_STANDARD /var/www/html/GeoIP/GeoIP.dat"
 LoadPlugin="geoip_city_maxmind GEOIP_STANDARD /var/www/html/GeoIP/GeoLiteCity.dat"
 ```
 
-9. Restart Apache web server;
+10. Restart Apache web server;
 ```
 # service httpd restart
 ```
 
-10. Run AWStats perl script to automatically update stats;
+11. Run AWStats perl script to automatically update stats;
 ```
 # perl /var/www/html/stats.example.com/cgi-bin/awstats.pl -config=stats.example.com -update
 ```
 
-11. To update AWStats automatically every hour, create a cronjob;
+
+12. To update AWStats automatically every hour, create a cronjob;
 ```
 # cd /etc/cron.hourly && vi 01awstats
 ```
@@ -131,6 +133,6 @@ Now, set permission and restart crond;
 # chmod 755 01awstatsservice crond restart
 ```
 
-___
+---
 
 Browse to [http://stats.example.com/cgi-bin/awstats.pl](http://stats.example.com/cgi-bin/awstats.pl) to see site stats for  `example.com`.
