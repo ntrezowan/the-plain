@@ -9,14 +9,14 @@ published: false
 iRule URL redirect while keeping HTTP query
 
 You have:  
-https<span></span>://example.com/admin/login.html?service=discovery.com/loginID=8598495  
-https://example.com/developer/login.html?service=discovery.com/loginID=8598495  
-https://example.com/user/login.html?service=discovery.com/loginID=8598495
+`https://example.com/admin/login.html?service=discovery.com/loginID=8598495`  
+`https://example.com/developer/login.html?service=discovery.com/loginID=8598495`  
+`https://example.com/user/login.html?service=discovery.com/loginID=8598495`
 
 You want: 
-https://example.com/admin/login.html?service=discovery.com/loginID=8598495 to be redirected to https://example.com/admin_new/login.html?service=discovery.com/loginID=8598495
-https://example.com/developer/login.html?service=discovery.com/loginID=8598495 to be redirected to https://example.com/developer_new/login.html?service=discovery.com/loginID=8598495
-https://example.com/user/login.html?service=discovery.com/loginID=8598495 to be redirected to https://example.com/user_new/login.html?service=discovery.com/loginID=8598495
+`https://example.com/admin/login.html?service=discovery.com/loginID=8598495` to be redirected to `https://example.com/admin_new/login.html?service=discovery.com/loginID=8598495`
+`https://example.com/developer/login.html?service=discovery.com/loginID=8598495` to be redirected to `https://example.com/developer_new/login.html?service=discovery.com/loginID=8598495`
+`https://example.com/user/login.html?service=discovery.com/loginID=8598495` to be redirected to `https://example.com/user_new/login.html?service=discovery.com/loginID=8598495`
 
 Concept:
 URL consists of HOSTNAME and URI ->> URL: https://[HTTP::host]/[HTTP::uri]
