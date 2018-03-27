@@ -1,9 +1,4 @@
 
-
-
-You have:
-URL=https://example.com/login/login_dev.html?service=discovery.com/login
-
 ---
 title: "irule"
 comments: false
@@ -11,6 +6,11 @@ description: "irule"
 keywords: "irule"
 published: false
 ---
+
+You have:
+URL=https://example.com/login/login_dev.html?service=discovery.com/login
+
+
 
 You want: 
 https://example.com/login_dev.html?service=discovery.com/login to be redirected to https://example.com/login/login_dev.html?service=discovery.com/login
