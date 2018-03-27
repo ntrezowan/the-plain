@@ -6,7 +6,7 @@ description: "irule"
 keywords: "irule"
 published: false
 ---
-iRule URL redirect while keeping HTTP query
+####iRule URL redirect while keeping HTTP query
 
 You have:  
 `https://example.com/admin/login.html?service=discovery.com/loginID=8598495`  
@@ -19,14 +19,14 @@ You want:
 `https://example.com/user/login.html?service=discovery.com/loginID=8598495` to be redirected to `https://example.com/user_new/login.html?service=discovery.com/loginID=8598495`  
 
 Concept:
-URL consists of HOSTNAME and URI ->> URL: https://[HTTP::host]/[HTTP::uri]
-URI consists of PATH and QUERY ->> [HTTP::uri] = [HTTP::path][HTTP::query]
+URL consists of HOSTNAME and URI ->> URL: `https://[HTTP::host]/[HTTP::uri]`  
+URI consists of PATH and QUERY ->> `[HTTP::uri] = [HTTP::path][HTTP::query]`
 
-So in our example URL;
-[HTTP::host] = example.com
-[HTTP::uri] = /admin/login.html?service=discovery.com/loginID=8598495 (everything after hostname)
-[HTTP::path] = /admin/login.html (everything after hostname and before ?)
-[HTTP::query] = service=discovery.com/loginID=8598495 (everything after ?)
+So in our example, URL ->>  
+`[HTTP::host]` = example.com  
+`[HTTP::uri]` = /admin/login.html?service=discovery.com/loginID=8598495 (everything after hostname)  
+`[HTTP::path]` = /admin/login.html (everything after hostname and before ?)  
+`[HTTP::query]` = service=discovery.com/loginID=8598495 (everything after ?)  
 
 iRule:
 ```
