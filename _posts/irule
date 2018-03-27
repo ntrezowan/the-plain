@@ -1,0 +1,42 @@
+
+You have:
+URL=https://example.com/login/login_dev.html?service=discovery.com/login
+
+You want: 
+https://example.com/login_dev.html?service=discovery.com/login to be redirected to https://example.com/login/login_dev.html?service=discovery.com/login
+
+
+URL: https://[HTTP::host]/[HTTP::uri]
+
+But [https::uri] = [HTTP::path][HTTP::query]
+
+In our example, 
+[HTTP::host] = example.com
+[HTTP::uri] = /login/login_dev.html?service=discovery.com/login (everything after hostname)
+[HTTP::path] = /login/login_dev.html (everything after hostname and before ?)
+[HTTP::query] = service=discovery.com/login (everything after ?)
+
+
+when HTTP_REQUEST {
+  switch -glob [string tolower [HTTP::path]] {
+    "" -
+    "/" {
+      HTTP::redirect https://[HTTP::host]/cas/login
+    }
+    "/cas/logout/logout.html" {
+      HTTP::redirect https://[HTTP::host]/fsu_logout/logout.html?[HTTP::query]
+    }
+    "/cas/logout/logout_dev.html" {
+      HTTP::redirect https://[HTTP::host]/fsu_logout/logout_dev.html?[HTTP::query]
+    }
+    "/cas/logout/logout_tst.html" {
+      HTTP::redirect https://[HTTP::host]/fsu_logout/logout_tst.html?[HTTP::query]
+    }
+    "/cas/logout/logout_qna.html" {
+      HTTP::redirect https://[HTTP::host]/fsu_logout/logout_qna.html?[HTTP::query]
+    }
+    default {
+      #don't do anything
+    }
+  }
+}
