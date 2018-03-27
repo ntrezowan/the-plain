@@ -8,11 +8,9 @@ published: false
 ---
 iRule URL redirect while keeping HTTP query
 
-You have:
-https://example.com/admin/login.html?service=discovery.com/loginID=8598495
-
-https://example.com/developer/login.html?service=discovery.com/loginID=8598495
-
+You have:  
+https://example.com/admin/login.html?service=discovery.com/loginID=8598495  
+https://example.com/developer/login.html?service=discovery.com/loginID=8598495  
 https://example.com/user/login.html?service=discovery.com/loginID=8598495
 
 You want: 
