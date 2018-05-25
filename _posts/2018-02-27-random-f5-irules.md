@@ -116,7 +116,6 @@ _You have_:
 _You want_:  
 Users only from a particular network (192.168.1.0/24) to be able to access `https://example.com/admin`. Users outside of this network will be redirected to home page if they try to visit /sysadmin. 
 
-
 _Prereq_:
 1. Create a txt file with the following content (make sure that there is no EOL);
 ```
@@ -134,9 +133,7 @@ when HTTP_REQUEST {
   }
 ```
 
-NB: In here, we are using External File to define the network. You can also define the network without using external file.  
-
-To do that, go to `Local Traffic > iRules > iRules List > Data Group List`. Click on Create, give it a Name (allowed_network), select Type as Address and then add the network.
+NB: In here, we are using External File to define the network. You can also define the network without using external file. To do that, go to `Local Traffic > iRules > iRules List > Data Group List`. Click on Create, give it a Name (allowed_network), select Type as Address and then add the network.
 
 
 ---
