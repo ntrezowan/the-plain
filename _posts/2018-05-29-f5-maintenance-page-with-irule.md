@@ -33,7 +33,7 @@ NB: If your html file is in a different partition, then you have to use somethin
 
 1.	Go to `System > File Management > iFile List`. Click on import and upload your image (companylogo.png) and give it a Name (companylogo.png). You can also upload more files (such as css or js) to support your HTML template.
 2.	Go to `Local Traffic > iRules > iFile List`. Click on Create, select the iFile you have just uploaded from File Name and give it a Name (companylogo.png)
-3.	Go to `Local Traffic > iRules > iRules List`. Create a new iRule and give it a Name (maintenance. Here is a sample iRule which will load the html content when a user visits a particular URI;
+3.	Go to `Local Traffic > iRules > iRules List`. Create a new iRule and give it a Name (maintenance). Here is a sample iRule which will load the html content and then redirect to another URI (https://discovery.com) when a user visits a particular URI;
 
 ```
 when HTTP_REQUEST {
@@ -54,7 +54,7 @@ when HTTP_REQUEST {
                    <div id="maintenanceBody" align="center">
                    	<strong>This site is in maintenance now.</strong>  
                    	<br /><br />
-                      You will be redirected to the homepage automatically in 15 seconds.
+                      You will be redirected to https://discovery.com automatically in 15 seconds.
                     </div>
                 </div>
             </body>
@@ -64,5 +64,5 @@ when HTTP_REQUEST {
 }
 ```
 
-If you do not want them to be redirected, then you can remove `<META http-equiv="refresh" content="15;URL=https://discovery.com">` insde head.
+If you do not want to be redirected, then you can remove `<META http-equiv="refresh" content="15;URL=https://discovery.com">` inside head.
 4.	Go to `Local Traffic > Virtual Servers > Virtual Servers List`. Select the VIP you want to apply iRule to and go to Resource Tab. In the iRule section, click on Manage, add the iRule and click Finished.
