@@ -8,7 +8,7 @@ published: false
 
 
 
-#### Create maintenance page with iRule using HTML iFile
+#### Create maintenance page using HTML iFile
 
 1.	Make sure in which partition you want to upload html file. It make things easier if VIP, iRule and iFile are in the same partition.
 2.	Go to `System > File Management > iFile List`. Click on Import and upload your html file (maintenance.html) and give it a Name (maintenance.html).
@@ -17,114 +17,52 @@ published: false
 
 ```
 when LB_FAILED {
-    if { [active_members [LB::server pool]] == 0 } {
-    HTTP::respond 503 content [ifile get " maintenance.html"]}
-    }
+  if { [active_members [LB::server pool]] == 0 } {
+  HTTP::respond 503 content [ifile get " maintenance.html"]}
+  }
 ```
+
 5.	Go to `Local Traffic > Virtual Servers > Virtual Servers List`. Select the VIP you want to apply iRule to and go to Resource Tab. In the iRule section, click on Manage, add the iRule and click Finished.
 
 NB: If your html file is in a different partition, then you have to use something like `/Common/maintenance.html` in the iRule. We are also using `503` because it will tell search crawler not to cache this page.
 
-
-
-
-
-
-
-#### URL/URI  
-URL consists of HOSTNAME and URI ->> `URL = https://[HTTP::host][HTTP::uri]`  
-URI consists of PATH and QUERY ->> `[HTTP::uri] = [HTTP::path][HTTP::query]`  
-
-Example: `https://example.com/admin/login.html?service=discovery.com/loginID=8598495`  
-
-where;  
-`[HTTP::host]` = `example.com`  
-`[HTTP::uri]` = `/admin/login.html?service=discovery.com/loginID=8598495` (everything after hostname)  
-`[HTTP::path]` = `/admin/login.html` (everything after hostname and before ?)  
-`[HTTP::query]` = `service=discovery.com/loginID=8598495` (everything after ?)  
-
 ---
 
-#### Permanent redirect all traffic to a new host but keep the URI  
+#### Create redirection page if a URI is down without iFile
 
-You have:  
-`https://example.com/`  
-`https://example.com/apps/login.jsp`  
 
-You want:  
-`https://example.com/` to be redirected to `https://discovery.com`  
-`https://example.com/apps/login.jsp` to be redirected to `https://discovery.com/apps/login.jsp`  
+1.	Go to `System > File Management > iFile List`. Click on import and upload your image (companylogo.png) and give it a Name (companylogo.png). You can also upload more files (such as css or js) to support your HTML template.
+2.	Go to `Local Traffic > iRules > iFile List`. Click on Create, select the iFile you have just uploaded from File Name and give it a Name (companylogo.png)
+3.	Go to `Local Traffic > iRules`. Click on Create and create the iRule to be used as a maintenance page. Here is a sample iRule which will load the html content when a user visits a particular URI;
 
 ```
 when HTTP_REQUEST {
-  HTTP::respond 301 Location "https://discovery.com[HTTP::uri]"
-}
-```
-To do a temporary redirect, use 302 as `HTTP::respond`.
+    if { [HTTP::query] equals "providerId=https://www.example.com/" }{  
+    HTTP::respond 200 content {
 
----
-
-#### Redirect only root path(/) to a different host without redirecting nested URI's  
-
-You have:  
-`https://example.com/`  
-`https://example.com/index.html`  
-`https://example.com/apps/login.jsp`  
-
-You want:  
-`https://example.com/` to be redirected to `https://discovery.com`  
-`https://example.com/index.html` to be redirected to `https://discovery.com`  
-`https://example.com/apps/login.jsp` will stay as it is  
-
-```
-when HTTP_REQUEST {
-  switch -glob [string tolower [HTTP::uri]] {
-    "" -
-    "/" {
-      HTTP::redirect "https://discovery.com"
+      <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml">
+         <head>
+            <title>Title goes here</title>
+            <META http-equiv="refresh" content="15;URL=https://discovery.com">
+         </head>
+            <body>
+                <div align="center">
+                   <div id="maintenanceHeader" align="center">
+                      <img src="companylogo.png"
+                   </div>
+                   <div id="maintenanceBody" align="center">
+                   	<strong>This site is in maintenance now.</strong>  
+                   	<br /><br />
+                      You will be redirected to the homepage automatically in 15 seconds.
+                    </div>
+                </div>
+            </body>
+        </html>
+        }
     }
-    "/index.html" {
-      HTTP::redirect "https://discovery.com"
-    }
-    default {
-    }
-  }
 }
 ```
 
----
-
-#### URL redirect while keeping HTTP query
-
-You have:  
-`https://example.com/admin/login.html?service=discovery.com/loginID=8598495`  
-`https://example.com/developer/login.html?service=discovery.com/loginID=8598495`  
-`https://example.com/user/login.html?service=discovery.com/loginID=8598495`
-
-You want:  
-`https://example.com/admin/login.html?service=discovery.com/loginID=8598495` to be redirected to `https://example.com/admin_new/login.html?service=discovery.com/loginID=8598495`  
-`https://example.com/developer/login.html?service=discovery.com/loginID=8598495` to be redirected to `https://example.com/developer_new/login.html?service=discovery.com/loginID=8598495`  
-`https://example.com/user/login.html?service=discovery.com/loginID=8598495` to be redirected to `https://example.com/user_new/login.html?service=discovery.com/loginID=8598495`  
-
-```
-when HTTP_REQUEST {
-  switch -glob [string tolower [HTTP::path]] {
-    "" -
-    "/" {
-      HTTP::redirect https://[HTTP::host]/console/login.html
-    }
-    "/admin/login.html" {
-      HTTP::redirect https://[HTTP::host]/admin_new/login.html?[HTTP::query]
-    }
-    "/developer/login.html" {
-      HTTP::redirect https://[HTTP::host]/developer_new/login.html?[HTTP::query]
-    }
-    "/user/login.html" {
-      HTTP::redirect https://[HTTP::host]/user_new/login.html?[HTTP::query]
-    }
-    default {
-    }
-  }
-}
-```
-
+If you do not want them to be redirected, then you can remove `<META http-equiv="refresh" content="15;URL=https://discovery.com">` insde head.
+4.	Go to `Local Traffic > Virtual Servers > Virtual Servers List`. Select the VIP you want to apply iRule to and go to Resource Tab. In the iRule section, click on Manage, add the iRule and click Finished.
