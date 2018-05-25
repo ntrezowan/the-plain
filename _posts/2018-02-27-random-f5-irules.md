@@ -113,6 +113,8 @@ You have:
 You want:  
 Users only from a particular network (192.168.1.0/24) to be able to access `https://example.com/admin`. Users outside of this network will be redirected to home page if they try to visit /sysadmin. 
 
+
+Prereq:
 1. Create a txt file with the following content (make sure that there is no EOL);
 ```
 network 192.168.1.0 mask 255.255.255.0
