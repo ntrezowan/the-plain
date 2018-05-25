@@ -105,31 +105,31 @@ when HTTP_REQUEST {
 
 ---
 
-#### Permanent redirect all traffic to a new host but keep the URI  
+#### Filter user access to a particular URI based on network 
 
 You have:  
-`https://example.com/`  
-`https://example.com/sysadmin`  
+`https://example.com/admin`  
 
 You want:  
-Users only from a particular network (192.168.1.0/24) to be able to access `https://example.com/sysadmin`. Users outside of this network will be redirected to home page if they try to visit /sysadmin. 
+Users only from a particular network (192.168.1.0/24) to be able to access `https://example.com/admin`. Users outside of this network will be redirected to home page if they try to visit /sysadmin. 
 
-1. Create a txt file with the following content;
+1. Create a txt file with the following content (make sure that there is no EOL);
+```
 network 192.168.1.0 mask 255.255.255.0
+```
 
-Make sure that there is no EOL.
-
-2. Go to `System > File Management > Data Group File List`. Click on Import, upload the file. Give it a Name (allowed_network), select Address as File Contents and a Data Group Name (allowed_network). 
+2. Go to `System > File Management > Data Group File List`. Click on Import, upload the file. Give it a Name (allowed_network), select Address as File Contents and a Data Group Name (allowed_network).  
 
 3. Here is the iRule which will filter user access to a particular path
 ```
 when HTTP_REQUEST { 
-    if { ([string tolower [HTTP::uri]] ends_with "/sysadmin/") and not ([class match [IP::client_addr] equals allowed_network]) } {
+    if { ([string tolower [HTTP::uri]] ends_with "/admin/") and not ([class match [IP::client_addr] equals allowed_network]) } {
     HTTP::redirect "https://example.com"  
     } 
   }
 ```
-NB: In here, we are using External File to define the network. You can also define the network without using external file. 
+
+NB: In here, we are using External File to define the network. You can also define the network without using external file.  
 
 To do that, go to `Local Traffic > iRules > iRules List > Data Group List`. Click on Create, give it a Name (allowed_network), select Type as Address and then add the network.
 
