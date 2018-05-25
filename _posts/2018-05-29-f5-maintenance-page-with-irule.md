@@ -24,7 +24,7 @@ when LB_FAILED {
 
 5.	Go to `Local Traffic > Virtual Servers > Virtual Servers List`. Select the VIP you want to apply iRule to and go to Resource Tab. In the iRule section, click on Manage, add the iRule and click Finished.
 
-NB: If your html file is in a different partition, then you have to use something like `/Common/maintenance.html` in the iRule. We are also using `503` because it will tell search crawler not to cache this page.
+NB: If your html file is in a different partition, then you have to use something like `/Common/maintenance.html` in the iRule. We are also using `503` because it will tell the search crawler not to cache this page.
 
 ---
 
