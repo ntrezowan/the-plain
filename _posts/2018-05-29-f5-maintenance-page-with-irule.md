@@ -10,7 +10,7 @@ published: false
 
 #### Create maintenance page using HTML iFile
 
-1.	Make sure which partition you want to upload html file. It will be easier if VIP, iRule and iFile are in the same partition.
+1.	Make sure in which partition you want to upload the html file. It will be easier if VIP, iRule and iFile are in the same partition.
 2.	Go to `System > File Management > iFile List`. Click on Import and upload your html file (maintenance.html) and give it a Name (maintenance.html).
 3.	Go to `Local Traffic > iRules > iFile List`. Click on Create, select the iFile you have just uploaded from File Name and give it a Name (maintenance.html)
 4.	Go to `Local Traffic > iRules > iRules List`. `Create` a new iRule and give it a Name (maintenance). Here is a sample iRule which will display maintenance html page when all  pool members are down (this decision will be made based on `HTTP Profile` configuration);
