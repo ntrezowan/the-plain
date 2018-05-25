@@ -42,16 +42,17 @@ To do a temporary redirect, use 302 as `HTTP::respond`.
 
 #### Redirect only root path(/) to a different host without redirecting nested URI's  
 
-You have:  
+_You have_:  
 `https://example.com/`  
 `https://example.com/index.html`  
 `https://example.com/apps/login.jsp`  
 
-You want:  
+_You want_:  
 `https://example.com/` to be redirected to `https://discovery.com`  
 `https://example.com/index.html` to be redirected to `https://discovery.com`  
 `https://example.com/apps/login.jsp` will stay as it is  
 
+_iRule_:
 ```
 when HTTP_REQUEST {
   switch -glob [string tolower [HTTP::uri]] {
@@ -72,16 +73,17 @@ when HTTP_REQUEST {
 
 #### URL redirect while keeping HTTP query
 
-You have:  
+_You have_:  
 `https://example.com/admin/login.html?service=discovery.com/loginID=8598495`  
 `https://example.com/developer/login.html?service=discovery.com/loginID=8598495`  
 `https://example.com/user/login.html?service=discovery.com/loginID=8598495`
 
-You want:  
+_You want_:  
 `https://example.com/admin/login.html?service=discovery.com/loginID=8598495` to be redirected to `https://example.com/admin_new/login.html?service=discovery.com/loginID=8598495`  
 `https://example.com/developer/login.html?service=discovery.com/loginID=8598495` to be redirected to `https://example.com/developer_new/login.html?service=discovery.com/loginID=8598495`  
 `https://example.com/user/login.html?service=discovery.com/loginID=8598495` to be redirected to `https://example.com/user_new/login.html?service=discovery.com/loginID=8598495`  
 
+_iRule_:
 ```
 when HTTP_REQUEST {
   switch -glob [string tolower [HTTP::path]] {
@@ -108,14 +110,14 @@ when HTTP_REQUEST {
 
 #### Filter user access to a particular URI based on network 
 
-You have:  
+_You have_:  
 `https://example.com/admin`  
 
-You want:  
+_You want_:  
 Users only from a particular network (192.168.1.0/24) to be able to access `https://example.com/admin`. Users outside of this network will be redirected to home page if they try to visit /sysadmin. 
 
 
-Prereq:
+_Prereq_:
 1. Create a txt file with the following content (make sure that there is no EOL);
 ```
 network 192.168.1.0 mask 255.255.255.0
@@ -123,7 +125,7 @@ network 192.168.1.0 mask 255.255.255.0
 
 2. Go to `System > File Management > Data Group File List`. Click on Import, upload the file. Give it a Name (allowed_network), select Address as File Contents and a Data Group Name (allowed_network).  
 
-3. Here is the iRule which will filter user access to a particular path
+_iRule_:
 ```
 when HTTP_REQUEST { 
     if { ([string tolower [HTTP::uri]] ends_with "/admin/") and not ([class match [IP::client_addr] equals allowed_network]) } {
