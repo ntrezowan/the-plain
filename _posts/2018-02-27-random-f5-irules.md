@@ -22,14 +22,15 @@ where;
 
 #### Permanent redirect all traffic to a new host but keep the URI  
 
-__You have__:  
+_You have_:  
 `https://example.com/`  
 `https://example.com/apps/login.jsp`  
 
-__You want__:  
+_You want_:  
 `https://example.com/` to be redirected to `https://discovery.com`  
 `https://example.com/apps/login.jsp` to be redirected to `https://discovery.com/apps/login.jsp`  
 
+_iRule_:
 ```
 when HTTP_REQUEST {
   HTTP::respond 301 Location "https://discovery.com[HTTP::uri]"
