@@ -5,14 +5,14 @@ description: "F5 maintenance page with iRule"
 keywords: "F5, iRules, iFile, redirect, HTML"
 published: true
 ---
-
-
-
 #### Create maintenance page using HTML iFile
 
 1.	Make sure in which partition you want to upload the html file. It will be easier if VIP, iRule and iFile are in the same partition.  
+
 2.	Go to `System > File Management > iFile List`. Click on Import and upload your html file (maintenance.html) and give it a Name (maintenance.html).  
+
 3.	Go to `Local Traffic > iRules > iFile List`. Click on Create, select the iFile you have just uploaded from File Name and give it a Name (maintenance.html).  
+
 4.	Go to `Local Traffic > iRules > iRules List`. Create a new iRule and give it a Name (maintenance). Here is a sample iRule which will load the HTML page when all  pool members are down (this decision will be made based on `HTTP Profile` configuration);  
 
 ```
@@ -32,7 +32,9 @@ NB: If your html file is in a different partition, then you have to use somethin
 
 
 1.	Go to `System > File Management > iFile List`. Click on import and upload your image (companylogo.png) and give it a Name (companylogo.png). You can also upload more files (such as css or js) to support your HTML template.  
+
 2.	Go to `Local Traffic > iRules > iFile List`. Click on Create, select the iFile you have just uploaded from File Name and give it a Name (companylogo.png).  
+
 3.	Go to `Local Traffic > iRules > iRules List`. Create a new iRule and give it a Name (maintenance). Here is a sample iRule which will load the html content and then redirect to another URI (`https://discovery.com`) when a user visits a particular URI;  
 
 ```
