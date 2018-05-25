@@ -7,13 +7,13 @@ published: true
 ---
 #### Create maintenance page using HTML iFile
 
-1.	Make sure in which partition you want to upload the html file. It will be easier if VIP, iRule and iFile are in the same partition 
+1.	Make sure in which partition you want to upload the html file. It will be easier if VIP, iRule and iFile are in the same partition.  
 
-2.	Go to `System > File Management > iFile List`. Click on Import and upload your html file (maintenance.html) and give it a Name (maintenance.html).
+2.	Go to `System > File Management > iFile List`. Click on Import and upload your html file (maintenance.html) and give it a Name (maintenance.html).  
 
-3.	Go to `Local Traffic > iRules > iFile List`. Click on Create, select the iFile you have just uploaded from File Name and give it a Name (maintenance.html).
+3.	Go to `Local Traffic > iRules > iFile List`. Click on Create, select the iFile you have just uploaded from File Name and give it a Name (maintenance.html).  
 
-4.	Go to `Local Traffic > iRules > iRules List`. Create a new iRule and give it a Name (maintenance). Here is a sample iRule which will load the HTML page when all  pool members are down (this decision will be made based on `HTTP Profile` configuration);
+4.	Go to `Local Traffic > iRules > iRules List`. Create a new iRule and give it a Name (maintenance). Here is a sample iRule which will load the HTML page when all  pool members are down (this decision will be made based on `HTTP Profile` configuration);  
 
 ```
 when LB_FAILED {
@@ -22,7 +22,7 @@ when LB_FAILED {
   }
 ```
 
-5.	Go to `Local Traffic > Virtual Servers > Virtual Servers List`. Select the VIP you want to apply iRule to and go to Resource Tab. In the iRule section, click on Manage, add the iRule and click Finished.
+5.	Go to `Local Traffic > Virtual Servers > Virtual Servers List`. Select the VIP you want to apply iRule to and go to Resource Tab. In the iRule section, click on Manage, add the iRule and click Finished.  
 
 NB: If your html file is in a different partition, then you have to use something like `/Common/maintenance.html` in the iRule. We are also using `503` because it will tell the search crawler not to cache this page.  
 
@@ -31,11 +31,11 @@ NB: If your html file is in a different partition, then you have to use somethin
 #### Create redirection page if a URI is down without iFile
 
 
-1.	Go to `System > File Management > iFile List`. Click on import and upload your image (companylogo.png) and give it a Name (companylogo.png). You can also upload more files (such as css or js) to support your HTML template.
+1.	Go to `System > File Management > iFile List`. Click on import and upload your image (companylogo.png) and give it a Name (companylogo.png). You can also upload more files (such as css or js) to support your HTML template.  
 
-2.	Go to `Local Traffic > iRules > iFile List`. Click on Create, select the iFile you have just uploaded from File Name and give it a Name (companylogo.png).
+2.	Go to `Local Traffic > iRules > iFile List`. Click on Create, select the iFile you have just uploaded from File Name and give it a Name (companylogo.png).  
 
-3.	Go to `Local Traffic > iRules > iRules List`. Create a new iRule and give it a Name (maintenance). Here is a sample iRule which will load the html content and then redirect to another URI (`https://discovery.com`) when a user visits a particular URI;
+3.	Go to `Local Traffic > iRules > iRules List`. Create a new iRule and give it a Name (maintenance). Here is a sample iRule which will load the html content and then redirect to another URI (`https://discovery.com`) when a user visits a particular URI;  
 
 ```
 when HTTP_REQUEST {
@@ -66,6 +66,6 @@ when HTTP_REQUEST {
 }
 ```
 
-4.	Go to `Local Traffic > Virtual Servers > Virtual Servers List`. Select the VIP you want to apply iRule to and go to Resource Tab. In the iRule section, click on Manage, add the iRule and click Finished.
+4.	Go to `Local Traffic > Virtual Servers > Virtual Servers List`. Select the VIP you want to apply iRule to and go to Resource Tab. In the iRule section, click on Manage, add the iRule and click Finished.  
 
 NB: If you do not want to be redirected, remove `<META http-equiv="refresh" content="15;URL=https://discovery.com">` from head.
