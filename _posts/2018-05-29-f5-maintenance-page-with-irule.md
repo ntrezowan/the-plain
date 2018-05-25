@@ -1,9 +1,9 @@
 ---
-title: "F5 iRules"
+title: "F5 maintenance page with iRule"
 comments: false
 description: "F5 maintenance page with iRule"
-keywords: "F5, iRules, example"
-published: false
+keywords: "F5, iRules, iFile, redirect, HTML"
+published: true
 ---
 
 
