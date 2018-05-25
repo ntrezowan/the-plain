@@ -14,7 +14,6 @@ published: true
 3.	Go to `Local Traffic > iRules > iFile List`. Click on Create, select the iFile you have just uploaded from File Name and give it a Name (maintenance.html).  
 
 4.	Go to `Local Traffic > iRules > iRules List`. Create a new iRule and give it a Name (maintenance). Here is a sample iRule which will load the HTML page when all  pool members are down (this decision will be made based on `HTTP Profile` configuration);  
-
 ```
 when LB_FAILED {
   if { [active_members [LB::server pool]] == 0 } {
@@ -36,7 +35,6 @@ NB: If your html file is in a different partition, then you have to use somethin
 2.	Go to `Local Traffic > iRules > iFile List`. Click on Create, select the iFile you have just uploaded from File Name and give it a Name (companylogo.png).  
 
 3.	Go to `Local Traffic > iRules > iRules List`. Create a new iRule and give it a Name (maintenance). Here is a sample iRule which will load the html content and then redirect to another URI (`https://discovery.com`) when a user visits a particular URI;  
-
 ```
 when HTTP_REQUEST {
     if { [HTTP::query] equals "providerId=https://www.example.com/" }{  
