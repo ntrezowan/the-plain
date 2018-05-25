@@ -10,10 +10,10 @@ published: false
 
 #### Create maintenance page with iRule using HTML iFile
 
-1.	Make sure in which partition you want to upload html file. It makes things easier if VIP, iRule and iFile are in the same partition.
-2.	Go to System > File Management > iFile List. Click on import and upload your html file (maintenance.html) and give it a Name (maintenance.html).
-3.	Go to Local Traffic > iRules > iFile List. Click on Create, select the iFile you have just uploaded from File Name and give it a Name (maintenance.html)
-4.	Go to Local Traffic > iRules > iRules List. Create a new iRule and give it a Name (maintenance). Here is a sample iRule which will load the html page when all the pool members are down (decision will be made based on HTTP Profile configuration);
+1.	Make sure in which partition you want to upload html file. It make things easier if VIP, iRule and iFile are in the same partition.
+2.	Go to `System > File Management > iFile List`. Click on Import and upload your html file (maintenance.html) and give it a Name (maintenance.html).
+3.	Go to `Local Traffic > iRules > iFile List`. Click on Create, select the iFile you have just uploaded from File Name and give it a Name (maintenance.html)
+4.	Go to `Local Traffic > iRules > iRules List`. `Create` a new iRule and give it a Name (maintenance). Here is a sample iRule which will display maintenance html page when all  pool members are down (this decision will be made based on `HTTP Profile` configuration);
 
 ```
 when LB_FAILED {
@@ -21,8 +21,9 @@ when LB_FAILED {
     HTTP::respond 503 content [ifile get " maintenance.html"]}
     }
 ```
-5.	Go to Local Traffic > Virtual Servers > Virtual Servers List. Select the VIP you want to apply iRule to and go to Resource Tab. In the iRule section, click on Manage, add the iRule and click Finished.
-NB: If your html file is in a different partition, then you have to use something like /Common/maintenance.html in the iRule. We are also using 503 because it will tell search crawler not to cache this page.
+5.	Go to `Local Traffic > Virtual Servers > Virtual Servers List`. Select the VIP you want to apply iRule to and go to Resource Tab. In the iRule section, click on Manage, add the iRule and click Finished.
+
+NB: If your html file is in a different partition, then you have to use something like `/Common/maintenance.html` in the iRule. We are also using `503` because it will tell search crawler not to cache this page.
 
 
 
