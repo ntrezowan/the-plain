@@ -22,11 +22,11 @@ where;
 
 #### Permanent redirect all traffic to a new host but keep the URI  
 
-You have:  
+__You have__:  
 `https://example.com/`  
 `https://example.com/apps/login.jsp`  
 
-You want:  
+__You want__:  
 `https://example.com/` to be redirected to `https://discovery.com`  
 `https://example.com/apps/login.jsp` to be redirected to `https://discovery.com/apps/login.jsp`  
 
