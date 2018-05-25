@@ -33,7 +33,7 @@ NB: If your html file is in a different partition, then you have to use somethin
 
 1.	Go to `System > File Management > iFile List`. Click on import and upload your image (companylogo.png) and give it a Name (companylogo.png). You can also upload more files (such as css or js) to support your HTML template.
 2.	Go to `Local Traffic > iRules > iFile List`. Click on Create, select the iFile you have just uploaded from File Name and give it a Name (companylogo.png)
-3.	Go to `Local Traffic > iRules List`. Click on Create and create the iRule to be used as a maintenance page. Here is a sample iRule which will load the html content when a user visits a particular URI;
+3.	Go to `Local Traffic > iRules List`. Create a new iRule and give it a Name (maintenance. Here is a sample iRule which will load the html content when a user visits a particular URI;
 
 ```
 when HTTP_REQUEST {
