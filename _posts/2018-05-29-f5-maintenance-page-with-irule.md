@@ -64,6 +64,6 @@ when HTTP_REQUEST {
 }
 ```
 
-If you do not want to be redirected, remove `<META http-equiv="refresh" content="15;URL=https://discovery.com">` inside head.
-
 4.	Go to `Local Traffic > Virtual Servers > Virtual Servers List`. Select the VIP you want to apply iRule to and go to Resource Tab. In the iRule section, click on Manage, add the iRule and click Finished.
+
+NB: If you do not want to be redirected, remove `<META http-equiv="refresh" content="15;URL=https://discovery.com">` from head.
