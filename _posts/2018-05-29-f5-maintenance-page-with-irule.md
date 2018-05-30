@@ -42,21 +42,21 @@ when HTTP_REQUEST {
 
       <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml">
-         <head>
+          <head>
             <title>Title goes here</title>
             <META http-equiv="refresh" content="15;URL=https://discovery.com">
-         </head>
+          </head>
             <body>
-                <div align="center">
-                   <div id="maintenanceHeader" align="center">
-                      <img src="companylogo.png"
-                   </div>
-                   <div id="maintenanceBody" align="center">
-                   	<strong>This site is in maintenance now.</strong>  
-                   	<br /><br />
-                      You will be redirected to https://discovery.com automatically in 15 seconds.
-                   </div>
+              <div align="center">
+                <div id="maintenanceHeader" align="center">
+                  <img src="companylogo.png"
                 </div>
+                <div id="maintenanceBody" align="center">
+                  <strong>This site is in maintenance now.</strong>  
+                  <br /><br />
+                  You will be redirected to https://discovery.com automatically in 15 seconds.
+                </div>
+              </div>
             </body>
         </html>
         }
