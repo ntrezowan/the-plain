@@ -55,7 +55,7 @@ when HTTP_REQUEST {
                    	<strong>This site is in maintenance now.</strong>  
                    	<br /><br />
                       You will be redirected to https://discovery.com automatically in 15 seconds.
-                    </div>
+                   </div>
                 </div>
             </body>
         </html>
