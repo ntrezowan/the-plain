@@ -3,7 +3,7 @@ title: "F5 maintenance page with iRule"
 comments: false
 description: "F5 maintenance page with iRule"
 keywords: "F5, iRules, iFile, redirect, HTML"
-published: false
+published: true
 ---
 #### Create maintenance page using HTML iFile
 
