@@ -40,27 +40,27 @@ when HTTP_REQUEST {
     if { [HTTP::query] equals "providerId=https://www.example.com/" }{  
     HTTP::respond 200 content {
 
-      <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml">
-          <head>
-            <title>Title goes here</title>
-            <META http-equiv="refresh" content="15;URL=https://discovery.com">
-          </head>
+            <head>
+                <title>Title goes here</title>
+                <META http-equiv="refresh" content="15;URL=https://discovery.com">
+            </head>
             <body>
-              <div align="center">
-                <div id="maintenanceHeader" align="center">
-                  <img src="companylogo.png"
+                <div align="center">
+                    <div id="maintenanceHeader" align="center">
+                        <img src="companylogo.png"
+                    </div>
+                    <div id="maintenanceBody" align="center">
+                        <strong>This site is in maintenance now.</strong>  
+                        <br /><br />
+                        You will be redirected to https://discovery.com automatically in 15 seconds.
+                    </div>
                 </div>
-                <div id="maintenanceBody" align="center">
-                  <strong>This site is in maintenance now.</strong>  
-                  <br /><br />
-                  You will be redirected to https://discovery.com automatically in 15 seconds.
-                </div>
-              </div>
             </body>
         </html>
-        }
     }
+  }
 }
 ```
 
