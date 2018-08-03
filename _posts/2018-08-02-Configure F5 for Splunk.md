@@ -184,8 +184,7 @@ Service Port=9514
 ```
 
 2.	Create an iRule and add it to a VIP. 
-
-Here is a sample iRule which does Apache like HTTP Request/Response logging;
+Go to Local Traffic > iRules > iRules List. Click on Create and here is a sample iRule which does Apache like HTTP Request/Response logging;
 ```
 when CLIENT_ACCEPTED {
     set client_address [IP::client_addr]
