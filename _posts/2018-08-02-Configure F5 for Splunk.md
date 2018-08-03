@@ -140,14 +140,13 @@ Here, `10.10.10.1` is the Splunk server and F5 will send logs to `9514/udp` and 
 ```
 user@(f5serv1)(cfg-sync In Sync)(Standby)(/Common)(tmos)# modify sys syslog iso-date enabled
 ```
-5.	In Splunk, modify `inputs.conf` file for Splunk Add-on to add the following source type;
+5.	In Splunk, modify `inputs.conf` file for Splunk Add-on to add the following source type;  
 F5 Source Type ->
 ```
 syslog  (/var/log/ltm) -> f5:bigip:syslog
 APM     (/var/log/apm) -> f5:bigip:apm:syslog
 ASM     (/var/log/asm) -> f5:bigip:asm:syslog
 ```
-
 inputs.conf ->
 ```
 [udp://9514]
@@ -165,7 +164,6 @@ disabled = true
 connection_host=ip
 sourcetype = f5:bigip:asm:syslog
 ```
-
 In here, syslog and APM is using 9514/udp and ASM is using 9515/tcp.
 
 6.	Go to Splunk and do the following searches to verify that syslog is showing up in Splunk;
