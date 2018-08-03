@@ -137,6 +137,7 @@ sys syslog {
     remote-servers none
     user-log-from notice
     user-log-to emerg
+}
 ```
 Here, `10.10.10.1` is the Splunk server and F5 will send logs to `9514/udp` and `9515/tcp` of Splunk. In filter section, we set the severity level from informational to emergency for syslog (/var/logs/ltm).
 
