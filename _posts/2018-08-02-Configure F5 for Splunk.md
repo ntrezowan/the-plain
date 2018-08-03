@@ -6,7 +6,7 @@ keywords: "F5, hsl, hish speed logging, request logging, management port logging
 published: true
 ---
 
-Splunk IP = 10.10.10.1
+Splunk IP = 10.10.10.1  
 Splunk TCP Port=9515 (for ASM)  
 Splunk UDP Port=9514 (for syslog, HSL, and APM)  
 F5SERV1 self IP for VLAN1 = 11.11.11.2  
@@ -140,7 +140,7 @@ Here, `10.10.10.1` is the Splunk server and F5 will send logs to `9514/udp` and 
 ```
 user@(f5serv1)(cfg-sync In Sync)(Standby)(/Common)(tmos)# modify sys syslog iso-date enabled
 ```
-5.	In Splunk, modify `inputs.conf` file for Splunk Add-on to add the following source type;  
+5.	In Splunk, modify `inputs.conf` so that F5 sourcetype matches with `inputs.conf`;  
 F5 Source Type ->
 ```
 syslog  (/var/log/ltm) -> f5:bigip:syslog
