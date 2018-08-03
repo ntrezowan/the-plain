@@ -45,6 +45,7 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 20.20.20.0      0.0.0.0         255.255.255.0   U     0      0        0 vlan1
 ```
 3. Run Netcat to check if you can send logs to a specific remote port of Splunk server;  
+
 To test if you can reach a UDP remote port, run the following and then search in Splunk server with `HOST=f5serv1* f5serv1-UDP`. 
 ```
 user@f5serv1:Active:In Sync] ~ # route echo '<0>f5serv1-UDP' | nc -w 1 -u 10.10.10.1 9514
@@ -53,17 +54,17 @@ To test if you can reach a TCP remote port, run the following and then search in
 ```
 user@f5serv1:Active:In Sync] ~ # route echo '<0>f5serv1-TCP' | nc -w 1 -t 10.10.10.1 9515
 ```
-4. You can also do a tcpdump to check if custom logs generated from F5 can reach Splunk server. 
+4. You can also do a tcpdump to check if you can send logs to a specific remote port of Splunk server;  
+
 Run the following in one terminal;
 ```
-mrh13j@f5san1:Active:In Sync] ~ # tcpdump -A -nni vlan_1184 host 146.201.74.20 and port 9515
+user@f5serv1:Active:In Sync] ~ # tcpdump -A -nni vlan1 host 10.10.10.1 and port 9515
 ```
 
-Now send a custom log using another terminal;
+While tcpdump is running, open another terminal and run the following and check if this log shows in tcpdump outout. Also search in Splunk server with `HOST=f5serv1* DUMPLING`.
 ```
-mrh13j@f5san1:Active:In Sync] ~ # logger -p local0.notice "DUMPLING”
+user@f5serv1:Active:In Sync] ~ # logger -p local0.notice "DUMPLING”
 ```
-To test if you can reach a remote UDP port, run the following and then search in Splunk server with “HOST=F5san* DUMPLING”
 If nc or tcpdump works, it means F5 can send logs to Splunk without any issue.
 
 
