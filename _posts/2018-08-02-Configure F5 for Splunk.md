@@ -48,8 +48,7 @@ To test if you can reach a UDP remote port, run the following and then search in
 ```
 mrh13j@f5san1:Active:In Sync] ~ # route echo '<0>F5SAN1-TCP' | nc -w 1 -t 146.201.74.20 9515
 ```
-To test if you can reach a TCP remote port, run the following and then search in Splunk server with “HOST=F5san* F5SAN1-TCP”
-
+To test if you can reach a TCP remote port, run the following and then search in Splunk server with “HOST=F5san* F5SAN1-TCP”.  
 If you have a HA environment, do this for all the F5 servers in the group.
 
 4. You can also do a tcpdump to check if custom logs generated from F5 can reach Splunk server. 
