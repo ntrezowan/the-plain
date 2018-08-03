@@ -13,7 +13,6 @@ PING 146.201.74.20 (146.201.74.20) 56(84) bytes of data.
 64 bytes from 146.201.74.20: icmp_seq=1 ttl=63 time=0.838 ms
 ^C
 ```
-
 If ping is down, it does not necessarily mean that no log will reach Splunk server because F5 will send logs to a predefined TCP/UDP port.
 
 2. Check how F5 is reaching Splunk server;  
