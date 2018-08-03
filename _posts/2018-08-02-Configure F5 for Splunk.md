@@ -134,7 +134,6 @@ sys syslog {
     user-log-from notice
     user-log-to emerg
 ```
-
 Here, `10.10.10.1` is the Splunk server and F5 will send logs to `9514/udp` and `9515/tcp` port of Splunk. In filter section, we set the severity level from informational to emergency for syslog (/var/logs/ltm).
 
 4.	Change the date format to `iso-date`;
@@ -167,7 +166,7 @@ connection_host=ip
 sourcetype = f5:bigip:asm:syslog
 ```
 
-In here, syslog and APM is using port 9514/udp and ASM is using 9515/tcp.
+In here, syslog and APM is using 9514/udp and ASM is using 9515/tcp.
 
 6.	Go to Splunk and do the following searches to verify that syslog is showing up in Splunk;
 a.	Do a search “host=f5san* mcpd” to see if it’s getting mcpd logs
