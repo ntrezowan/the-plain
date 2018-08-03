@@ -72,31 +72,29 @@ If nc or tcpdump works, it means F5 can send logs to specific Splunk ports witho
 
 1. In F5, check `syslog-ng` global and local configuration;  
 ```
-[mrh13j@f5san1:Active:In Sync] ~ # cat /var/run/config/syslog-ng.conf
+[user@f5serv1:Active:In Sync] ~ # cat /var/run/config/syslog-ng.conf
 ```
 Check default log path of syslog, APM and ASM;  
 syslog configuration -> # local0.*  
 APM configuration -> # local1.*  
 ASM configuration -> # local3.*  
-```
 
 2. Check if there is any pre-configured remote log server; 
 ```
-mrh13j@(f5san1)(cfg-sync In Sync)(Active)(/Common)(tmos)# list /sys syslog remote-servers
+user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# list /sys syslog remote-servers
 sys syslog {
     remote-servers none
 }
 ```
-
 If there is any remote log server, we need to remove it because it does not allow us to set severity level of outgoing logs. To remove remote-servers, run the following;
 ```
-mrh13j@(f5san1)(cfg-sync In Sync)(Active)(/Common)(tmos)# modify /sys syslog remote-servers none
-mrh13j@(f5san1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save /sys config
+user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# modify /sys syslog remote-servers none
+user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save /sys config
 ```
 
 3.	Now add the remote server as a “include” which will allow us to filter outgoing logs;
 ```
-mrh13j@(f5san1)(cfg-sync In Sync)(Active)(/Common)(tmos)# list /sys syslog all-properties
+user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# list /sys syslog all-properties
 
 sys syslog {
     auth-priv-from notice
@@ -116,8 +114,8 @@ sys syslog {
         level(info..emerg);
     };
     destination d_remote_loghost {
-        tcp(\"146.201.74.20\" port(9515));
-        udp(\"146.201.74.20\" port(9514));
+        tcp(\"10.10.10.1\" port(9515));
+        udp(\"10.10.10.1\" port(9514));
     };
     log {
         source(s_syslog_pipe);
@@ -139,7 +137,7 @@ sys syslog {
     user-log-to emerg
 ```
 
-Here, 146.201.74.20 is the Splunk server IP and F5 will send logs to 9514/udp and 9515/tcp port of Splunk. In filter, we set the severity level from informational to emergency for syslog (/var/logs/ltm).
+Here, `10.10.10.1` is the Splunk server IP and F5 will send logs to 9514/udp and 9515/tcp port of Splunk. In filter, we set the severity level from informational to emergency for syslog (/var/logs/ltm).
 
 4.	Change the date format to iso-date;
 ```
