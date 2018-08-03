@@ -173,13 +173,13 @@ In here, syslog and APM is using `9514/udp` and ASM is using `9515/tcp`.
 
 #### Configure HSL using TMM
 
-1.	Create	a pool and add the Splunk server as a backend server of the pool;
-Go to `Local Traffic > Pools`. Click on Create, select Advanced from Configuration and complete the following;
+1.	Create	a pool and add the Splunk server as a backend server of the pool.
+Go to `Local Traffic > Pools`. Click on Create, select Advanced from Configuration and configure as following;
 ```
 Name=splunk_pool
 Pool Health Monitor=gateway_icmp
 Node Health Monitor=udp
-Address=146.201.74.20
+Address=10.10.10.1
 Service Port=9514
 ```
 
