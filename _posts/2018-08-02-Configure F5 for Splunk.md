@@ -75,9 +75,9 @@ If nc or tcpdump works, it means F5 can send logs to specific Splunk ports witho
 [user@f5serv1:Active:In Sync] ~ # cat /var/run/config/syslog-ng.conf
 ```
 Check default log path of syslog, APM and ASM;  
-syslog configuration -> # local0.*  
-APM configuration -> # local1.*  
-ASM configuration -> # local3.*  
+syslog  -> # local0.*  
+APM     -> # local1.*  
+ASM     -> # local3.*  
 
 2. Check if there is any pre-configured remote log server on F5; 
 ```
