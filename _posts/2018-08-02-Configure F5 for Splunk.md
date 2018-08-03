@@ -6,7 +6,9 @@ keywords: "F5, hsl, hish speed logging, request logging, management port logging
 published: true
 ---
 
-Splunk IP = 10.10.10.1  
+Splunk IP = 10.10.10.1
+Splunk TCP Port=9515 (for ASM)  
+Splunk UDP Port=9514 (for syslog, HSL, and APM)  
 F5SERV1 self IP for VLAN1 = 11.11.11.2  
 F5SERV2 self IP for VLAN1 = 11.11.11.3  
 F5SERV Floating IP for VLAN1 = 11.11.11.1  
@@ -44,26 +46,25 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 10.10.10.1      0.0.0.0         255.255.255.255 U     0      0        0 vlan1
 20.20.20.0      0.0.0.0         255.255.255.0   U     0      0        0 vlan1
 ```
-3. Run Netcat to check if you can send logs to a specific remote port of Splunk server;  
+3. Run Netcat to check if you can send logs to a specific remote port of Splunk server.  
 To test if you can reach a UDP remote port, run the following and then search in Splunk server with `HOST=f5serv1* f5serv1-UDP`. 
 ```
 user@f5serv1:Active:In Sync] ~ # route echo '<0>f5serv1-UDP' | nc -w 1 -u 10.10.10.1 9514
 ```
-To test if you can reach a TCP remote port, run the following and then search in Splunk server with “HOST=f5serv1* f5serv1-TCP”. 
+To test if you can reach a TCP remote port, run the following and then search in Splunk server with `HOST=f5serv1* f5serv1-TCP`. 
 ```
 user@f5serv1:Active:In Sync] ~ # route echo '<0>f5serv1-TCP' | nc -w 1 -t 10.10.10.1 9515
 ```
-4. You can also do a tcpdump to check if you can send logs to a specific remote port of Splunk server;  
-Run the following in one terminal;
+4. You can also do a tcpdump to check if you can send logs to a specific remote port of Splunk server.  
+Run the following in one terminal to monitor the TCP port;
 ```
 user@f5serv1:Active:In Sync] ~ # tcpdump -A -nni vlan1 host 10.10.10.1 and port 9515
 ```
-
-While tcpdump is running, open another terminal and run the following and check if this log shows in tcpdump outout. Also search in Splunk server with `HOST=f5serv1* DUMPLING`.
+While tcpdump is running, open another terminal and run the following and check if this log shows in tcpdump outout. Also check /var/log/ltm and search in Splunk server with `HOST=f5serv1* DUMPLING`.
 ```
 user@f5serv1:Active:In Sync] ~ # logger -p local0.notice "DUMPLING”
 ```
-If nc or tcpdump works, it means F5 can send logs to Splunk without any issue.
+If nc or tcpdump works, it means F5 can send logs to specific Splunk ports without any issue.
 
 
 ---
