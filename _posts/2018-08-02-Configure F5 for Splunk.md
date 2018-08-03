@@ -12,6 +12,10 @@ Splunk UDP Port=9514 (for syslog, HSL, and APM)
 F5SERV1 self IP for VLAN1 = 11.11.11.2  
 F5SERV2 self IP for VLAN1 = 11.11.11.3  
 F5SERV Floating IP for VLAN1 = 11.11.11.1  
+F5SERV1 self IP for mgmt VLAN = 10.1.1.2  
+F5SERV2 self IP for mgmt VLAN = 10.1.1.3  
+F5SERV Florating IP for mgmt VLAN = 10.1.1.1
+
 
 
 #### Check network connectivity
@@ -173,7 +177,7 @@ In here, syslog and APM is using `9514/udp` and ASM is using `9515/tcp`.
 
 #### Configure HSL using TMM
 
-1.	Create	a pool and add the Splunk server as a backend server of the pool.
+1.	Create	a pool and add Splunk as a backend server of the pool.
 Go to `Local Traffic > Pools`. Click on Create, select Advanced from Configuration and configure as following;
 ```
 Name=splunk_pool
@@ -184,7 +188,7 @@ Service Port=9514
 ```
 
 2.	Create an iRule and add it to a VIP. 
-Go to Local Traffic > iRules > iRules List. Click on Create and here is a sample iRule which does Apache like HTTP Request/Response logging;
+Go to `Local Traffic > iRules > iRules List`. Click on Create and here is a sample iRule which does Apache like HTTP Request/Response logging;
 ```
 when CLIENT_ACCEPTED {
     set client_address [IP::client_addr]
@@ -233,7 +237,7 @@ when LB_FAILED {
 }
 ```
 
-3.	Visit the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* HSL`. If nothing shows up in Splunk, uncomment `#log local0.info` from the iRul to start writing logs in local syslog (/var/logs/ltm). If logs are writing in syslog file but not showing up in Splunk, it means there is some network issue. Revisit "Check Network Connectivity" section. If logs are not writing in local syslog, try using a simplier iRule.
+3.	Visit the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* HSL`. If nothing shows up in Splunk, uncomment `#log local0.info` from the iRule to start writing logs in local syslog (/var/logs/ltm). If logs are writing in syslog file but not showing up in Splunk, it means there is some network issue. Revisit "Check Network Connectivity" section. If logs are not writing in local syslog, try using a simplier iRule.
 
 ---
 
@@ -241,40 +245,38 @@ when LB_FAILED {
 
 1.	Verify that F5 is using management port to reach Splunk;
 ```
-mrh13j@(f5san1)(cfg-sync In Sync)(Active)(/Common)(tmos)# ip route get 146.201.74.20
-146.201.74.20 via 10.1.114.1 dev mgmt  src 10.1.114.11
+user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# ip route get 10.10.10.1
+10.10.10.1 via 10.1.1.1 dev mgmt  src 10.1.1.2
 ```
-
-If not, configure F5 to so that it uses manament port to reach Splunk;
+If not, configure F5 so that it uses manament port to reach Splunk;
 ```
-mrh13j@(f5san1)(cfg-sync In Sync)(Active)(/Common)(tmos)# create /sys log-config destination management-port mgmt ip-address 146.201.74.20 port 9514 protocol udp
-mrh13j@(f5san1)(cfg-sync In Sync)(Active)(/Common)(tmos)# list sys management-route
+user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# create /sys log-config destination management-port splunk ip-address 10.10.10.1 port 9514 protocol udp
+user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# list sys management-route
 sys management-route splunk {
-    gateway 10.1.114.1
-    network 146.201.74.22/32
+    gateway 10.1.1.1
+    network 10.10.10.1/32
 }
 mrh13j@(f5san1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save sys config
 ```
 
-2.	Create a Log destination
-Go to `System > Logs > Configuration > Log Destinations`. Create New and do the following;
+2.	Create a Log destination.  
+Go to `System > Logs > Configuration > Log Destinations`. Create New and configure as following;
 ```
 Name=splunk_hsl_via_mgmt_port
 Type=Management Port
-Address=146.201.74.20
+Address=10.10.10.1
 Port 9515
 Protocol=TCP
 ```
 
-3.	Create a Log publisher
-Go to `System > Logs > Configuration> Log Publisher`. Create New and do the following
+3.	Create a Log publisher.  
+Go to `System > Logs > Configuration> Log Publisher`. Create New and configure as following;
 ```
 Name=splunk_hsl_publisher
 Destination=splunk_hsl_via_mgmt_port
 ```
-4.	Create an iRule and add it to a VIP. 
-
-Here is a sample iRule which does Apache like HTTP Request/Response logging;
+4. Create an iRule and add it to a VIP. 
+Go to `Local Traffic > iRules > iRules List`. Click on Create and here is a sample iRule which does Apache like HTTP Request/Response logging;
 ```
 when CLIENT_ACCEPTED {
     set client_address [IP::client_addr]
@@ -313,39 +315,33 @@ when HTTP_RESPONSE {
         set res_length 0
     }
     #log local0.info "SYSLOGDD CLIENT_IP=$client_address, VIP=$vip, VIP_NAME=\"$virtual_server\", SERVER_NODE=$node, SERVER_NODE_PORT=$node_port, HTTP_URL=$http_url, HTTP_VERSION=$http_version, HTTP_STATUS=$http_status, HTTP_METHOD=$http_method, HTTP_CONTENT_TYPE=$http_content_type, HTTP_USER_AGENT=\"$http_user_agent\", HTTP_REFERRER=\"$http_referrer\", COOKIE=\"$cookie\", REQUEST_START_TIME=$req_start_time, RESPONSE_START_TIME=$res_start_time, REQUEST_ELAPSED_TIME=$req_elapsed_time, BYTES_IN=$req_length, BYTES_OUT=$res_length\r\n"
-    set hsl [HSL::open -publisher /Common/splunk_pool]
-    HSL::send $hsl "<190> CLIENT_IP=$client_address, VIP=$vip, VIP_NAME=\"$virtual_server\", SERVER_NODE=$node, SERVER_NODE_PORT=$node_port, HTTP_URL=$http_url, HTTP_VERSION=$http_version, HTTP_STATUS=$http_status, HTTP_METHOD=$http_method, HTTP_CONTENT_TYPE=$http_content_type, HTTP_USER_AGENT=\"$http_user_agent\", HTTP_REFERRER=\"$http_referrer\", COOKIE=\"$cookie\", REQUEST_START_TIME=$req_start_time,REQUEST_ELAPSED_TIME=$req_elapsed_time, BYTES_IN=$req_length, BYTES_OUT=$res_length\r\n"
+    set hsl [HSL::open -publisher /Common/splunk_hsl_publisher]
+    HSL::send $hsl "<190> HSL, CLIENT_IP=$client_address, VIP=$vip, VIP_NAME=\"$virtual_server\", SERVER_NODE=$node, SERVER_NODE_PORT=$node_port, HTTP_URL=$http_url, HTTP_VERSION=$http_version, HTTP_STATUS=$http_status, HTTP_METHOD=$http_method, HTTP_CONTENT_TYPE=$http_content_type, HTTP_USER_AGENT=\"$http_user_agent\", HTTP_REFERRER=\"$http_referrer\", COOKIE=\"$cookie\", REQUEST_START_TIME=$req_start_time,REQUEST_ELAPSED_TIME=$req_elapsed_time, BYTES_IN=$req_length, BYTES_OUT=$res_length\r\n"
 }
 when LB_FAILED {
-    set hsl [HSL::open -publisher /Common/splunk_pool]
-    HSL::send $hsl "<190> CLIENT_IP=$client_address, VIP=$vip, VIP_NAME=\"$virtual_server\", SERVER_NODE=$node, SERVER_NODE_PORT=$node_port, HTTP_URL=$http_url, HTTP_VERSION=$http_version, HTTP_STATUS=$http_status, HTTP_METHOD=$http_method, HTTP_CONTENT_TYPE=$http_content_type, HTTP_USER_AGENT=\"$http_user_agent\", HTTP_REFERRER=\"$http_referrer\", COOKIE=\"$cookie\", REQUEST_START_TIME=$req_start_time,REQUEST_ELAPSED_TIME=$req_elapsed_time, BYTES_IN=$req_length, BYTES_OUT=$res_length\r\n"
+    set hsl [HSL::open -publisher /Common/splunk_hsl_publisher]
+    HSL::send $hsl "<190> HSL, CLIENT_IP=$client_address, VIP=$vip, VIP_NAME=\"$virtual_server\", SERVER_NODE=$node, SERVER_NODE_PORT=$node_port, HTTP_URL=$http_url, HTTP_VERSION=$http_version, HTTP_STATUS=$http_status, HTTP_METHOD=$http_method, HTTP_CONTENT_TYPE=$http_content_type, HTTP_USER_AGENT=\"$http_user_agent\", HTTP_REFERRER=\"$http_referrer\", COOKIE=\"$cookie\", REQUEST_START_TIME=$req_start_time,REQUEST_ELAPSED_TIME=$req_elapsed_time, BYTES_IN=$req_length, BYTES_OUT=$res_length\r\n"
 }
 ```
-5.	Visit the VIP where you have applied the iRule and then go to Splunk and search for HOST=f5san* appstst.
-
-
+5.	Visit the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* HSL`.
 
 ---
 #### Configure Request Logging
 
-1.	Go to Local Traffic > Profiles > Other > Request Logging. Click on Create and complete the following;
+1.	Go to `Local Traffic > Profiles > Other > Request Logging`. Click Create and configure as following;
 ```
 Nmae=splunk_http_request_logging
 Parent Profile=request-log
 Request Logging=Enabled
-Template=
-$DATE_NCSA REQUEST -> CLIENT = $CLIENT_IP:$CLIENT_PORT, VIP = $VIRTUAL_IP:$VIRTUAL_PORT, HTTP_VERSION = $HTTP_VERSION, HTTP_METHOD = $HTTP_METHOD, HTTP_KEEPALIVE = $HTTP_KEEPALIVE, HTTP_PATH = $HTTP_PATH, HTTP_QUERY = $HTTP_QUERY, HTTP_REQUEST = $HTTP_REQUEST, HTTP_URI = $HTTP_URI
-
+Template= $DATE_NCSA REQUEST -> CLIENT = $CLIENT_IP:$CLIENT_PORT, VIP = $VIRTUAL_IP:$VIRTUAL_PORT, HTTP_VERSION = $HTTP_VERSION, HTTP_METHOD = $HTTP_METHOD, HTTP_KEEPALIVE = $HTTP_KEEPALIVE, HTTP_PATH = $HTTP_PATH, HTTP_QUERY = $HTTP_QUERY, HTTP_REQUEST = $HTTP_REQUEST, HTTP_URI = $HTTP_URI
 HSL Protocol=UDP
 Pool Name=splunk_pool
 Response Logging=Enabled
-Template=
-$DATE_NCSA, RESPONSE -> CLIENT = $CLIENT_IP:$CLIENT_PORT, VIP = $VIRTUAL_IP:$VIRTUAL_PORT, SERVER = $SERVER_IP:$SERVER_PORT, HTTP_VERSION = $HTTP_VERSION, HTTP_METHOD = $HTTP_METHOD, HTTP_KEEPALIVE = $HTTP_KEEPALIVE, HTTP_PATH = $HTTP_PATH, HTTP_QUERY = $HTTP_QUERY, HTTP_REQUEST = $HTTP_REQUEST, HTTP_STATUS = $HTTP_STATUS, HTTP_URI = $HTTP_URI, SNAT_IP = $SNAT_IP:$SNAT_PORT, F5_HOSTNAME = $BIGIP_HOSTNAME, RESPONSE_TIME = $RESPONSE_MSECS, RESPONSE_SIZE = $RESPONSE_SIZE
-
+Template= $DATE_NCSA, RESPONSE -> CLIENT = $CLIENT_IP:$CLIENT_PORT, VIP = $VIRTUAL_IP:$VIRTUAL_PORT, SERVER = $SERVER_IP:$SERVER_PORT, HTTP_VERSION = $HTTP_VERSION, HTTP_METHOD = $HTTP_METHOD, HTTP_KEEPALIVE = $HTTP_KEEPALIVE, HTTP_PATH = $HTTP_PATH, HTTP_QUERY = $HTTP_QUERY, HTTP_REQUEST = $HTTP_REQUEST, HTTP_STATUS = $HTTP_STATUS, HTTP_URI = $HTTP_URI, SNAT_IP = $SNAT_IP:$SNAT_PORT, F5_HOSTNAME = $BIGIP_HOSTNAME, RESPONSE_TIME = $RESPONSE_MSECS, RESPONSE_SIZE = $RESPONSE_SIZE
 HSL Protocol=UDP
 Pool Name=splunk_pool
 ```
 
-2.	Go to `Local Traffic > Virtual Servers`. Click on the VIP which you want to use Request Logging. Select Advanced of Configuration and then choose the Request Logging Profile as splunk_http_request_logging
+2.	Go to `Local Traffic > Virtual Servers`. Click on the VIP which you want to use Request Logging. Select Advanced of Configuration and then choose `Request Logging Profile` as `splunk_http_request_logging`
 
-3.	Visit the VIP and then search in Splunk with `HOST=F5san* REQUEST`
+3.	Visit the VIP where you have applied the iRule and then go to Splunk and search for `HOST=F5san* REQUEST`
