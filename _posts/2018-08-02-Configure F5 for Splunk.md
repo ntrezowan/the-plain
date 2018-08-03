@@ -1,11 +1,50 @@
 ---
-title: "F5 maintenance page with iRule"
+title: "Configure F5 for Splunk"
 comments: false
-description: "F5 maintenance page with iRule"
-keywords: "F5, iRules, iFile, redirect, HTML"
+description: "Configure F5 for Splunk"
+keywords: "F5, hsl, hish speed logging, request logging, management port logging, asm logging, apm logging"
 published: false
 ---
-#### Create maintenance page using HTML iFile
+#### Check network connectivity
+
+1. Ping Splunk server from F5;
+```
+[mrh13j@f5san1:Active:In Sync] ~ # ping 146.201.74.20
+PING 146.201.74.20 (146.201.74.20) 56(84) bytes of data.
+64 bytes from 146.201.74.20: icmp_seq=1 ttl=63 time=0.838 ms
+^C
+```
+
+If ping is down, it does not necessarily mean that no log will reach Splunk server because F5 will send logs to a predefined TCP/UDP port.
+
+2. Check how F5 is reaching Splunk server;
+```
+[mrh13j@f5san1:Active:In Sync] ~ # ip route get 146.201.74.20
+146.201.74.20 via 146.201.111.1 dev vlan_1184  src 146.201.111.253
+    cache
+```
+
+If there is no route to Splunk server, add a static route and verify;
+```
+mrh13j@f5san1:Active:In Sync] ~ # ip route add 146.201.74.20/32 via vlan_1184
+mrh13j@f5san1:Active:In Sync] ~ # route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         146.201.111.1   0.0.0.0         UG    0      0        0 vlan_1184
+0.0.0.0         10.1.114.1      0.0.0.0         UG    9      0        0 mgmt
+10.1.114.0      0.0.0.0         255.255.254.0   U     0      0        0 mgmt
+10.1.190.0      0.0.0.0         255.255.255.128 U     0      0        0 vlan_2998
+10.112.0.112    0.0.0.0         255.255.255.240 U     0      0        0 vlan_ha
+127.1.1.0       0.0.0.0         255.255.255.0   U     0      0        0 tmm
+127.7.0.0       127.1.1.253     255.255.0.0     UG    0      0        0 tmm
+127.20.0.0      0.0.0.0         255.255.0.0     U     0      0        0 tmm_bp
+146.201.74.20   146.201.111.1     255.255.255.255 UGH   9      0        0 vlan_1184
+146.201.74.22   10.1.114.1      255.255.255.255 UGH   9      0        0 mgmt
+146.201.111.0   0.0.0.0         255.255.255.0   U     0      0        0 vlan_1184
+```
+
+
+
 
 1.	Make sure in which partition you want to upload the html file. It will be easier if VIP, iRule and iFile are in the same partition.  
 
