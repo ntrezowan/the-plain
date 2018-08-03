@@ -153,12 +153,10 @@ inputs.conf ->
 disabled = true
 connection_host=ip
 sourcetype = f5:bigip:syslog
-
 [udp://9514]
 disabled = true
 connection_host=ip
 sourcetype = f5:bigip:apm:syslog
-
 [tcp://9515]
 disabled = true
 connection_host=ip
