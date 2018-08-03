@@ -86,14 +86,14 @@ sys syslog {
     remote-servers none
 }
 ```
-If there is any remote log server, we need to remove it because it does not allow us to set severity level of outgoing logs. To remove remote-servers, run the following;
+If there is any remote log server, we need to remove it because this type of configuration does not allow us to set severity level of outgoing logs. To remove `remote-servers`, run the following;
 ```
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# modify /sys syslog remote-servers none
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save /sys config
 ```
-3.	Now add tSplunk server as a `include` which will allow us to filter outgoing logs;
+3.	Now add Splunk server as a `include` which will allow us to filter outgoing logs;
 ```
-user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# list /sys syslog all-properties
+user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# edit /sys syslog all-properties
 sys syslog {
     auth-priv-from notice
     auth-priv-to emerg
@@ -134,13 +134,14 @@ sys syslog {
     user-log-from notice
     user-log-to emerg
 ```
-Here, `10.10.10.1` is the Splunk server and F5 will send logs to `9514/udp` and `9515/tcp` port of Splunk. In filter section, we set the severity level from informational to emergency for syslog (/var/logs/ltm).
+Here, `10.10.10.1` is the Splunk server and F5 will send logs to `9514/udp` and `9515/tcp` of Splunk. In filter section, we set the severity level from informational to emergency for syslog (/var/logs/ltm).
 
 4.	Change the date format to `iso-date`;
 ```
 user@(f5serv1)(cfg-sync In Sync)(Standby)(/Common)(tmos)# modify sys syslog iso-date enabled
+user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save /sys config
 ```
-5.	In Splunk, modify `inputs.conf` so that F5 sourcetype matches with `inputs.conf`;  
+5.	In Splunk, modify `inputs.conf` so that F5 source-type matches with `inputs.conf`;  
 F5 Source Type ->
 ```
 syslog  (/var/log/ltm) -> f5:bigip:syslog
@@ -162,7 +163,7 @@ disabled = true
 connection_host=ip
 sourcetype = f5:bigip:asm:syslog
 ```
-In here, syslog and APM is using 9514/udp and ASM is using 9515/tcp.
+In here, syslog and APM is using `9514/udp` and ASM is using `9515/tcp`.
 
 6.	Go to Splunk and do the following searches to verify that syslog is showing up in Splunk;
 - Do a search `host=f5serv1* mcpd` to see if it’s getting `mcpd` logs
