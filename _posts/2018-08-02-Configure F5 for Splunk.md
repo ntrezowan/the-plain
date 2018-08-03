@@ -5,52 +5,54 @@ description: "Configure F5 for Splunk"
 keywords: "F5, hsl, hish speed logging, request logging, management port logging, asm logging, apm logging"
 published: true
 ---
+
+Splunk IP = 10.10.10.1
+F5SERV1 self IP for VLAN1 = 11.11.11.2
+F5SERV2 self IP for VLAN1 = 11.11.11.3
+F5SERV Floating IP for VLAN1 = 11.11.11.1
+
+
 #### Check network connectivity
 1. Ping Splunk server from F5;  
 ```
-[mrh13j@f5san1:Active:In Sync] ~ # ping 146.201.74.20
-PING 146.201.74.20 (146.201.74.20) 56(84) bytes of data.
-64 bytes from 146.201.74.20: icmp_seq=1 ttl=63 time=0.838 ms
+[user@f5serv1:Active:In Sync] ~ # ping 10.10.10.1
+PING 10.10.10.1 (10.10.10.1) 56(84) bytes of data.
+64 bytes from 10.10.10.1: icmp_seq=1 ttl=63 time=0.838 ms
 ^C
 ```
-If ping is down, it does not necessarily mean that no log will reach Splunk server because F5 will send logs to a predefined TCP/UDP port.
+If ping is down, it does not necessarily mean that no log will go to Splunk server because F5 will send logs to a predefined TCP/UDP port.
 
 2. Check how F5 is reaching Splunk server;  
 ```
-[mrh13j@f5san1:Active:In Sync] ~ # ip route get 146.201.74.20
-146.201.74.20 via 146.201.111.1 dev vlan_1184  src 146.201.111.253
+[user@f5serv1:Active:In Sync] ~ # ip route get 10.10.10.1
+10.10.10.1 via 20.20.20.1 prd vlan1  src 11.11.11.2
 cache
 ```
+Here 11.11.11.2 is the TMM interface (also self non-floating IP for F5SERV1) which will be the source when logs are send to 10.10.10.1.
 If there is no route to Splunk server, add a static route and verify;  
 ```
-mrh13j@f5san1:Active:In Sync] ~ # ip route add 146.201.74.20/32 via vlan_1184
-mrh13j@f5san1:Active:In Sync] ~ # route -n
+user@f5serv1:Active:In Sync] ~ # ip route add 10.10.10.1/32 via vlan1
+user@f5serv1:Active:In Sync] ~ # route -n
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-0.0.0.0         146.201.111.1   0.0.0.0         UG    0      0        0 vlan_1184
-0.0.0.0         10.1.114.1      0.0.0.0         UG    9      0        0 mgmt
-10.1.114.0      0.0.0.0         255.255.254.0   U     0      0        0 mgmt
-10.1.190.0      0.0.0.0         255.255.255.128 U     0      0        0 vlan_2998
-10.112.0.112    0.0.0.0         255.255.255.240 U     0      0        0 vlan_ha
+0.0.0.0         20.20.20.1      0.0.0.0         UG    0      0        0 vlan1
+0.0.0.0         10.1.1.1        0.0.0.0         UG    9      0        0 mgmt
+10.1.1.0        0.0.0.0         255.255.254.0   U     0      0        0 mgmt
 127.1.1.0       0.0.0.0         255.255.255.0   U     0      0        0 tmm
 127.7.0.0       127.1.1.253     255.255.0.0     UG    0      0        0 tmm
 127.20.0.0      0.0.0.0         255.255.0.0     U     0      0        0 tmm_bp
-146.201.74.20   146.201.111.1     255.255.255.255 UGH   9      0        0 vlan_1184
-146.201.74.22   10.1.114.1      255.255.255.255 UGH   9      0        0 mgmt
-146.201.111.0   0.0.0.0         255.255.255.0   U     0      0        0 vlan_1184
+10.10.10.1      0.0.0.0         255.255.255.255 U     0      0        0 vlan1
+20.20.20.0      0.0.0.0         255.255.255.0   U     0      0        0 vlan1
 ```
-3. Run Netcat to check if you can send logs using all the configured remote ports of Splunk server;
+3. Run Netcat to check if you can send logs to a specific remote port of Splunk server;  
+To test if you can reach a UDP remote port, run the following and then search in Splunk server with `HOST=f5serv1* f5serv1-UDP`. 
 ```
-mrh13j@f5san1:Active:In Sync] ~ # route echo '<0>F5SAN1-UDP' | nc -w 1 -u 146.201.74.20 9514
+user@f5serv1:Active:In Sync] ~ # route echo '<0>f5serv1-UDP' | nc -w 1 -u 10.10.10.1 9514
 ```
-To test if you can reach a UDP remote port, run the following and then search in Splunk server with “HOST=F5san* F5SAN1-UDP”
-
+To test if you can reach a TCP remote port, run the following and then search in Splunk server with “HOST=f5serv1* f5serv1-TCP”. 
 ```
-mrh13j@f5san1:Active:In Sync] ~ # route echo '<0>F5SAN1-TCP' | nc -w 1 -t 146.201.74.20 9515
+user@f5serv1:Active:In Sync] ~ # route echo '<0>f5serv1-TCP' | nc -w 1 -t 10.10.10.1 9515
 ```
-To test if you can reach a TCP remote port, run the following and then search in Splunk server with “HOST=F5san* F5SAN1-TCP”.  
-If you have a HA environment, do this for all the F5 servers in the group.
-
 4. You can also do a tcpdump to check if custom logs generated from F5 can reach Splunk server. 
 Run the following in one terminal;
 ```
