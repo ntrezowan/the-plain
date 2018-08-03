@@ -11,7 +11,7 @@ F5SERV2 self IP for VLAN1 = 11.11.11.3
 F5SERV Floating IP for VLAN1 = 11.11.11.1  
 F5SERV1 self IP for mgmt VLAN = 10.1.1.2  
 F5SERV2 self IP for mgmt VLAN = 10.1.1.3  
-F5SERV Florating IP for mgmt VLAN = 10.1.1.1  
+F5SERV Floating IP for mgmt VLAN = 10.1.1.1  
 Splunk IP = 10.10.10.1  
 Splunk TCP Port=9515 (for ASM)  
 Splunk UDP Port=9514 (for syslog, HSL, and APM) 
@@ -64,7 +64,7 @@ Run the following in one terminal to monitor the TCP port;
 ```
 user@f5serv1:Active:In Sync] ~ # tcpdump -A -nni vlan1 host 10.10.10.1 and port 9515
 ```
-While tcpdump is running, open another terminal and run the following and check if this log shows in tcpdump outout. Also check /var/log/ltm and search in Splunk server with `HOST=f5serv1* DUMPLING`.
+While tcpdump is running, open another terminal and run the following and check if this log shows in tcpdump output. Also check /var/log/ltm and search in Splunk server with `HOST=f5serv1* DUMPLING`.
 ```
 user@f5serv1:Active:In Sync] ~ # logger -p local0.notice "DUMPLING”
 ```
@@ -237,7 +237,7 @@ when LB_FAILED {
 }
 ```
 
-3.	Visit the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* HSL`. If nothing shows up in Splunk, uncomment `#log local0.info` from the iRule to start writing logs in local syslog (/var/logs/ltm). If logs are writing in syslog file but not showing up in Splunk, it means there is some network issue. Revisit "Check Network Connectivity" section. If logs are not writing in local syslog, try using a simplier iRule.
+3.	Visit the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* HSL`. If nothing shows up in Splunk, uncomment `#log local0.info` from the iRule to start writing logs in local syslog (/var/logs/ltm). If logs are writing in syslog file but not showing up in Splunk, it means there is some network issue. Revisit "Check Network Connectivity" section. If logs are not writing in local syslog, try using a simpler iRule.
 
 ---
 
@@ -248,7 +248,7 @@ when LB_FAILED {
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# ip route get 10.10.10.1
 10.10.10.1 via 10.1.1.1 dev mgmt  src 10.1.1.2
 ```
-If not, configure F5 so that it uses manament port to reach Splunk;
+If not, configure F5 so that it uses management port to reach Splunk;
 ```
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# create /sys log-config destination management-port splunk ip-address 10.10.10.1 port 9514 protocol udp
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# list sys management-route
@@ -331,7 +331,7 @@ when LB_FAILED {
 
 1.	Go to `Local Traffic > Profiles > Other > Request Logging`. Click Create and configure as following;
 ```
-Nmae=splunk_http_request_logging
+Name=splunk_http_request_logging
 Parent Profile=request-log
 Request Logging=Enabled
 Template= $DATE_NCSA REQUEST -> CLIENT = $CLIENT_IP:$CLIENT_PORT, VIP = $VIRTUAL_IP:$VIRTUAL_PORT, HTTP_VERSION = $HTTP_VERSION, HTTP_METHOD = $HTTP_METHOD, HTTP_KEEPALIVE = $HTTP_KEEPALIVE, HTTP_PATH = $HTTP_PATH, HTTP_QUERY = $HTTP_QUERY, HTTP_REQUEST = $HTTP_REQUEST, HTTP_URI = $HTTP_URI
