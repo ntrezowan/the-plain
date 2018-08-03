@@ -19,9 +19,8 @@ If ping is down, it does not necessarily mean that no log will reach Splunk serv
 ```
 [mrh13j@f5san1:Active:In Sync] ~ # ip route get 146.201.74.20
 146.201.74.20 via 146.201.111.1 dev vlan_1184  src 146.201.111.253
-    cache
+cache
 ```
-
 If there is no route to Splunk server, add a static route and verify;
 ```
 mrh13j@f5san1:Active:In Sync] ~ # ip route add 146.201.74.20/32 via vlan_1184
