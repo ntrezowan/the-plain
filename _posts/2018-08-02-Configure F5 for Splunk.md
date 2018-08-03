@@ -72,7 +72,7 @@ If nc or tcpdump works, it means F5 can send logs to specific Splunk ports witho
 
 ---
 
-#### Add Splunk server to F5
+#### Add Splunk server on F5
 
 1. In F5, check `syslog-ng` global and local configuration;  
 ```
@@ -256,7 +256,7 @@ sys management-route splunk {
     gateway 10.1.1.1
     network 10.10.10.1/32
 }
-mrh13j@(f5san1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save sys config
+user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save sys config
 ```
 
 2.	Create a Log destination.  
@@ -326,6 +326,7 @@ when LB_FAILED {
 5.	Visit the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* HSL`.
 
 ---
+
 #### Configure Request Logging
 
 1.	Go to `Local Traffic > Profiles > Other > Request Logging`. Click Create and configure as following;
@@ -344,4 +345,4 @@ Pool Name=splunk_pool
 
 2.	Go to `Local Traffic > Virtual Servers`. Click on the VIP which you want to use Request Logging. Select Advanced of Configuration and then choose `Request Logging Profile` as `splunk_http_request_logging`
 
-3.	Visit the VIP where you have applied the iRule and then go to Splunk and search for `HOST=F5san* REQUEST`
+3.	Visit the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* REQUEST`
