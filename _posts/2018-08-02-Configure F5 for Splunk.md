@@ -66,15 +66,15 @@ user@f5serv1:Active:In Sync] ~ # logger -p local0.notice "DUMPLING”
 ```
 If nc or tcpdump works, it means F5 can send logs to specific Splunk ports without any issue.
 
-
 ---
 
 #### Add Splunk server to F5
 
-1. In F5, check syslog-ng global and local configuration;
+1. In F5, check `syslog-ng` global and local configuration;
 ```
 [mrh13j@f5san1:Active:In Sync] ~ # cat /var/run/config/syslog-ng.conf
-
+```
+```
 log_fifo_size(2048); - Log file size
 # local0.* - syslog configuration
 # local1.* - apm configuration
