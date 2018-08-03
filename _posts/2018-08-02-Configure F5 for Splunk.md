@@ -70,7 +70,7 @@ If nc or tcpdump works, it means F5 can send logs to specific Splunk ports witho
 
 #### Add Splunk server to F5
 
-1. In F5, check `syslog-ng` global and local configuration;
+1. In F5, check `syslog-ng` global and local configuration;  
 ```
 [mrh13j@f5san1:Active:In Sync] ~ # cat /var/run/config/syslog-ng.conf
 ```
