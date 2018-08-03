@@ -18,7 +18,7 @@ Splunk UDP Port=9514 (for syslog, HSL, and APM)
 
 ---
 
-#### Check network connectivity
+#### A. Check network connectivity
 1. Ping Splunk server from F5;  
 ```
 [user@f5serv1:Active:In Sync] ~ # ping 10.10.10.1
@@ -72,7 +72,7 @@ If nc or tcpdump works, it means F5 can send logs to specific Splunk ports witho
 
 ---
 
-#### Add Splunk server on F5
+#### B. Add Splunk on F5
 
 1. In F5, check `syslog-ng` global and local configuration;  
 ```
@@ -175,7 +175,7 @@ In here, syslog and APM is using `9514/udp` and ASM is using `9515/tcp`.
 
 ---
 
-#### Configure HSL using TMM
+#### C. Configure HSL using TMM
 
 1.	Create	a pool and add Splunk as a backend server of the pool.
 Go to `Local Traffic > Pools`. Click on Create, select Advanced from Configuration and configure as following;
@@ -241,7 +241,7 @@ when LB_FAILED {
 
 ---
 
-#### Configure HSL using Management Port
+#### D. Configure HSL using Management Port
 
 1.	Verify that F5 is using management port to reach Splunk;
 ```
@@ -327,7 +327,7 @@ when LB_FAILED {
 
 ---
 
-#### Configure Request Logging
+#### E. Configure Request Logging
 
 1.	Go to `Local Traffic > Profiles > Other > Request Logging`. Click Create and configure as following;
 ```
