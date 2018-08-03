@@ -79,7 +79,7 @@ syslog configuration -> # local0.*
 APM configuration -> # local1.*  
 ASM configuration -> # local3.*  
 
-2. Check if there is any pre-configured remote log server; 
+2. Check if there is any pre-configured remote log server on F5; 
 ```
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# list /sys syslog remote-servers
 sys syslog {
@@ -91,8 +91,7 @@ If there is any remote log server, we need to remove it because it does not allo
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# modify /sys syslog remote-servers none
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save /sys config
 ```
-
-3.	Now add the remote server as a “include” which will allow us to filter outgoing logs;
+3.	Now add tSplunk server as a `include` which will allow us to filter outgoing logs;
 ```
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# list /sys syslog all-properties
 
@@ -137,7 +136,7 @@ sys syslog {
     user-log-to emerg
 ```
 
-Here, `10.10.10.1` is the Splunk server IP and F5 will send logs to 9514/udp and 9515/tcp port of Splunk. In filter, we set the severity level from informational to emergency for syslog (/var/logs/ltm).
+Here, `10.10.10.1` is the Splunk server and F5 will send logs to `9514/udp` and `9515/tcp` port of Splunk. In filter section, we set the severity level from informational to emergency for syslog (/var/logs/ltm).
 
 4.	Change the date format to iso-date;
 ```
