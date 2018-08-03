@@ -186,43 +186,182 @@ b.	Do a search “host=f5san* tmm*” to see if it’s getting tmm logs
 
 ---
 
-#### Create redirection page if a URI is down without iFile
+#### Configure HSL using TMM
 
-
-1.	Go to `System > File Management > iFile List`. Click on import and upload your image (companylogo.png) and give it a Name (companylogo.png). You can also upload more files (such as css or js) to support your HTML template.  
-
-2.	Go to `Local Traffic > iRules > iFile List`. Click on Create, select the iFile you have just uploaded from File Name and give it a Name (companylogo.png).  
-
-3.	Go to `Local Traffic > iRules > iRules List`. Create a new iRule and give it a Name (maintenance). Here is a sample iRule which will load the html content and then redirect to another URI (`https://discovery.com`) when a user visits a particular URI;  
+1.	Create	a pool and add the Splunk server as a backend server of the pool;
+Go to `Local Traffic > Pools`. Click on Create, select Advanced from Configuration and complete the following;
 ```
-when HTTP_REQUEST {
-    if { [HTTP::query] equals "providerId=https://www.example.com/" }{  
-    HTTP::respond 200 content {
+Name=splunk_pool
+Pool Health Monitor=gateway_icmp
+Node Health Monitor=udp
+Address=146.201.74.20
+Service Port=9514
+```
 
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-        <html xmlns="http://www.w3.org/1999/xhtml">
-            <head>
-                <title>Title goes here</title>
-                <META http-equiv="refresh" content="15;URL=https://discovery.com">
-            </head>
-            <body>
-                <div align="center">
-                    <div id="maintenanceHeader" align="center">
-                        <img src="companylogo.png"
-                    </div>
-                    <div id="maintenanceBody" align="center">
-                        <strong>This site is in maintenance now.</strong>  
-                        <br /><br />
-                        You will be redirected to https://discovery.com automatically in 15 seconds.
-                    </div>
-                </div>
-            </body>
-        </html>
+2.	Create an iRule and add it to a VIP. 
+
+Here is a sample iRule which does Apache like HTTP Request/Response logging;
+```
+when CLIENT_ACCEPTED {
+    set client_address [IP::client_addr]
+    set vip [IP::local_addr]
+    set hsl [HSL::open -proto TCP -pool /Common/splunk_pool]
+}
+when HTTP_REQUEST {
+    set http_host [HTTP::host]:[TCP::local_port]
+    set http_uri [HTTP::uri]
+    set http_url $http_host$http_uri
+    set http_method [HTTP::method]
+    set http_version [HTTP::version]
+    set http_user_agent [HTTP::header "User-Agent"]
+    set http_content_type [HTTP::header "Content-Type"]
+    set http_referrer [HTTP::header "Referer"]
+    set tcp_start_time [clock clicks -milliseconds]
+    set req_start_time [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]
+    set cookie [HTTP::cookie names]
+    set user [HTTP::username]
+    set virtual_server [LB::server]
+      
+    if { [HTTP::header Content-Length] > 0 } then {
+        set req_length [HTTP::header "Content-Length"]
+    } else {
+        set req_length 0
     }
-  }
+}
+when HTTP_RESPONSE {
+#    set res_start_time [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]
+    set node [IP::server_addr]
+    set node_port [TCP::server_port]
+    set http_status [HTTP::status]
+    set req_elapsed_time [expr {[clock clicks -milliseconds] - $tcp_start_time}]
+    if { [HTTP::header Content-Length] > 0 } then {
+        set res_length [HTTP::header "Content-Length"]
+    } else {
+        set res_length 0
+    }
+    #log local0.info "SYSLOGDD CLIENT_IP=$client_address, VIP=$vip, VIP_NAME=\"$virtual_server\", SERVER_NODE=$node, SERVER_NODE_PORT=$node_port, HTTP_URL=$http_url, HTTP_VERSION=$http_version, HTTP_STATUS=$http_status, HTTP_METHOD=$http_method, HTTP_CONTENT_TYPE=$http_content_type, HTTP_USER_AGENT=\"$http_user_agent\", HTTP_REFERRER=\"$http_referrer\", COOKIE=\"$cookie\", REQUEST_START_TIME=$req_start_time, RESPONSE_START_TIME=$res_start_time, REQUEST_ELAPSED_TIME=$req_elapsed_time, BYTES_IN=$req_length, BYTES_OUT=$res_length\r\n"
+    set hsl [HSL::open -proto UDP -pool /Common/splunk_pool]
+    HSL::send $hsl "<190> CLIENT_IP=$client_address, VIP=$vip, VIP_NAME=\"$virtual_server\", SERVER_NODE=$node, SERVER_NODE_PORT=$node_port, HTTP_URL=$http_url, HTTP_VERSION=$http_version, HTTP_STATUS=$http_status, HTTP_METHOD=$http_method, HTTP_CONTENT_TYPE=$http_content_type, HTTP_USER_AGENT=\"$http_user_agent\", HTTP_REFERRER=\"$http_referrer\", COOKIE=\"$cookie\", REQUEST_START_TIME=$req_start_time,REQUEST_ELAPSED_TIME=$req_elapsed_time, BYTES_IN=$req_length, BYTES_OUT=$res_length\r\n"
+}
+when LB_FAILED {
+    set hsl [HSL::open -proto UDP -pool /Common/splunk_pool]
+    HSL::send $hsl "<190> CLIENT_IP=$client_address, VIP=$vip, VIP_NAME=\"$virtual_server\", SERVER_NODE=$node, SERVER_NODE_PORT=$node_port, HTTP_URL=$http_url, HTTP_VERSION=$http_version, HTTP_STATUS=$http_status, HTTP_METHOD=$http_method, HTTP_CONTENT_TYPE=$http_content_type, HTTP_USER_AGENT=\"$http_user_agent\", HTTP_REFERRER=\"$http_referrer\", COOKIE=\"$cookie\", REQUEST_START_TIME=$req_start_time,REQUEST_ELAPSED_TIME=$req_elapsed_time, BYTES_IN=$req_length, BYTES_OUT=$res_length\r\n"
 }
 ```
 
-4.	Go to `Local Traffic > Virtual Servers > Virtual Servers List`. Select the VIP you want to apply iRule to and go to Resource Tab. In the iRule section, click on Manage, add the iRule and click Finished.  
+3.	Visit the VIP where you have applied the iRule and then go to Splunk and search for HOST=f5san* appstst.
 
-NB: If you do not want to be redirected, remove `<META http-equiv="refresh" content="15;URL=https://discovery.com">` from head.
+---
+
+#### Configure HSL using Management Port
+
+1.	Verify that F5 is using management port to reach Splunk;
+```
+mrh13j@(f5san1)(cfg-sync In Sync)(Active)(/Common)(tmos)# ip route get 146.201.74.20
+146.201.74.20 via 10.1.114.1 dev mgmt  src 10.1.114.11
+```
+
+If not, configure F5 to so that it uses manament port to reach Splunk;
+```
+mrh13j@(f5san1)(cfg-sync In Sync)(Active)(/Common)(tmos)# create /sys log-config destination management-port mgmt ip-address 146.201.74.20 port 9514 protocol udp
+mrh13j@(f5san1)(cfg-sync In Sync)(Active)(/Common)(tmos)# list sys management-route
+sys management-route splunk {
+    gateway 10.1.114.1
+    network 146.201.74.22/32
+}
+mrh13j@(f5san1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save sys config
+```
+
+2.	Create a Log destination
+Go to `System > Logs > Configuration > Log Destinations`. Create New and do the following;
+```
+Name=splunk_hsl_via_mgmt_port
+Type=Management Port
+Address=146.201.74.20
+Port 9515
+Protocol=TCP
+```
+
+3.	Create a Log publisher
+Go to `System > Logs > Configuration> Log Publisher`. Create New and do the following
+```
+Name=splunk_hsl_publisher
+Destination=splunk_hsl_via_mgmt_port
+```
+4.	Create an iRule and add it to a VIP. 
+
+Here is a sample iRule which does Apache like HTTP Request/Response logging;
+```
+when CLIENT_ACCEPTED {
+    set client_address [IP::client_addr]
+    set vip [IP::local_addr]
+}
+when HTTP_REQUEST {
+    set http_host [HTTP::host]:[TCP::local_port]
+    set http_uri [HTTP::uri]
+    set http_url $http_host$http_uri
+    set http_method [HTTP::method]
+    set http_version [HTTP::version]
+    set http_user_agent [HTTP::header "User-Agent"]
+    set http_content_type [HTTP::header "Content-Type"]
+    set http_referrer [HTTP::header "Referer"]
+    set tcp_start_time [clock clicks -milliseconds]
+    set req_start_time [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]
+    set cookie [HTTP::cookie names]
+    set user [HTTP::username]
+    set virtual_server [LB::server]
+      
+    if { [HTTP::header Content-Length] > 0 } then {
+        set req_length [HTTP::header "Content-Length"]
+    } else {
+        set req_length 0
+    }
+}
+when HTTP_RESPONSE {
+#    set res_start_time [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]
+    set node [IP::server_addr]
+    set node_port [TCP::server_port]
+    set http_status [HTTP::status]
+    set req_elapsed_time [expr {[clock clicks -milliseconds] - $tcp_start_time}]
+    if { [HTTP::header Content-Length] > 0 } then {
+        set res_length [HTTP::header "Content-Length"]
+    } else {
+        set res_length 0
+    }
+    #log local0.info "SYSLOGDD CLIENT_IP=$client_address, VIP=$vip, VIP_NAME=\"$virtual_server\", SERVER_NODE=$node, SERVER_NODE_PORT=$node_port, HTTP_URL=$http_url, HTTP_VERSION=$http_version, HTTP_STATUS=$http_status, HTTP_METHOD=$http_method, HTTP_CONTENT_TYPE=$http_content_type, HTTP_USER_AGENT=\"$http_user_agent\", HTTP_REFERRER=\"$http_referrer\", COOKIE=\"$cookie\", REQUEST_START_TIME=$req_start_time, RESPONSE_START_TIME=$res_start_time, REQUEST_ELAPSED_TIME=$req_elapsed_time, BYTES_IN=$req_length, BYTES_OUT=$res_length\r\n"
+    set hsl [HSL::open -publisher /Common/splunk_pool]
+    HSL::send $hsl "<190> CLIENT_IP=$client_address, VIP=$vip, VIP_NAME=\"$virtual_server\", SERVER_NODE=$node, SERVER_NODE_PORT=$node_port, HTTP_URL=$http_url, HTTP_VERSION=$http_version, HTTP_STATUS=$http_status, HTTP_METHOD=$http_method, HTTP_CONTENT_TYPE=$http_content_type, HTTP_USER_AGENT=\"$http_user_agent\", HTTP_REFERRER=\"$http_referrer\", COOKIE=\"$cookie\", REQUEST_START_TIME=$req_start_time,REQUEST_ELAPSED_TIME=$req_elapsed_time, BYTES_IN=$req_length, BYTES_OUT=$res_length\r\n"
+}
+when LB_FAILED {
+    set hsl [HSL::open -publisher /Common/splunk_pool]
+    HSL::send $hsl "<190> CLIENT_IP=$client_address, VIP=$vip, VIP_NAME=\"$virtual_server\", SERVER_NODE=$node, SERVER_NODE_PORT=$node_port, HTTP_URL=$http_url, HTTP_VERSION=$http_version, HTTP_STATUS=$http_status, HTTP_METHOD=$http_method, HTTP_CONTENT_TYPE=$http_content_type, HTTP_USER_AGENT=\"$http_user_agent\", HTTP_REFERRER=\"$http_referrer\", COOKIE=\"$cookie\", REQUEST_START_TIME=$req_start_time,REQUEST_ELAPSED_TIME=$req_elapsed_time, BYTES_IN=$req_length, BYTES_OUT=$res_length\r\n"
+}
+```
+5.	Visit the VIP where you have applied the iRule and then go to Splunk and search for HOST=f5san* appstst.
+
+
+
+---
+#### Configure Request Logging
+
+1.	Go to Local Traffic > Profiles > Other > Request Logging. Click on Create and complete the following;
+```
+Nmae=splunk_http_request_logging
+Parent Profile=request-log
+Request Logging=Enabled
+Template=
+$DATE_NCSA REQUEST -> CLIENT = $CLIENT_IP:$CLIENT_PORT, VIP = $VIRTUAL_IP:$VIRTUAL_PORT, HTTP_VERSION = $HTTP_VERSION, HTTP_METHOD = $HTTP_METHOD, HTTP_KEEPALIVE = $HTTP_KEEPALIVE, HTTP_PATH = $HTTP_PATH, HTTP_QUERY = $HTTP_QUERY, HTTP_REQUEST = $HTTP_REQUEST, HTTP_URI = $HTTP_URI
+
+HSL Protocol=UDP
+Pool Name=splunk_pool
+Response Logging=Enabled
+Template=
+$DATE_NCSA, RESPONSE -> CLIENT = $CLIENT_IP:$CLIENT_PORT, VIP = $VIRTUAL_IP:$VIRTUAL_PORT, SERVER = $SERVER_IP:$SERVER_PORT, HTTP_VERSION = $HTTP_VERSION, HTTP_METHOD = $HTTP_METHOD, HTTP_KEEPALIVE = $HTTP_KEEPALIVE, HTTP_PATH = $HTTP_PATH, HTTP_QUERY = $HTTP_QUERY, HTTP_REQUEST = $HTTP_REQUEST, HTTP_STATUS = $HTTP_STATUS, HTTP_URI = $HTTP_URI, SNAT_IP = $SNAT_IP:$SNAT_PORT, F5_HOSTNAME = $BIGIP_HOSTNAME, RESPONSE_TIME = $RESPONSE_MSECS, RESPONSE_SIZE = $RESPONSE_SIZE
+
+HSL Protocol=UDP
+Pool Name=splunk_pool
+```
+
+2.	Go to `Local Traffic > Virtual Servers`. Click on the VIP which you want to use Request Logging. Select Advanced of Configuration and then choose the Request Logging Profile as splunk_http_request_logging
+
+3.	Visit the VIP and then search in Splunk with `HOST=F5san* REQUEST`
