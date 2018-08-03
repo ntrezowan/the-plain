@@ -167,8 +167,8 @@ sourcetype = f5:bigip:asm:syslog
 In here, syslog and APM is using 9514/udp and ASM is using 9515/tcp.
 
 6.	Go to Splunk and do the following searches to verify that syslog is showing up in Splunk;
-a.	Do a search “host=f5san* mcpd” to see if it’s getting mcpd logs
-b.	Do a search “host=f5san* tmm*” to see if it’s getting tmm logs
+- Do a search `host=f5serv1* mcpd` to see if it’s getting `mcpd` logs
+- Do a search `host=f5serv1* tmm*` to see if it’s getting `tmm` logs
 
 ---
 
