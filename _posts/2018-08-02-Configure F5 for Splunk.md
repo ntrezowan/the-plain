@@ -61,9 +61,7 @@ Now send a custom log using another terminal;
 ```
 mrh13j@f5san1:Active:In Sync] ~ # logger -p local0.notice "DUMPLING”
 ```
-
 To test if you can reach a remote UDP port, run the following and then search in Splunk server with “HOST=F5san* DUMPLING”
-
 If nc or tcpdump works, it means F5 can send logs to Splunk without any issue.
 
 
