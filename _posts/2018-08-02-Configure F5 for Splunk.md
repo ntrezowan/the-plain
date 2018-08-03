@@ -94,7 +94,6 @@ user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save /sys config
 3.	Now add tSplunk server as a `include` which will allow us to filter outgoing logs;
 ```
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# list /sys syslog all-properties
-
 sys syslog {
     auth-priv-from notice
     auth-priv-to emerg
@@ -138,21 +137,19 @@ sys syslog {
 
 Here, `10.10.10.1` is the Splunk server and F5 will send logs to `9514/udp` and `9515/tcp` port of Splunk. In filter section, we set the severity level from informational to emergency for syslog (/var/logs/ltm).
 
-4.	Change the date format to iso-date;
+4.	Change the date format to `iso-date`;
 ```
-mrh13j@(f5san02)(cfg-sync In Sync)(Standby)(/Common)(tmos)# modify sys syslog iso-date enabled
+user@(f5serv1)(cfg-sync In Sync)(Standby)(/Common)(tmos)# modify sys syslog iso-date enabled
 ```
-
-5.	In Splunk, modify the inputs.conf file for Splunk Add-on to add the following source type;
-
+5.	In Splunk, modify `inputs.conf` file for Splunk Add-on to add the following source type;
 F5 Source Type ->
 ```
-System log (/var/log/ltm) - f5:bigip:syslog
-APM log (/var/log/apm) - f5:bigip:apm:syslog
-ASM log (/var/log/asm) - f5:bigip:asm:syslog
+syslog  (/var/log/ltm) -> f5:bigip:syslog
+APM     (/var/log/apm) -> f5:bigip:apm:syslog
+ASM     (/var/log/asm) -> f5:bigip:asm:syslog
 ```
 
-Inputs.conf ->
+inputs.conf ->
 ```
 [udp://9514]
 disabled = true
