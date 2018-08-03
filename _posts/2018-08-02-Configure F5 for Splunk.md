@@ -6,8 +6,7 @@ keywords: "F5, hsl, hish speed logging, request logging, management port logging
 published: true
 ---
 #### Check network connectivity
-
-1. Ping Splunk server from F5;
+1. Ping Splunk server from F5;  
 ```
 [mrh13j@f5san1:Active:In Sync] ~ # ping 146.201.74.20
 PING 146.201.74.20 (146.201.74.20) 56(84) bytes of data.
@@ -17,7 +16,7 @@ PING 146.201.74.20 (146.201.74.20) 56(84) bytes of data.
 
 If ping is down, it does not necessarily mean that no log will reach Splunk server because F5 will send logs to a predefined TCP/UDP port.
 
-2. Check how F5 is reaching Splunk server;
+2. Check how F5 is reaching Splunk server;  
 ```
 [mrh13j@f5san1:Active:In Sync] ~ # ip route get 146.201.74.20
 146.201.74.20 via 146.201.111.1 dev vlan_1184  src 146.201.111.253
