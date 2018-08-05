@@ -5,13 +5,13 @@ description: "Configure F5 for Splunk"
 keywords: "F5, hsl, hish speed logging, request logging, management port logging, asm logging, apm logging, configure"
 published: true
 ---
-#### Environment
+#### Environment:
 F5SERV1 self IP for VLAN1 = 11.11.11.2  
 F5SERV2 self IP for VLAN1 = 11.11.11.3  
 F5SERV Floating IP for VLAN1 = 11.11.11.1  
-F5SERV1 self IP for mgmt VLAN = 10.1.1.2  
-F5SERV2 self IP for mgmt VLAN = 10.1.1.3  
-F5SERV Floating IP for mgmt VLAN = 10.1.1.1  
+F5SERV1 self IP for management VLAN = 10.1.1.2  
+F5SERV2 self IP for management VLAN = 10.1.1.3  
+F5SERV Floating IP for management VLAN = 10.1.1.1  
 Splunk IP = 10.10.10.1  
 Splunk TCP Port=9515 (for ASM)  
 Splunk UDP Port=9514 (for syslog, HSL, and APM) 
