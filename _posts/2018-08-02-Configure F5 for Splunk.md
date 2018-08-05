@@ -83,7 +83,7 @@ SYSLOG  -> # local0.*
 APM     -> # local1.*  
 ASM     -> # local3.*  
 
-2. Check if there is any pre-configured remote log server on F5; 
+2. Check if there is any pre-configured remote log server in F5; 
 ```
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# list /sys syslog remote-servers
 sys syslog {
@@ -139,9 +139,9 @@ sys syslog {
     user-log-to emerg
 }
 ```
-Here, `10.10.10.1` is the Splunk server and F5 will send logs to `9514/udp` and `9515/tcp` of Splunk. In filter section, we set the severity level from informational to emergency for syslog (/var/logs/ltm).
+Here under `include` section, `10.10.10.1` is Splunk server IP and F5 will send logs to `9514/udp` and `9515/tcp` port of Splunk. In filter section, we set the severity level from informational to emergency for SYSLOG (/var/logs/ltm).
 
-4.	Change the date format to `iso-date`;
+4.	Change date format to `iso-date`;
 ```
 user@(f5serv1)(cfg-sync In Sync)(Standby)(/Common)(tmos)# modify sys syslog iso-date enabled
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save /sys config
@@ -149,7 +149,7 @@ user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save /sys config
 5.	In Splunk, modify `inputs.conf` so that F5 source-type matches with `inputs.conf`;  
 F5 Source Type ->
 ```
-syslog  (/var/log/ltm) -> f5:bigip:syslog
+SYSLOG  (/var/log/ltm) -> f5:bigip:syslog
 APM     (/var/log/apm) -> f5:bigip:apm:syslog
 ASM     (/var/log/asm) -> f5:bigip:asm:syslog
 ```
@@ -168,11 +168,11 @@ disabled = true
 connection_host=ip
 sourcetype = f5:bigip:asm:syslog
 ```
-In here, syslog and APM is using `9514/udp` and ASM is using `9515/tcp`.
+In here, SYSLOG and APM is using `9514/udp` and ASM is using `9515/tcp`.
 
-6.	Go to Splunk and do the following searches to verify that syslog is showing up in Splunk;
-- Do a search `host=f5serv1* mcpd` to see if it’s getting `mcpd` logs
-- Do a search `host=f5serv1* tmm*` to see if it’s getting `tmm` logs
+6.	Go to Splunk and search with the following to verify that SYSLOG (/var/log/ltm) shows up in Splunk;
+- Search `host=f5serv1* mcpd` to see if it’s getting `mcpd` logs
+- Search `host=f5serv1* tmm*` to see if it’s getting `tmm` logs
 
 ---
 
