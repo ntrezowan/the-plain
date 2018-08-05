@@ -19,14 +19,14 @@ Splunk UDP Port = 9514 (for SYSLOG, HSL and APM)
 ---
 
 #### A. Check network connectivity
-1. Ping Splunk server from F5;  
+1. Ping Splunk log server from F5;  
 ```
 [user@f5serv1:Active:In Sync] ~ # ping 10.10.10.1
 PING 10.10.10.1 (10.10.10.1) 56(84) bytes of data.
 64 bytes from 10.10.10.1: icmp_seq=1 ttl=63 time=0.838 ms
 ^C
 ```
-If ping is down, it does not necessarily mean that no log will go to Splunk server because F5 will send logs to a predefined TCP/UDP port.
+If ping is down, it does not necessarily mean that no log will go to Splunk server because F5 will send logs to a predefined TCP/UDP port. But we need to have ping enabled so that we can use gateway_icmp for monitoring when we create a pool.
 
 2. Check how F5 is reaching Splunk server;  
 ```
