@@ -13,8 +13,8 @@ F5SERV1 self IP for management VLAN = 10.1.1.2
 F5SERV2 self IP for management VLAN = 10.1.1.3  
 F5SERV Floating IP for management VLAN = 10.1.1.1  
 Splunk IP = 10.10.10.1  
-Splunk TCP Port=9515 (for ASM)  
-Splunk UDP Port=9514 (for syslog, HSL, and APM) 
+Splunk TCP Port = 9515 (for ASM)  
+Splunk UDP Port = 9514 (for SYSLOG, HSL and APM) 
 
 ---
 
