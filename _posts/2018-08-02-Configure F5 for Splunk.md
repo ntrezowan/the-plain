@@ -263,21 +263,21 @@ user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save sys config
 2.	Create a Log destination.  
 Go to `System > Logs > Configuration > Log Destinations`. Create New and configure as following;
 ```
-Name=splunk_hsl_via_mgmt_port
-Type=Management Port
-Address=10.10.10.1
-Port 9515
-Protocol=TCP
+Name = splunk_hsl_via_mgmt_port
+Type = Management Port
+Address = 10.10.10.1
+Port = 9515
+Protocol = TCP
 ```
 
 3.	Create a Log publisher.  
 Go to `System > Logs > Configuration> Log Publisher`. Create New and configure as following;
 ```
-Name=splunk_hsl_publisher
-Destination=splunk_hsl_via_mgmt_port
+Name = splunk_hsl_publisher
+Destination = splunk_hsl_via_mgmt_port
 ```
 4. Create an iRule and add it to a VIP. 
-Go to `Local Traffic > iRules > iRules List`. Click on Create and here is a sample iRule which does Apache like HTTP Request/Response logging;
+Go to `Local Traffic > iRules > iRules List`. Click Create and here is a sample iRule which does Apache like HTTP Request/Response logging;
 ```
 when CLIENT_ACCEPTED {
     set client_address [IP::client_addr]
@@ -324,7 +324,7 @@ when LB_FAILED {
     HSL::send $hsl "<190> HSL, CLIENT_IP=$client_address, VIP=$vip, VIP_NAME=\"$virtual_server\", SERVER_NODE=$node, SERVER_NODE_PORT=$node_port, HTTP_URL=$http_url, HTTP_VERSION=$http_version, HTTP_STATUS=$http_status, HTTP_METHOD=$http_method, HTTP_CONTENT_TYPE=$http_content_type, HTTP_USER_AGENT=\"$http_user_agent\", HTTP_REFERRER=\"$http_referrer\", COOKIE=\"$cookie\", REQUEST_START_TIME=$req_start_time,REQUEST_ELAPSED_TIME=$req_elapsed_time, BYTES_IN=$req_length, BYTES_OUT=$res_length\r\n"
 }
 ```
-5.	Visit the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* HSL`.
+5.	Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* HSL`.
 
 ---
 
@@ -332,18 +332,18 @@ when LB_FAILED {
 
 1.	Go to `Local Traffic > Profiles > Other > Request Logging`. Click Create and configure as following;
 ```
-Name=splunk_http_request_logging
-Parent Profile=request-log
-Request Logging=Enabled
-Template= $DATE_NCSA REQUEST -> CLIENT = $CLIENT_IP:$CLIENT_PORT, VIP = $VIRTUAL_IP:$VIRTUAL_PORT, HTTP_VERSION = $HTTP_VERSION, HTTP_METHOD = $HTTP_METHOD, HTTP_KEEPALIVE = $HTTP_KEEPALIVE, HTTP_PATH = $HTTP_PATH, HTTP_QUERY = $HTTP_QUERY, HTTP_REQUEST = $HTTP_REQUEST, HTTP_URI = $HTTP_URI
-HSL Protocol=UDP
-Pool Name=splunk_pool
-Response Logging=Enabled
-Template= $DATE_NCSA, RESPONSE -> CLIENT = $CLIENT_IP:$CLIENT_PORT, VIP = $VIRTUAL_IP:$VIRTUAL_PORT, SERVER = $SERVER_IP:$SERVER_PORT, HTTP_VERSION = $HTTP_VERSION, HTTP_METHOD = $HTTP_METHOD, HTTP_KEEPALIVE = $HTTP_KEEPALIVE, HTTP_PATH = $HTTP_PATH, HTTP_QUERY = $HTTP_QUERY, HTTP_REQUEST = $HTTP_REQUEST, HTTP_STATUS = $HTTP_STATUS, HTTP_URI = $HTTP_URI, SNAT_IP = $SNAT_IP:$SNAT_PORT, F5_HOSTNAME = $BIGIP_HOSTNAME, RESPONSE_TIME = $RESPONSE_MSECS, RESPONSE_SIZE = $RESPONSE_SIZE
-HSL Protocol=UDP
-Pool Name=splunk_pool
+Name = splunk_http_request_logging
+Parent Profile = request-log
+Request Logging = Enabled
+Template = $DATE_NCSA REQUEST -> CLIENT = $CLIENT_IP:$CLIENT_PORT, VIP = $VIRTUAL_IP:$VIRTUAL_PORT, HTTP_VERSION = $HTTP_VERSION, HTTP_METHOD = $HTTP_METHOD, HTTP_KEEPALIVE = $HTTP_KEEPALIVE, HTTP_PATH = $HTTP_PATH, HTTP_QUERY = $HTTP_QUERY, HTTP_REQUEST = $HTTP_REQUEST, HTTP_URI = $HTTP_URI
+HSL Protocol = UDP
+Pool Name = splunk_pool
+Response Logging = Enabled
+Template = $DATE_NCSA, RESPONSE -> CLIENT = $CLIENT_IP:$CLIENT_PORT, VIP = $VIRTUAL_IP:$VIRTUAL_PORT, SERVER = $SERVER_IP:$SERVER_PORT, HTTP_VERSION = $HTTP_VERSION, HTTP_METHOD = $HTTP_METHOD, HTTP_KEEPALIVE = $HTTP_KEEPALIVE, HTTP_PATH = $HTTP_PATH, HTTP_QUERY = $HTTP_QUERY, HTTP_REQUEST = $HTTP_REQUEST, HTTP_STATUS = $HTTP_STATUS, HTTP_URI = $HTTP_URI, SNAT_IP = $SNAT_IP:$SNAT_PORT, F5_HOSTNAME = $BIGIP_HOSTNAME, RESPONSE_TIME = $RESPONSE_MSECS, RESPONSE_SIZE = $RESPONSE_SIZE
+HSL Protocol = UDP
+Pool Name = splunk_pool
 ```
 
 2.	Go to `Local Traffic > Virtual Servers`. Click on the VIP which you want to use Request Logging. Select Advanced of Configuration and then choose `Request Logging Profile` as `splunk_http_request_logging`
 
-3.	Visit the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* REQUEST`
+3.	Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* REQUEST`
