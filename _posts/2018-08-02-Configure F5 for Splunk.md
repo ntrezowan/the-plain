@@ -28,14 +28,14 @@ PING 10.10.10.1 (10.10.10.1) 56(84) bytes of data.
 ```
 If ping is down, it does not necessarily mean that no log will go to Splunk server because F5 will send logs to a predefined TCP/UDP port. But we need to have ping enabled so that we can use gateway_icmp for monitoring when we create a pool.
 
-2. Check how F5 is reaching Splunk server;  
+2. Check how F5 is reaching Splunk log server;  
 ```
 [user@f5serv1:Active:In Sync] ~ # ip route get 10.10.10.1
 10.10.10.1 via 20.20.20.1 prd vlan1  src 11.11.11.2
 cache
 ```
 Here `11.11.11.2` is the TMM interface (also self non-floating IP for F5SERV1) which will be the source when logs are send to `10.10.10.1`.
-If there is no route to Splunk server, add a static route and verify;  
+If there is no route to Splunk, add a static route and verify;  
 ```
 user@f5serv1:Active:In Sync] ~ # ip route add 10.10.10.1/32 via vlan1
 user@f5serv1:Active:In Sync] ~ # route -n
@@ -51,16 +51,16 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 20.20.20.0      0.0.0.0         255.255.255.0   U     0      0        0 vlan1
 ```
 3. Run Netcat to check if you can send logs to a specific remote port of Splunk server.  
-To test if you can reach a UDP remote port, run the following and then search in Splunk server with `HOST=f5serv1* f5serv1-UDP`. 
+To test if you can reach a UDP remote port, run the following and then search in Splunk with `HOST=f5serv1* f5serv1-UDP`. 
 ```
 user@f5serv1:Active:In Sync] ~ # route echo '<0>f5serv1-UDP' | nc -w 1 -u 10.10.10.1 9514
 ```
-To test if you can reach a TCP remote port, run the following and then search in Splunk server with `HOST=f5serv1* f5serv1-TCP`. 
+To test if you can reach a TCP remote port, run the following and then search in Splunk with `HOST=f5serv1* f5serv1-TCP`. 
 ```
 user@f5serv1:Active:In Sync] ~ # route echo '<0>f5serv1-TCP' | nc -w 1 -t 10.10.10.1 9515
 ```
 4. You can also do a tcpdump to check if you can send logs to a specific remote port of Splunk server.  
-Run the following in one terminal to monitor the TCP port;
+Run the following in one terminal to monitor TCP port;
 ```
 user@f5serv1:Active:In Sync] ~ # tcpdump -A -nni vlan1 host 10.10.10.1 and port 9515
 ```
@@ -68,7 +68,7 @@ While tcpdump is running, open another terminal and run the following and check 
 ```
 user@f5serv1:Active:In Sync] ~ # logger -p local0.notice "DUMPLING”
 ```
-If nc or tcpdump works, it means F5 can send logs to specific Splunk ports without any issue.
+If nc or tcpdump works, it means F5 can send logs to specific Splunk ports without any issue. If any of them did not worked, please read "Check Network Connectivity" section above.
 
 ---
 
