@@ -247,7 +247,7 @@ when LB_FAILED {
 1.	Verify that F5 is using management port to reach Splunk;
 ```
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# ip route get 10.10.10.1
-10.10.10.1 via 10.1.1.1 dev mgmt  src 10.1.1.2
+10.10.10.1 via 10.1.1.1 prd mgmt  src 10.1.1.2
 ```
 If not, configure F5 so that it uses management port to reach Splunk;
 ```
