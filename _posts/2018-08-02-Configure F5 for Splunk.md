@@ -238,7 +238,7 @@ when LB_FAILED {
 }
 ```
 
-3.	Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* HSL`. If nothing shows up in Splunk, uncomment `#log local0.info` from the iRule to start writing logs in local SYSLOG (/var/logs/ltm). If logs are writing in local file but not showing up in Splunk, it means there is some network issue. If logs are not writing in local syslog, try using a simpler iRule.
+3. Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* HSL`. If nothing shows up in Splunk, uncomment `#log local0.info` from the iRule to start writing logs in local SYSLOG (/var/logs/ltm). If logs are writing in local file but not showing up in Splunk, it means there is some network issue. If logs are not writing in local SYSLOG, try using a simpler iRule.
 
 ---
 
