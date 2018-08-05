@@ -68,7 +68,7 @@ While tcpdump is running, open another terminal and run the following and check 
 ```
 user@f5serv1:Active:In Sync] ~ # logger -p local0.notice "DUMPLING”
 ```
-If nc or tcpdump works, it means F5 can send logs to specific Splunk ports without any issue. If any of them did not worked, please read "Check Network Connectivity" section above.
+If nc or tcpdump works, it means F5 can send logs to specific Splunk ports without any issue. If any of them did not worked, revisit "Check Network Connectivity" section above.
 
 ---
 
@@ -178,18 +178,18 @@ In here, SYSLOG and APM is using `9514/udp` and ASM is using `9515/tcp`.
 
 #### C. Configure HSL using TMM
 
-1.	Create	a pool and add Splunk as a backend server of the pool.
-Go to `Local Traffic > Pools`. Click on Create, select Advanced from Configuration and configure as following;
+1.	Create a pool and add Splunk as a backend server of the pool.
+Go to `Local Traffic > Pools`. Click Create, select Advanced from Configuration and configure as following;
 ```
-Name=splunk_pool
-Pool Health Monitor=gateway_icmp
-Node Health Monitor=udp
-Address=10.10.10.1
-Service Port=9514
+Name = splunk_pool
+Pool Health Monitor = gateway_icmp
+Node Health Monitor = udp
+Address = 10.10.10.1
+Service Port = 9514
 ```
 
 2.	Create an iRule and add it to a VIP. 
-Go to `Local Traffic > iRules > iRules List`. Click on Create and here is a sample iRule which does Apache like HTTP Request/Response logging;
+Go to `Local Traffic > iRules > iRules List`. Click Create and here is a sample iRule which does Apache like HTTP Request/Response logging;
 ```
 when CLIENT_ACCEPTED {
     set client_address [IP::client_addr]
@@ -238,7 +238,7 @@ when LB_FAILED {
 }
 ```
 
-3.	Visit the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* HSL`. If nothing shows up in Splunk, uncomment `#log local0.info` from the iRule to start writing logs in local syslog (/var/logs/ltm). If logs are writing in syslog file but not showing up in Splunk, it means there is some network issue. Revisit "Check Network Connectivity" section. If logs are not writing in local syslog, try using a simpler iRule.
+3.	Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* HSL`. If nothing shows up in Splunk, uncomment `#log local0.info` from the iRule to start writing logs in local SYSLOG (/var/logs/ltm). If logs are writing in local file but not showing up in Splunk, it means there is some network issue. If logs are not writing in local syslog, try using a simpler iRule.
 
 ---
 
