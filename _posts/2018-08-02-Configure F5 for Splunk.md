@@ -395,7 +395,7 @@ Policy = {a_prefedined policy}
 Log Profile = splunk_afm_logging
 ```
 
-6. Go to Splunk and search for `host=f5dev* "ACTION=Drop"`.
+6. Go to Splunk and search for `host=f5serv1* "ACTION=Drop"`.
 
 ---
 
