@@ -411,8 +411,8 @@ Aggregate Rate Limit = Indefinite
 5. Add the logging profile to a VIP with a APM policy. Go to `Local Traffic > Virtual Servers`. Click on the Virtual Server where you want to apply logging and go to `Security > Policies` tab. Now configure as following;
 ```
 Network Firewall
-Enforcement = Enabled
-Staging = Disabled
+		  Enforcement = Enabled
+		  Staging = Disabled
 Policy = {a_prefedined policy}
 Log Profile = splunk_afm_logging
 ```
