@@ -347,3 +347,73 @@ Pool Name = splunk_pool
 2.	Go to `Local Traffic > Virtual Servers`. Click on the VIP which you want to use Request Logging. Select Advanced of Configuration and then choose `Request Logging Profile` as `splunk_http_request_logging`
 
 3.	Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* REQUEST`
+
+---
+
+#### E. Configure AFM for HSL
+
+1. Create a unformatted HSL log destination. Go to System > Logs > Configuration > Log Destinations. Click on Create and configure as following;
+```
+Name = splunk_afm_unformatted
+Type = Remote HSL
+Pool = splunk_pool
+Protocol = UDP
+```
+
+2. Create a formatted HSL log destination for Splunk. Go to System > Logs > Configuration > Log Destinations. Click on Create and configure as following;
+```
+Name = splunk_afm_formatted
+Type = Remote Syslog
+Syslog Format = BSD Syslog
+Forward to = splunk_afm_unformatted
+```
+
+3. Create a HSL log publisher. Go to System > Logs > Configuration > Log Publishers. Click on Create and configure as following;
+```
+Name = splunk_afm_publisher
+Destination = splunk_afm_formatted
+```
+
+4. Create a firewall logging profile. Go to Security > Event Logs > Logging Profiles. Click on Create and configure as following;
+```
+Name = splunk_afm_logging
+Network Firewall = Tick
+
+Publisher = splunk_afm_publisher
+Aggregate Rate Limit = Indefinite
+Log Rule Messages = 
+Accept	= Indefinite
+Drop	= Indefinite
+Reject	= Indefinite
+	Log IP Errors = Enabled
+	Log TCP Errors = Enabled
+	Log TCP Event = Enabled
+	Log Transation Fields = Enabled
+	Always Log Region = Enabled
+	Storage Format = User-Defined
+ACTION=${action}, SOURCE_IP=${src_ip}:${src_port}, REMOTE_IP=${dest_ip}:${dest_port}, REMOTE_LOCATION=${dest_geo}, PROTOCOL=${protocol}, TRANS_SOURCE_IP=${translated_src_ip}:${translated_src_port}, TRANS_REMOTE_IP=${translated_dest_ip}:${translated_dest_port}, DROP_REASON=${drop_reason}, VLAN=${vlan}
+
+IP Intelligence 
+Publisher = splunk_afm_publisher
+Log Translation Fields = Enabled
+
+Traffic Statistics
+Publisher = splunk afm_publisher
+Aggregate Rate Limit = Indefinite
+Log Timer Events = Active Flows
+
+	Port Misuse
+	Publisher = splunk_afm_publisher
+	Aggregate Rate Limit = Indefinite
+```
+
+5. Add the logging profile to a VIP with a APM policy. Go to Local Traffic > Virtual Servers. Click on the Virtual Server where you want to apply logging and go to Security > Policies. Now configure as following;
+```
+Network Firewall
+Enforcement = Enabled
+Staging = Disabled
+Policy = {a_prefedined policy}
+Log Profile = splunk_afm_logging
+```
+
+6. Go to Splunk and search for host=f5dev* "ACTION=Drop"
