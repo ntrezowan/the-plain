@@ -352,7 +352,7 @@ Pool Name = splunk_pool
 
 #### F. Configure AFM for HSL
 
-1. Create a unformatted HSL log destination. 
+1. Create an unformatted HSL log destination. 
 Go to `System > Logs > Configuration > Log Destinations`. Click on Create and configure as following;
 ```
 Name = splunk_afm_unformatted
@@ -379,7 +379,7 @@ Destination = splunk_afm_formatted
 ```
 Name = splunk_afm_logging
 Network Firewall = Tick
-
+---
 Publisher = splunk_afm_publisher
 Aggregate Rate Limit = Indefinite
 Log Rule Messages = 
@@ -393,19 +393,19 @@ Reject	= Indefinite
 	Always Log Region = Enabled
 	Storage Format = User-Defined
 ACTION=${action}, SOURCE_IP=${src_ip}:${src_port}, REMOTE_IP=${dest_ip}:${dest_port}, REMOTE_LOCATION=${dest_geo}, PROTOCOL=${protocol}, TRANS_SOURCE_IP=${translated_src_ip}:${translated_src_port}, TRANS_REMOTE_IP=${translated_dest_ip}:${translated_dest_port}, DROP_REASON=${drop_reason}, VLAN=${vlan}
-
+---
 IP Intelligence 
 Publisher = splunk_afm_publisher
 Log Translation Fields = Enabled
-
+---
 Traffic Statistics
 Publisher = splunk afm_publisher
 Aggregate Rate Limit = Indefinite
 Log Timer Events = Active Flows
-
-	Port Misuse
-	Publisher = splunk_afm_publisher
-	Aggregate Rate Limit = Indefinite
+---
+Port Misuse
+Publisher = splunk_afm_publisher
+Aggregate Rate Limit = Indefinite
 ```
 
 5. Add the logging profile to a VIP with a APM policy. Go to `Local Traffic > Virtual Servers`. Click on the Virtual Server where you want to apply logging and go to `Security > Policies` tab. Now configure as following;
