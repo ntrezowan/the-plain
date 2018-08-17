@@ -95,7 +95,7 @@ If there is any remote log server, we need to remove it because this type of con
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# modify /sys syslog remote-servers none
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save /sys config
 ```
-3.	Now add Splunk server as a `include` which will allow us to filter outgoing logs;
+3. Now add Splunk server as a `include` which will allow us to filter outgoing logs;
 ```
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# edit /sys syslog all-properties
 sys syslog {
@@ -141,12 +141,12 @@ sys syslog {
 ```
 Here under `include` section, `10.10.10.1` is Splunk server IP and F5 will send logs to `9514/udp` and `9515/tcp` port of Splunk. In filter section, we set the severity level from informational to emergency for SYSLOG (/var/logs/ltm).
 
-4.	Change date format to `iso-date`;
+4. Change date format to `iso-date`;
 ```
 user@(f5serv1)(cfg-sync In Sync)(Standby)(/Common)(tmos)# modify sys syslog iso-date enabled
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save /sys config
 ```
-5.	In Splunk, modify `inputs.conf` so that F5 source-type matches with `inputs.conf`;  
+5. In Splunk, modify `inputs.conf` so that F5 source-type matches with `inputs.conf`;  
 F5 Source Type ->
 ```
 SYSLOG  (/var/log/ltm) -> f5:bigip:syslog
@@ -170,7 +170,7 @@ sourcetype = f5:bigip:asm:syslog
 ```
 In here, SYSLOG and APM is using `9514/udp` and ASM is using `9515/tcp`.
 
-6.	Go to Splunk and search with the following to verify that SYSLOG (/var/log/ltm) shows up in Splunk;
+6. Go to Splunk and search with the following to verify that SYSLOG (/var/log/ltm) shows up in Splunk;
 - Search `host=f5serv1* mcpd` to see if it’s getting `mcpd` logs
 - Search `host=f5serv1* tmm*` to see if it’s getting `tmm` logs
 
@@ -178,7 +178,7 @@ In here, SYSLOG and APM is using `9514/udp` and ASM is using `9515/tcp`.
 
 #### C. Configure HSL using TMM
 
-1.	Create a pool and add Splunk as a backend server of the pool.
+1. Create a pool and add Splunk as a backend server of the pool.
 Go to `Local Traffic > Pools`. Click Create, select Advanced from Configuration and configure as following;
 ```
 Name = splunk_pool
@@ -188,7 +188,7 @@ Address = 10.10.10.1
 Service Port = 9514
 ```
 
-2.	Create an iRule and add it to a VIP. 
+2. Create an iRule and add it to a VIP. 
 Go to `Local Traffic > iRules > iRules List`. Click Create and here is a sample iRule which does Apache like HTTP Request/Response logging;
 ```
 when CLIENT_ACCEPTED {
@@ -244,7 +244,7 @@ when LB_FAILED {
 
 #### D. Configure HSL using Management Port
 
-1.	Verify that F5 is using management port to reach Splunk;
+1. Verify that F5 is using management port to reach Splunk;
 ```
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# ip route get 10.10.10.1
 10.10.10.1 via 10.1.1.1 prd mgmt  src 10.1.1.2
@@ -260,7 +260,7 @@ sys management-route splunk {
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save sys config
 ```
 
-2.	Create a Log destination.  
+2. Create a Log destination.  
 Go to `System > Logs > Configuration > Log Destinations`. Create New and configure as following;
 ```
 Name = splunk_hsl_via_mgmt_port
@@ -270,7 +270,7 @@ Port = 9515
 Protocol = TCP
 ```
 
-3.	Create a Log publisher.  
+3. Create a Log publisher.  
 Go to `System > Logs > Configuration> Log Publisher`. Create New and configure as following;
 ```
 Name = splunk_hsl_publisher
@@ -324,13 +324,13 @@ when LB_FAILED {
     HSL::send $hsl "<190> HSL, CLIENT_IP=$client_address, VIP=$vip, VIP_NAME=\"$virtual_server\", SERVER_NODE=$node, SERVER_NODE_PORT=$node_port, HTTP_URL=$http_url, HTTP_VERSION=$http_version, HTTP_STATUS=$http_status, HTTP_METHOD=$http_method, HTTP_CONTENT_TYPE=$http_content_type, HTTP_USER_AGENT=\"$http_user_agent\", HTTP_REFERRER=\"$http_referrer\", COOKIE=\"$cookie\", REQUEST_START_TIME=$req_start_time,REQUEST_ELAPSED_TIME=$req_elapsed_time, BYTES_IN=$req_length, BYTES_OUT=$res_length\r\n"
 }
 ```
-5.	Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* HSL`.
+5. Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* HSL`.
 
 ---
 
 #### E. Configure Request Logging
 
-1.	Go to `Local Traffic > Profiles > Other > Request Logging`. Click Create and configure as following;
+1. Go to `Local Traffic > Profiles > Other > Request Logging`. Click Create and configure as following;
 ```
 Name = splunk_http_request_logging
 Parent Profile = request-log
@@ -344,15 +344,16 @@ HSL Protocol = UDP
 Pool Name = splunk_pool
 ```
 
-2.	Go to `Local Traffic > Virtual Servers`. Click on the VIP which you want to use Request Logging. Select Advanced of Configuration and then choose `Request Logging Profile` as `splunk_http_request_logging`
+2. Go to `Local Traffic > Virtual Servers`. Click on the VIP which you want to use Request Logging. Select Advanced of Configuration and then choose `Request Logging Profile` as `splunk_http_request_logging`
 
-3.	Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* REQUEST`
+3. Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* REQUEST`
 
 ---
 
-#### E. Configure AFM for HSL
+#### F. Configure AFM for HSL
 
-1. Create a unformatted HSL log destination. Go to System > Logs > Configuration > Log Destinations. Click on Create and configure as following;
+1. Create a unformatted HSL log destination. 
+Go to `System > Logs > Configuration > Log Destinations`. Click on Create and configure as following;
 ```
 Name = splunk_afm_unformatted
 Type = Remote HSL
@@ -360,7 +361,7 @@ Pool = splunk_pool
 Protocol = UDP
 ```
 
-2. Create a formatted HSL log destination for Splunk. Go to System > Logs > Configuration > Log Destinations. Click on Create and configure as following;
+2. Create a formatted HSL log destination for Splunk. Go to `System > Logs > Configuration > Log Destinations`. Click on Create and configure as following;
 ```
 Name = splunk_afm_formatted
 Type = Remote Syslog
@@ -368,13 +369,13 @@ Syslog Format = BSD Syslog
 Forward to = splunk_afm_unformatted
 ```
 
-3. Create a HSL log publisher. Go to System > Logs > Configuration > Log Publishers. Click on Create and configure as following;
+3. Create a HSL log publisher. Go to `System > Logs > Configuration > Log Publishers`. Click on Create and configure as following;
 ```
 Name = splunk_afm_publisher
 Destination = splunk_afm_formatted
 ```
 
-4. Create a firewall logging profile. Go to Security > Event Logs > Logging Profiles. Click on Create and configure as following;
+4. Create a firewall logging profile. Go to `Security > Event Logs > Logging Profiles`. Click on Create and configure as following;
 ```
 Name = splunk_afm_logging
 Network Firewall = Tick
@@ -407,7 +408,7 @@ Log Timer Events = Active Flows
 	Aggregate Rate Limit = Indefinite
 ```
 
-5. Add the logging profile to a VIP with a APM policy. Go to Local Traffic > Virtual Servers. Click on the Virtual Server where you want to apply logging and go to Security > Policies. Now configure as following;
+5. Add the logging profile to a VIP with a APM policy. Go to `Local Traffic > Virtual Servers`. Click on the Virtual Server where you want to apply logging and go to `Security > Policies` tab. Now configure as following;
 ```
 Network Firewall
 Enforcement = Enabled
@@ -416,4 +417,4 @@ Policy = {a_prefedined policy}
 Log Profile = splunk_afm_logging
 ```
 
-6. Go to Splunk and search for host=f5dev* "ACTION=Drop"
+6. Go to Splunk and search for `host=f5dev* "ACTION=Drop"`.
