@@ -176,7 +176,7 @@ In here, SYSLOG and APM is using `9514/udp` and ASM is using `9515/tcp`.
 
 ---
 
-#### C. Configure HSL using TMM
+#### C. Configure HSL to use TMM ports
 
 1. Create a pool and add Splunk as a backend server of the pool.
 Go to `Local Traffic > Pools`. Click Create, select Advanced from Configuration and configure as following;
@@ -242,7 +242,7 @@ when LB_FAILED {
 
 ---
 
-#### D. Configure HSL using Management Port
+#### D. Configure HSL to use Management port
 
 1. Verify that F5 is using management port to reach Splunk;
 ```
@@ -328,29 +328,7 @@ when LB_FAILED {
 
 ---
 
-#### E. Configure Request Logging
-
-1. Go to `Local Traffic > Profiles > Other > Request Logging`. Click Create and configure as following;
-```
-Name = splunk_http_request_logging
-Parent Profile = request-log
-Request Logging = Enabled
-Template = $DATE_NCSA REQUEST -> CLIENT = $CLIENT_IP:$CLIENT_PORT, VIP = $VIRTUAL_IP:$VIRTUAL_PORT, HTTP_VERSION = $HTTP_VERSION, HTTP_METHOD = $HTTP_METHOD, HTTP_KEEPALIVE = $HTTP_KEEPALIVE, HTTP_PATH = $HTTP_PATH, HTTP_QUERY = $HTTP_QUERY, HTTP_REQUEST = $HTTP_REQUEST, HTTP_URI = $HTTP_URI
-HSL Protocol = UDP
-Pool Name = splunk_pool
-Response Logging = Enabled
-Template = $DATE_NCSA, RESPONSE -> CLIENT = $CLIENT_IP:$CLIENT_PORT, VIP = $VIRTUAL_IP:$VIRTUAL_PORT, SERVER = $SERVER_IP:$SERVER_PORT, HTTP_VERSION = $HTTP_VERSION, HTTP_METHOD = $HTTP_METHOD, HTTP_KEEPALIVE = $HTTP_KEEPALIVE, HTTP_PATH = $HTTP_PATH, HTTP_QUERY = $HTTP_QUERY, HTTP_REQUEST = $HTTP_REQUEST, HTTP_STATUS = $HTTP_STATUS, HTTP_URI = $HTTP_URI, SNAT_IP = $SNAT_IP:$SNAT_PORT, F5_HOSTNAME = $BIGIP_HOSTNAME, RESPONSE_TIME = $RESPONSE_MSECS, RESPONSE_SIZE = $RESPONSE_SIZE
-HSL Protocol = UDP
-Pool Name = splunk_pool
-```
-
-2. Go to `Local Traffic > Virtual Servers`. Click on the VIP which you want to use Request Logging. Select Advanced of Configuration and then choose `Request Logging Profile` as `splunk_http_request_logging`
-
-3. Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* REQUEST`
-
----
-
-#### F. Configure HSL for AFM
+#### E. Configure HSL for AFM
 
 1. Create an unformatted HSL log destination. 
 Go to `System > Logs > Configuration > Log Destinations`. Click on Create and configure as following;
@@ -418,3 +396,26 @@ Log Profile = splunk_afm_logging
 ```
 
 6. Go to Splunk and search for `host=f5dev* "ACTION=Drop"`.
+
+---
+
+#### F. Configure Request Logging
+
+1. Go to `Local Traffic > Profiles > Other > Request Logging`. Click Create and configure as following;
+```
+Name = splunk_http_request_logging
+Parent Profile = request-log
+Request Logging = Enabled
+Template = $DATE_NCSA REQUEST -> CLIENT = $CLIENT_IP:$CLIENT_PORT, VIP = $VIRTUAL_IP:$VIRTUAL_PORT, HTTP_VERSION = $HTTP_VERSION, HTTP_METHOD = $HTTP_METHOD, HTTP_KEEPALIVE = $HTTP_KEEPALIVE, HTTP_PATH = $HTTP_PATH, HTTP_QUERY = $HTTP_QUERY, HTTP_REQUEST = $HTTP_REQUEST, HTTP_URI = $HTTP_URI
+HSL Protocol = UDP
+Pool Name = splunk_pool
+Response Logging = Enabled
+Template = $DATE_NCSA, RESPONSE -> CLIENT = $CLIENT_IP:$CLIENT_PORT, VIP = $VIRTUAL_IP:$VIRTUAL_PORT, SERVER = $SERVER_IP:$SERVER_PORT, HTTP_VERSION = $HTTP_VERSION, HTTP_METHOD = $HTTP_METHOD, HTTP_KEEPALIVE = $HTTP_KEEPALIVE, HTTP_PATH = $HTTP_PATH, HTTP_QUERY = $HTTP_QUERY, HTTP_REQUEST = $HTTP_REQUEST, HTTP_STATUS = $HTTP_STATUS, HTTP_URI = $HTTP_URI, SNAT_IP = $SNAT_IP:$SNAT_PORT, F5_HOSTNAME = $BIGIP_HOSTNAME, RESPONSE_TIME = $RESPONSE_MSECS, RESPONSE_SIZE = $RESPONSE_SIZE
+HSL Protocol = UDP
+Pool Name = splunk_pool
+```
+
+2. Go to `Local Traffic > Virtual Servers`. Click on the VIP which you want to use Request Logging. Select Advanced of Configuration and then choose `Request Logging Profile` as `splunk_http_request_logging`
+
+3. Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* REQUEST`
+
