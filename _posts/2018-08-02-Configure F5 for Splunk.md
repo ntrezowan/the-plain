@@ -350,7 +350,7 @@ Pool Name = splunk_pool
 
 ---
 
-#### F. Configure AFM for HSL
+#### F. Configure HSL for AFM
 
 1. Create an unformatted HSL log destination. 
 Go to `System > Logs > Configuration > Log Destinations`. Click on Create and configure as following;
