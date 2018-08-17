@@ -383,15 +383,15 @@ Network Firewall = Tick
 Publisher = splunk_afm_publisher
 Aggregate Rate Limit = Indefinite
 Log Rule Messages = 
-Accept	= Indefinite
-Drop	= Indefinite
-Reject	= Indefinite
-	Log IP Errors = Enabled
-	Log TCP Errors = Enabled
-	Log TCP Event = Enabled
-	Log Transation Fields = Enabled
-	Always Log Region = Enabled
-	Storage Format = User-Defined
+		  Accept = Indefinite
+		  Drop = Indefinite
+		  Reject = Indefinite
+Log IP Errors = Enabled
+Log TCP Errors = Enabled
+Log TCP Event = Enabled
+Log Transation Fields = Enabled
+Always Log Region = Enabled
+Storage Format = User-Defined
 ACTION=${action}, SOURCE_IP=${src_ip}:${src_port}, REMOTE_IP=${dest_ip}:${dest_port}, REMOTE_LOCATION=${dest_geo}, PROTOCOL=${protocol}, TRANS_SOURCE_IP=${translated_src_ip}:${translated_src_port}, TRANS_REMOTE_IP=${translated_dest_ip}:${translated_dest_port}, DROP_REASON=${drop_reason}, VLAN=${vlan}
 ---
 IP Intelligence 
