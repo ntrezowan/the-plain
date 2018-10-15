@@ -88,5 +88,6 @@ when HTTP_RESPONSE {
 ```
 
 3.	Go to `Local Traffic > Virtual Servers > Virtual Servers List`. Select the VIP you want to apply iRule to and go to Resource Tab. In the iRule section, click on Manage, add the iRule and click Finished.  
- 
+
+NB: To test if the iRule is working, visit http://example.com/a/b/c and it should load 404.html page.
 
