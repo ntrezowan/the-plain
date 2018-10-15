@@ -5,7 +5,7 @@ description: "F5 maintenance page with iRule"
 keywords: "F5, iRules, iFile, redirect, HTML"
 published: true
 ---
-#### Create maintenance page using HTML iFile
+### Create maintenance page using HTML iFile
 
 1.	Make sure in which partition you want to upload the html file. It will be easier if VIP, iRule and iFile are in the same partition.  
 
