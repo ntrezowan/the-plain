@@ -5,7 +5,7 @@ description: "Configure F5 for Splunk"
 keywords: "F5, hsl, hish speed logging, request logging, management port logging, asm logging, apm logging, configure"
 published: true
 ---
-### Environment:
+### Environment
 F5SERV1 self IP for VLAN1 = 11.11.11.2  
 F5SERV2 self IP for VLAN1 = 11.11.11.3  
 F5SERV Floating IP for VLAN1 = 11.11.11.1  
@@ -73,7 +73,6 @@ If nc or tcpdump works, it means F5 can send logs to specific Splunk ports witho
 ---
 
 ### B. Add Splunk on F5
-
 1. In F5, check `syslog-ng` global and local configuration;  
 ```
 [user@f5serv1:Active:In Sync] ~ # cat /var/run/config/syslog-ng.conf
@@ -177,7 +176,6 @@ In here, SYSLOG and APM is using `9514/udp` and ASM is using `9515/tcp`.
 ---
 
 ### C. Configure HSL to use TMM ports
-
 1. Create a pool and add Splunk as a backend server of the pool.
 Go to `Local Traffic > Pools`. Click Create, select Advanced from Configuration and configure as following;
 ```
@@ -243,7 +241,6 @@ when LB_FAILED {
 ---
 
 ### D. Configure HSL to use Management port
-
 1. Verify that F5 is using management port to reach Splunk;
 ```
 user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# ip route get 10.10.10.1
@@ -329,7 +326,6 @@ when LB_FAILED {
 ---
 
 ### E. Configure HSL for AFM
-
 1. Create an unformatted HSL log destination. 
 Go to `System > Logs > Configuration > Log Destinations`. Click on Create and configure as following;
 ```
@@ -400,7 +396,6 @@ Log Profile = splunk_afm_logging
 ---
 
 ### F. Configure Request Logging
-
 1. Go to `Local Traffic > Profiles > Other > Request Logging`. Click Create and configure as following;
 ```
 Name = splunk_http_request_logging
