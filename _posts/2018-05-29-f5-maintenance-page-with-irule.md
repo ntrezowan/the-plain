@@ -26,7 +26,6 @@ when LB_FAILED {
 NB: If your html file is in a different partition, then you have to use something like `/Common/maintenance.html` in the iRule. We are also using `503` because it will tell the search crawler not to cache this page.  
 
 ---
-
 #### Create redirection page if a URI is down without iFile
 
 
@@ -67,3 +66,27 @@ when HTTP_REQUEST {
 4.	Go to `Local Traffic > Virtual Servers > Virtual Servers List`. Select the VIP you want to apply iRule to and go to Resource Tab. In the iRule section, click on Manage, add the iRule and click Finished.  
 
 NB: If you do not want to be redirected, remove `<META http-equiv="refresh" content="15;URL=https://discovery.com">` from head.
+
+---
+#### Redirect based on HTTP Response 403/404/500
+
+1.	Go to `System > File Management > iFile List`. Click on Import and upload html files (403.html, 404.html, 500.html). Name them according to their file name.  
+
+2.	Go to `Local Traffic > iRules > iRules List`. Create a new iRule and give it a Name (redirect_403_404_500). Here is a sample iRule which will load the HTML page when the server sends HTTP Response of either 403, 404 or 500;  
+```
+when HTTP_RESPONSE {
+    if { [HTTP::status] == 403 } {
+    HTTP::respond 200 content [ifile get 403.html] 
+    }
+    elseif { [HTTP::status] == 404 } {
+    HTTP::respond 200 content [ifile get 404.html]
+    }
+    elseif { [HTTP::status] == 500 } {
+    HTTP::respond 200 content [ifile get 500.html]
+    }
+}
+```
+
+3.	Go to `Local Traffic > Virtual Servers > Virtual Servers List`. Select the VIP you want to apply iRule to and go to Resource Tab. In the iRule section, click on Manage, add the iRule and click Finished.  
+ 
+
