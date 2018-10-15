@@ -12,7 +12,7 @@ keywords: "sharepoint, 2016, search, topology, create, modify, multiple, search,
 | Web1     | Web Front   | Indexing, Query Processing                                              |
 | Web2     | Web Front   | Indexing, Query Processing                                              |
 
-#### A. Configuring a new Search Topology
+### A. Configuring a new Search Topology
 
 1. Create a new Search application `Search Service Application` with database name `SharePoint_Search`; 
 ```
@@ -111,7 +111,7 @@ Get-SPEnterpriseSearchServiceApplication | Get-SPEnterpriseSearchTopology |? {$_
 
 ___
 
-#### B. Modifying an existing Search Topology
+### B. Modifying an existing Search Topology
 
 1. Save active search topology into a variable;
 ```
