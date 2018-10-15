@@ -26,7 +26,7 @@ when LB_FAILED {
 NB: If your html file is in a different partition, then you have to use something like `/Common/maintenance.html` in the iRule. We are also using `503` because it will tell the search crawler not to cache this page.  
 
 ---
-#### Create redirection page if a URI is down without iFile
+### Create redirection page if a URI is down without iFile
 
 
 1.	Go to `System > File Management > iFile List`. Click on import and upload your image (companylogo.png) and give it a Name (companylogo.png). You can also upload more files (such as css or js) to support your HTML template.  
@@ -68,7 +68,7 @@ when HTTP_REQUEST {
 NB: If you do not want to be redirected, remove `<META http-equiv="refresh" content="15;URL=https://discovery.com">` from head.
 
 ---
-#### Redirect based on HTTP Response 403/404/500
+### Redirect based on HTTP Response 403/404/500
 
 1.	Go to `System > File Management > iFile List`. Click on Import and upload html files (403.html, 404.html, 500.html). Name them according to their file name.  
 
