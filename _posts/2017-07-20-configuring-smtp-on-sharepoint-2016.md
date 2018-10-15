@@ -50,7 +50,7 @@ If it returns `False`, reboot the server. Sometimes SMTP changes does not reflec
 
 ___
 
-### Configuring SMTP for Nintex Workflow
+**Configuring SMTP for Nintex Workflow**
 If you are using `Nintex Workflow` in your farm, then go to `CA > Nintex Administration > Messaging and notifications` and configure as following;
 ```
 Outbound SMTP server: smtp@example.com
