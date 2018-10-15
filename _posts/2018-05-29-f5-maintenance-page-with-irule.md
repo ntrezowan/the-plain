@@ -6,7 +6,6 @@ keywords: "F5, iRules, iFile, redirect, HTML"
 published: true
 ---
 ### Create maintenance page using HTML iFile
-
 1.	Make sure in which partition you want to upload the html file. It will be easier if VIP, iRule and iFile are in the same partition.  
 
 2.	Go to `System > File Management > iFile List`. Click on Import and upload your html file (maintenance.html) and give it a Name (maintenance.html).  
@@ -27,8 +26,6 @@ NB: If your html file is in a different partition, then you have to use somethin
 
 ---
 ### Create redirection page if a URI is down without iFile
-
-
 1.	Go to `System > File Management > iFile List`. Click on import and upload your image (companylogo.png) and give it a Name (companylogo.png). You can also upload more files (such as css or js) to support your HTML template.  
 
 2.	Go to `Local Traffic > iRules > iFile List`. Click on Create, select the iFile you have just uploaded from File Name and give it a Name (companylogo.png).  
@@ -69,7 +66,6 @@ NB: If you do not want to be redirected, remove `<META http-equiv="refresh" cont
 
 ---
 ### Redirect based on HTTP Response 403/404/500
-
 1.	Go to `System > File Management > iFile List`. Click on Import and upload html files (403.html, 404.html, 500.html). Name them according to their file name.  
 
 2.	Go to `Local Traffic > iRules > iRules List`. Create a new iRule and give it a Name (redirect_403_404_500). Here is a sample iRule which will load the HTML page when the server sends HTTP Response of either 403, 404 or 500;  
