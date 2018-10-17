@@ -205,7 +205,6 @@ keystoreFile="conf/certs/example.com.jks"
 1. Generate the CSR from from your machine and obtain the certificate from CA. Transfer both `example.com.crt` and `example.com.key` file to `/opt/tomcat/conf/certs/`.
 
 2. Create pcks12 using the crt and key;
-
 ```
 [user@ldap]$ openssl pkcs12 -export -out /opt/tomcat/conf/certs/example.com.pfx -inkey /opt/tomcat/conf/certs/example.com.key -in /opt/tomcat/conf/certs/example.com.crt
 ```
