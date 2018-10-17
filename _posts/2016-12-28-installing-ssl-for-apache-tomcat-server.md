@@ -6,7 +6,6 @@ keywords: "ssl, certificate, install, java, keytool, windows, apache, tomcat, li
 ---
 ## 1. Windows
 
-Path for Java and Apache Tomcat are as below;    
 Java Keytool location: `C:\Program Files\Java\jre\bin\`  
 Tomcat config location: `C:\Program Files\Apache Tomcat\conf\`  
 Tomcat keystore location: `C:\Program Files\Apache Tomcat\conf\SSL\`
