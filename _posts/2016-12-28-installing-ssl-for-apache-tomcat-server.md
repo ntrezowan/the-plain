@@ -165,7 +165,7 @@ The password that is used here will require every time we open/modify this newly
 Enter keystore password:
 ```
 
-3. Use `example.com.csr` to get a new certificate From a CA. Save intermediate certificate as `intermediate.crt` and site certificate as `example.com.crt`. Transfer both certs at /opt/tomcat/conf/certs/.
+3. Use `example.com.csr` to get a new certificate From a CA. Save intermediate certificate as `intermediate.crt` and site certificate as `example.com.crt`. Transfer both certs at `/opt/tomcat/conf/certs/`.
 
 4. Import intermediate certificate to the keystore;
 ```
@@ -203,12 +203,12 @@ keystoreFile="conf/certs/example.com.jks"
 
 ### B. Renewing license for an existing keystore
 
-1. Generate the CSR from from your machine and obtain the certificate from CA. Transfer both crt and key file to `/opt/tomcat/conf/certs/`.
+1. Generate the CSR from from your machine and obtain the certificate from CA. Transfer both `example.com.crt` and `example.com.key` file to `/opt/tomcat/conf/certs/`.
 
 2. Create pcks12 using the crt and key;
 
 ```
-[user@ldap]$ openssl pkcs12 -export -out example.com.pfx -inkey example.com.key -in example.com.crt
+[user@ldap]$ openssl pkcs12 -export -out /opt/tomcat/conf/certs/example.com.pfx -inkey /opt/tomcat/conf/certs/example.com.key -in /opt/tomcat/conf/certs/example.com.crt
 ```
 
 3. Create jks using the pcks12 with an alias `example.com`;
