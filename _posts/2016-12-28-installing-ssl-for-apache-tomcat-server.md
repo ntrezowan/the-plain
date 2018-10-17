@@ -219,6 +219,10 @@ keystoreFile="conf/certs/example.com.jks"
 [user@ldap]$ /usr/bin/java/keytool -list -v -keystore /opt/tomcat/conf/certs/example.com.jks -alias example.com
 ```
 
+5. Open `server.xml` file located at `/opt/tomcat/conf/` and look for `keystoreFile` string. Modify it to the following;
+```
+keystoreFile="conf/certs/example.com.jks"
+```
 4. Restart Apache Tomcat service.
 
 5. Verify the changes by visiting hosted site's certificate.
