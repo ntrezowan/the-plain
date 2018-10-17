@@ -127,7 +127,7 @@ Enter keystore password:
 
 ---
 
-2. RedHat 7.0
+## 2. RedHat 7.0
 
 ### A. Creating new keystore to install a new certificate
 
