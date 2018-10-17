@@ -127,7 +127,7 @@ Enter keystore password:
 
 ---
 
-## 2. RedHat 7.0
+## 2. RedHat
 Java Keytool location: `/usr/bin/java`  
 Tomcat config location: `/opt/tomcat/conf`  
 Tomcat keystore location: `/opt/tomcat/conf/certs`
