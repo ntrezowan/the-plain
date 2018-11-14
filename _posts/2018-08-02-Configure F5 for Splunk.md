@@ -17,7 +17,10 @@ Splunk TCP Port = 9515 (for ASM)
 Splunk UDP Port = 9514 (for SYSLOG, HSL and APM) 
 
 ---
+### Logging Flow
+Virtual Server >> Logging Profile >> Log Publisher >> Log Destination >> Pool >> Splunk Log Server 
 
+---
 ### A. Check network connectivity
 1. Ping Splunk log server from F5;  
 ```
