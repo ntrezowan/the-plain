@@ -18,7 +18,7 @@ Splunk UDP Port = 9514 (for SYSLOG, HSL and APM)
 
 ---
 ### Logging Flow
-Virtual Server >> Logging Profile >> Log Publisher >> Log Destination >> Pool >> Splunk Log Server 
+`Virtual Server >> Logging Profile >> Log Publisher >> Log Destination >> Pool >> Splunk Log Server`
 
 ---
 ### A. Check network connectivity
