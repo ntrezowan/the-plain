@@ -22,22 +22,22 @@ Splunk UDP Port = 9514 (for SYSLOG, HSL and APM)
 
 ---
 ### A. Installation
-1.	Install Apache, NTP and Shibboleth;
+1. Install Apache, NTP and Shibboleth;
 ```
 yum install httpd ntp shibboleth.x86_64
 ```
-2.	Activate `shibd` at startup and start the service;
+2. Activate `shibd` at startup and start the service;
 ```
 sudo systemctl enable httpd.service
 sudo systemctl enable shibd.service
 sudo systemctl enable ntpd.service
 ```
-3.	Start Apache and Shibboleth SP;
+3. Start Apache and Shibboleth SP;
 ```
 sudo service httpd start
 sudo service shibd start
 ```
-4.	Check if the services are running;
+4. Check if the services are running;
 ```
 ps aux | grep httpd
 root     18366  0.0  0.4 328408 16532 ?        Ss   15:13   0:00 /usr/sbin/httpd
@@ -46,7 +46,7 @@ root     18366  0.0  0.4 328408 16532 ?        Ss   15:13   0:00 /usr/sbin/httpd
 ps aux | grep shibd
 shibd     8104  0.0  0.6 766416 25724 ?        Ssl  Dec07   0:14 /usr/sbin/shibd -p /var/run/shibboleth/shibd.pid -f -w 30
 ```
-5.	Check if `mod_shib.so` module is loaded in Apache;
+5. Check if `mod_shib.so` module is loaded in Apache;
 ```
 httpd -M | grep mod_shib
 mod_shib (shared)
@@ -58,7 +58,7 @@ LoadModule mod_shib /usr/lib64/shibboleth/mod_shib_22.so
 ```
 If not, you can add the line either in `/etc/httpd/conf/httpd.conf` or in `/etc/httpd/conf.d/shib.conf` file but not in both place (Apache does not allow multiple module entry).
 
-6.	Check if there is any error;
+6. Check if there is any error;
 ```
 grep -E 'CRIT|ERROR' /var/log/shibboleth/shibd.log
 ```
@@ -75,7 +75,7 @@ Policy from config file:        targeted
 ```
 If it is enabled then it is suggested to run in permissive mode. Follow the instruction at https://wiki.shibboleth.net/confluence/display/SP3/CommonErrors (Can't connect to listener process) where it explains how to create a policy so that SELinux allows httpd to access shibd pid.
 
-8.	Visit the following page;
+8. Visit the following page;
 ```
 https://example.com/Shibboleth.sso/Session
 ```
@@ -84,13 +84,43 @@ If it returns `A valid session was not found.`, it means `shibd` is running and 
 ---
 
 ### B. Configuration
-1.	Configure `/etc/shibboleth/shibboleth2.xml` as following;
+1. Configure `/etc/shibboleth/shibboleth2.xml` as following;
 ```
-as  
-        as
-        as
+        <SPConfig xmlns="urn:mace:shibboleth:3.0:native:sp:config"
+            xmlns:conf="urn:mace:shibboleth:3.0:native:sp:config"
+            clockSkew="180">
+            <OutOfProcess tranLogFormat="%u|%s|%IDP|%i|%ac|%t|%attr|%n|%b|%E|%S|%SS|%L|%UA|%a" />
+            <ApplicationDefaults entityID="https://example.com/sp"
+                homeURL="https://example.com/Shibboleth.sso/Session"
+                REMOTE_USER="eppn subject-id pairwise-id persistent-id"
+                cipherSuites="DEFAULT:!EXP:!LOW:!aNULL:!eNULL:!DES:!IDEA:!SEED:!RC4:!3DES:!kRSA:!SSLv2:!SSLv3:!TLSv1:!TLSv1.1">
+                <Sessions lifetime="7200" timeout="3600" relayState="ss:mem"
+                          checkAddress="false" handlerSSL="true" cookieProps="https">
+                    <SSO entityID="https://example.com/idp"
+                         discoveryProtocol="SAMLDS" discoveryURL="https://ds.example.org/DS/WAYF">
+                      SAML2
+                    </SSO>
+                    <Logout>SAML2 Local</Logout>
+                    <LogoutInitiator type="Admin" Location="/Logout/Admin" acl="127.0.0.1 ::1 10.10.10.111 10.10.10.222" />
+                    <Handler type="MetadataGenerator" Location="/Metadata" signing="false"/>
+                    <Handler type="Status" Location="/Status" acl="127.0.0.1 ::1 10.10.10.111 10.10.10.222"/>
+                    <Handler type="Session" Location="/Session" showAttributeValues="false"/>
+                    <Handler type="DiscoveryFeed" Location="/DiscoFeed"/>
+                </Sessions>
+                <Errors supportContact="root@localhost"
+                    helpLocation="/about.html"
+                    styleSheet="/shibboleth-sp/main.css"/>
+                <MetadataProvider type="XML" path="/etc/shibboleth/idp-metadata/idp-metadata.xml"/>
+                <AttributeExtractor type="XML" validate="true" reloadChanges="false" path="attribute-map.xml"/>
+                <AttributeFilter type="XML" validate="true" path="attribute-policy.xml"/>
+                <CredentialResolver type="File" use="signing"
+                    key="/etc/shibboleth/certs/sp-key.pem" certificate="/etc/shibboleth/certs/sp-cert.pem"/>
+            </ApplicationDefaults>
+            <SecurityPolicyProvider type="XML" validate="true" path="security-policy.xml"/>
+            <ProtocolProvider type="XML" validate="true" reloadChanges="false" path="protocols.xml"/>
+        </SPConfig>
 ```
-2.	Create a self-signed cert and save it in `/etc/shibboleth/certs` folder;
+2. Create a self-signed cert and save it in `/etc/shibboleth/certs` folder;
 ```
 openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -subj "/CN=example.com" -keyout /etc/shibboleth/certs/sp-key.pem -out /etc/shibboleth/certs/sp-cert.pem
 ```
@@ -103,7 +133,7 @@ Verify certificate fingerprint;
 ```
 openssl x509 -noout -in /etc/shibboleth/sp-cert.pem -fingerprint -sha1
 ```
-3.	Generate metadata for SP;
+3. Generate metadata for SP;
 ```
 /etc/shibboleth/metagen.sh -c certs/sp-cert.pem -h example.com -e https://example.com/sp > sp-metadata.xml
 ```
@@ -111,12 +141,12 @@ openssl x509 -noout -in /etc/shibboleth/sp-cert.pem -fingerprint -sha1
 Download SP metadata and verify;
 https://example.com/Shibboleth.sso/Metadata 
 
-4.	Check SP status
+4. Check SP status
 ```
 https://shibdev.its.fsu.edu/Shibboleth.sso/Status
 ```
 
-5.	Obtain IdP metadata and copy it to /etc/shibboleth/idp-metadata/ folder.
+5. Obtain IdP metadata and copy it to /etc/shibboleth/idp-metadata/ folder.
 
 Load the metadata by restarting shibd
 sudo service shibd restart
@@ -127,7 +157,7 @@ grep idp-metadata.xml /var/log/shibboleth/shibd.log
 loaded XML resource (/idp-metadata/idp-metadata.xml)
 ```
 
-6.	Modify /etc/httpd/conf.d/shibd.conf module so that if a user visit https://example.com/resources, they will be send to IdP to login before accessing the contents.
+6. Modify /etc/httpd/conf.d/shibd.conf module so that if a user visit https://example.com/resources, they will be send to IdP to login before accessing the contents.
 vi /etc/httpd/conf.d/shib.conf
 ```
 <Location /resources>
