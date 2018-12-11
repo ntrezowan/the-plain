@@ -124,18 +124,18 @@ If it returns `A valid session was not found.`, it means `shibd` is running and 
     <ProtocolProvider type="XML" validate="true" reloadChanges="false" path="protocols.xml"/>
 </SPConfig>
 ```
-2.	Create the cert and save it in /etc/shibboleth/certs folder;
+2.	Create a self-signed cert and save it in `/etc/shibboleth/certs` folder;
 ```
 openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -subj "/CN=example.com" -keyout /etc/shibboleth/certs/sp-key.pem -out /etc/shibboleth/certs/sp-cert.pem
 ```
 
-Check the content of the cert;
+Verify the content of the cert;
 ```
 openssl rsa -in /etc/shibboleth/certs/sp-key.pem -text
 openssl x509 -noout -in /etc/shibboleth/certs/sp-cert.pem -text
 ```
 
-Check certificate fingerprint;
+Verify certificate fingerprint;
 ```
 openssl x509 -noout -in /etc/shibboleth/sp-cert.pem -fingerprint -sha1
 ```
