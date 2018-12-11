@@ -151,7 +151,7 @@ loaded XML resource (/idp-metadata/idp-metadata.xml)
 ### C. Test
 1. Go to the following page and it will display `Status` as `OK`;
 ```
-https://shibdev.its.fsu.edu/Shibboleth.sso/Status
+https://example.com/Shibboleth.sso/Status
 ```
 2. Go to the following page;
 ```
@@ -169,7 +169,7 @@ Miscellaneous
 Session Expiration (barring inactivity): 120 minute(s)
 Client Address: 146.201.20.247
 SSO Protocol: urn:oasis:names:tc:SAML:2.0:protocol
-Identity Provider: https://idp.fsu.edu
+Identity Provider: https://example.com/idp
 Authentication Time: 2018-12-10T21:36:41.536Z
 Authentication Context Class: urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport
 Authentication Context Decl: (none)
