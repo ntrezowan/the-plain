@@ -140,7 +140,6 @@ openssl x509 -noout -in /etc/shibboleth/sp-cert.pem -fingerprint -sha1
 4. Obtain IdP metadata and copy it to `/etc/shibboleth/idp-metadata/` folder.
 
 5. Modify `/etc/httpd/conf.d/shibd.conf` to the following so that if a user visit https://example.com/resources, they will be send to IdP to login before accessing the location.
-
 ```
 <Location /resources>
   AuthType shibboleth
