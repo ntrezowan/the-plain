@@ -52,13 +52,12 @@ httpd -M | grep mod_shib
 mod_shib (shared)
 Syntax OK
 ```
-
 If the module is missing, check if `/etc/httpd/conf.d/shib.conf` has the following line;
 ```
 LoadModule mod_shib /usr/lib64/shibboleth/mod_shib_22.so
 ```
-
 If not, you can add the line either in `/etc/httpd/conf/httpd.conf` or in `/etc/httpd/conf.d/shib.conf` file but not in both place (Apache does not allow multiple module entry definition).
+
 6.	Check if there is any error;
 ```
 grep -E 'CRIT|ERROR' /var/log/shibboleth/shibd.log
