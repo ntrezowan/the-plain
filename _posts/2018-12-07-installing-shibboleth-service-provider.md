@@ -85,56 +85,41 @@ If it returns `A valid session was not found.`, it means `shibd` is running and 
 
 ### B. Configuration
 1.	Configure `/etc/shibboleth/shibboleth2.xml` as following;
-
+```
 <SPConfig xmlns="urn:mace:shibboleth:3.0:native:sp:config"
     xmlns:conf="urn:mace:shibboleth:3.0:native:sp:config"
     clockSkew="180">
     <OutOfProcess tranLogFormat="%u|%s|%IDP|%i|%ac|%t|%attr|%n|%b|%E|%S|%SS|%L|%UA|%a" />
-    <!—Define Entity ID -->
     <ApplicationDefaults entityID="https://example.com/sp"
         homeURL="https://example.com/Shibboleth.sso/Session"
         REMOTE_USER="eppn subject-id pairwise-id persistent-id"
         cipherSuites="DEFAULT:!EXP:!LOW:!aNULL:!eNULL:!DES:!IDEA:!SEED:!RC4:!3DES:!kRSA:!SSLv2:!SSLv3:!TLSv1:!TLSv1.1">
-    <!-- Use handlerSSL="true" to force the protocol to be https and cookieProps="https" for SSL-only sites. -->
         <Sessions lifetime="7200" timeout="3600" relayState="ss:mem"
                   checkAddress="false" handlerSSL="true" cookieProps="https">
-            <!—Define IdP Entity ID-->
             <SSO entityID="https://example.com/idp"
                  discoveryProtocol="SAMLDS" discoveryURL="https://ds.example.org/DS/WAYF">
               SAML2
             </SSO>
-            <!-- SAML and local-only logout. -->
             <Logout>SAML2 Local</Logout>
-            <!-- Administrative logout. -->
             <LogoutInitiator type="Admin" Location="/Logout/Admin" acl="127.0.0.1 ::1 10.10.10.111 10.10.10.222" />
-            <!-- Extension service that generates "approximate" metadata based on SP configuration. -->
             <Handler type="MetadataGenerator" Location="/Metadata" signing="false"/>
-            <!-- Status reporting service. -->
             <Handler type="Status" Location="/Status" acl="127.0.0.1 ::1 10.10.10.111 10.10.10.222"/>
-            <!-- Session diagnostic service. -->
             <Handler type="Session" Location="/Session" showAttributeValues="false"/>
-            <!-- JSON feed of discovery information. -->
             <Handler type="DiscoveryFeed" Location="/DiscoFeed"/>
         </Sessions>
         <Errors supportContact="root@localhost"
             helpLocation="/about.html"
             styleSheet="/shibboleth-sp/main.css"/>
-        <!-- Example of locally maintained metadata. -->
         <MetadataProvider type="XML" path="/etc/shibboleth/idp-metadata/idp-metadata.xml"/>
-        <!-- Map to extract attributes from SAML assertions. -->
         <AttributeExtractor type="XML" validate="true" reloadChanges="false" path="attribute-map.xml"/>
-        <!-- Default filtering policy for recognized attributes, lets other data pass. -->
         <AttributeFilter type="XML" validate="true" path="attribute-policy.xml"/>
-        <!-- Simple file-based resolvers for separate signing/encryption keys. -->
         <CredentialResolver type="File" use="signing"
             key="/etc/shibboleth/certs/sp-key.pem" certificate="/etc/shibboleth/certs/sp-cert.pem"/>
     </ApplicationDefaults>
-    <!-- Policies that determine how to process and authenticate runtime messages. -->
     <SecurityPolicyProvider type="XML" validate="true" path="security-policy.xml"/>
-    <!-- Low-level configuration about protocols and bindings available for use. -->
     <ProtocolProvider type="XML" validate="true" reloadChanges="false" path="protocols.xml"/>
 </SPConfig>
-
+```
 2.	Create a self-signed cert and save it in `/etc/shibboleth/certs` folder;
 ```
 openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -subj "/CN=example.com" -keyout /etc/shibboleth/certs/sp-key.pem -out /etc/shibboleth/certs/sp-cert.pem
