@@ -124,18 +124,15 @@ If it returns `A valid session was not found.`, it means `shibd` is running and 
 ```
 openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -subj "/CN=example.com" -keyout /etc/shibboleth/certs/sp-key.pem -out /etc/shibboleth/certs/sp-cert.pem
 ```
-
 Verify the content of the cert;
 ```
 openssl rsa -in /etc/shibboleth/certs/sp-key.pem -text
 openssl x509 -noout -in /etc/shibboleth/certs/sp-cert.pem -text
 ```
-
 Verify certificate fingerprint;
 ```
 openssl x509 -noout -in /etc/shibboleth/sp-cert.pem -fingerprint -sha1
 ```
-
 3.	Generate metadata for SP;
 ```
 /etc/shibboleth/metagen.sh -c certs/sp-cert.pem -h example.com -e https://example.com/sp > sp-metadata.xml
