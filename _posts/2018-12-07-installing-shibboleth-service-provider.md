@@ -26,13 +26,13 @@ Splunk UDP Port = 9514 (for SYSLOG, HSL and APM)
 ```
 yum install httpd ntp shibboleth.x86_64
 ```
-2.	Activate shibd at startup and start the service;
+2.	Activate `shibd` at startup and start the service;
 ```
 sudo systemctl enable httpd.service
 sudo systemctl enable shibd.service
 sudo systemctl enable ntpd.service
 ```
-3.	Start httpd and shibd;
+3.	Start Apache and Shibboleth SP;
 ```
 sudo service httpd start
 sudo service shibd start
@@ -46,17 +46,19 @@ root     18366  0.0  0.4 328408 16532 ?        Ss   15:13   0:00 /usr/sbin/httpd
 ps aux | grep shibd
 shibd     8104  0.0  0.6 766416 25724 ?        Ssl  Dec07   0:14 /usr/sbin/shibd -p /var/run/shibboleth/shibd.pid -f -w 30
 ```
-5.	Check if mod_shib.so module is loaded in Apache;
+5.	Check if `mod_shib.so` module is loaded in Apache;
 ```
 httpd -M | grep mod_shib
 mod_shib (shared)
 Syntax OK
 ```
 
-If the module is missing, check if /etc/httpd/conf.d/shib.conf has the following line;
+If the module is missing, check if `/etc/httpd/conf.d/shib.conf` has the following line;
+```
 LoadModule mod_shib /usr/lib64/shibboleth/mod_shib_22.so
+```
 
-If not, you can add the line either in /etc/httpd/conf/httpd.conf or in /etc/httpd/conf.d/shib.conf file but not in both place (Apache does not allow multiple module entry definition)
+If not, you can add the line either in `/etc/httpd/conf/httpd.conf` or in `/etc/httpd/conf.d/shib.conf` file but not in both place (Apache does not allow multiple module entry definition)
 
 6.	Check if there is any error;
 ```
@@ -67,7 +69,7 @@ grep -E 'CRIT|ERROR' /var/log/shibboleth/shibd.log
 ```
 https://example.com/Shibboleth.sso/Session
 ```
-If it returns “A valid session was not found.”, it means shibd is running and working with Apache.
+If it returns “A valid session was not found.”, it means `shibd` is running and working with Apache.
 
 ---
 
