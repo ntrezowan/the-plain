@@ -165,8 +165,10 @@ loaded XML resource (/idp-metadata/idp-metadata.xml)
 ```
 https://shibdev.its.fsu.edu/Shibboleth.sso/Status
 ```
-2. Go to https://example.com/resources
-
+2. Go to the following page;
+```
+https://example.com/resources
+```
 Your browser will be connected to Apache on port 443 and since the AuthType for /resources in shib.conf is “shibboleth”, you will be redirected to https://example.com/idp. After logging in, you will be redirected to /resources location and Apache will return 404 if there is no sample index.html file in this directory.
 
 3. To test if SP is getting the attributes from IdP, go to;
