@@ -73,7 +73,7 @@ Mode from config file:          enforcing
 Policy version:                 24
 Policy from config file:        targeted
 ```
-If it is enabled then it is suggested to run in permissive mode, Follow the instruction at https://wiki.shibboleth.net/confluence/display/SP3/CommonErrors (Can't connect to listener process) where it explains how to create a policy so that SELinux allows httpd to access shibd pid.
+If it is enabled then it is suggested to run in permissive mode. Follow the instruction at https://wiki.shibboleth.net/confluence/display/SP3/CommonErrors (Can't connect to listener process) where it explains how to create a policy so that SELinux allows httpd to access shibd pid.
 
 8.	Visit the following page;
 ```
@@ -85,7 +85,7 @@ If it returns `A valid session was not found.`, it means `shibd` is running and 
 
 ### B. Configuration
 1.	Configure `/etc/shibboleth/shibboleth2.xml` as following;
-```
+
 <SPConfig xmlns="urn:mace:shibboleth:3.0:native:sp:config"
     xmlns:conf="urn:mace:shibboleth:3.0:native:sp:config"
     clockSkew="180">
@@ -134,7 +134,7 @@ If it returns `A valid session was not found.`, it means `shibd` is running and 
     <!-- Low-level configuration about protocols and bindings available for use. -->
     <ProtocolProvider type="XML" validate="true" reloadChanges="false" path="protocols.xml"/>
 </SPConfig>
-```
+
 2.	Create a self-signed cert and save it in `/etc/shibboleth/certs` folder;
 ```
 openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -subj "/CN=example.com" -keyout /etc/shibboleth/certs/sp-key.pem -out /etc/shibboleth/certs/sp-cert.pem
