@@ -141,12 +141,12 @@ openssl x509 -noout -in /etc/shibboleth/sp-cert.pem -fingerprint -sha1
 
 5. Modify `/etc/httpd/conf.d/shibd.conf` to the following so that if a user visit https://example.com/resources, they will be send to IdP to login before accessing the location.
 ```
-<Location /resources>
-  AuthType shibboleth
-  ShibRequestSetting requireSession 1
-  ShibCompatWith24 On
-  require shib-session
-</Location>
+    <Location /resources>
+      AuthType shibboleth
+      ShibRequestSetting requireSession 1
+      ShibCompatWith24 On
+      require shib-session
+    </Location>
 ```
 6. Restart shibd to load IdP metadata and certificate;
 ```
