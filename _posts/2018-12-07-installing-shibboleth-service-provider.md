@@ -22,27 +22,27 @@ Splunk UDP Port = 9514 (for SYSLOG, HSL and APM)
 
 ---
 ### A. Installation
-1.	Install Apache, NTP and Shibboleth
+1.	Install Apache, NTP and Shibboleth;
 ```
 yum install httpd ntp shibboleth.x86_64
 ```
-2.	Activate shibd at startup and start the service
+2.	Activate shibd at startup and start the service;
 ```
 sudo systemctl enable httpd.service
 sudo systemctl enable shibd.service
 sudo systemctl enable ntpd.service
 ```
-3.	Start Apache and Shibd
+3.	Start httpd and shibd;
 ```
 sudo service httpd start
 sudo service shibd start
-sudo service ntpd start
 ```
 4.	Check if the services are running;
 ```
 ps aux | grep httpd
 root     18366  0.0  0.4 328408 16532 ?        Ss   15:13   0:00 /usr/sbin/httpd
-
+```
+```
 ps aux | grep shibd
 shibd     8104  0.0  0.6 766416 25724 ?        Ssl  Dec07   0:14 /usr/sbin/shibd -p /var/run/shibboleth/shibd.pid -f -w 30
 ```
