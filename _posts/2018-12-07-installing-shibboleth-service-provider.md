@@ -162,7 +162,39 @@ loaded XML resource (/idp-metadata/idp-metadata.xml)
 ---
 
 ### C. Test
-4. Check SP status
+1. Go to the following page and it will display Status as `OK`;
 ```
 https://shibdev.its.fsu.edu/Shibboleth.sso/Status
+```
+2. Go to https://example.com/resources
+
+Your browser will be connected to Apache on port 443 and since the AuthType for /resources in shib.conf is “shibboleth”, you will be redirected to https://example.com/idp. After logging in, you will be redirected to /resources location and Apache will return 404 if there is no sample index.html file in this directory.
+
+3. To test if SP is getting the attributes from IdP, Browse to
+https://example.com/Shibboleth.sso/Login
+
+After successful login, you will get the following;
+
+Miscellaneous
+Session Expiration (barring inactivity): 120 minute(s)
+Client Address: 146.201.20.247
+SSO Protocol: urn:oasis:names:tc:SAML:2.0:protocol
+Identity Provider: https://idp.fsu.edu
+Authentication Time: 2018-12-10T21:36:41.536Z
+Authentication Context Class: urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport
+Authentication Context Decl: (none)
+
+Attributes	
+affiliation: 1 value(s)
+displayName: 1 value(s)
+eppn: 1 value(s)
+givenName: 1 value(s)
+mail: 1 value(s)
+sn: 1 value(s)
+unscoped-affiliation: 2 value(s)
+
+
+
+It is strongly suggested to create separate VHOST and httpd-ssl.conf file and also tell httpd.conf to load mod_shib module because shib.conf will will be overwritten everytime Shibboleth is updated.
+
 
