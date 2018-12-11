@@ -72,105 +72,129 @@ If it returns “A valid session was not found.”, it means shibd is running an
 ---
 
 ### B. Configuration
-1. In F5, check `syslog-ng` global and local configuration;  
+1.	Configure /etc/shibboleth/shibboleth2.xml as following;
 ```
-[user@f5serv1:Active:In Sync] ~ # cat /var/run/config/syslog-ng.conf
-```
-Check default log path of SYSLOG, APM and ASM;  
-SYSLOG  -> # local0.*  
-APM     -> # local1.*  
-ASM     -> # local3.*  
+<SPConfig xmlns="urn:mace:shibboleth:3.0:native:sp:config"
+    xmlns:conf="urn:mace:shibboleth:3.0:native:sp:config"
+    clockSkew="180">
 
-2. Check if there is any pre-configured remote log server in F5; 
-```
-user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# list /sys syslog remote-servers
-sys syslog {
-    remote-servers none
-}
-```
-If there is any remote log server, we need to remove it because this type of configuration does not allow us to set severity level of outgoing logs. To remove `remote-servers`, run the following;
-```
-user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# modify /sys syslog remote-servers none
-user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save /sys config
-```
-3. Now add Splunk server as a `include` which will allow us to filter outgoing logs;
-```
-user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# edit /sys syslog all-properties
-sys syslog {
-    auth-priv-from notice
-    auth-priv-to emerg
-    clustered-host-slot enabled
-    clustered-message-slot disabled
-    console-log enabled
-    cron-from warning
-    cron-to emerg
-    daemon-from notice
-    daemon-to emerg
-    description none
-    include "
-    filter f_ssl_acc_req {
-        not (facility(local6) and level(info) and filter(f_httpd_ssl_acc)) and
-        not (facility(local6) and level(info) and filter(f_httpd_ssl_req)) and
-        level(info..emerg);
-    };
-    destination d_remote_loghost {
-        tcp(\"10.10.10.1\" port(9515));
-        udp(\"10.10.10.1\" port(9514));
-    };
-    log {
-        source(s_syslog_pipe);
-        filter(f_ssl_acc_req);
-        destination(d_remote_loghost);
-    };
-    "
-    iso-date enabled
-    kern-from debug
-    kern-to emerg
-    local6-from notice
-    local6-to emerg
-    mail-from notice
-    mail-to emerg
-    messages-from notice
-    messages-to warning
-    remote-servers none
-    user-log-from notice
-    user-log-to emerg
-}
-```
-Here under `include` section, `10.10.10.1` is Splunk server IP and F5 will send logs to `9514/udp` and `9515/tcp` port of Splunk. In filter section, we set the severity level from informational to emergency for SYSLOG (/var/logs/ltm).
+    <OutOfProcess tranLogFormat="%u|%s|%IDP|%i|%ac|%t|%attr|%n|%b|%E|%S|%SS|%L|%UA|%a" />
 
-4. Change date format to `iso-date`;
-```
-user@(f5serv1)(cfg-sync In Sync)(Standby)(/Common)(tmos)# modify sys syslog iso-date enabled
-user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save /sys config
-```
-5. In Splunk, modify `inputs.conf` so that F5 source-type matches with `inputs.conf`;  
-F5 Source Type ->
-```
-SYSLOG  (/var/log/ltm) -> f5:bigip:syslog
-APM     (/var/log/apm) -> f5:bigip:apm:syslog
-ASM     (/var/log/asm) -> f5:bigip:asm:syslog
-```
-inputs.conf ->
-```
-[udp://9514]
-disabled = true
-connection_host=ip
-sourcetype = f5:bigip:syslog
-[udp://9514]
-disabled = true
-connection_host=ip
-sourcetype = f5:bigip:apm:syslog
-[tcp://9515]
-disabled = true
-connection_host=ip
-sourcetype = f5:bigip:asm:syslog
-```
-In here, SYSLOG and APM is using `9514/udp` and ASM is using `9515/tcp`.
+    <!—Define Entity ID -->
+    <ApplicationDefaults entityID="https://example.com/sp"
+        homeURL="https://example.com/Shibboleth.sso/Session"
+        REMOTE_USER="eppn subject-id pairwise-id persistent-id"
+        cipherSuites="DEFAULT:!EXP:!LOW:!aNULL:!eNULL:!DES:!IDEA:!SEED:!RC4:!3DES:!kRSA:!SSLv2:!SSLv3:!TLSv1:!TLSv1.1">
 
-6. Go to Splunk and search with the following to verify that SYSLOG (/var/log/ltm) shows up in Splunk;
-- Search `host=f5serv1* mcpd` to see if it’s getting `mcpd` logs
-- Search `host=f5serv1* tmm*` to see if it’s getting `tmm` logs
+<!-- Use handlerSSL="true" to force the protocol to be https and cookieProps="https" for SSL-only sites. -->
+        <Sessions lifetime="7200" timeout="3600" relayState="ss:mem"
+                  checkAddress="false" handlerSSL="true" cookieProps="https">
+
+            <!—Define IdP Entity ID-->
+            <SSO entityID="https://example.com/idp"
+                 discoveryProtocol="SAMLDS" discoveryURL="https://ds.example.org/DS/WAYF">
+              SAML2
+            </SSO>
+
+            <!-- SAML and local-only logout. -->
+            <Logout>SAML2 Local</Logout>
+
+            <!-- Administrative logout. -->
+            <LogoutInitiator type="Admin" Location="/Logout/Admin" acl="127.0.0.1 ::1 10.10.10.111 10.10.10.222" />
+
+            <!-- Extension service that generates "approximate" metadata based on SP configuration. -->
+            <Handler type="MetadataGenerator" Location="/Metadata" signing="false"/>
+
+            <!-- Status reporting service. -->
+            <Handler type="Status" Location="/Status" acl="127.0.0.1 ::1 10.10.10.111 10.10.10.222"/>
+
+            <!-- Session diagnostic service. -->
+            <Handler type="Session" Location="/Session" showAttributeValues="false"/>
+
+            <!-- JSON feed of discovery information. -->
+            <Handler type="DiscoveryFeed" Location="/DiscoFeed"/>
+        </Sessions>
+
+        <Errors supportContact="root@localhost"
+            helpLocation="/about.html"
+            styleSheet="/shibboleth-sp/main.css"/>
+
+        <!-- Example of locally maintained metadata. -->
+
+        <MetadataProvider type="XML" path="/etc/shibboleth/idp-metadata/idp-metadata.xml"/>
+
+        <!-- Map to extract attributes from SAML assertions. -->
+        <AttributeExtractor type="XML" validate="true" reloadChanges="false" path="attribute-map.xml"/>
+
+        <!-- Default filtering policy for recognized attributes, lets other data pass. -->
+        <AttributeFilter type="XML" validate="true" path="attribute-policy.xml"/>
+
+        <!-- Simple file-based resolvers for separate signing/encryption keys. -->
+        <CredentialResolver type="File" use="signing"
+            key="/etc/shibboleth/certs/sp-key.pem" certificate="/etc/shibboleth/certs/sp-cert.pem"/>
+<!--
+        <CredentialResolver type="File" use="encryption"
+            key="sp-cert.pem" certificate="sp-cert.pem"/>
+-->
+    </ApplicationDefaults>
+
+    <!-- Policies that determine how to process and authenticate runtime messages. -->
+    <SecurityPolicyProvider type="XML" validate="true" path="security-policy.xml"/>
+
+    <!-- Low-level configuration about protocols and bindings available for use. -->
+    <ProtocolProvider type="XML" validate="true" reloadChanges="false" path="protocols.xml"/>
+</SPConfig>
+```
+2.	Create the cert and save it in /etc/shibboleth/certs folder;
+```
+openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -subj "/CN=example.com" -keyout /etc/shibboleth/certs/sp-key.pem -out /etc/shibboleth/certs/sp-cert.pem
+```
+
+Check the content of the cert;
+```
+openssl rsa -in /etc/shibboleth/certs/sp-key.pem -text
+openssl x509 -noout -in /etc/shibboleth/certs/sp-cert.pem -text
+```
+
+Check certificate fingerprint;
+```
+openssl x509 -noout -in /etc/shibboleth/sp-cert.pem -fingerprint -sha1
+```
+
+3.	Generate metadata for SP;
+```
+/etc/shibboleth/metagen.sh -c certs/sp-cert.pem -h example.com -e https://example.com/sp > sp-metadata.xml
+```
+
+Download SP metadata and verify;
+https://example.com/Shibboleth.sso/Metadata 
+
+4.	Check SP status
+```
+https://shibdev.its.fsu.edu/Shibboleth.sso/Status
+```
+
+5.	Obtain IdP metadata and copy it to /etc/shibboleth/idp-metadata/ folder.
+
+Load the metadata by restarting shibd
+sudo service shibd restart
+
+Check if metadata loaded properly;
+```
+grep idp-metadata.xml /var/log/shibboleth/shibd.log
+loaded XML resource (/idp-metadata/idp-metadata.xml)
+```
+
+6.	Modify /etc/httpd/conf.d/shibd.conf module so that if a user visit https://example.com/resources, they will be send to IdP to login before accessing the contents.
+vi /etc/httpd/conf.d/shib.conf
+```
+<Location /resources>
+  AuthType shibboleth
+  ShibRequestSetting requireSession 1
+  ShibCompatWith24 On
+  require shib-session
+</Location>
+```
 
 ---
 
