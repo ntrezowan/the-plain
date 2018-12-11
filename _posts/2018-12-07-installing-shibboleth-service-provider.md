@@ -63,7 +63,19 @@ If not, you can add the line either in `/etc/httpd/conf/httpd.conf` or in `/etc/
 grep -E 'CRIT|ERROR' /var/log/shibboleth/shibd.log
 ```
 
-7.	Visit the following page;
+7. Check if SELinux is enabled;
+```
+sestatus
+SELinux status:                 enabled
+SELinuxfs mount:                /selinux
+Current mode:                   permissive
+Mode from config file:          enforcing
+Policy version:                 24
+Policy from config file:        targeted
+```
+If it is enabled then it is suggested to run in permissive mode, Follow the instruction at https://wiki.shibboleth.net/confluence/display/SP3/CommonErrors (Can't connect to listener process) where it explains how to create a policy so that SELinux allows httpd to access shibd pid.
+
+8.	Visit the following page;
 ```
 https://example.com/Shibboleth.sso/Session
 ```
