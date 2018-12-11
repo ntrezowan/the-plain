@@ -56,7 +56,7 @@ If the module is missing, check if `/etc/httpd/conf.d/shib.conf` has the followi
 ```
 LoadModule mod_shib /usr/lib64/shibboleth/mod_shib_22.so
 ```
-If not, you can add the line either in `/etc/httpd/conf/httpd.conf` or in `/etc/httpd/conf.d/shib.conf` file but not in both place (Apache does not allow multiple module entry definition).
+If not, you can add the line either in `/etc/httpd/conf/httpd.conf` or in `/etc/httpd/conf.d/shib.conf` file but not in both place (Apache does not allow multiple module entry).
 
 6.	Check if there is any error;
 ```
