@@ -136,6 +136,13 @@ openssl x509 -noout -in /etc/shibboleth/sp-cert.pem -fingerprint -sha1
       require shib-session
     </Location>
 ```
+7. Create an `index.php` file under `/resources` with the following;
+```
+<html>
+<head><title>SP Testing Page</title></head>
+<body><pre><?php print_r($_SERVER); ?></pre></body>
+</html>
+```
 6. Restart shibd to load IdP metadata and certificate;
 ```
 sudo service shibd restart
@@ -155,7 +162,7 @@ https://example.com/Shibboleth.sso/Status
 ```
 2. Go to the following page;
 ```
-https://example.com/resources
+https://example.com/resources/index.php
 ```
 Your browser will be connected to Apache on port 443 and since the `AuthType` for `/resources` in `shib.conf` is `shibboleth`, you will be redirected to `https://example.com/idp`. After logging in, you will be redirected to /resources location and Apache will return 404 if there is no sample `index.html` file in this directory.
 
