@@ -58,8 +58,7 @@ If the module is missing, check if `/etc/httpd/conf.d/shib.conf` has the followi
 LoadModule mod_shib /usr/lib64/shibboleth/mod_shib_22.so
 ```
 
-If not, you can add the line either in `/etc/httpd/conf/httpd.conf` or in `/etc/httpd/conf.d/shib.conf` file but not in both place (Apache does not allow multiple module entry definition)
-
+If not, you can add the line either in `/etc/httpd/conf/httpd.conf` or in `/etc/httpd/conf.d/shib.conf` file but not in both place (Apache does not allow multiple module entry definition).
 6.	Check if there is any error;
 ```
 grep -E 'CRIT|ERROR' /var/log/shibboleth/shibd.log
@@ -69,7 +68,7 @@ grep -E 'CRIT|ERROR' /var/log/shibboleth/shibd.log
 ```
 https://example.com/Shibboleth.sso/Session
 ```
-If it returns “A valid session was not found.”, it means `shibd` is running and working with Apache.
+If it returns `A valid session was not found.`, it means `shibd` is running and working with Apache.
 
 ---
 
