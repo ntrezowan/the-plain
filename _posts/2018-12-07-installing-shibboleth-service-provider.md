@@ -159,7 +159,6 @@ openssl x509 -noout -in /etc/shibboleth/sp-cert.pem -fingerprint -sha1
     <Location /resources>
       AuthType shibboleth
       ShibRequestSetting requireSession 1
-      ShibCompatWith24 On
       require shib-session
     </Location>
 ```
@@ -265,10 +264,9 @@ unscoped-affiliation: 2 value(s)
     <Location "/Shibboleth.sso">
                 SetHandler shib-handler
     </Location>
-    <Location /resources/>
+    <Location "/resources/">
                 AuthType shibboleth
                 ShibRequestSetting requireSession 1
-                ShibCompatWith24 On
                 require valid-user
     </Location>
 
