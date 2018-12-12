@@ -15,7 +15,7 @@ published: true
 
 Shibboleth and Apache/Nginx works together where Shibboleth uses a module to talk with Apache. When a web request comes for a protected resource, Apache (httpd) directs them to `mod_shib` module and then Shibboleth (shibd) checks `shibboleth2.xml` to see what to do and uses `attribute-map.xml` to know what attributes to get from the IdP.
 
-The directories you want to protect need to be configured in Apache virtual host with `Location` tag. Shibboleth also has another virtual directory `/Shibboleth.sso/*` from where you can check Service Provider status, session data, metadata etc. Shibboleth uses `/Shibbleth.sso/` for all the communication between SP and IdP and passes attributes in either HTTP request header or in environment variable to the protected resource/application.
+The directories you want to protect need to be configured in Apache virtual host with `Location` tag. Shibboleth also has another virtual directory `/Shibboleth.sso/*` from where you can check Service Provider status, session data, metadata etc. Shibboleth uses `/Shibbleth.sso/` for all the communication between SP and IdP and passes attributes in either HTTP request header or in environment variable to the protected resource/application. While Apache handles all the browser based request on port 80/443, shibd uses port 8443 for all back channel communication with the IdP.
 
 ---
 ### Environment
