@@ -23,7 +23,11 @@ The directories you want to protect need to be configured in Apache virtual host
 /var/log/shibboleth -> Log directory  
 /var/run/shibboleth -> Runtime directory  
 /var/cache/shibboleth -> Cache directory  
-/etc/init.d/ -> Startup script (shibd)  
+/etc/init.d/shibd -> Startup script (shibd)  
+
+*Permission:*
+If you plan to manage Shibboleth with a non-root user, then shibd user have to be the owner of `/var/log/shibboleth/*` directory because default owner for this folder is root if you install Shibboleth using yum. The issue here is that, logs will not be written if you use a non-root user to start/stop shibd daemon. 
+
 
 ---
 ### A. Installation
