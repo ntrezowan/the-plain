@@ -5,7 +5,13 @@ description: "Installing Shibboleth Service Provider in RHEL"
 keywords: "F5, hsl, hish speed logging, request logging, management port logging, asm logging, apm logging, configure"
 published: true
 ---
-### How Shib works?
+> Operating System: _RHEL 7.0x64_  
+> Web Server: _Apache v2.2_  
+> Shibboleth: _v3.0.2x64_  
+
+---
+
+### How Shib SP works?
 
 Shibboleth and Apache/Nginx works together where Shibboleth uses a module to talk with Apache. When a web request comes for a protected resource, Apache (httpd) directs them to `mod_shib` module and then Shibboleth (shibd) checks `shibboleth2.xml` to see what to do and uses `attribute-map.xml` to know what attributes to get from the IdP.
 
