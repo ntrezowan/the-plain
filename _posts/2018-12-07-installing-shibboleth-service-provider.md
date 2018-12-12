@@ -25,8 +25,8 @@ The directories you want to protect need to be configured in Apache virtual host
 /var/cache/shibboleth -> Cache directory  
 /etc/init.d/shibd -> Startup script (shibd)  
 
-*Permission:*
-If you plan to manage Shibboleth with a non-root user, then shibd user have to be the owner of `/var/log/shibboleth/*` directory because default owner for this folder is root if you install Shibboleth using yum. The issue here is that, logs will not be written if you use a non-root user to start/stop shibd daemon. 
+*Permission:*  
+If you plan to manage Shibboleth with a non-root user, then `shibd` user have to be the owner of `/var/log/shibboleth/*` directory because default owner for this folder is root if you install Shibboleth using yum. The issue here is that, logs will not be written if you use a non-root user to start/stop shibd daemon. 
 
 
 ---
@@ -148,7 +148,7 @@ openssl x509 -noout -in /etc/shibboleth/sp-cert.pem -fingerprint -sha1
 ```
 4. Obtain IdP metadata and copy it to `/etc/shibboleth/idp-metadata/` folder.
 
-5. Modify `/etc/httpd/conf.d/shibd.conf` to the following so that if a user visit https://example.com/resources, they will be send to IdP to login before accessing the location.
+5. You can protect a resource by either defining a `Location` in `/etc/httpd/conf.d/httpd_ssl.conf` or modifying `/etc/httpd/conf.d/shibd.conf`. Here we are modifying `/etc/httpd/conf.d/shib.conf` to the following so that if a user visit https://example.com/resources, they will be send to IdP to login before accessing the location. 
 ```
     <Location /resources>
       AuthType shibboleth
@@ -157,12 +157,14 @@ openssl x509 -noout -in /etc/shibboleth/sp-cert.pem -fingerprint -sha1
       require shib-session
     </Location>
 ```
-7. Create an `index.php` file under `/resources` with the following;
+It is strongly suggested to create separate virtual host preferably in `/etc/httpd/conf.d/httpd_ssl.conf` file and also tell `/etc/httpd/conf/httpd.conf` to load `mod_shib.so` because `/etc/httpd/conf.d/shib.conf` will be overwritten everytime Shibboleth is updated. 
+
+7. Create an `index.php` file under `/var/www/html/resources` with the following and give it 755 permission;
 ```
-<html>
-<head><title>SP Testing Page</title></head>
-<body><pre><?php print_r($_SERVER); ?></pre></body>
-</html>
+    <html>
+    <head><title>SP Testing Page</title></head>
+    <body><pre><?php print_r($_SERVER); ?></pre></body>
+    </html>
 ```
 6. Restart shibd to load IdP metadata and certificate;
 ```
@@ -185,7 +187,7 @@ https://example.com/Shibboleth.sso/Status
 ```
 https://example.com/resources/index.php
 ```
-Your browser will be connected to Apache on port 443 and since the `AuthType` for `/resources` in `shib.conf` is `shibboleth`, you will be redirected to `https://example.com/idp`. After logging in, you will be redirected to /resources location and Apache will return 404 if there is no sample `index.html` file in this directory.
+Your browser will be connected to Apache on port 443 and since the `AuthType` for `/resources` in `shib.conf` is `shibboleth`, you will be redirected to `https://example.com/idp`. After logging in, you will be redirected to `/resources` location and `index.php` will show some Shibboleth attribute and server header.
 
 3. To test if SP is getting the attributes from IdP, go to;
 ```
@@ -212,6 +214,7 @@ unscoped-affiliation: 2 value(s)
 ```
 
 
-It is strongly suggested to create separate VHOST and httpd-ssl.conf file and also tell httpd.conf to load mod_shib module because shib.conf will will be overwritten everytime Shibboleth is updated.
 
 
+
+Sample httpd_ssl.conf
