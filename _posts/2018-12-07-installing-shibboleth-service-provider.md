@@ -202,7 +202,7 @@ After successful login, you will get the following;
 ```
 Miscellaneous
 Session Expiration (barring inactivity): 120 minute(s)
-Client Address: 146.201.20.247
+Client Address: 192.168.12.13
 SSO Protocol: urn:oasis:names:tc:SAML:2.0:protocol
 Identity Provider: https://example.com/idp
 Authentication Time: 2018-12-10T21:36:41.536Z
