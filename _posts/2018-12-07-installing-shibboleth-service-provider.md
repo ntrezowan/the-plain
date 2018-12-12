@@ -5,9 +5,9 @@ description: "Installing Shibboleth Service Provider in RHEL"
 keywords: "F5, hsl, hish speed logging, request logging, management port logging, asm logging, apm logging, configure"
 published: true
 ---
-> Operating System: _RHEL 7.5x64_  
+> Operating System: _RHEL 7.5_  
 > Web Server: _Apache v2.4_  
-> Shibboleth: _v3.0.2x64_  
+> Shibboleth: _v3.0.2_  
 
 ---
 
