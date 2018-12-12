@@ -13,17 +13,17 @@ The directories you want to protect need to be configured in Apache virtual host
 
 ---
 ### Environment
-**Apache files/folders:**
-/etc/httpd/ -> Configuration directory
-/var/log/httpd -> Log directory
-/etc/httpd/conf.d/shib.conf -> Virtual Host file for `/Shibboleth.sso/*`
+*Apache:*
+/etc/httpd/ -> Configuration directory  
+/var/log/httpd -> Log directory  
+/etc/httpd/conf.d/shib.conf -> Virtual Host file for `/Shibboleth.sso/*`  
 
-**Shibboleth files/folders:**
-/etc/shibboleth -> Configuration directory
-/var/log/shibboleth -> Log directory
-/var/run/shibboleth -> Runtime directory
-/var/cache/shibboleth -> Cache directory
-/etc/init.d/ -> Startup script (shibd)
+*Shibboleth:*
+/etc/shibboleth -> Configuration directory  
+/var/log/shibboleth -> Log directory  
+/var/run/shibboleth -> Runtime directory  
+/var/cache/shibboleth -> Cache directory  
+/etc/init.d/ -> Startup script (shibd)  
 
 ---
 ### A. Installation
