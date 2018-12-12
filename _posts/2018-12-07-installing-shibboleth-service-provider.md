@@ -39,31 +39,31 @@ If you plan to manage Shibboleth with a non-root user, then `shibd` user have to
 ### A. Installation
 1. Install Apache, NTP and Shibboleth;
 ```
-yum install httpd ntp shibboleth.x86_64
+# yum install httpd ntp shibboleth.x86_64
 ```
 2. Activate `shibd` at startup and start the service;
 ```
-sudo systemctl enable httpd.service
-sudo systemctl enable shibd.service
-sudo systemctl enable ntpd.service
+# sudo systemctl enable httpd.service
+# sudo systemctl enable shibd.service
+# sudo systemctl enable ntpd.service
 ```
 3. Start Apache and Shibboleth SP;
 ```
-sudo service httpd start
-sudo service shibd start
+# sudo service httpd start
+# sudo service shibd start
 ```
 4. Check if the services are running;
 ```
-ps aux | grep httpd
+# ps aux | grep httpd
 root     18366  0.0  0.4 328408 16532 ?        Ss   15:13   0:00 /usr/sbin/httpd
 ```
 ```
-ps aux | grep shibd
+# ps aux | grep shibd
 shibd     8104  0.0  0.6 766416 25724 ?        Ssl  Dec07   0:14 /usr/sbin/shibd -p /var/run/shibboleth/shibd.pid -f -w 30
 ```
 5. Check if `mod_shib.so` module is loaded in Apache;
 ```
-httpd -M | grep mod_shib
+# httpd -M | grep mod_shib
 mod_shib (shared)
 Syntax OK
 ```
@@ -75,12 +75,12 @@ If not, you can add the line either in `/etc/httpd/conf/httpd.conf` or in `/etc/
 
 6. Check if there is any error;
 ```
-grep -E 'CRIT|ERROR' /var/log/shibboleth/shibd.log
+# grep -E 'CRIT|ERROR' /var/log/shibboleth/shibd.log
 ```
 
 7. Check if SELinux is enabled;
 ```
-sestatus
+# sestatus
 SELinux status:                 enabled
 SELinuxfs mount:                /selinux
 Current mode:                   permissive
@@ -137,20 +137,20 @@ If it returns `A valid session was not found.`, it means `shibd` is running and 
 ```
 2. Create a self-signed cert and save it in `/etc/shibboleth/certs` folder;
 ```
-openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -subj "/CN=example.com" -keyout /etc/shibboleth/certs/sp-key.pem -out /etc/shibboleth/certs/sp-cert.pem
+# openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -subj "/CN=example.com" -keyout /etc/shibboleth/certs/sp-key.pem -out /etc/shibboleth/certs/sp-cert.pem
 ```
 Verify the content of the cert;
 ```
-openssl rsa -in /etc/shibboleth/certs/sp-key.pem -text
-openssl x509 -noout -in /etc/shibboleth/certs/sp-cert.pem -text
+# openssl rsa -in /etc/shibboleth/certs/sp-key.pem -text
+# openssl x509 -noout -in /etc/shibboleth/certs/sp-cert.pem -text
 ```
 Verify cert fingerprint;
 ```
-openssl x509 -noout -in /etc/shibboleth/sp-cert.pem -fingerprint -sha1
+# openssl x509 -noout -in /etc/shibboleth/certs/sp-cert.pem -fingerprint -sha1
 ```
 3. Generate metadata for SP;
 ```
-/etc/shibboleth/metagen.sh -c certs/sp-cert.pem -h example.com -e https://example.com/sp > sp-metadata.xml
+# /etc/shibboleth/metagen.sh -c /etc/shibboleth/certs/sp-cert.pem -h example.com -e https://example.com/sp > /etc/shibboleth/sp-metadata.xml
 ```
 4. Obtain IdP metadata and copy it to `/etc/shibboleth/idp-metadata/` folder.
 
@@ -173,11 +173,11 @@ It is strongly suggested to create separate virtual host preferably in `/etc/htt
 ```
 7. Restart shibd to load IdP metadata and certificate;
 ```
-sudo service shibd restart
+# sudo service shibd restart
 ```
 8. Check if metadata loaded properly;
 ```
-grep idp-metadata.xml /var/log/shibboleth/shibd.log
+# grep idp-metadata.xml /var/log/shibboleth/shibd.log
 loaded XML resource (/idp-metadata/idp-metadata.xml)
 ```
 
