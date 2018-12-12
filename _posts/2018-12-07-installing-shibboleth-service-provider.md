@@ -8,6 +8,7 @@ published: true
 ### How Shib works?
 
 shibd and httpd works together where shibd uses mod_shib.so module to talk with Apache. When a web request comes for a protected resource, apache directs them to mod_shib and then shibd checks shibboleth2.xml to see what to do and uses attribute-map.xml to know what attributes to get from the IdP.
+
 The directories you want to protect need to be configured in Apache vhost with <Location> tag. Shibboleth also has another virtual directory /Shibboleth.sso/* from where you can check SP status, session data and download metadata etc. Shibboleth uses /Shibbleth.sso/ for all the communication between shibd and IdP and Shib passes attributes in either HTTP request header or in environment variable.
 
 
