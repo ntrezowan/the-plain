@@ -164,7 +164,7 @@ Verify cert fingerprint;
 ```
 It is strongly suggested to create separate virtual host preferably in `/etc/httpd/conf.d/httpd_ssl.conf` file and also tell `/etc/httpd/conf/httpd.conf` to load `mod_shib.so` because `/etc/httpd/conf.d/shib.conf` will be overwritten everytime Shibboleth is updated. 
 
-6. Create an `index.php` file under `/var/www/html/resources` with the following and give it 755 permission;
+6. Create an `index.php` file under `/var/www/html/resources` (assuming `DocumentRoot=/var/www/html`) with the following and give it 755 permission;
 ```
     <html>
     <head><title>SP Testing Page</title></head>
