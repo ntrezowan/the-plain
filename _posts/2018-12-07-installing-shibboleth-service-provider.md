@@ -217,5 +217,67 @@ unscoped-affiliation: 2 value(s)
 
 #### Sample httpd_ssl.conf
 ```
-sad
+    Listen 443
+
+    SSLPassPhraseDialog  	builtin
+    SSLSessionCache         shmcb:/var/cache/mod_ssl/scache(512000)
+    SSLSessionCacheTimeout  300
+
+    SSLMutex default
+
+    SSLRandomSeed startup file:/dev/urandom  256
+    SSLRandomSeed connect builtin
+    #SSLRandomSeed startup file:/dev/random  512
+    #SSLRandomSeed connect file:/dev/random  512
+    #SSLRandomSeed connect file:/dev/urandom 512
+
+    SSLCryptoDevice builtin
+    SSLEngine on
+
+    SSLProtocol all -SSLv2
+
+    SSLCipherSuite ALL:!ADH:!EXPORT:!SSLv2:RC4+RSA:+HIGH:+MEDIUM:+LOW
+
+    SSLCertificateFile /etc/httpd/ssl/example.com.crt
+    SSLCertificateKeyFile //etc/httpd/ssl/example.com.key
+
+    <VirtualHost _default_:443>
+
+    ServerName example.com
+    ServerAdmin root@example.com
+
+    DocumentRoot "/var/www/html/"
+
+    <Directory /var/www/html>
+    Allow from all
+    Options -MultiViews
+    </Directory>
+    <Directory "/var/www/cgi-bin">
+        SSLOptions +StdEnvVars
+    </Directory>
+
+    <Location "/Shibboleth.sso">
+                SetHandler shib-handler
+    </Location>
+    <Location /resources/>
+                AuthType shibboleth
+                ShibRequestSetting requireSession 1
+                ShibCompatWith24 On
+                require valid-user
+    </Location>
+
+    <Files ~ "\.(cgi|shtml|phtml|php3?)$">
+        SSLOptions +StdEnvVars
+    </Files>
+
+    SetEnvIf User-Agent ".*MSIE.*" \
+             nokeepalive ssl-unclean-shutdown \
+             downgrade-1.0 force-response-1.0
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    TransferLog ${APACHE_LOG_DIR}/transfer.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    LogLevel warn
+
+    </VirtualHost>
 ```
