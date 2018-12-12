@@ -7,9 +7,9 @@ published: true
 ---
 ### How Shib works?
 
-Shibboleth and Apache/Nginx works together where Shibboleth uses a module to talk with Apache. When a web request comes for a protected resource, Apache (httpd) directs them to mod_shib module and then Shibboleth (shibd) checks shibboleth2.xml to see what to do and uses attribute-map.xml to know what attributes to get from the IdP.
+Shibboleth and Apache/Nginx works together where Shibboleth uses a module to talk with Apache. When a web request comes for a protected resource, Apache (httpd) directs them to `mod_shib` module and then Shibboleth (shibd) checks `shibboleth2.xml` to see what to do and uses `attribute-map.xml` to know what attributes to get from the IdP.
 
-The directories you want to protect need to be configured in Apache virtual host with <Location> tag. Shibboleth also has another virtual directory `/Shibboleth.sso/*` from where you can check Service Provider status, session data, metadata etc. Shibboleth uses /Shibbleth.sso/ for all the communication between SP and IdP and passes attributes in either HTTP request header or in environment variable to the protected resource.
+The directories you want to protect need to be configured in Apache virtual host with `Location` tag. Shibboleth also has another virtual directory `/Shibboleth.sso/*` from where you can check Service Provider status, session data, metadata etc. Shibboleth uses `/Shibbleth.sso/` for all the communication between SP and IdP and passes attributes in either HTTP request header or in environment variable to the protected resource/application.
 
 ---
 ### How Shib works?
