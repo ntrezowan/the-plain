@@ -192,7 +192,7 @@ https://example.com/Shibboleth.sso/Status
 ```
 https://example.com/resources/index.php
 ```
-Your browser will be connected to Apache on port 443 and since the `AuthType` for `/resources` in `shib.conf` is `shibboleth`, you will be redirected to `https://example.com/idp`. After logging in, you will be redirected to `/resources` location and `index.php` will show some Shibboleth variables and server header.
+Your browser will be connected to Apache on port 443 and since the `AuthType` for `/resources` in `shib.conf` is `shibboleth`, you will be redirected to `https://example.com/idp`. After logging in, you will be redirected to `/resources` location and `index.php` will show some Shibboleth variables (i.e. Shib-Application-ID) and server header.
 
 3. To test if SP is getting the attributes from IdP, go to;
 ```
