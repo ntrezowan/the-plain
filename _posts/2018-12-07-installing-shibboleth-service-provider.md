@@ -154,7 +154,7 @@ openssl x509 -noout -in /etc/shibboleth/sp-cert.pem -fingerprint -sha1
 ```
 4. Obtain IdP metadata and copy it to `/etc/shibboleth/idp-metadata/` folder.
 
-5. You can protect a resource by either defining a `Location` in `/etc/httpd/conf.d/httpd_ssl.conf` or modifying `/etc/httpd/conf.d/shibd.conf`. Here we are modifying `/etc/httpd/conf.d/shib.conf` to the following so that if a user visit `https://example.com/resources`, they will be send to IdP to login before accessing the location. 
+5. You can protect a resource by either defining a `Location` in `/etc/httpd/conf.d/httpd_ssl.conf` or modifying `/etc/httpd/conf.d/shibd.conf`. Here we are modifying `/etc/httpd/conf.d/shib.conf` to the following so that if a user visit `https://example.com/resources`, they will be sent to IdP to login before accessing the location. 
 ```
     <Location /resources>
       AuthType shibboleth
