@@ -159,18 +159,18 @@ openssl x509 -noout -in /etc/shibboleth/sp-cert.pem -fingerprint -sha1
 ```
 It is strongly suggested to create separate virtual host preferably in `/etc/httpd/conf.d/httpd_ssl.conf` file and also tell `/etc/httpd/conf/httpd.conf` to load `mod_shib.so` because `/etc/httpd/conf.d/shib.conf` will be overwritten everytime Shibboleth is updated. 
 
-7. Create an `index.php` file under `/var/www/html/resources` with the following and give it 755 permission;
+6. Create an `index.php` file under `/var/www/html/resources` with the following and give it 755 permission;
 ```
     <html>
     <head><title>SP Testing Page</title></head>
     <body><pre><?php print_r($_SERVER); ?></pre></body>
     </html>
 ```
-6. Restart shibd to load IdP metadata and certificate;
+7. Restart shibd to load IdP metadata and certificate;
 ```
 sudo service shibd restart
 ```
-7. Check if metadata loaded properly;
+8. Check if metadata loaded properly;
 ```
 grep idp-metadata.xml /var/log/shibboleth/shibd.log
 loaded XML resource (/idp-metadata/idp-metadata.xml)
