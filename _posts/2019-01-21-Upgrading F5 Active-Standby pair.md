@@ -1,9 +1,9 @@
 ---
-title: "Configure F5 for Splunk"
+title: "Upgrading F5 Active-Standby pair"
 comments: false
 description: "Configure F5 for Splunk"
 keywords: "F5, hsl, hish speed logging, request logging, management port logging, asm logging, apm logging, configure"
-published: true
+published: false
 ---
 ### Environment
 F5SERV1 self IP for VLAN1 = 11.11.11.2  
