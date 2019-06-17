@@ -21,37 +21,56 @@ Splunk UDP Port = 9514 (for SYSLOG, HSL and APM)
 > Virtual Server >> Logging Profile >> Log Publisher >> Log Destination >> Pool >> Splunk Log Server
 
 ---
-### A. Check network connectivity
-1. Ping Splunk log server from F5;  
+### A. Preparation before installation (applied to all devices)
+1. Check running software version:
 ```
-[user@f5serv1:Active:In Sync] ~ # ping 10.10.10.1
-PING 10.10.10.1 (10.10.10.1) 56(84) bytes of data.
-64 bytes from 10.10.10.1: icmp_seq=1 ttl=63 time=0.838 ms
-^C
-```
-If ping is down, it does not necessarily mean that no log will go to Splunk server because F5 will send logs to a predefined TCP/UDP port. But we need to have ping enabled so that we can use gateway_icmp for monitoring when we create a pool.
+# tmsh
+# show /sys software status
 
-2. Check how F5 is reaching Splunk log server;  
+--------------------------------------------------
+Sys::Software Status
+Volume  Product   Version  Build  Active    Status
+--------------------------------------------------
+HD1.1    BIG-IP  12.1.3.4  0.0.2      no  complete
+HD1.2    BIG-IP  13.1.0.7  0.0.1     yes  complete
+HD1.3    BIG-IP  13.1.1.3  0.0.1      no  complete
 ```
-[user@f5serv1:Active:In Sync] ~ # ip route get 10.10.10.1
-10.10.10.1 via 20.20.20.1 prd vlan1  src 11.11.11.2
-cache
+
+2. Verify license:
+
+BIG-IP license is at /config/bigip.license which has two type of dates; Licensed date and Service check date.
+
+Licensed date: It is the date when you used your Registration Key to license your BIG-IP system.
+Service Check Date: It is the date when you last reactivated your license and it gets updated every time you reactivate your license assuming that there is an active service contract for this BIG-IP system. 
+For example, if you reactivate your license on June 30, 2018 then it will show as 20180630.
+
+License Check Date: It is a static date related with the software version of BIG-IP. 
+For example, Version 12.1.0-12.1.3 has a License Check Date 2016-03-2018.
+
+The License Check Date enforcement is applied during system startup. The system compares the License Check Date to the Service Check Date in the license file. If the Service Check Date is earlier than the License Check Date, the system will initialize but does not load the configuration. To allow the configuration to load, you must update the Service Check Date in the bigip.license file by reactivating the system's license.
+
+Service Check Date < License Check Date = System will initialize, but does not load config
+
+a)	Verify Service Check Date;
 ```
-Here `11.11.11.2` is the TMM interface (also self non-floating IP for F5SERV1) which will be the source when logs are send to `10.10.10.1`.
-If there is no route to Splunk, add a static route and verify;  
+# grep "Service check date" /config/bigip.license
+Service check date :               20171013
 ```
-user@f5serv1:Active:In Sync] ~ # ip route add 10.10.10.1/32 via vlan1
-user@f5serv1:Active:In Sync] ~ # route -n
-Kernel IP routing table
-Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-0.0.0.0         20.20.20.1      0.0.0.0         UG    0      0        0 vlan1
-0.0.0.0         10.1.1.1        0.0.0.0         UG    9      0        0 mgmt
-10.1.1.0        0.0.0.0         255.255.254.0   U     0      0        0 mgmt
-127.1.1.0       0.0.0.0         255.255.255.0   U     0      0        0 tmm
-127.7.0.0       127.1.1.253     255.255.0.0     UG    0      0        0 tmm
-127.20.0.0      0.0.0.0         255.255.0.0     U     0      0        0 tmm_bp
-10.10.10.1      0.0.0.0         255.255.255.255 U     0      0        0 vlan1
-20.20.20.0      0.0.0.0         255.255.255.0   U     0      0        0 vlan1
+b)	Go to https://support.f5.com/csp/article/K7727 and look for the License Check Date for the version you planned to upgrade. 
+For example, if you plan to upgrade to Version 13.1.0-13.1.1, then License Check Date is 20170912. 
+In this case 20171013 > 20170912 which means you do not need to reactive the license before upgrade. 
+
+If Service Check Date < License Check Date, do the following steps to reactivate the license before upgrade;
+
+i.	Log in to the Configuration utility.
+ii.	Navigate to System > License > Reactivate.
+iii.	Select either Automatic or Manual if F5 cannot reach internet
+iv.	Click Next and it will be reactivated.
+
+c)	To see when you first used your registration key;
+```
+# grep "Licensed date" /config/bigip.license
+Licensed date :                    20180601
 ```
 3. Run Netcat to check if you can send logs to a specific remote port of Splunk server.  
 To test if you can reach a UDP remote port, run the following and then search in Splunk with `HOST=f5serv1* f5serv1-UDP`. 
