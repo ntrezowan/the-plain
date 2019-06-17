@@ -35,7 +35,6 @@ HD1.1    BIG-IP  12.1.3.4  0.0.2      no  complete
 HD1.2    BIG-IP  13.1.0.7  0.0.1     yes  complete
 HD1.3    BIG-IP  13.1.1.3  0.0.1      no  complete
 ```
-
 2. Verify license:
 
 BIG-IP license is at `/config/bigip.license` which has two type of dates; Licensed date and Service check date.
