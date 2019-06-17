@@ -22,7 +22,7 @@ Splunk UDP Port = 9514 (for SYSLOG, HSL and APM)
 
 ---
 ### A. Preparation before installation (applied to all devices)
-1. Check running software version:
+1. At first, check the running software version:
 ```
 # tmsh
 # show /sys software status
@@ -38,59 +38,158 @@ HD1.3    BIG-IP  13.1.1.3  0.0.1      no  complete
 
 2. Verify license:
 
-BIG-IP license is at /config/bigip.license which has two type of dates; Licensed date and Service check date.
+BIG-IP license is at `/config/bigip.license` which has two type of dates; Licensed date and Service check date.
 
 Licensed date: It is the date when you used your Registration Key to license your BIG-IP system.
 Service Check Date: It is the date when you last reactivated your license and it gets updated every time you reactivate your license assuming that there is an active service contract for this BIG-IP system. 
 For example, if you reactivate your license on June 30, 2018 then it will show as 20180630.
 
-License Check Date: It is a static date related with the software version of BIG-IP. 
-For example, Version 12.1.0-12.1.3 has a License Check Date 2016-03-2018.
+There is another interesting date called License Check Date and it is a static date related with the software version of BIG-IP. 
+For example, Version 12.1.0-12.1.3 has a License Check Date 2016-03-2018. The License Check Date enforcement is applied during system startup. The system compares the License Check Date to the Service Check Date in the license file. If the Service Check Date is earlier than the License Check Date, the system will initialize but does not load the configuration. To allow the configuration to load, you must update the Service Check Date in the bigip.license file by reactivating the system's license.
+So if Service Check Date < License Check Date = System will initialize, but will not load config
 
-The License Check Date enforcement is applied during system startup. The system compares the License Check Date to the Service Check Date in the license file. If the Service Check Date is earlier than the License Check Date, the system will initialize but does not load the configuration. To allow the configuration to load, you must update the Service Check Date in the bigip.license file by reactivating the system's license.
-
-Service Check Date < License Check Date = System will initialize, but does not load config
-
-a)	Verify Service Check Date;
+To find the Service Check Date, run the following;
 ```
 # grep "Service check date" /config/bigip.license
 Service check date :               20171013
 ```
-b)	Go to https://support.f5.com/csp/article/K7727 and look for the License Check Date for the version you planned to upgrade. 
-For example, if you plan to upgrade to Version 13.1.0-13.1.1, then License Check Date is 20170912. 
+Go to https://support.f5.com/csp/article/K7727 and look for the License Check Date for the version you planned to upgrade. 
+For example, if you plan to upgrade to version 13.1.0-13.1.1, then License Check Date is 20170912. 
 In this case 20171013 > 20170912 which means you do not need to reactive the license before upgrade. 
 
-If Service Check Date < License Check Date, do the following steps to reactivate the license before upgrade;
+But if Service Check Date < License Check Date, do the following steps to reactivate the license before upgrade;
 
-i.	Log in to the Configuration utility.
-ii.	Navigate to System > License > Reactivate.
-iii.	Select either Automatic or Manual if F5 cannot reach internet
-iv.	Click Next and it will be reactivated.
+i) Log in to the Configuration utility.
+ii) Navigate to System > License > Reactivate.
+iii) Select either Automatic or Manual if F5 cannot reach internet
+iv) Click Next and it will be reactivated.
 
-c)	To see when you first used your registration key;
+To see when you first used your registration key;
 ```
 # grep "Licensed date" /config/bigip.license
 Licensed date :                    20180601
 ```
-3. Run Netcat to check if you can send logs to a specific remote port of Splunk server.  
-To test if you can reach a UDP remote port, run the following and then search in Splunk with `HOST=f5serv1* f5serv1-UDP`. 
+3. Check device certificate:
+
+a)	To check the license, use the following steps:
+i.	Log in to the Configuration utility.
+ii.	Navigate to: System > Certificate Management > Device Certificate Management > Device Certificate.
+
+b)	If you need to renew the certificate, use the following steps;
+i.	Log in to the Configuration utility.
+ii.	Navigate to System > Device Certificate > Device Certificate.
+iii.	Click Renew.
+iv.	From the Issuer box, select Self.
+v.	From the Country box, select the appropriate country.
+vi.	Click Finished.
+
+4. Do a ConfigSync for HA environment:
+
+a)	Log in to the Configuration utility.
+b)	Navigate to Device Management > Overview.
+c)	For Device Groups, click the name of the device group (device-group-a-failover) you want to synchronize.
+d)	For Devices, click the name of the device from which you want to perform the synchronization action.
+e)	For Sync, click the appropriate synchronization action.
+f)	Click Sync.
+
+5. Generate a qkview:
+
+To generate a qkview, do the following;
+
+a)	Log in to the Configuration utility.
+b)	Navigate to System > Support.
+c)	Click New Support Snapshot.
+d)	For Health Utility, click Generate QKView.
+e)	Click Start.
+f)	To download the output file, click Download.
+
+After download the file, upload it to https://ihealth.f5.com/ and then go to Upgrade Advisor and choose the version to which you want to upgrade. Then check the recommended feedback, one such example is as following;
+
+TMOS vulnerability: Password changes for local users may not be preserved unless the configuration is explicitly saved (K37250780)
+
+6. Create a UCS:
+
+a)	Log in to the Configuration utility.
+b)	Navigate to System > Archives.
+c)	To initiate the process of creating a new UCS archive, click Create.
+d)	In the File Name box, type a name for the file.
+e)	The file already exists on the system
+f)	To create the UCS archive file, click Finished.
+g)	When the system completes the backup process, examine the status page for any reported errors before proceeding to the next step.
+h)	To return to the Archive List page, click OK.
+i)	Copy the .ucs file to mwprd01 system.
+
+7. Verify volume formatting scheme:
+
+Run the following to check if Big-IP system is using volume formatting system or partition formatting system;
 ```
-user@f5serv1:Active:In Sync] ~ # route echo '<0>f5serv1-UDP' | nc -w 1 -u 10.10.10.1 9514
+# lvscan
+  ACTIVE            '/dev/vg-db-sda/dat.maint.1' [300.00 MiB] inherit
+  ACTIVE            '/dev/vg-db-sda/dat.share.1' [20.00 GiB] inherit
+  ACTIVE            '/dev/vg-db-sda/dat.log.1' [500.00 MiB] inherit
+  ACTIVE            '/dev/vg-db-sda/dat.swapvol.1' [1000.00 MiB] inherit
+  ACTIVE            '/dev/vg-db-sda/set.1.root' [440.00 MiB] inherit
+  ACTIVE            '/dev/vg-db-sda/set.1._usr' [3.29 GiB] inherit
+  ACTIVE            '/dev/vg-db-sda/set.1._config' [3.17 GiB] inherit
+  ACTIVE            '/dev/vg-db-sda/set.1._var' [3.00 GiB] inherit
+  ACTIVE            '/dev/vg-db-sda/set.2.root' [440.00 MiB] inherit
+  ACTIVE            '/dev/vg-db-sda/set.2._usr' [4.01 GiB] inherit
+  ACTIVE            '/dev/vg-db-sda/set.2._config' [3.17 GiB] inherit
+  ACTIVE            '/dev/vg-db-sda/set.2._var' [3.00 GiB] inherit
+  ACTIVE            '/dev/vg-db-sda/app.ASWADB.set.2.mysqldb' [12.00 GiB] inherit
+  ACTIVE            '/dev/vg-db-sda/app.avr.dat.avrdata' [3.81 GiB] inherit
+  ACTIVE            '/dev/vg-db-sda/app.afm.dat.afmdata' [3.81 GiB] inherit
+  ACTIVE            '/dev/vg-db-sda/app.asm.dat.asmdata1' [4.05 GiB] inherit
+  ACTIVE            '/dev/vg-db-sda/set.3.root' [440.00 MiB] inherit
+  ACTIVE            '/dev/vg-db-sda/set.3._usr' [4.01 GiB] inherit
+  ACTIVE            '/dev/vg-db-sda/set.3._config' [3.17 GiB] inherit
+  ACTIVE            '/dev/vg-db-sda/set.3._var' [3.00 GiB] inherit
 ```
-To test if you can reach a TCP remote port, run the following and then search in Splunk with `HOST=f5serv1* f5serv1-TCP`. 
+If it returns no volume scheme, then it means Big-IP is using partition formatting scheme.
+
+8. Import the software/hotfix image:
+
+a)	Log in to the Configuration utility with administrative privileges.
+b)	To upload the necessary ISO files, navigate to System > Software Management.
+c)	Click Import.
+d)	Click Browse to select the SIG file (BIGIP-13.xxx.iso.384.sig). This is a SHA384 signed digest.
+e)	Click Import again
+f)	Click Browse to select the ISO file (BIGIP-13.x.x.x.x.xxxx.iso).
+g)	Click Import.
+h)	Click Import again
+i)	Click Browse to select the pem file (archive.pubkey.xxxxxxxxx.pem). Download 3072 bit one since the SIG is using 3072 bit RSA public key
+j)	Click Import.
+k)	After uploading the image, it will be listed under software image list
+l)	Verify that all the files are under /shared/images;
+
+ls -ltr /shared/images
+total 7048744
+-rw-r--r--. 1 tomcat tomcat 1938057216 2018-06-15 10:30 BIGIP-13.1.0.7-0.0.1.iso
+-rw-r--r--. 1 tomcat tomcat 2009556992 2018-06-15 13:01 BIGIP-12.1.3.4-0.0.2.iso
+-rw-r--r--. 1 tomcat tomcat 2057873408 2019-01-15 11:18 BIGIP-13.1.1.3-0.0.1.iso
+-rw-r--r--. 1 tomcat tomcat        384 2019-01-15 11:23 BIGIP-13.1.1.3-0.0.1.iso.384.sig
+-rw-r--r--. 1 tomcat tomcat        625 2019-01-15 11:28 archive.pubkey.20160210.pem
+
+m)	Verify the SIG
 ```
-user@f5serv1:Active:In Sync] ~ # route echo '<0>f5serv1-TCP' | nc -w 1 -t 10.10.10.1 9515
+# openssl dgst -sha384 -verify /shared/images/archive.pubkey.20160210.pem -signature /shared/images/BIGIP-13.1.1.3-0.0.1.iso.384.sig /shared/images/BIGIP-13.1.1.3-0.0.1.iso
+
+Verified OK
 ```
-4. You can also do a tcpdump to check if you can send logs to a specific remote port of Splunk server.  
-Run the following in one terminal to monitor TCP port;
-```
-user@f5serv1:Active:In Sync] ~ # tcpdump -A -nni vlan1 host 10.10.10.1 and port 9515
-```
-While tcpdump is running, open another terminal and run the following and check if this log shows in tcpdump output. Also check /var/log/ltm and search in Splunk server with `HOST=f5serv1* DUMPLING`.
-```
-user@f5serv1:Active:In Sync] ~ # logger -p local0.notice "DUMPLING”
-```
-If nc or tcpdump works, it means F5 can send logs to specific Splunk ports without any issue. If any of them did not worked, revisit "Check Network Connectivity" section above.
+
+9. Check that root login to shell is possible
+
+ssh root@f5prd01.its.fsu.edu
+ssh root@f5prd02.its.fsu.edu 
+
+10. Check that admin login to GUI is possible (in case LDAP is unavailable)
+
+https://f5prd01.its.fsu.edu/ 
+https://f5prd02.its.fsu.edu
+
+
+
+
 
 ---
 
