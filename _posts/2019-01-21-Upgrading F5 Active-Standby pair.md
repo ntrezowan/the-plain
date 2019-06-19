@@ -55,10 +55,10 @@ Now by comparing `Service check date` with `License Check Date`, we see that 201
 
 But if `Service Check Date` < `License Check Date`, do the following to reactivate the license before upgrade;
 
-  i. Log in to the Configuration utility.
-  ii. Navigate to System > License > Reactivate.
-  iii. Select either Automatic or Manual (if F5 cannot reach internet).
-  iv. Click Next and it will be reactivated.
+  1. Log in to the Configuration utility.
+  2. Navigate to System > License > Reactivate.
+  3. Select either Automatic or Manual (if F5 cannot reach internet).
+  4. Click Next and it will be reactivated.
 
 
 3. Check device certificate and renew if necessary;
