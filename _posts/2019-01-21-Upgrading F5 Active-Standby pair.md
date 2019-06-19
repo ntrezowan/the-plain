@@ -22,7 +22,7 @@ Splunk UDP Port = 9514 (for SYSLOG, HSL and APM)
 
 ---
 ### A. Preparation before installation (applied to all devices)
-1. At first, check the running software version:
+1. At first, check the current software version;
 ```
 # tmsh
 # show /sys software status
@@ -35,39 +35,32 @@ HD1.1    BIG-IP  12.1.3.4  0.0.2      no  complete
 HD1.2    BIG-IP  13.1.0.7  0.0.1     yes  complete
 HD1.3    BIG-IP  13.1.1.3  0.0.1      no  complete
 ```
-2. Verify license:
+From the output, you are running `13.1.0.7`.
+2. Verify license and renew if necessary;
 
-BIG-IP license is at `/config/bigip.license` which has two type of dates; Licensed date and Service check date.
-
-Licensed date: It is the date when you used your Registration Key to license your BIG-IP system.
-Service Check Date: It is the date when you last reactivated your license and it gets updated every time you reactivate your license assuming that there is an active service contract for this BIG-IP system. 
-For example, if you reactivate your license on June 30, 2018 then it will show as 20180630.
-
-There is another interesting date called License Check Date and it is a static date related with the software version of BIG-IP. 
-For example, Version 12.1.0-12.1.3 has a License Check Date 2016-03-2018. The License Check Date enforcement is applied during system startup. The system compares the License Check Date to the Service Check Date in the license file. If the Service Check Date is earlier than the License Check Date, the system will initialize but does not load the configuration. To allow the configuration to load, you must update the Service Check Date in the bigip.license file by reactivating the system's license.
-So if Service Check Date < License Check Date = System will initialize, but will not load config
-
-To find the Service Check Date, run the following;
+BIG-IP license is stored at `/config/bigip.license` and it has two dates; `Licensed date` and `Service check date`.  
+`Licensed date` will show the date when you used your `Registration Key` to license your BIG-IP system. To find `Licensed date`, run the following;
+```
+# grep "Licensed date" /config/bigip.license
+Licensed date :                    20180601
+```
+`Service Check Date` is the date when you last reactivated your license and it gets updated every time you reactivate your license assuming that there is an active service contract for this BIG-IP system. For example, if you have reactivate your license on June 30, 2018 then it will show as 20180630. To find `Service Check Date`, run the following;
 ```
 # grep "Service check date" /config/bigip.license
 Service check date :               20171013
 ```
-Go to https://support.f5.com/csp/article/K7727 and look for the License Check Date for the version you planned to upgrade. 
-For example, if you plan to upgrade to version 13.1.0-13.1.1, then License Check Date is 20170912. 
-In this case 20171013 > 20170912 which means you do not need to reactive the license before upgrade. 
+There is another interesting date called `License Check Date` and it is a static date related with the software version of BIG-IP. For example, Version 12.1.0-12.1.3 has a `License Check Date` 2016-03-2018. The `License Check Date` enforcement is applied during system startup. The system compares the `License Check Date` to the `Service Check Date` in the license file. If the `Service Check Date` is earlier than the `License Check Date`, the system will initialize but will not load the configuration. To allow the configuration to load, you must update the `Service Check Date` in the `bigip.license` file by reactivating the system's license. To find the `License Check Date` for the version you planned to upgrade, visit https://support.f5.com/csp/article/K7727. For example, if you plan to upgrade to version 13.1.0-13.1.1, then `License Check Date` is 20170912. 
 
-But if Service Check Date < License Check Date, do the following steps to reactivate the license before upgrade;
+Now by comparing `Service check date` with `License Check Date`, we see that 20171013 > 20170912 which means you do not need to reactive the license before upgrade. 
+
+But if `Service Check Date` < `License Check Date`, do the following steps to reactivate the license before upgrade;
 
 i) Log in to the Configuration utility.
 ii) Navigate to System > License > Reactivate.
 iii) Select either Automatic or Manual if F5 cannot reach internet
 iv) Click Next and it will be reactivated.
 
-To see when you first used your registration key;
-```
-# grep "Licensed date" /config/bigip.license
-Licensed date :                    20180601
-```
+
 3. Check device certificate:
 
 a)	To check the license, use the following steps:
