@@ -64,15 +64,15 @@ iv) Click Next and it will be reactivated.
 3. Check device certificate:
 
 a) To check the license, use the following steps:
-..1.	Log in to the Configuration utility.
-..2.	Navigate to: System > Certificate Management > Device Certificate Management > Device Certificate.
+  1.	Log in to the Configuration utility.
+  2.	Navigate to: System > Certificate Management > Device Certificate Management > Device Certificate.
 
 b)	If you need to renew the certificate, use the following steps;
-..1.	Log in to the Configuration utility.
-..2.	Navigate to System > Certificate Management > Device Certificate Management > Device Certificate.
-..3.	Click Import and choose Certificate and Key as Import Type.
-..i4.	Choose both certificate and key
-..5.	Click Import.
+  1.	Log in to the Configuration utility.
+  2.	Navigate to System > Certificate Management > Device Certificate Management > Device Certificate.
+  3.	Click Import and choose Certificate and Key as Import Type.
+  4.	Choose both certificate and key
+  5.	Click Import.
 
 
 4. Do a ConfigSync for HA environment:
