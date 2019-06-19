@@ -39,7 +39,7 @@ From the output, you are running `13.1.0.7`.
 2. Verify license and renew if necessary;
 
 BIG-IP license is stored at `/config/bigip.license` and it has two dates; `Licensed date` and `Service check date`.  
-`Licensed date` will show the date when you used your `Registration Key` to license your BIG-IP system. To find `Licensed date`, run the following;
+`Licensed date` will show the date when you used your `Registration Key` to license your BIG-IP system for the first time. To find `Licensed date`, run the following;
 ```
 # grep "Licensed date" /config/bigip.license
 Licensed date :                    20180601
@@ -53,27 +53,27 @@ There is another interesting date called `License Check Date` and it is a static
 
 Now by comparing `Service check date` with `License Check Date`, we see that 20171013 > 20170912 which means you do not need to reactive the license before upgrade. 
 
-But if `Service Check Date` < `License Check Date`, do the following steps to reactivate the license before upgrade;
+But if `Service Check Date` < `License Check Date`, do the following to reactivate the license before upgrade;
 
 i) Log in to the Configuration utility.
 ii) Navigate to System > License > Reactivate.
-iii) Select either Automatic or Manual if F5 cannot reach internet
+iii) Select either Automatic or Manual (if F5 cannot reach internet).
 iv) Click Next and it will be reactivated.
 
 
 3. Check device certificate:
 
-a)	To check the license, use the following steps:
-i.	Log in to the Configuration utility.
-ii.	Navigate to: System > Certificate Management > Device Certificate Management > Device Certificate.
+a) To check the license, use the following steps:
+..i.	Log in to the Configuration utility.
+..ii.	Navigate to: System > Certificate Management > Device Certificate Management > Device Certificate.
 
 b)	If you need to renew the certificate, use the following steps;
-i.	Log in to the Configuration utility.
-ii.	Navigate to System > Device Certificate > Device Certificate.
-iii.	Click Renew.
-iv.	From the Issuer box, select Self.
-v.	From the Country box, select the appropriate country.
-vi.	Click Finished.
+..i.	Log in to the Configuration utility.
+..ii.	Navigate to System > Certificate Management > Device Certificate Management > Device Certificate.
+..iii.	Click Import and choose Certificate and Key as Import Type.
+..iv.	Choose both certificate and key
+..v.	Click Import.
+
 
 4. Do a ConfigSync for HA environment:
 
