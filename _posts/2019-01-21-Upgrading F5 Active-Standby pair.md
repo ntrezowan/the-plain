@@ -6,7 +6,7 @@ keywords: "F5, hsl, hish speed logging, request logging, management port logging
 published: true
 ---
 ### Environment
-F5 Active Server = f51.example.com 
+F5 Active Server = f51.example.com  
 F5 Standby Server = f52.example.com
 
 
