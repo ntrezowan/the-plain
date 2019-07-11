@@ -3,7 +3,7 @@ title: "Upgrading F5 Active-Standby pair"
 comments: false
 description: "Configure F5 for Splunk"
 keywords: "F5, hsl, hish speed logging, request logging, management port logging, asm logging, apm logging, configure"
-published: false
+published: true
 ---
 ### Environment
 F5 Active Server = f51.example.com 
