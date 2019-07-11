@@ -26,7 +26,7 @@ HD1.3    BIG-IP  13.1.1.3  0.0.1      yes complete
 ```
 From the output, look for the partition which is Active and then you will find the Version. Here the version is `13.1.1.3`.
 2. Verify license and renew if necessary;<br /><br />
-BIG-IP license is stored at `/config/bigip.license` and it has two dates; `Licensed date` and `Service check date`.  
+BIG-IP license is stored at `/config/bigip.license` and it has two dates; `Licensed date` and `Service check date`.<br /><br />
 `Licensed date` will show the date when you used your Registration Key for the first time to license your BIG-IP system. To find `Licensed date`, run the following;
 ```
 # grep "Licensed date" /config/bigip.license
@@ -57,46 +57,37 @@ If you need to renew device certificate, do the following;
     e) Click Import  
 
 4. Do a ConfigSync to sync configuration on both units;
-It is always a better to do a config sync before the upgrade and this way both units will have the latest configuration.
-
-To do a config sync, do the following;
-  a) Log in to the Configuration utility
-  b) Navigate to Device Management > Overview
-  c) For Device Groups, click the name of the device group (device-group-a-failover) you want to synchronize
-  d) For Devices, click the name of the device from which you want to perform the synchronization action
-  e) For Sync, click the appropriate synchronization action
-  f) Click Sync
-
-5. Generate a qkview and check for Upgrade Advisor in iHealth;
-iHealth reports can be used to find if there is any issue if we upgrade F5 units from one version to another. To generate a qkview, do the following;
-
-  a) Log in to the Configuration utility
-  b) Navigate to System > Support
-  c) Click New Support Snapshot
-  d) For Health Utility, click Generate QKView
-  e) Click Start
-  f) To download the output file, click Download
-
-After download the file from F5, upload it to https://ihealth.f5.com/ and then go to `Upgrade Advisor` and select the version to which you want to upgrade your units. Then check the recommended feedback.
-For example, here is one advise that iHealth provided when we are upgrading from `12.1.3.4` to `13.1.1.3`;
-
+It is always a better to do a config sync before the upgrade and this way both units will have the latest configuration.<br /><br />
+To do a config sync, do the following;  
+  a) Log in to the Configuration utility  
+  b) Navigate to Device Management > Overview  
+  c) For Device Groups, click the name of the device group (device-group-a-failover) you want to synchronize  
+  d) For Devices, click the name of the device from which you want to perform the synchronization action  
+  e) For Sync, click the appropriate synchronization action  
+  f) Click Sync  
+5. Generate a qkview and check for Upgrade Advisor in iHealth;<br /><br />
+iHealth reports can be used to find if there is any issue if we upgrade F5 units from one version to another. To generate a qkview, do the following;  
+  a) Log in to the Configuration utility  
+  b) Navigate to System > Support  
+  c) Click New Support Snapshot  
+  d) For Health Utility, click Generate QKView  
+  e) Click Start  
+  f) To download the output file, click Download<br /><br />
+After download the file from F5, upload it to https://ihealth.f5.com/ and then go to `Upgrade Advisor` and select the version to which you want to upgrade your units. Then check the recommended feedback.<br /><br />
+For example, here is one advise that iHealth provided when we are upgrading from `12.1.3.4` to `13.1.1.3`;<br /><br />
 TMOS vulnerability: Password changes for local users may not be preserved unless the configuration is explicitly saved (K37250780)
-
-6. Create a backup of the config file;
-It is always good to have a backup of the config file before upgrade. This way, we can quickly restore F5 to previous stable state if there is any issues during upgrade.
-
+6. Create a backup of the config file;<br /><br />
+It is always good to have a backup of the config file before upgrade. This way, we can quickly restore F5 to previous stable state if there is any issues during upgrade.<br /><br />
 To create UCS file, do the following;
-  a) Log in to the Configuration utility
-  b) Navigate to System > Archives
-  c) To initiate the process of creating a new UCS archive, click Create
-  d) In the File Name box, type a name for the file
-  e) To create the UCS archive file, click Finished
-  f) When the system completes the backup process, examine the status page for any reported errors before proceeding to the next step.
-  g) To return to the Archive List page, click OK.
-  h) Copy the .ucs file to a secure file system (i.e. shared NFS).
-
-7. Verify volume formatting scheme;
-
+  a) Log in to the Configuration utility  
+  b) Navigate to System > Archives  
+  c) To initiate the process of creating a new UCS archive, click Create  
+  d) In the File Name box, type a name for the file  
+  e) To create the UCS archive file, click Finished  
+  f) When the system completes the backup process, examine the status page for any reported errors before proceeding to the next step  
+  g) To return to the Archive List page, click OK  
+  h) Copy the .ucs file to a secure file system (i.e. shared NFS)  
+7. Verify volume formatting scheme;<br /><br />
 Run the following to check if Big-IP system is using volume formatting system or partition formatting system;
 ```
 # lvscan
@@ -122,21 +113,19 @@ Run the following to check if Big-IP system is using volume formatting system or
   ACTIVE            '/dev/vg-db-sda/set.3._var' [3.00 GiB] inherit
 ```
 If it returns no volume scheme, then it means Big-IP is using partition formatting scheme.
-
-8. Import the software/hotfix image:
-
-  a) Log in to the Configuration utility with administrative privileges
-  b) To upload the necessary ISO files, navigate to System > Software Management
-  c) Click Import
-  d) Click Browse to select the SIG file (BIGIP-13.xxx.iso.384.sig). This is a SHA384 signed digest
-  e) Click Import again
-  f) Click Browse to select the ISO file (BIGIP-13.x.x.x.x.xxxx.iso)
-  g) Click Import
-  h) Click Import again
-  i) Click Browse to select the pem file (archive.pubkey.xxxxxxxxx.pem). Download 3072 bit one since the SIG is using 3072 bit RSA public key
-  j) Click Import
-  k) After uploading the image, it will be listed under software image list
-  l) Verify that all the files are under /shared/images;
+8. Import the software/hotfix image:<br /><br />
+  a) Log in to the Configuration utility with administrative privileges  
+  b) To upload the necessary ISO files, navigate to System > Software Management  
+  c) Click Import  
+  d) Click Browse to select the SIG file (BIGIP-13.xxx.iso.384.sig). This is a SHA384 signed digest  
+  e) Click Import again  
+  f) Click Browse to select the ISO file (BIGIP-13.x.x.x.x.xxxx.iso)  
+  g) Click Import  
+  h) Click Import again  
+  i) Click Browse to select the pem file (archive.pubkey.xxxxxxxxx.pem). Download 3072 bit one since the SIG is using 3072 bit RSA public key  
+  j) Click Import  
+  k) After uploading the image, it will be listed under software image list  
+  l) Verify that all the files are under /shared/images;  
 ```
 ls -ltr /shared/images
 total 7048744
@@ -146,26 +135,25 @@ total 7048744
 -rw-r--r--. 1 tomcat tomcat        384 2019-01-15 11:23 BIGIP-13.1.1.3-0.0.1.iso.384.sig
 -rw-r--r--. 1 tomcat tomcat        625 2019-01-15 11:28 archive.pubkey.20160210.pem
 ```
-m) Verify the SIG;
+m) Verify the SIG;  
 ```
 # openssl dgst -sha384 -verify /shared/images/archive.pubkey.20160210.pem -signature /shared/images/BIGIP-13.1.1.3-0.0.1.iso.384.sig /shared/images/BIGIP-13.1.1.3-0.0.1.iso
 
 Verified OK
 ```
 
-9. Check that root login to shell is possible;
+9. Check that root login to shell is possible;<br /><br />
 In situation during the upgrade, F5 might not be able to access ADFS/LDAP and so your user/pass might not work. Check if you have a root account and if you can SSH to it by running the following;
 ```
 ssh root@f5prd01.its.fsu.edu
 ssh root@f5prd02.its.fsu.edu 
 ```
-10. Check that admin login to GUI is possible;
+10. Check that admin login to GUI is possible;<br /><br />
 In situation during the upgrade, F5 might not be able to access ADFS/LDAP and so your user/pass might not work. Check if you have a admin account and if you can login to GUI using the admin account;
+```
 https://f51.example.com
 https://f52.example.com
-
-
-
+```
 ---
 
 ### B. Add Splunk on F5
