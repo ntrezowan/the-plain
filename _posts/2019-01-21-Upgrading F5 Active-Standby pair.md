@@ -55,7 +55,7 @@ If you need to renew device certificate, do the following;
     c) Click Import and choose Certificate and Key as Import Type  
     d) Choose both certificate and key  
     e) Click Import  
-
+    
 4. Do a ConfigSync to sync configuration on both units;
 It is always a better to do a config sync before the upgrade and this way both units will have the latest configuration.<br /><br />
 To do a config sync, do the following;  
@@ -65,6 +65,7 @@ To do a config sync, do the following;
   d) For Devices, click the name of the device from which you want to perform the synchronization action  
   e) For Sync, click the appropriate synchronization action  
   f) Click Sync  
+  
 5. Generate a qkview and check for Upgrade Advisor in iHealth;<br /><br />
 iHealth reports can be used to find if there is any issue if we upgrade F5 units from one version to another. To generate a qkview, do the following;  
   a) Log in to the Configuration utility  
@@ -75,7 +76,8 @@ iHealth reports can be used to find if there is any issue if we upgrade F5 units
   f) To download the output file, click Download<br /><br />
 After download the file from F5, upload it to https://ihealth.f5.com/ and then go to `Upgrade Advisor` and select the version to which you want to upgrade your units. Then check the recommended feedback.<br /><br />
 For example, here is one advise that iHealth provided when we are upgrading from `12.1.3.4` to `13.1.1.3`;<br /><br />
-TMOS vulnerability: Password changes for local users may not be preserved unless the configuration is explicitly saved (K37250780)
+TMOS vulnerability: Password changes for local users may not be preserved unless the configuration is explicitly saved (K37250780)  
+
 6. Create a backup of the config file;<br /><br />
 It is always good to have a backup of the config file before upgrade. This way, we can quickly restore F5 to previous stable state if there is any issues during upgrade.<br /><br />
 To create UCS file, do the following;
@@ -87,6 +89,7 @@ To create UCS file, do the following;
   f) When the system completes the backup process, examine the status page for any reported errors before proceeding to the next step  
   g) To return to the Archive List page, click OK  
   h) Copy the .ucs file to a secure file system (i.e. shared NFS)  
+  
 7. Verify volume formatting scheme;<br /><br />
 Run the following to check if Big-IP system is using volume formatting system or partition formatting system;
 ```
@@ -112,7 +115,8 @@ Run the following to check if Big-IP system is using volume formatting system or
   ACTIVE            '/dev/vg-db-sda/set.3._config' [3.17 GiB] inherit
   ACTIVE            '/dev/vg-db-sda/set.3._var' [3.00 GiB] inherit
 ```
-If it returns no volume scheme, then it means Big-IP is using partition formatting scheme.
+If it returns no volume scheme, then it means Big-IP is using partition formatting scheme.  
+
 8. Import the software/hotfix image:<br /><br />
   a) Log in to the Configuration utility with administrative privileges  
   b) To upload the necessary ISO files, navigate to System > Software Management  
@@ -135,19 +139,19 @@ total 7048744
 -rw-r--r--. 1 tomcat tomcat        384 2019-01-15 11:23 BIGIP-13.1.1.3-0.0.1.iso.384.sig
 -rw-r--r--. 1 tomcat tomcat        625 2019-01-15 11:28 archive.pubkey.20160210.pem
 ```
-m) Verify the SIG;  
+  m) Verify the SIG;  
 ```
 # openssl dgst -sha384 -verify /shared/images/archive.pubkey.20160210.pem -signature /shared/images/BIGIP-13.1.1.3-0.0.1.iso.384.sig /shared/images/BIGIP-13.1.1.3-0.0.1.iso
 
 Verified OK
 ```
-
 9. Check that root login to shell is possible;<br /><br />
 In situation during the upgrade, F5 might not be able to access ADFS/LDAP and so your user/pass might not work. Check if you have a root account and if you can SSH to it by running the following;
 ```
 ssh root@f5prd01.its.fsu.edu
 ssh root@f5prd02.its.fsu.edu 
 ```
+
 10. Check that admin login to GUI is possible;<br /><br />
 In situation during the upgrade, F5 might not be able to access ADFS/LDAP and so your user/pass might not work. Check if you have a admin account and if you can login to GUI using the admin account;
 ```
