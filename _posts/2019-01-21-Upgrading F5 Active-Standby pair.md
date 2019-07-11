@@ -147,8 +147,8 @@ Verified OK
 9. Check that root login to shell is possible;<br /><br />
 In situation during the upgrade, F5 might not be able to access ADFS/LDAP and so your user/pass might not work. Check if you have a root account and if you can SSH to it by running the following;
 ```
-ssh root@f5prd01.its.fsu.edu
-ssh root@f5prd02.its.fsu.edu 
+ssh root@f51.example.com
+ssh root@f52.example.com
 ```
 
 10. Check that admin login to GUI is possible;<br /><br />
