@@ -16,7 +16,6 @@ F5 Standby Server = f52.example.com
 ```
 # tmsh
 # show /sys software status
-
 --------------------------------------------------
 Sys::Software Status
 Volume  Product   Version  Build  Active    Status
