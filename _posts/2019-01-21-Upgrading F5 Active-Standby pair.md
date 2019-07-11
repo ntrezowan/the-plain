@@ -15,7 +15,8 @@ F5 Standby Server = f52.example.com
 1. Check current software version of F5;
 ```
 # tmsh
-# show /sys software status
+# show /sys software status  
+  
 --------------------------------------------------
 Sys::Software Status
 Volume  Product   Version  Build  Active    Status
