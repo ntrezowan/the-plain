@@ -158,7 +158,7 @@ https://f51.example.com
 https://f52.example.com
 ```
 ---
-### B. Check running configuration integrity (applied to all HA units)
+### B. Check running configuration integrity (applied to all HA units) and disable Auto-Failover
 If there is an issue in the running configuration, then it will give error after the upgrade. Check if there is any error in the configuration file by running the following command;
 ```
 # tmsh load /sys config verify
@@ -195,7 +195,18 @@ There were warnings:
 SSLv2 is no longer supported and has been removed. The 'sslv2' keyword in the cipher string of the ssl profile (/Common/clientssl-test) has been ignored.
 SSLv2 is no longer supported and has been removed. The 'sslv2' keyword in the cipher string of the ssl profile (/Common/serverssl-test) has been ignored.
 ```
-Fix the issues before you go forward with upgrading F5. `WARNING` can be ignored but not suggested.
+Fix the issues before you go forward with upgrading F5. `WARNING` can be ignored but not suggested.<br /><br />
+To turn off Auto-Failback on both F5 before upgrade to prevent active-active condition, do the following in v13 or above;
+  a) On the Main menu, Click Device Management > Traffic Group > traffic-group-1  
+  b) Uncheck "Always Failback to First Device if it is Available"  
+  c) Click Save  
+  d) Do a config sync<br /><br />
+Do the following to disable Auto failover in v12 or below;
+  a) On the Main menu, Click Device Management > Traffic Groups  
+  b) Select traffic-group-1  
+  c) Select Advanced from Configuration  
+  d) Uncheck Auto Failover  
+  e) Click Update  
 
 ### C. Open a proactive service request with F5 Technical Support
 Proactive service requests provide F5 Technical Support advance notice of your maintenance window to save time in case a problem arises that requires F5 Technical Support assistance. Here is more on this;
@@ -205,26 +216,7 @@ https://support.f5.com/csp/article/K16022
 
 ---DO-NOT-SYNC---
 
-##### Upgrade F52.example.com (standby unit first)
-
-1.	Turn off Auto failback on both F5
-
-Turn off auto failback on both F5 before upgrade to prevent active-active condition. Synchronize needed.
-
-Do the following to disable Network failover in v13 or above;
-a)	On the Main menu, Click Device Management > Device Groups.
-b)	Select device-group-a-failover
-c)	Select Advanced from Configuration
-d)	Uncheck Network Failover
-e)	Click Update
-
-Do the following to disable Network failover in v12 or below;
-a)	On the Main menu, Click Device Management > Traffic Groups.
-b)	Select traffic-group-1
-c)	Select Advanced from Configuration
-d)	Uncheck Auto Failover
-e)	Click Update
-
+### Upgrade F52.example.com (standby unit first)
 
 2.	Force F5PRD02 to offline state
 
