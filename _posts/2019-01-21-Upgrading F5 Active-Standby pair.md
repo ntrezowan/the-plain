@@ -220,7 +220,7 @@ https://support.f5.com/csp/article/K16022
 
 ---DO-NOT-SYNC---
 
-### Upgrade F52.example.com (standby unit first)
+#### Upgrade F52.example.com (standby unit first)
 
 1. Force F5PRD02 to offline state  
   a) On the Main menu, click Device Management > Devices  
@@ -242,54 +242,48 @@ Check logs to see if there is any ERROR or WARNING;
 # egrep 'err|warn' /var/log/ltm
 ```
 3. Install the new version software
+  a) Log in to the Configuration utility with administrative privileges  
+  b) Navigate to System > Software Management > Image List  
+  c) Select the Software Image and click Install. A new window will pop up called Install Software Image  
+  d) Select an available disk from the Select Disk menu. Here HD1 is an LVM disk  
+  e) Select an empty volume set from the Volume Set Name menu, or type a new volume set name. Volumes are named as HD1.1, HD1.2, HD1.3 etc, so to create a new volume, type “3” and it will create HD1.3 and install the image there  
+  f) Click Install  
+  g) To see the installation progress, view the Install Status column of the Installed Images section of the page  
 
-a)	Log in to the Configuration utility with administrative privileges.
-b)	Navigate to System > Software Management > Image List.
-c)	Select the Software Image and click Install. A new window will pop up called Install Software Image.
-d)	Select an available disk from the Select Disk menu. Here HD1 is an LVM disk.
-e)	Select an empty volume set from the Volume Set Name menu, or type a new volume set name. Volumes are named as HD1.1, HD1.2, HD1.3 etc, so to create a new volume, type “3” and it will create HD1.3 and install the image there. 
-f)	Click Install.
-g)	To see the installation progress, view the Install Status column of the Installed Images section of the page.
-
-
-6.	Reboot to the newly upgraded software volume
-
-a)	Log in to the Configuration utility with administrative privileges.
-b)	Navigate to System > Software Management > Boot Locations.
-c)	If you select Install Configuration to Yes, it will ask from where you want to copy the configuration from. Choose the latest one.
-
+4. Reboot to the newly upgraded software volume
+  a) Log in to the Configuration utility with administrative privileges  
+  b) Navigate to System > Software Management > Boot Locations 
+  c) If you select Install Configuration to Yes, it will ask from where you want to copy the configuration from. Choose the latest one<br /><br />
 If there have been no changes since you performed the upgrade and /or make any changes in the configuration and syncs, you do not need to set the Install Configuration option to Yes when activating the new volume. But if you make any changes, it’s better to select Yes when activating the new volume.
-
-d)	Click the boot location containing the newly upgraded software volume.
-e)	To restart the system to the specified boot location, click Activate.
-f)	To close the confirmation message, click OK
-g)	Check which boot location is loaded after reboot
+  d) Click the boot location containing the newly upgraded software volume  
+  e) To restart the system to the specified boot location, click Activate  
+  f) To close the confirmation message, click OK  
+  g) Check which boot location is loaded after reboot  
+```
 # watch tmsh show sys software
-
-h)	Also check if installation fails;
+```
+  h) Also check if installation fails  
+```
 # tail -f/var/log/liveinstall.log
-
-i)	Check LTM logs
+```
+  i) Check LTM logs  
+```
 # tail -f /var/log/ltm
+```
+5. Check F5PRD02 version after reboot  
+  a) Go to System > Configuration > Device > General  
+  b) Check the version  
 
-7.	Check F5PRD02 version after reboot
-a)	Go to System > Configuration > Device > General
-b)	Check the version
-
-
-8.	Bring F5PRD02 to Standby state
-
-a)	Release Device A from offline state.
-b)	On the Main menu, click Device Management > Devices .
-c)	Click the name of Device A.
-d)	The device properties screen opens.
-e)	Click Release Offline.
-f)	F5PRD02 changes to standby state.
-
+8.	Bring F5PRD02 to Standby state  
+  a) Release Device A from offline state  
+  b) On the Main menu, click Device Management > Devices  
+  c) Click the name of Device A  
+  d) The device properties screen opens  
+  e) Click Release Offline  
+  f) F5PRD02 changes to standby state  
 The new version of BIG-IP software is installed on F5PRD02, with all traffic groups in standby state.
 
-
-# Make F5PRD02 the active load balancer #
+#### Make F5PRD02 the active load balancer
  	
 1.	Force F5PRD01 to standby state
 
