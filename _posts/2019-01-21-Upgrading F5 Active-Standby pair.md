@@ -17,12 +17,8 @@ Splunk TCP Port = 9515 (for ASM)
 Splunk UDP Port = 9514 (for SYSLOG, HSL and APM) 
 
 ---
-### Logging Flow
-> Virtual Server >> Logging Profile >> Log Publisher >> Log Destination >> Pool >> Splunk Log Server
-
----
-### A. Preparation before installation (applied to all devices)
-1. At first, check the current software version;
+### A. Preparation before upgrade (applied to all HA units)
+1. Check current software version of F5;
 ```
 # tmsh
 # show /sys software status
@@ -32,84 +28,85 @@ Sys::Software Status
 Volume  Product   Version  Build  Active    Status
 --------------------------------------------------
 HD1.1    BIG-IP  12.1.3.4  0.0.2      no  complete
-HD1.2    BIG-IP  13.1.0.7  0.0.1     yes  complete
-HD1.3    BIG-IP  13.1.1.3  0.0.1      no  complete
+HD1.2    BIG-IP  13.1.0.7  0.0.1      no  complete
+HD1.3    BIG-IP  13.1.1.3  0.0.1      yes complete
 ```
-From the output, you are running `13.1.0.7`.
+From the output, look for the partition which is Active and then you will find the Version. Here the version is `13.1.1.3`.
 2. Verify license and renew if necessary;
 
 BIG-IP license is stored at `/config/bigip.license` and it has two dates; `Licensed date` and `Service check date`.  
-`Licensed date` will show the date when you used your `Registration Key` to license your BIG-IP system for the first time. To find `Licensed date`, run the following;
+`Licensed date` will show the date when you used your `Registration Key` for the first time to license your BIG-IP system. To find `Licensed date`, run the following;
 ```
 # grep "Licensed date" /config/bigip.license
 Licensed date :                    20180601
 ```
-`Service Check Date` is the date when you last reactivated your license and it gets updated every time you reactivate your license assuming that there is an active service contract for this BIG-IP system. For example, if you have reactivate your license on June 30, 2018 then it will show as 20180630. To find `Service Check Date`, run the following;
+`Service Check Date` is the date when you last reactivated your license and it gets updated every time you reactivate your license (assuming that there is an active service contract with F5 for this BIG-IP system). For example, if you have reactivate your license on June 30, 2018 then it will show as 20180630. To find `Service Check Date`, run the following;
 ```
 # grep "Service check date" /config/bigip.license
 Service check date :               20171013
 ```
-There is another interesting date called `License Check Date` and it is a static date related with the software version of BIG-IP. For example, Version 12.1.0-12.1.3 has a `License Check Date` 2016-03-2018. The `License Check Date` enforcement is applied during system startup. The system compares the `License Check Date` to the `Service Check Date` in the license file. If the `Service Check Date` is earlier than the `License Check Date`, the system will initialize but will not load the configuration. To allow the configuration to load, you must update the `Service Check Date` in the `bigip.license` file by reactivating the system's license. To find the `License Check Date` for the version you planned to upgrade, visit https://support.f5.com/csp/article/K7727. For example, if you plan to upgrade to version 13.1.0-13.1.1, then `License Check Date` is 20170912. 
+There is another interesting date called `License Check Date` and this date is related with the software version of BIG-IP. For example, Version `12.1.0-12.1.3` has a `License Check Date` 2016-03-2018. The `License Check Date` enforcement is applied during system startup. The system compares the `License Check Date` with the `Service Check Date` exists in the license file. If the `Service Check Date` is earlier than the `License Check Date`, the system will initialize but will not load the configuration. To allow the configuration to load properly, you must update the `Service Check Date` in the `bigip.license` file by reactivating the system's license. To find the `License Check Date` for the version you planned to upgrade, visit https://support.f5.com/csp/article/K7727. For example, if you plan to upgrade to version `13.1.0-13.1.1`, then `License Check Date` is 20170912. 
 
-Now by comparing `Service check date` with `License Check Date`, we see that 20171013 > 20170912 which means you do not need to reactive the license before upgrade. 
+Now by comparing `Service check date` with `License Check Date`, we see that 20171013 > 20170912 which means you do not need to reactive the license before upgrade. But it is always a good practice to reactivate your license everytime you upgrade the F5 because it extends your `Service check date` in the license file.
 
-But if `Service Check Date` < `License Check Date`, do the following to reactivate the license before upgrade;
+If `Service Check Date` < `License Check Date`, do the following to reactivate the license before upgrade;
 
-  1. Log in to the Configuration utility.
-  2. Navigate to System > License > Reactivate.
-  3. Select either Automatic or Manual (if F5 cannot reach internet).
-  4. Click Next and it will be reactivated.
-
+  a) Log in to the Configuration utility
+  b) Navigate to System > License > Reactivate
+  c) Select either Automatic or Manual (if F5 cannot reach internet)
+  d) Click Next and it will be reactivated
 
 3. Check device certificate and renew if necessary;
 
-a) To check the device certificate, do the following;
-  1.	Log in to the Configuration utility.
-  2.	Navigate to System > Certificate Management > Device Certificate Management > Device Certificate.
+To check the device certificate, do the following;
+  a) Log in to the Configuration utility
+  b) Navigate to System > Certificate Management > Device Certificate Management > Device Certificate
 
-b) If you need to renew the certificate, use the following steps;
-  1.	Log in to the Configuration utility.
-  2.	Navigate to System > Certificate Management > Device Certificate Management > Device Certificate.
-  3.	Click Import and choose Certificate and Key as Import Type.
-  4.	Choose both certificate and key
-  5.	Click Import.
+If you need to renew device certificate, do the following;
+  a) Log in to the Configuration utility
+  b) Navigate to System > Certificate Management > Device Certificate Management > Device Certificate
+  c) Click Import and choose Certificate and Key as Import Type
+  d) Choose both certificate and key
+  e) Click Import
 
+4. Do a ConfigSync to sync configuration on both units;
+It is always a better to do a config sync before the upgrade and this way both units will have the latest configuration.
 
-4. Do a ConfigSync for HA environment:
+To do a config sync, do the following;
+  a) Log in to the Configuration utility
+  b) Navigate to Device Management > Overview
+  c) For Device Groups, click the name of the device group (device-group-a-failover) you want to synchronize
+  d) For Devices, click the name of the device from which you want to perform the synchronization action
+  e) For Sync, click the appropriate synchronization action
+  f) Click Sync
 
-a)	Log in to the Configuration utility.
-b)	Navigate to Device Management > Overview.
-c)	For Device Groups, click the name of the device group (device-group-a-failover) you want to synchronize.
-d)	For Devices, click the name of the device from which you want to perform the synchronization action.
-e)	For Sync, click the appropriate synchronization action.
-f)	Click Sync.
+5. Generate a qkview and check for Upgrade Advisor in iHealth;
+iHealth reports can be used to find if there is any issue if we upgrade F5 units from one version to another. To generate a qkview, do the following;
 
-5. Generate a qkview:
+a)	Log in to the Configuration utility
+b)	Navigate to System > Support
+c)	Click New Support Snapshot
+d)	For Health Utility, click Generate QKView
+e)	Click Start
+f)	To download the output file, click Download
 
-To generate a qkview, do the following;
-
-a)	Log in to the Configuration utility.
-b)	Navigate to System > Support.
-c)	Click New Support Snapshot.
-d)	For Health Utility, click Generate QKView.
-e)	Click Start.
-f)	To download the output file, click Download.
-
-After download the file, upload it to https://ihealth.f5.com/ and then go to Upgrade Advisor and choose the version to which you want to upgrade. Then check the recommended feedback, one such example is as following;
+After download the file from F5, upload it to https://ihealth.f5.com/ and then go to `Upgrade Advisor` and select the version to which you want to upgrade your units. Then check the recommended feedback.
+For example, here is one advise that iHealth provided when we are upgrading from `12.1.3.4` to `13.1.1.3`;
 
 TMOS vulnerability: Password changes for local users may not be preserved unless the configuration is explicitly saved (K37250780)
 
-6. Create a UCS:
+6. Create a backup of the config file;
+It is always good to have a backup of the config file before upgrade. This way, we can quickly restore F5 to previous stable state if there is any issues during upgrade.
 
-a)	Log in to the Configuration utility.
-b)	Navigate to System > Archives.
-c)	To initiate the process of creating a new UCS archive, click Create.
-d)	In the File Name box, type a name for the file.
-e)	The file already exists on the system
-f)	To create the UCS archive file, click Finished.
-g)	When the system completes the backup process, examine the status page for any reported errors before proceeding to the next step.
-h)	To return to the Archive List page, click OK.
-i)	Copy the .ucs file to mwprd01 system.
+To create UCS file, do the following;
+  a) Log in to the Configuration utility
+  b) Navigate to System > Archives
+  c) To initiate the process of creating a new UCS archive, click Create
+  d) In the File Name box, type a name for the file
+  e) To create the UCS archive file, click Finished
+  f) When the system completes the backup process, examine the status page for any reported errors before proceeding to the next step.
+  g) To return to the Archive List page, click OK.
+  h) Copy the .ucs file to a secure file system (i.e. shared NFS).
 
 7. Verify volume formatting scheme:
 
