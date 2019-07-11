@@ -157,7 +157,9 @@ In situation during the upgrade, F5 might not be able to access ADFS/LDAP and so
 https://f51.example.com
 https://f52.example.com
 ```
+
 ---
+
 ### B. Check running configuration integrity (applied to all HA units) and disable Auto-Failover
 If there is an issue in the running configuration, then it will give error after the upgrade. Check if there is any error in the configuration file by running the following command;
 ```
@@ -207,6 +209,8 @@ Do the following to disable Auto failover in v12 or below;
   c) Select Advanced from Configuration  
   d) Uncheck Auto Failover  
   e) Click Update  
+  
+---
 
 ### C. Open a proactive service request with F5 Technical Support
 Proactive service requests provide F5 Technical Support advance notice of your maintenance window to save time in case a problem arises that requires F5 Technical Support assistance. Here is more on this;
