@@ -222,47 +222,26 @@ https://support.f5.com/csp/article/K16022
 
 ### Upgrade F52.example.com (standby unit first)
 
-2.	Force F5PRD02 to offline state
+1. Force F5PRD02 to offline state  
+  a) On the Main menu, click Device Management > Devices  
+  b) Click the name of F5PRD02  
+  c) The device properties screen opens  
+  d) Click Force Offline  
+  e) F5PRD02 changes to offline state  
+Once F5PRD02 changes to offline state, ensure that traffic passes normally for all active traffic groups on the other devices  
 
-a)	On the Main menu, click Device Management > Devices .
-b)	Click the name of F5PRD02.
-c)	The device properties screen opens.
-d)	Click Force Offline.
-e)	F5PRD02 changes to offline state.
-
-Once F5PRD02 changes to offline state, ensure that traffic passes normally for all active traffic groups on the other devices.
-
-3.	Reactivate software license if required
-
-a)	On the Main menu, click System > License .
-b)	Click Re-activate.
-c)	For the Activation Method setting, select the Automatic (requires outbound connectivity) option.
-d)	Click Next.
-e)	The BIG-IP software license renews automatically.
-f)	Click Continue.
-
-
-4.	Reboot the machine before upgrade
-a)	Reboot F5PRD02 to clean up memory
-During reboot, check logs
-# tail -f /var/log/ltm
-
-b)	After reboot, check the running configuration integrity
-# tmsh load sys config verify 
-
-c)	Restart mcpd and then reboot
+2. Restart mcpd and then reboot. This will force F5 to recompile the configuration and load it into memory
+```
 # touch /service/mcpd/forceload
 # reboot
-
-Check logs
-# tail -f /var/log/ltm
-# tail -f /var/log/ltm | egrep “err|warn”
+```
+Check logs to see if there is any ERROR or WARNING;
+```
 # tail -f/var/log/liveinstall.log
+# tail -f /var/log/ltm | egrep “err|warn”
 # egrep 'err|warn' /var/log/ltm
-
-
-
-5.	Install the new version software
+```
+3. Install the new version software
 
 a)	Log in to the Configuration utility with administrative privileges.
 b)	Navigate to System > Software Management > Image List.
