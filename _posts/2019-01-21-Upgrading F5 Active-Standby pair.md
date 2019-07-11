@@ -142,7 +142,6 @@ total 7048744
   m) Verify the SIG;  
 ```
 # openssl dgst -sha384 -verify /shared/images/archive.pubkey.20160210.pem -signature /shared/images/BIGIP-13.1.1.3-0.0.1.iso.384.sig /shared/images/BIGIP-13.1.1.3-0.0.1.iso
-
 Verified OK
 ```
 9. Check that root login to shell is possible;<br /><br />
