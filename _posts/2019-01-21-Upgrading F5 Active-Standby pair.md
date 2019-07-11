@@ -48,8 +48,7 @@ If `Service Check Date` < `License Check Date`, do the following to reactivate t
 3. Check device certificate and renew if necessary;  
 To check the device certificate, do the following;  
     a) Log in to the Configuration utility  
-    b) Navigate to System > Certificate Management > Device Certificate Management > Device Certificate  
-  
+    b) Navigate to System > Certificate Management > Device Certificate Management > Device Certificate    
 If you need to renew device certificate, do the following;  
     a) Log in to the Configuration utility  
     b) Navigate to System > Certificate Management > Device Certificate Management > Device Certificate  
