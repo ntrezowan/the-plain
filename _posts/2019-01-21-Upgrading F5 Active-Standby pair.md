@@ -250,9 +250,9 @@ Check logs to see if there is any ERROR or WARNING;
   f) Click Install  
   g) To see the installation progress, view the Install Status column of the Installed Images section of the page  
 
-4. Reboot to the newly upgraded software volume
+4. Reboot to the newly upgraded software volume  
   a) Log in to the Configuration utility with administrative privileges  
-  b) Navigate to System > Software Management > Boot Locations 
+  b) Navigate to System > Software Management > Boot Locations  
   c) If you select Install Configuration to Yes, it will ask from where you want to copy the configuration from. Choose the latest one<br /><br />
 If there have been no changes since you performed the upgrade and /or make any changes in the configuration and syncs, you do not need to set the Install Configuration option to Yes when activating the new volume. But if you make any changes, it’s better to select Yes when activating the new volume.
   d) Click the boot location containing the newly upgraded software volume  
