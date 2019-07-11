@@ -362,20 +362,20 @@ If there have been no changes since you performed the upgrade and /or make any c
   a) Go to System > Configuration > Device > General  
   b) Check the version 
 
-7.	Force F5PRD01 to standby state
+7.	Force `F51` to standby state
 
-a)	Release F5PRD01 from offline state.
+a)	Release `F51` from offline state.
 b)	On the Main menu, click Device Management > Devices .
-c)	Click the name of F5PRD01.
+c)	Click the name of `F51`.
 d)	The device properties screen opens.
 e)	Click Release Offline.
-f)	F5PRD01 changes to standby state.
+f)	`F51` changes to standby state.
 
-The new version of BIG-IP software is installed on F5PRD01, with all traffic groups in standby state.
+The new version of BIG-IP software is installed on `F51`, with all traffic groups in standby state.
 
 # Do SYNC
 
-1.	From F5PRD01, sync configuration with F5PRD02
+1.	From `F51`, sync configuration with `F51`
 a)	Log in to the Configuration utility.
 b)	Navigate to Device Management > Overview.
 c)	For Device Groups, click the name of the device group (device-group-a-failover or datasync-global-dg) you want to synchronize.
@@ -383,13 +383,13 @@ d)	For Devices, click the name of the device from which you want to perform the 
 e)	For Sync, click the appropriate synchronization action.
 f)	Click Sync.
 
-2.	Force F5PRD02 to be standby mode
-a)	Login to F5PRD02
+2.	Force `F52` to be standby mode
+a)	Login to `F52`
 b)	On the Main menu, click Device Management > Devices .
-c)	Click the name of F5PRD02.
+c)	Click the name of `F52`.
 d)	The device properties screen opens.
 e)	Click Force to Standby.
-f)	F5PRD02 changes to standby state.
+f)	`F52` changes to standby state.
 
 3.	Enable Auto failover and sync
 Do the following to disable Network failover;
@@ -398,6 +398,4 @@ b)	Select device-group-a-failover
 c)	Select Advanced from Configuration
 d)	Uncheck Network Failover
 e)	Click Update
-f)	Go to each F5 device and verify/create the backup cron job in /etc/cron.daily/ bigip_ltm_11_backup.sh and /etc/cron.monthly/remote_qkview_script is with permission 700.
-g)	
 
