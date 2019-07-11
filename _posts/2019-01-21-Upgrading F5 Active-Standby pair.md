@@ -6,15 +6,9 @@ keywords: "F5, hsl, hish speed logging, request logging, management port logging
 published: false
 ---
 ### Environment
-F5SERV1 self IP for VLAN1 = 11.11.11.2  
-F5SERV2 self IP for VLAN1 = 11.11.11.3  
-F5SERV Floating IP for VLAN1 = 11.11.11.1  
-F5SERV1 self IP for management VLAN = 10.1.1.2  
-F5SERV2 self IP for management VLAN = 10.1.1.3  
-F5SERV Floating IP for management VLAN = 10.1.1.1  
-Splunk IP = 10.10.10.1  
-Splunk TCP Port = 9515 (for ASM)  
-Splunk UDP Port = 9514 (for SYSLOG, HSL and APM) 
+F5 Active Server = f51.example.com 
+F5 Standby Server = f52.example.com
+
 
 ---
 ### A. Preparation before upgrade (applied to all HA units)
@@ -83,12 +77,12 @@ To do a config sync, do the following;
 5. Generate a qkview and check for Upgrade Advisor in iHealth;
 iHealth reports can be used to find if there is any issue if we upgrade F5 units from one version to another. To generate a qkview, do the following;
 
-a)	Log in to the Configuration utility
-b)	Navigate to System > Support
-c)	Click New Support Snapshot
-d)	For Health Utility, click Generate QKView
-e)	Click Start
-f)	To download the output file, click Download
+  a) Log in to the Configuration utility
+  b) Navigate to System > Support
+  c) Click New Support Snapshot
+  d) For Health Utility, click Generate QKView
+  e) Click Start
+  f) To download the output file, click Download
 
 After download the file from F5, upload it to https://ihealth.f5.com/ and then go to `Upgrade Advisor` and select the version to which you want to upgrade your units. Then check the recommended feedback.
 For example, here is one advise that iHealth provided when we are upgrading from `12.1.3.4` to `13.1.1.3`;
@@ -108,7 +102,7 @@ To create UCS file, do the following;
   g) To return to the Archive List page, click OK.
   h) Copy the .ucs file to a secure file system (i.e. shared NFS).
 
-7. Verify volume formatting scheme:
+7. Verify volume formatting scheme;
 
 Run the following to check if Big-IP system is using volume formatting system or partition formatting system;
 ```
@@ -138,19 +132,19 @@ If it returns no volume scheme, then it means Big-IP is using partition formatti
 
 8. Import the software/hotfix image:
 
-a)	Log in to the Configuration utility with administrative privileges.
-b)	To upload the necessary ISO files, navigate to System > Software Management.
-c)	Click Import.
-d)	Click Browse to select the SIG file (BIGIP-13.xxx.iso.384.sig). This is a SHA384 signed digest.
-e)	Click Import again
-f)	Click Browse to select the ISO file (BIGIP-13.x.x.x.x.xxxx.iso).
-g)	Click Import.
-h)	Click Import again
-i)	Click Browse to select the pem file (archive.pubkey.xxxxxxxxx.pem). Download 3072 bit one since the SIG is using 3072 bit RSA public key
-j)	Click Import.
-k)	After uploading the image, it will be listed under software image list
-l)	Verify that all the files are under /shared/images;
-
+  a) Log in to the Configuration utility with administrative privileges
+  b) To upload the necessary ISO files, navigate to System > Software Management
+  c) Click Import
+  d) Click Browse to select the SIG file (BIGIP-13.xxx.iso.384.sig). This is a SHA384 signed digest
+  e) Click Import again
+  f) Click Browse to select the ISO file (BIGIP-13.x.x.x.x.xxxx.iso)
+  g) Click Import
+  h) Click Import again
+  i) Click Browse to select the pem file (archive.pubkey.xxxxxxxxx.pem). Download 3072 bit one since the SIG is using 3072 bit RSA public key
+  j) Click Import
+  k) After uploading the image, it will be listed under software image list
+  l) Verify that all the files are under /shared/images;
+```
 ls -ltr /shared/images
 total 7048744
 -rw-r--r--. 1 tomcat tomcat 1938057216 2018-06-15 10:30 BIGIP-13.1.0.7-0.0.1.iso
@@ -158,25 +152,24 @@ total 7048744
 -rw-r--r--. 1 tomcat tomcat 2057873408 2019-01-15 11:18 BIGIP-13.1.1.3-0.0.1.iso
 -rw-r--r--. 1 tomcat tomcat        384 2019-01-15 11:23 BIGIP-13.1.1.3-0.0.1.iso.384.sig
 -rw-r--r--. 1 tomcat tomcat        625 2019-01-15 11:28 archive.pubkey.20160210.pem
-
-m)	Verify the SIG
+```
+m) Verify the SIG;
 ```
 # openssl dgst -sha384 -verify /shared/images/archive.pubkey.20160210.pem -signature /shared/images/BIGIP-13.1.1.3-0.0.1.iso.384.sig /shared/images/BIGIP-13.1.1.3-0.0.1.iso
 
 Verified OK
 ```
 
-9. Check that root login to shell is possible
-
+9. Check that root login to shell is possible;
+In situation during the upgrade, F5 might not be able to access ADFS/LDAP and so your user/pass might not work. Check if you have a root account and if you can SSH to it by running the following;
+```
 ssh root@f5prd01.its.fsu.edu
 ssh root@f5prd02.its.fsu.edu 
-
-10. Check that admin login to GUI is possible (in case LDAP is unavailable)
-
-https://f5prd01.its.fsu.edu/ 
-https://f5prd02.its.fsu.edu
-
-
+```
+10. Check that admin login to GUI is possible;
+In situation during the upgrade, F5 might not be able to access ADFS/LDAP and so your user/pass might not work. Check if you have a admin account and if you can login to GUI using the admin account;
+https://f51.example.com
+https://f52.example.com
 
 
 
