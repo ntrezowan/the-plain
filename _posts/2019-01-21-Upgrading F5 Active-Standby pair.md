@@ -197,4 +197,261 @@ SSLv2 is no longer supported and has been removed. The 'sslv2' keyword in the ci
 ```
 Fix the issues before you go forward with upgrading F5. `WARNING` can be ignored but not suggested.
 
+### C. Open a proactive service request with F5 Technical Support
+Proactive service requests provide F5 Technical Support advance notice of your maintenance window to save time in case a problem arises that requires F5 Technical Support assistance. Here is more on this;
+https://support.f5.com/csp/article/K16022
+
+### D. Upgrading the units
+
+---DO-NOT-SYNC---
+
+## Upgrade F52.example.com (standby unit first)
+
+1.	Turn off Auto failback on both F5
+
+Turn off auto failback on both F5 before upgrade to prevent active-active condition. Synchronize needed.
+
+Do the following to disable Network failover in v13 or above;
+a)	On the Main menu, Click Device Management > Device Groups.
+b)	Select device-group-a-failover
+c)	Select Advanced from Configuration
+d)	Uncheck Network Failover
+e)	Click Update
+
+Do the following to disable Network failover in v12 or below;
+a)	On the Main menu, Click Device Management > Traffic Groups.
+b)	Select traffic-group-1
+c)	Select Advanced from Configuration
+d)	Uncheck Auto Failover
+e)	Click Update
+
+
+2.	Force F5PRD02 to offline state
+
+a)	On the Main menu, click Device Management > Devices .
+b)	Click the name of F5PRD02.
+c)	The device properties screen opens.
+d)	Click Force Offline.
+e)	F5PRD02 changes to offline state.
+
+Once F5PRD02 changes to offline state, ensure that traffic passes normally for all active traffic groups on the other devices.
+
+3.	Reactivate software license if required
+
+a)	On the Main menu, click System > License .
+b)	Click Re-activate.
+c)	For the Activation Method setting, select the Automatic (requires outbound connectivity) option.
+d)	Click Next.
+e)	The BIG-IP software license renews automatically.
+f)	Click Continue.
+
+
+4.	Reboot the machine before upgrade
+a)	Reboot F5PRD02 to clean up memory
+During reboot, check logs
+# tail -f /var/log/ltm
+
+b)	After reboot, check the running configuration integrity
+# tmsh load sys config verify 
+
+c)	Restart mcpd and then reboot
+# touch /service/mcpd/forceload
+# reboot
+
+Check logs
+# tail -f /var/log/ltm
+# tail -f /var/log/ltm | egrep “err|warn”
+# tail -f/var/log/liveinstall.log
+# egrep 'err|warn' /var/log/ltm
+
+
+
+5.	Install the new version software
+
+a)	Log in to the Configuration utility with administrative privileges.
+b)	Navigate to System > Software Management > Image List.
+c)	Select the Software Image and click Install. A new window will pop up called Install Software Image.
+d)	Select an available disk from the Select Disk menu. Here HD1 is an LVM disk.
+e)	Select an empty volume set from the Volume Set Name menu, or type a new volume set name. Volumes are named as HD1.1, HD1.2, HD1.3 etc, so to create a new volume, type “3” and it will create HD1.3 and install the image there. 
+f)	Click Install.
+g)	To see the installation progress, view the Install Status column of the Installed Images section of the page.
+
+
+6.	Reboot to the newly upgraded software volume
+
+a)	Log in to the Configuration utility with administrative privileges.
+b)	Navigate to System > Software Management > Boot Locations.
+c)	If you select Install Configuration to Yes, it will ask from where you want to copy the configuration from. Choose the latest one.
+
+If there have been no changes since you performed the upgrade and /or make any changes in the configuration and syncs, you do not need to set the Install Configuration option to Yes when activating the new volume. But if you make any changes, it’s better to select Yes when activating the new volume.
+
+d)	Click the boot location containing the newly upgraded software volume.
+e)	To restart the system to the specified boot location, click Activate.
+f)	To close the confirmation message, click OK
+g)	Check which boot location is loaded after reboot
+# watch tmsh show sys software
+
+h)	Also check if installation fails;
+# tail -f/var/log/liveinstall.log
+
+i)	Check LTM logs
+# tail -f /var/log/ltm
+
+7.	Check F5PRD02 version after reboot
+a)	Go to System > Configuration > Device > General
+b)	Check the version
+
+
+8.	Bring F5PRD02 to Standby state
+
+a)	Release Device A from offline state.
+b)	On the Main menu, click Device Management > Devices .
+c)	Click the name of Device A.
+d)	The device properties screen opens.
+e)	Click Release Offline.
+f)	F5PRD02 changes to standby state.
+
+The new version of BIG-IP software is installed on F5PRD02, with all traffic groups in standby state.
+
+
+# Make F5PRD02 the active load balancer #
+ 	
+1.	Force F5PRD01 to standby state
+
+a)	Login to F5PRD01
+b)	On the Main menu, click Device Management > Devices .
+c)	Click the name of F5PRD01.
+d)	The device properties screen opens.
+e)	Click Force to Standby.
+f)	F5PRD01 changes to standby state.
+
+Once F5PRD01 changes to offline state, ensure that traffic passes normally for all active traffic groups on the other devices.
+
+2.	Verify that F5PRD02 is the active load balancer
+3.	Verify expected objects appear in the shared and non-shared portions of the configuration.
+a)	To verify that the expected objects appear in the shared and non-shared portions of the configuration, navigate to Local Traffic > Pools.
+Confirm that the expected objects are present and compare with F5PRD01.
+b)	Navigate to Network > VLANs.
+Confirm that the expected objects are present and compare with F5PRD01
+c)	Go to iApps, open a VIP and go to Reconfigure to see if everything is loading properly.
+
+4.	Check the most recent logs (/var/log/ltm for example) for obvious signs of issues like repeating messages. Comparing logs to the active unit or to the logs prior to the upgrade can be helpful. 
+5.	Check SSL with SSLLabs
+6.	Generate a qkview and review it in the iHealth Diagnostics section for currently known issues.
+7.	Contact teams to begin application testing. If testing successes, processed with upgrading F5PRD01. Otherwise check “Backing out software upgrade” 
+
+# Upgrade F5PRD01 # 
+
+1.	Force F5PRD01 to offline state
+
+a)	On the Main menu, click Device Management > Devices .
+b)	Click the name of F5PRD01.
+c)	The device properties screen opens.
+d)	Click Force Offline.
+e)	F5PRD01 changes to offline state.
+
+Once F5PRD01 changes to offline state, ensure that traffic passes normally for all active traffic groups on the other devices.
+
+2.	Reactivate software license if required
+
+a)	On the Main menu, click System > License .
+b)	Click Re-activate.
+c)	For the Activation Method setting, select the Automatic (requires outbound connectivity) option.
+d)	Click Next.
+e)	The BIG-IP software license renews automatically.
+f)	Click Continue.
+
+
+3.	Reboot the machine before upgrade
+d)	Reboot F5PRD01 to clean up memory
+During reboot, check logs
+# tail -f /var/log/ltm
+
+e)	After reboot, check the running configuration integrity
+# tmsh load sys config verify 
+
+f)	Restart mcpd and then reboot
+# touch /service/mcpd/forceload
+# reboot
+
+Check logs
+# tail -f /var/log/ltm
+# tail -f /var/log/ltm | grep err
+# tail -f/var/log/liveinstall.log
+
+
+4.	Install the new version software
+
+a)	Log in to the Configuration utility with administrative privileges.
+b)	Navigate to System > Software Management > Image List.
+c)	Select the Software Image and click Install. A new window will pop up called Install Software Image.
+d)	Select an available disk from the Select Disk menu. Here HD1 is an LVM disk.
+e)	Select an empty volume set from the Volume Set Name menu, or type a new volume set name. Volumes are named as HD1.1, HD1.2, HD1.3 etc, so to create a new volume, type “3” and it will create HD1.3 and install the image there. 
+f)	Click Install.
+g)	To see the installation progress, view the Install Status column of the Installed Images section of the page. It will take some time.
+
+
+5.	Reboot to the newly upgraded software volume
+
+a)	Log in to the Configuration utility with administrative privileges.
+b)	Navigate to System > Software Management > Boot Locations.
+c)	If you select Install Configuration to Yes, it will ask from where you want to copy the configuration from. Choose the latest one.
+
+If there have been no changes since you performed the upgrade and /or make any changes in the configuration and syncs, you do not need to set the Install Configuration option to Yes when activating the new volume. But if you make any changes, it’s better to select Yes when activating the new volume.
+
+d)	Click the boot location containing the newly upgraded software volume.
+e)	To restart the system to the specified boot location, click Activate.
+f)	To close the confirmation message, click OK
+g)	Check which boot location is loaded after reboot
+# watch tmsh show sys software
+
+h)	Also check if installation fails;
+# tail -f /var/log/liveinstall.log
+
+i)	Check LTM logs
+# tail -f /var/log/ltm | grep err
+
+6.	Check F5PRD01 version after reboot
+c)	Go to System > Configuration > Device > General
+d)	Check the version
+
+
+7.	Force F5PRD01 to standby state
+
+a)	Release F5PRD01 from offline state.
+b)	On the Main menu, click Device Management > Devices .
+c)	Click the name of F5PRD01.
+d)	The device properties screen opens.
+e)	Click Release Offline.
+f)	F5PRD01 changes to standby state.
+
+The new version of BIG-IP software is installed on F5PRD01, with all traffic groups in standby state.
+
+# Do SYNC
+
+1.	From F5PRD01, sync configuration with F5PRD02
+a)	Log in to the Configuration utility.
+b)	Navigate to Device Management > Overview.
+c)	For Device Groups, click the name of the device group (device-group-a-failover or datasync-global-dg) you want to synchronize.
+d)	For Devices, click the name of the device from which you want to perform the synchronization action.
+e)	For Sync, click the appropriate synchronization action.
+f)	Click Sync.
+
+2.	Force F5PRD02 to be standby mode
+a)	Login to F5PRD02
+b)	On the Main menu, click Device Management > Devices .
+c)	Click the name of F5PRD02.
+d)	The device properties screen opens.
+e)	Click Force to Standby.
+f)	F5PRD02 changes to standby state.
+
+3.	Enable Auto failover and sync
+Do the following to disable Network failover;
+a)	On the Main menu, Click Device Management > Device Groups.
+b)	Select device-group-a-failover
+c)	Select Advanced from Configuration
+d)	Uncheck Network Failover
+e)	Click Update
+f)	Go to each F5 device and verify/create the backup cron job in /etc/cron.daily/ bigip_ltm_11_backup.sh and /etc/cron.monthly/remote_qkview_script is with permission 700.
+g)	
 
