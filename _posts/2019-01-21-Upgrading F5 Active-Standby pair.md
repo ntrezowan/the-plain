@@ -219,15 +219,13 @@ https://support.f5.com/csp/article/K16022
 ### D. Upgrading the units
 
 ---DO-NOT-SYNC---
-
 #### Upgrade F52.example.com (standby unit first)
-
 1. Force F5PRD02 to offline state  
   a) On the Main menu, click Device Management > Devices  
   b) Click the name of F5PRD02  
   c) The device properties screen opens  
   d) Click Force Offline  
-  e) F5PRD02 changes to offline state  
+  e) F5PRD02 changes to offline state<br /><br />
 Once F5PRD02 changes to offline state, ensure that traffic passes normally for all active traffic groups on the other devices  
 
 2. Restart mcpd and then reboot. This will force F5 to recompile the configuration and load it into memory
@@ -241,7 +239,7 @@ Check logs to see if there is any ERROR or WARNING;
 # tail -f /var/log/ltm | egrep “err|warn”
 # egrep 'err|warn' /var/log/ltm
 ```
-3. Install the new version software
+3. Install the new version software  
   a) Log in to the Configuration utility with administrative privileges  
   b) Navigate to System > Software Management > Image List  
   c) Select the Software Image and click Install. A new window will pop up called Install Software Image  
@@ -254,7 +252,7 @@ Check logs to see if there is any ERROR or WARNING;
   a) Log in to the Configuration utility with administrative privileges  
   b) Navigate to System > Software Management > Boot Locations  
   c) If you select Install Configuration to Yes, it will ask from where you want to copy the configuration from. Choose the latest one<br /><br />
-If there have been no changes since you performed the upgrade and /or make any changes in the configuration and syncs, you do not need to set the Install Configuration option to Yes when activating the new volume. But if you make any changes, it’s better to select Yes when activating the new volume.
+If there have been no changes since you performed the upgrade and /or make any changes in the configuration and syncs, you do not need to set the Install Configuration option to Yes when activating the new volume. But if you make any changes, it’s better to select Yes when activating the new volume.  
   d) Click the boot location containing the newly upgraded software volume  
   e) To restart the system to the specified boot location, click Activate  
   f) To close the confirmation message, click OK  
