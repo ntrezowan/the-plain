@@ -45,18 +45,16 @@ If `Service Check Date` < `License Check Date`, do the following to reactivate t
   c) Select either Automatic or Manual (if F5 cannot reach internet)  
   d) Click Next and it will be reactivated  
 
-3. Check device certificate and renew if necessary;
-
-To check the device certificate, do the following;
-  a) Log in to the Configuration utility
-  b) Navigate to System > Certificate Management > Device Certificate Management > Device Certificate
-
-If you need to renew device certificate, do the following;
-  a) Log in to the Configuration utility
-  b) Navigate to System > Certificate Management > Device Certificate Management > Device Certificate
-  c) Click Import and choose Certificate and Key as Import Type
-  d) Choose both certificate and key
-  e) Click Import
+3. Check device certificate and renew if necessary;  
+To check the device certificate, do the following;  
+  a) Log in to the Configuration utility  
+  b) Navigate to System > Certificate Management > Device Certificate Management > Device Certificate  
+If you need to renew device certificate, do the following;  
+  a) Log in to the Configuration utility  
+  b) Navigate to System > Certificate Management > Device Certificate Management > Device Certificate  
+  c) Click Import and choose Certificate and Key as Import Type  
+  d) Choose both certificate and key  
+  e) Click Import  
 
 4. Do a ConfigSync to sync configuration on both units;
 It is always a better to do a config sync before the upgrade and this way both units will have the latest configuration.
