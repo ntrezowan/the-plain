@@ -248,11 +248,11 @@ Download and install the `heartbeat` package;
 # yum install heartbeat*
 ```
 
-2. Copy `/usr/share/doc/heartbeat-2.1.2` to `/etc/ha.d` directory;
+2. Copy `/usr/share/doc/heartbeat-x.x.x` to `/etc/ha.d` directory;
 ```
-# cp /usr/share/doc/heartbeat-2.1.2/authkeys /etc/ha.d/
-# cp /usr/share/doc/heartbeat-2.1.2/ha.cf /etc/ha.d/
-# cp /usr/share/doc/heartbeat-2.1.2/haresources /etc/ha.d/
+# cp /usr/share/doc/heartbeat-x.x.x/authkeys /etc/ha.d/
+# cp /usr/share/doc/heartbeat-x.x.x/ha.cf /etc/ha.d/
+# cp /usr/share/doc/heartbeat-x.x.x/haresources /etc/ha.d/
 ```
 
 3. Edit `authkeys` file;
@@ -298,13 +298,13 @@ Add the following line:
 otrs 01 192.168.1.100 httpd
 ```
 
-7. Configure httpd for highly enabled apache server;
+7. Configure Apache for high availability;
 ```
 # vi /etc/httpd/conf/httpd.conf
 ```
 Add the following line in httpd.conf;
 ```
-Listen 192.168.1.100:80
+Listen example.com:80
 ```
 
 8. Copy `/etc/httpd/conf/httpd.conf` file from `otrs01` to `otrs02`. Also copy the `/etc/ha.d/` directory from `otrs01` to `otrs02` as both needs to have the same configuration.  
