@@ -10,10 +10,10 @@ keywords: "ipplan, install, centos, apache, mysql"
 
 ___
 
-1. Download [ipplanv4.92a](http://iptrack.sourceforge.net/) and extract at `/var/www/html`;
+1. Download [ipplanvx.xx](http://iptrack.sourceforge.net/) and extract at `/var/www/html`;
 ```
 # cd /var/www/html
-# tar zxvf ipplan-4.92a.tar.gz
+# tar zxvf ipplan-x.xx.tar.gz
 ```
 
 2. Change ownership and permissions of IPplan directory;
@@ -39,7 +39,7 @@ mysql> flush privileges;
 mysql> exit
 ```
 
-6. Change IPplan `config.php` file and insert mysql connection settings:
+6. Change IPplan `config.php` file and modify database connection settings:
 ```
 define("DBF_TYPE", 'maxsql');
 define("DBF_HOST", 'example.com');
@@ -54,7 +54,7 @@ define("DBF_PASSWORD", 'blink182');
 # yum -y install snmpd
 ```
 
-8. IPplan poller uses a custom file to know which IP addresses the scan. Create a text file, `example.txt` and list all the networks you want to scan;
+8. IPplan poller uses a flat file to know which IP addresses the scan. Create a text file, `example.txt` and list all the networks you want to scan;
 ```
 172.16.0.0/16
 192.168.0.0/24
@@ -64,9 +64,9 @@ define("DBF_PASSWORD", 'blink182');
 ```
 # crontab -e
 ```
-Add the following lines in crontab;
+Add the following in crontab;
 ```
-0 9,12,15 * * * php /var/www/html/ipplan/contrib/ipplan-poller.php - hostname -c 1 -f /var/www/html/ipplan/ingane-networks.txt
+0 9,12,15 * * * php /var/www/html/ipplan/contrib/ipplan-poller.php - hostname -c 1 -f /var/www/html/ipplan/example.txt
 ```
 
 10. Configure `snmpd.conf`;
