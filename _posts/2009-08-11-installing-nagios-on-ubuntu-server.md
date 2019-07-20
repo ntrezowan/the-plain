@@ -10,7 +10,7 @@ keywords: "nagios, install, ubuntu, apache, mysql"
 
 ___
 
-#### A. Install dependencies
+### A. Install dependencies
 
 1. Install packages necessary to run Nagios (such as Apache, GCC etc.);
 ```
