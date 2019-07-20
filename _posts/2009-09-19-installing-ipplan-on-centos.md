@@ -10,7 +10,7 @@ keywords: "ipplan, install, centos, apache, mysql"
 
 ___
 
-1. Download [ipplanvx.xx](http://iptrack.sourceforge.net/) and extract at `/var/www/html`;
+1. Download [ipplanx.xx](http://iptrack.sourceforge.net/) and extract at `/var/www/html`;
 ```
 # cd /var/www/html
 # tar zxvf ipplan-x.xx.tar.gz
