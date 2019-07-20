@@ -357,19 +357,19 @@ In this crontab, the backup script will take an automated backup at 12.05 every 
 ___
 
 
-**Sample configuration**
+**Sample OTRS configuration**
 
 Here is a sample configuration after finishing the web installation;
 ```
 SysConfig>Core>SecureMode: Yes
-SysConfig>Core>ProductName: xyz.com
+SysConfig>Core>ProductName: example.com
 SysConfig>Core>Organization: None
 SysConfig>Core>DefaultCharset: utf-8
 SysConfig>Core>NotificationSenderName: Helpdesk Notification
-SysConfig>Core>NotificationSenderEmail: helpdesk@xyz.com
+SysConfig>Core>NotificationSenderEmail: helpdesk@example.com
 SysConfig>Core>Sendmail>SendmailModule: SMTP
-SysConfig>Core>Sendmail>SendmailModule::Host: smtp.xyz.com
-SysConfig>Core>Sendmail>SendmailModule::AuthUser: r@xyz.com
+SysConfig>Core>Sendmail>SendmailModule::Host: smtp.example.com
+SysConfig>Core>Sendmail>SendmailModule::AuthUser: otrs@example.com
 SysConfig>Core>Time>TimeWorkingHours: Manually configured
 SysConfig>Core>Frontend::Agent:Preferences>PreferencesGroups::SpellDict: None
 SysConfig>Core>Frontend::Agent:Preferences>PreferencesGroups::Language: None
