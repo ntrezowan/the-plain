@@ -12,7 +12,7 @@ ___
 
 ### A. Install dependencies
 
-1. Install packages necessary to run Nagios (such as Apache, GCC etc.);
+1. Install packages necessary to run Nagios (e.g. Apache, GCC etc.);
 ```
 # sudo apt-get install apache2
 # sudo apt-get install libapache2-mod-php5
@@ -21,46 +21,46 @@ ___
 # sudo apt-get install libgd2-xpm-dev
 ```
 
-#### B. Create user and group for Nagios
+### B. Create user and group for Nagios
 
-1. Create a new Nagios user and set the password;
+1. Create a new `nagios` user and set the password;
 ```
 # /usr/sbin/useradd -m -s /bin/bash nagios
 # passwd nagios
 ```
 
-2. Create a new Nagios group;
+2. Create a new `nagios` group;
 ```
 # /usr/sbin/groupadd nagios
 ```
 
-3. Make Nagios user as a member of Nagios group;
+3. Make `nagios` user as a member of `nagios` group;
 ```
 # /usr/sbin/usermod -G nagios nagios
 ```
 
-4. Create a new `nagcmd` group for allowing external commands to pass through the web interface. Add both the Nagios user and the Apache user into this group;
+4. Create a new `nagcmd` group for allowing external commands to pass through the web interface. Add both Nagios user and the Apache user into this group;
 ```
 # /usr/sbin/groupadd nagcmd
 # /usr/sbin/usermod -a -G nagcmd nagios
 # /usr/sbin/usermod -a -G nagcmd www-data
 ```
 
-#### C. Install Nagios
+### C. Install Nagios
 
 1. Create a directory and download Nagios;
 ```
 # mkdir ~/downloads
 # cd ~/downloads
-# wget http://prdownloads.sourceforge.net/sourceforge/nagios/nagios-3.2.3.tar.gz
-# wget http://prdownloads.sourceforge.net/sourceforge/nagiosplug/nagios-plugins-1.4.11.tar.gz
+# wget http://prdownloads.sourceforge.net/sourceforge/nagios/nagios-x.x.x.tar.gz
+# wget http://prdownloads.sourceforge.net/sourceforge/nagiosplug/nagios-plugins-x.x.xx.tar.gz
 # cd ~/downloads
 ```
 
 2. Extract Nagios core;
 ```
-# tar xzf nagios-3.x.x.tar.gz
-# cd nagios-3.x.x
+# tar xzf nagios-x.x.x.tar.gz
+# cd nagios-x.x.x
 ```
 
 3. Run Nagios configure script;
@@ -78,7 +78,7 @@ ___
 # vi /usr/local/nagios/etc/objects/contacts.cfg
 ```
 
-5. Install Nagios web config file in apache `conf.d` directory;
+5. Install Nagios web config file in Apache `conf.d` directory;
 ```
 # make install-webconf
 ```
@@ -96,8 +96,8 @@ ___
 8. Extract Nagios plugins;
 ```
 # cd ~/downloads
-# tar xzf nagios-plugins-1.x.xx.tar.gz
-# cd nagios-plugins-1.x.xx/
+# tar xzf nagios-plugins-x.x.xx.tar.gz
+# cd nagios-plugins-x.x.xx/
 ```
 
 9. Compile and install Nagios plugins;
@@ -126,4 +126,4 @@ If there is any error in the output, check your configuration.
 ___
 
 
-Browse to [http://localhost/nagios](http://localhost/nagios) and log in as `nagiosadmin` using password `nagios`.
+Browse to [http://example.com/nagios](http://example.com/nagios) and log in as `nagiosadmin` using password `nagios`.
