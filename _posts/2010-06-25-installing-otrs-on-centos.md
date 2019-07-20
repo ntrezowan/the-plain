@@ -116,7 +116,7 @@ PostMaster.pl syntax OK
 ___
 
 
-### C. Configure Apache
+### C. Install Apache
 
 1. Install Apache with the latest build;
 ```
