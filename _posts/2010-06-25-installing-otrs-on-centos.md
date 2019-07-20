@@ -4,13 +4,13 @@ comments: false
 description: "Installing OTRS on CentOS"
 keywords: "otrs, install, centos, apache, mysql"
 ---
-> Operating System: _CentOS_  
-> Web Server: _Apache_  
-> Database: _MySQL_  
+> Operating System: _CentOS 5_  
+> Web Server: _Apache 2.2_  
+> Database: _MySQL 5.1_  
 
 ___
 
-#### A. Install OTRS
+### A. Install OTRS
 
 1. Download source `tar.gz` or `tar.bz2` file from [OTRS](https://www.otrs.com/) website. Unpack the archive into `/opt` directory and rename the directory from `otrs-2.4.x` to `otrs`;
 ```
@@ -48,7 +48,7 @@ SetPermissions.sh {Home directory of the OTRS user} {OTRS user} {Web server user
 ___
 
 
-#### B. Install Perl modules
+### B. Install Perl modules
 
 1. Use RPM build to install Perl with additional dependencies;
 ```
@@ -115,7 +115,7 @@ PostMaster.pl syntax OK
 
 ___
 
-#### C. Configure Apache
+### C. Configure Apache
 
 1. Install Apache with the latest build;
 ```
@@ -202,7 +202,7 @@ MaxRequestsPerChild 400
 ___
 
 
-#### D. Install MySQL
+### D. Install MySQL
 
 1. Install MySQL as backend database;
 ```
@@ -224,7 +224,7 @@ mysql> FLUSH PRIVILEGES;
 
 ___
 
-#### E. Configure High Availability for PostgreSQL Database
+### E. Configure High Availability for PostgreSQL Database
 
 If you are using PostgreSQL as backend database, then follow below steps to configure high availability for OTRS;
 
@@ -303,7 +303,7 @@ Now start `heartbeat` where `otrs01` will be master and `otrs02` will work as sl
 ___
 
 
-#### F. Finish Web Installation
+### F. Finish Web Installation
 
 Go to [http://192.168.1.100/otrs/installer.pl](http://192.168.1.100/otrs/installer.pl) for post installation with web interface. Leave all parameter unchanged (e.g. root password or database name).
 
