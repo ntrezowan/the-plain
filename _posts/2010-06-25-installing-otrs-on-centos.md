@@ -229,10 +229,10 @@ ___
 
 ### E. Finish Web Installation
 
-Go to [http://192.168.1.100/otrs/installer.pl](http://192.168.1.100/otrs/installer.pl) for post installation with web interface. Leave all parameter unchanged (e.g. root password or database name).
+Browse to [http://example.com/otrs/installer.pl](http://example.com/otrs/installer.pl) for post installation with web interface. Leave all parameter unchanged (e.g. root password or database name).
 
-OTRS Agent URL: [http://192.168.1.100/otrs/index.pl](http://192.168.1.100/otrs/index.pl)  
-OTRS Customer URL: [http://192.168.1.100/otrs/customer.pl](http://192.168.1.100/otrs/customer.pl)
+OTRS Agent URL: [http://example.com/otrs/index.pl](http://example.com/otrs/index.pl)  
+OTRS Customer URL: [http://example.com/otrs/customer.pl](http://example.com/otrs/customer.pl)
 
 ___
 
