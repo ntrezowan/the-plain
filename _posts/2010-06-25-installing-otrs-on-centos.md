@@ -242,7 +242,7 @@ ___
 If you are using PostgreSQL as backend database, the following steps will configure high availability for OTRS;
 
 1. Assign hostname `otrs01` as primary node with IP address `192.168.1.1` to `eth0`. Assign hostname `otrs02` as secondary node with IP address `192.168.1.2` to `eth0`.  
-`example.com` will be used for Apache web server to integrate with HA.  
+`example.com` will be used for Apache web server to integrate with HA.<br>
 Download and install the `heartbeat` package;
 ```
 # yum install heartbeat*
