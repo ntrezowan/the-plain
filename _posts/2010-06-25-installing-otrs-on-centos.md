@@ -226,6 +226,7 @@ mysql> FLUSH PRIVILEGES;
 ___
 
 
+
 ### E. Finish Web Installation
 
 Go to [http://192.168.1.100/otrs/installer.pl](http://192.168.1.100/otrs/installer.pl) for post installation with web interface. Leave all parameter unchanged (e.g. root password or database name).
