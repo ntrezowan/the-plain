@@ -10,13 +10,13 @@ published: true
 
 ___
 
-1. Run the following command as root to load the USB driver;  
+1. Run the following command as `root` to load the USB driver;  
 ```
 # /sbin/modprobe usbserial vendor=0x`
 Product=0x
 ```
 
-2. Now create a new dialer;  
+2. Create a new dialer;  
 ```
 # wvdialconf create
 Scanning your serial ports for a modem.
