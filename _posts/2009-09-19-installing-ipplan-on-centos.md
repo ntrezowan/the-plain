@@ -95,7 +95,7 @@ pass .1.3.6.1.4.1.4413.4.1 /usr/bin/ucd5820stat
 
 ___
 
-Go to [http://example.com/ipplan/admin/install.php](http://example.com/ipplan/admin/install.php) to continue with the web based installation.
+Browse to [http://example.com/ipplan/admin/install.php](http://example.com/ipplan/admin/install.php) to continue with the web based installation.
 
 ___
 
