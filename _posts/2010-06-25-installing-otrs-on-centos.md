@@ -115,6 +115,7 @@ PostMaster.pl syntax OK
 
 ___
 
+
 ### C. Configure Apache
 
 1. Install Apache with the latest build;
@@ -221,6 +222,7 @@ mysql> CREATE DATABASE IF NOT EXISTS 'otrs';
 mysql> GRANT ALL PRIVILEGES ON 'otrs' TO 'otrs';
 mysql> FLUSH PRIVILEGES;
 ```
+
 ___
 
 
@@ -229,9 +231,10 @@ ___
 Go to [http://192.168.1.100/otrs/installer.pl](http://192.168.1.100/otrs/installer.pl) for post installation with web interface. Leave all parameter unchanged (e.g. root password or database name).
 
 OTRS Agent URL: [http://192.168.1.100/otrs/index.pl](http://192.168.1.100/otrs/index.pl)  
-OTRS Customer URL: [http://192.168.1.100/otrs/customer.pl](http://192.168.1.100/otrs/customer.pl)  
+OTRS Customer URL: [http://192.168.1.100/otrs/customer.pl](http://192.168.1.100/otrs/customer.pl)
 
 ___
+
 
 **Configure High Availability for PostgreSQL Database**
 
