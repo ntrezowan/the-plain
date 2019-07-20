@@ -12,17 +12,17 @@ ___
 
 ### A. Install OTRS
 
-1. Download source `tar.gz` or `tar.bz2` file from [OTRS](https://www.otrs.com/) website. Unpack the archive into `/opt` directory and rename the directory from `otrs-2.4.x` to `otrs`;
+1. Download source `tar.gz` or `tar.bz2` file from [OTRS](https://www.otrs.com/) website. Unpack the archive into `/opt` directory and rename the directory from `otrs-x.x.x` to `otrs`;
 ```
-# tar xf /tmp/otrs-2.4.x.tar.gz
-# mv otrs-2.4.-x /opt/otrs
+# tar xf /tmp/otrs-x.x.x.tar.gz
+# mv otrs-x.x.-x /opt/otrs
 ```
-You can also install RPM build in CentOS;
+Alternatively, you can also install RPM build in CentOS;
 ```
-# rpm -ivh --aid --force otrs-2.4.7-01.noarch.rpm --nodeps
+# rpm -ivh --aid --force otrs-x.x.x-xx.noarch.rpm --nodeps
 ```
 
-2. Add an user for OTRS with home directory `/opt/otrs`;
+2. Create `otrs` user with home directory `/opt/otrs`;
 ```
 # useradd -r -d /opt/otrs/ -c 'OTRS' otrs
 # usermod -G nogroup otrs
@@ -122,11 +122,11 @@ ___
 # yum -y install httpd*
 # /etc/init.d/httpd restart
 ```
-Use example configuration file called `conf.d` in `otrs/scripts/` directory that fits for your version of OTRS for the Apache web server, named either `apache2` or `apache2-httpd-new.include.conf`. Check if both of these files have the following lines in common;
+Use example configuration file called in `otrs/scripts/` directory that fits for your version of OTRS for the Apache web server, named either `apache2` or `apache2-httpd-new.include.conf`. Check if both of these files have the following lines in common;
 ```
 LoadModule cgi_module /usr/lib/apache2/modules/mod_cgi.so
 ```
-[Sample `apache2` file]
+[Sample apache2 file]
 ```
 # agent, admin and customer frontend
 ScriptAlias /otrs/ "/opt/otrs/bin/cgi-bin/"
@@ -167,7 +167,7 @@ Allow from all
 # MaxRequestsPerChild (so no apache child will be to big!)
 MaxRequestsPerChild 400
 ```
-[Sample `apache-httpd.include.conf` file]
+[Sample apache-httpd.include.conf file]
 ```
 # agent, admin and customer frontend (mod_alias required!)
 ScriptAlias /otrs/ "/opt/otrs/bin/cgi-bin/"
@@ -210,7 +210,7 @@ ___
 # service mysql restart
 ```
 
-2. Create a database in MySQL to grant access for OTRS system;
+2. Create a database in MySQL for `otrs` user to grant access to OTRS system;
 ```
 # mysql
 mysql> CREATE USER 'otrs' IDETIFIED BY 'otrs';
@@ -221,10 +221,19 @@ mysql> CREATE DATABASE IF NOT EXISTS 'otrs';
 mysql> GRANT ALL PRIVILEGES ON 'otrs' TO 'otrs';
 mysql> FLUSH PRIVILEGES;
 ```
+___
+
+
+### E. Finish Web Installation
+
+Go to [http://192.168.1.100/otrs/installer.pl](http://192.168.1.100/otrs/installer.pl) for post installation with web interface. Leave all parameter unchanged (e.g. root password or database name).
+
+OTRS Agent URL: [http://192.168.1.100/otrs/index.pl](http://192.168.1.100/otrs/index.pl)  
+OTRS Customer URL: [http://192.168.1.100/otrs/customer.pl](http://192.168.1.100/otrs/customer.pl)  
 
 ___
 
-### E. Configure High Availability for PostgreSQL Database
+**Configure High Availability for PostgreSQL Database**
 
 If you are using PostgreSQL as backend database, then follow below steps to configure high availability for OTRS;
 
@@ -302,15 +311,6 @@ Now start `heartbeat` where `otrs01` will be master and `otrs02` will work as sl
 
 ___
 
-
-### F. Finish Web Installation
-
-Go to [http://192.168.1.100/otrs/installer.pl](http://192.168.1.100/otrs/installer.pl) for post installation with web interface. Leave all parameter unchanged (e.g. root password or database name).
-
-OTRS Agent URL: [http://192.168.1.100/otrs/index.pl](http://192.168.1.100/otrs/index.pl)  
-OTRS Customer URL: [http://192.168.1.100/otrs/customer.pl](http://192.168.1.100/otrs/customer.pl)  
-
-___
 
 **Backup OTRS**
 
