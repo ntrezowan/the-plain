@@ -219,6 +219,7 @@ https://support.f5.com/csp/article/K16022
 ### D. Upgrading the units
 
 ---DO-NOT-SYNC---
+
 #### Upgrade F52.example.com (standby unit first)
 1. Force `F52` to offline state  
   a) On the Main menu, click Device Management > Devices  
@@ -365,7 +366,7 @@ The new version of BIG-IP software is installed on `F51`, with all traffic group
 
 ---SYNC-IS-ALLOWED---
 
-# SYNC config and enable Auto failover
+### E. Sync config and enable Auto failover
 
 1. From `F51`, sync configuration with `F51`
   a) Log in to the Configuration utility  
