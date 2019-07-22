@@ -123,7 +123,7 @@ server 127.0.0.1:9000;
 }
 server {
 listen 80;
-server_name your_IP;
+server_name example.com;
 #return 301 https://$server_name$request_uri;
 return 301 https://$server_name;
 }
