@@ -11,7 +11,7 @@ keywords: "sip, elastix, asterisk, nokia, e63, voip"
 
 ___
 
-1. In your phone, go to;  
+1. From your phone, go to;  
 `Menu > Tools > Settings > Connection > SIP Settings`.  
 Choose `Options` and select `Add New`.  
 Select `Use Default Profile`.  
@@ -30,7 +30,7 @@ Register Server: 1.2.3.4          <-  Elastix server IP
 Proxy server address: 5.6.7.8     <-  It will be blank if there is no proxy server
 ```
 
-2. In your phone, go to;  
+2. From your phone, go to;  
 `Menu > Tools > Settings > Connection > Internet Tel. Settings` and choose the newly created SIP configuration (e.g. *VOIP_company_name*).
 
 3. After selecting the name, choose the `SIP Profiles` and press `OK`.
