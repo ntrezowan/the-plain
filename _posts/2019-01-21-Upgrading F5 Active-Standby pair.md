@@ -350,43 +350,43 @@ Check logs to see if there is any `ERROR` or `WARNING`;
 # tail -f /var/log/ltm
 ```
 5. Check `F51` version after reboot  
-  a)Go to System > Configuration > Device > General  
+  a) Go to System > Configuration > Device > General  
   b) Check the version 
 
-7. Force `F51` to standby state
-  a) Release `F51` from offline state
-  b) On the Main menu, click Device Management > Devices
-  c) Click the name of `F51`
-  d) The device properties screen opens
-  e) Click Release Offline
-  f) `F51` changes to standby state
+7. Force `F51` to standby state  
+  a) Release `F51` from offline state  
+  b) On the Main menu, click Device Management > Devices  
+  c) Click the name of `F51`  
+  d) The device properties screen opens  
+  e) Click Release Offline  
+  f) `F51` changes to standby state  
 
 The new version of BIG-IP software is installed on `F51`, with all traffic groups in standby state.
 
 # Do SYNC
 
-1.	From `F51`, sync configuration with `F51`
-a)	Log in to the Configuration utility.
-b)	Navigate to Device Management > Overview.
-c)	For Device Groups, click the name of the device group (device-group-a-failover or datasync-global-dg) you want to synchronize.
-d)	For Devices, click the name of the device from which you want to perform the synchronization action.
-e)	For Sync, click the appropriate synchronization action.
-f)	Click Sync.
+1. From `F51`, sync configuration with `F51`
+  a) Log in to the Configuration utility  
+  b) Navigate to Device Management > Overview  
+  c) For Device Groups, click the name of the device group (device-group-a-failover or datasync-global-dg) you want to synchronize  
+  d) For Devices, click the name of the device from which you want to perform the synchronization action  
+  e) For Sync, click the appropriate synchronization action  
+  f) Click Sync  
 
-2.	Force `F52` to be standby mode
-a)	Login to `F52`
-b)	On the Main menu, click Device Management > Devices .
-c)	Click the name of `F52`.
-d)	The device properties screen opens.
-e)	Click Force to Standby.
-f)	`F52` changes to standby state.
+2. Force `F52` to be standby mode  
+  a) Login to `F52`  
+  b) On the Main menu, click Device Management > Devices  
+  c) Click the name of `F52`  
+  d) The device properties screen opens  
+  e) Click Force to Standby  
+  f) `F52` changes to standby state  
 
-3.	Enable Auto failover and sync
+3. Enable Auto failover and sync  
 Do the following to disable Network failover;
-a)	On the Main menu, Click Device Management > Device Groups.
-b)	Select device-group-a-failover
-c)	Select Advanced from Configuration
-d)	Uncheck Network Failover
-e)	Click Update
+  a) On the Main menu, Click Device Management > Device Groups  
+  b) Select device-group-a-failover  
+  c) Select Advanced from Configuration  
+  d) Uncheck Network Failover  
+  e) Click Update  
 
 Ref: https://support.f5.com/csp/article/K11215
