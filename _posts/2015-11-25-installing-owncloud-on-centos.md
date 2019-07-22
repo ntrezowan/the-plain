@@ -191,7 +191,7 @@ ___
 
 **Customize OwnCloud Footer**
 
-To customize your OwnCloud footer text, change it to the following;  
+To customize your OwnCloud footer, change it to the following;  
 ```
 # vi /usr/share/nginx/html/owncloud/lib/private/defaults.php
 [Sample output]
