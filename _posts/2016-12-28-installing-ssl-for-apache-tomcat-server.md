@@ -111,17 +111,22 @@ C:\Program Files\Apache Tomcat\conf\SSL\>C:\Program Files\Java\jre\bin\keytool -
 
 1. Obtain the root certificate from CA and then import it to the `cacerts` keystore file located in `C:\Program Files\Java\jre\lib\security\` folder.
 
-1. To install a root CA certificate, copy the root certificate to `C:\Users\Administrator\Desktop\` folder and save as `root.cer`. Run the following command to import the certificate;
+2. To install a root CA certificate, copy the root certificate to `C:\Users\Administrator\Desktop\` folder and save as `root.cer`. Run the following command to import the certificate;
 ```
 C:\Program Files\Java\jre\lib\security\>C:\Program Files\Java\jre\bin\keytool -import -trustcacerts -alias rootca -file C:\Users\Administrator\Desktop\root.cer -keystore cacerts
 Enter keystore password:
 ```
 Here the `cacerts` keystore password is `changeit` (Default).
 
-2. To view all the root certificate, run the following command;
+3. To view all the root certificate, run the following command;
 ```
 C:\Program Files\Java\jre\lib\security\>C:\Program Files\Java\jre\bin\keytool -list -v -keystore cacerts
 Enter keystore password:
+```
+
+4. If you want to add an intermediate to `cacerts`, run the following to add the intermediate (assuming intermediate.cer is in `C:\Users\Administrator\Desktop\`);
+```
+C:\Program Files\Java\jre\lib\security\>C:\Program Files\Java\jre\bin\keytool -import -alias intermediate -file C:\Users\Administrator\Desktop\intermediate.cer -keystore cacerts
 ```
 
 ---
@@ -175,7 +180,7 @@ Certificate was added to keystore
 
 5. Verify that intermediate certificate is imported correctly;
 ```
-# /usr/bin/java/keytool -list -v -alias intermediate -keystore /opt/tomcat/conf/certs/example.com.jks
+# /usr/bin/java/keytool -list -v -alias intermediate -keystore /opt/tomcat/conf/certs/example.com.jks | more
 ```
 
 6. Import site certificate (example.com) to the keystore;
@@ -187,7 +192,7 @@ Certificate reply was installed in keystore
 
 7. Verify that site certificate is imported correctly;
 ```
-# /usr/bin/java/keytool -list -v -alias example.com -keystore /opt/tomcat/conf/certs/example.com.jks
+# /usr/bin/java/keytool -list -v -alias example.com -keystore /opt/tomcat/conf/certs/example.com.jks | more
 ```
 
 8. Open `server.xml` file located at `/opt/tomcat/conf/` and look for `keystoreFile` string. Modify it to the following;
