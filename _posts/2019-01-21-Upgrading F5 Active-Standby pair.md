@@ -363,7 +363,9 @@ Check logs to see if there is any `ERROR` or `WARNING`;
 
 The new version of BIG-IP software is installed on `F51`, with all traffic groups in standby state.
 
-# Do SYNC
+---SYNC-IS-ALLOWED---
+
+# SYNC config and enable Auto failover
 
 1. From `F51`, sync configuration with `F51`
   a) Log in to the Configuration utility  
