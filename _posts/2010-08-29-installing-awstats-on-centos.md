@@ -5,9 +5,9 @@ description: "Installing AWStats on CentOS"
 keywords: "awstats, install, centos, apache, mysql"
 published: true
 ---
-> Operating System: _CentOS_  
-> Web Server: _Apache_  
-> Database: _MySQL_  
+> Operating System: _CentOS 5_  
+> Web Server: _Apache 2.2_  
+> Database: _MySQL 5.1_  
 
 ___
 
