@@ -214,11 +214,11 @@ Do the following to disable Auto failover in v12 or below;
 
 ### C. Open a proactive service request with F5 Technical Support
 Proactive service requests provide F5 Technical Support advance notice of your maintenance window to save time in case a problem arises that requires F5 Technical Support assistance. Here is more on this;
-https://support.f5.com/csp/article/K16022
-
-### D. Upgrading the units
+https://support.f5.com/csp/article/K16022  
 
 ---DO-NOT-SYNC---
+
+### D. Upgrading the units
 
 #### Upgrade F52.example.com (standby unit first)
 1. Force `F52` to offline state  
@@ -362,7 +362,7 @@ Check logs to see if there is any `ERROR` or `WARNING`;
   e) Click Release Offline  
   f) `F51` changes to standby state  
 
-The new version of BIG-IP software is installed on `F51`, with all traffic groups in standby state.
+The new version of BIG-IP software is installed on `F51`, with all traffic groups in standby state.  
 
 ---SYNC-IS-ALLOWED---
 
