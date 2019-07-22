@@ -306,13 +306,11 @@ Confirm that the expected objects are present and compare with `F51`
 #### Upgrade F51.example.com  
 
 1.	Force `F51` to offline state
-
-a)	On the Main menu, click Device Management > Devices .
-b)	Click the name of `F51`.
-c)	The device properties screen opens.
-d)	Click Force Offline.
-e)	`F51` changes to offline state.
-
+  a)	On the Main menu, click Device Management > Devices
+  b)	Click the name of `F51`
+  c)	The device properties screen opens
+  d)	Click Force Offline
+  e)	`F51` changes to offline state<br /><br />
 Once `F51` changes to offline state, ensure that traffic passes normally for all active traffic groups on the other devices.
 2. Restart mcpd and then reboot. This will force F5 to recompile the configuration and load it into memory
 ```
@@ -333,7 +331,6 @@ Check logs to see if there is any `ERROR` or `WARNING`;
   e) Select an empty volume set from the Volume Set Name menu, or type a new volume set name. Volumes are named as HD1.1, HD1.2, HD1.3 etc, so to create a new volume, type “3” and it will create HD1.3 and install the image there  
   f) Click Install  
   g) To see the installation progress, view the Install Status column of the Installed Images section of the page  
-
 4. Reboot to the newly upgraded software volume  
   a) Log in to the Configuration utility with administrative privileges  
   b) Navigate to System > Software Management > Boot Locations  
@@ -355,17 +352,16 @@ If there have been no changes since you performed the upgrade and /or make any c
 # tail -f /var/log/ltm
 ```
 5. Check `F51` version after reboot  
-  a) Go to System > Configuration > Device > General  
+  a)Go to System > Configuration > Device > General  
   b) Check the version 
 
-7.	Force `F51` to standby state
-
-a)	Release `F51` from offline state.
-b)	On the Main menu, click Device Management > Devices .
-c)	Click the name of `F51`.
-d)	The device properties screen opens.
-e)	Click Release Offline.
-f)	`F51` changes to standby state.
+7. Force `F51` to standby state
+  a) Release `F51` from offline state
+  b) On the Main menu, click Device Management > Devices
+  c) Click the name of `F51`
+  d) The device properties screen opens
+  e) Click Release Offline
+  f) `F51` changes to standby state
 
 The new version of BIG-IP software is installed on `F51`, with all traffic groups in standby state.
 
