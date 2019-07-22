@@ -368,7 +368,7 @@ The new version of BIG-IP software is installed on `F51`, with all traffic group
 
 ### E. Sync config and enable Auto failover
 
-1. From `F51`, sync configuration with `F51`
+1. From `F51`, sync configuration with `F51`  
   a) Log in to the Configuration utility  
   b) Navigate to Device Management > Overview  
   c) For Device Groups, click the name of the device group (device-group-a-failover or datasync-global-dg) you want to synchronize  
