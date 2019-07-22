@@ -216,7 +216,7 @@ Do the following to disable Auto failover in v12 or below;
 Proactive service requests provide F5 Technical Support advance notice of your maintenance window to save time in case a problem arises that requires F5 Technical Support assistance. Here is more on this;
 https://support.f5.com/csp/article/K16022  
 
----DO-NOT-SYNC---
+---DO-NOT-SYNC-UNTIL-SECTION-D-IS-COMPLETED---
 
 ### D. Upgrading the units
 
