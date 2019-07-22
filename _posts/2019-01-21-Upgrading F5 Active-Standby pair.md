@@ -284,7 +284,6 @@ The new version of BIG-IP software is installed on `F52`, with all traffic group
 #### Make F52.example.com the active load balancer
  	
 1. Force `F51` to standby state
-
   a)	Login to `F51`
   b)	On the Main menu, click Device Management > Devices
   c)	Click the name of `F51`
