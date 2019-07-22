@@ -1,0 +1,41 @@
+---
+layout: post
+title: "Configure SIP phone for Elastix PBX"
+comments: false
+description: "Configure SIP phone for Elastix PBX"
+keywords: "sip, elastix, asterisk, nokia, e63, voip"
+---
+
+> VoIP: _Elastix PBX_  
+> Phone: _Nokia E63_    
+
+___
+
+1. From your phone, go to -  
+`Menu > Tools > Settings > Connection > SIP Settings`.  
+Choose `Options` and select `Add New`.  
+Select `Use Default Profile`.  
+```
+[Sample configuration - Change only the following settings in the profile while leaving others as default]
+Profile Name: VOIP_company_name
+Public Username: xxx@4.5.6.7      <-  xxx - IP phone extension; 4.5.6.7 - Asterisk server IP
+Proxy Server: 8.9.10.11           <-  if any, then use the Proxy server IP; otherwise leave it blank
+Realm: password
+Username: your_name
+Password: your_password
+Allow loose routing: Yes
+Transport Type: UDP
+Port: 5060
+Register Server: 4.5.6.7          <-  Asterisk server IP
+Proxy server address: 8.9.10.11   <-  if any, then use the Proxy server IP; otherwise leave it blank
+```
+
+2. Again from your phone, go to -  
+`Menu > Tools > Settings > Connection > Internet Tel. Settings` and choose the newly created SIP configuration (e.g. *VOIP_company_name*).
+
+3. After selecting the name, choose the `SIP Profiles` and press `OK`.
+
+4. To check your SIP status, go to -  
+`Menu > Connect > Internet Tel. Registration Status`.  
+You should see the name in the list and it will show as `Not Registered`.  
+Press `OK` and soon your phone will registered with the Asterisk server.
