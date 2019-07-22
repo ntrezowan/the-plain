@@ -4,7 +4,7 @@ comments: false
 description: "Installing SSL for Apache Tomcat Server"
 keywords: "ssl, certificate, install, java, keytool, windows, apache, tomcat, linux, unix"
 ---
-## 1. Windows
+## Windows
 
 Java Keytool location: `C:\Program Files\Java\jre\bin\`  
 Tomcat config location: `C:\Program Files\Apache Tomcat\conf\`  
@@ -126,7 +126,7 @@ Enter keystore password:
 
 ---
 
-## 2. Red Hat
+## Red Hat Enterprise Linux
 Java Keytool location: `/usr/bin/java`  
 Tomcat config location: `/opt/tomcat/conf`  
 Tomcat keystore location: `/opt/tomcat/conf/certs`
