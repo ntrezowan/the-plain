@@ -11,7 +11,7 @@ Tomcat config location: `C:\Program Files\Apache Tomcat\conf\`
 Tomcat keystore location: `C:\Program Files\Apache Tomcat\conf\SSL\`
 
 
-### A. Creating new keystore to install a new certificate
+### A. Create new keystore to install a new certificate
 
 1. Open Command Prompt as Administrator and create new keystore (SHA-2) in the Tomcat keystore folder;  
 ```
@@ -80,7 +80,7 @@ keystoreFile="conf/SSL/keystore-example.com.jks"
 10. Verify the changes by visiting hosted site's certificate.
 
 
-### B. Renewing license for an existing keystore
+### B. Renew license for an existing keystore
 
 
 1. Take a backup of the current site certificate;
@@ -106,7 +106,7 @@ C:\Program Files\Apache Tomcat\conf\SSL\>C:\Program Files\Java\jre\bin\keytool -
 5. Verify the changes by visiting hosted site's certificate.
 
 
-### C. Installing root certificate
+### C. Install root certificate
 
 
 1. Obtain the root certificate from CA and then import it to the `cacerts` keystore file located in `C:\Program Files\Java\jre\lib\security\` folder.
@@ -131,7 +131,7 @@ Java Keytool location: `/usr/bin/java`
 Tomcat config location: `/opt/tomcat/conf`  
 Tomcat keystore location: `/opt/tomcat/conf/certs`
 
-### A. Creating new keystore to install a new certificate
+### A. Create new keystore to install a new certificate
 
 1. Login to the server and create new keystore (SHA-2) in the Tomcat keystore folder;  
 ```
@@ -200,7 +200,7 @@ keystoreFile="conf/certs/example.com.jks"
 10. Verify the changes by visiting hosted site's certificate.
 
 
-### B. Creating keystore from existing certficate and key
+### B. Create keystore from existing certficate and key
 
 1. Generate the CSR from from your machine and obtain the certificate from CA. Transfer both `example.com.crt` and `example.com.key` file to `/opt/tomcat/conf/certs/`.
 
