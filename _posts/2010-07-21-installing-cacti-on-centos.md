@@ -4,13 +4,13 @@ comments: false
 description: "Installing Cacti on CentOS"
 keywords: "cacti, install, centos, apache, mysql"
 ---
-> Operating System: _CentOS_  
-> Web Server: _Apache_  
-> Database: _MySQL_  
+> Operating System: _CentOS 5_  
+> Web Server: _Apache 2.2_  
+> Database: _MySQL 5.1_  
 
 ___
 
-#### A. Installing prerequisites
+### A. Install prerequisites
 
 1. Define a repo for [dag.wieers.org](http://www.blogger.com/dag.wieers.org) to install Cacti dependencies;
 ```
@@ -37,12 +37,12 @@ enabled=1
 
 ___
 
-#### B. Install Cacti
+### B. Install Cacti
 
 1. Download [Cacti](http://www.cacti.net), extract and move to `/var/www/html/`;
 ```
-# tar xzvf cacti-0.8.7e.tar.gz
-# mv cacti-0.8.7e cacti
+# tar xzvf cacti-x.x.xx.tar.gz
+# mv cacti-x.x.xx cacti
 # mv cacti /var/www/html
 ```
 
@@ -61,7 +61,7 @@ ___
 
 4. Create a MySQL database for Cacti called `cacti`;
 ```
-# mysqladmin --user=root --password=123456 create cacti
+# mysqladmin --user=root --password=blink182 create cacti
 ```
 
 5. Go to `/var/www/html/cacti`, and use `cacti.sql` to create tables for the database;
@@ -99,7 +99,7 @@ memory_limit = 128M
 
 ___
 
-#### C. Install SNMP
+### C. Install SNMP
 
 1. Insall SNMP using the following command;
 ```
@@ -125,7 +125,7 @@ pass .1.3.6.1.4.1.4413.4.1 /usr/bin/ucd5820stat
 
 ___
 
-#### D. Configure Apache for Cacti
+### D. Configure Apache for Cacti
 
 1. Open `/etc/httpd/conf.d/cacti.conf` file;
 ```
@@ -137,7 +137,7 @@ Alias /cacti /usr/share/cacti
 < Directory /usr/share/cacti/>
 Order Deny,Allow
 Deny from all
-Allow from 172.0.0.0/8
+Allow from x.x.x.x/xx
 < /Directory>
 ```
 
@@ -150,7 +150,7 @@ The following line should be included in the crontab;
 */5 * * * * cacti /usr/bin/php /usr/share/cacti/poller.php > /dev/null 2>&1
 ```
 
-3. Now restart all the deamons;
+3. Restart all the services;
 ```
 # service httpd restart
 # service mysqld restart
@@ -158,6 +158,11 @@ The following line should be included in the crontab;
 ```
 
 ___
+
+Browse to [http://example.com/cacti](http://example.com/cacti) and log in as `admin` using password `admin`.
+
+___
+
 
 **Backup Cacti database**
 
@@ -194,7 +199,3 @@ To restore Cacti rrd data;
 # cp *.rrd /var/lib/cacti/rra/
 # chown www-data:www-data /var/lib/cacti/rra/*.rrd
 ```
-
-___
-
-Browse to [http://localhost/cacti](http://localhost/cacti) and log in as `admin` using password `admin`.
