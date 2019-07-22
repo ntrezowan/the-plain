@@ -284,20 +284,20 @@ The new version of BIG-IP software is installed on `F52`, with all traffic group
 #### Make F52.example.com the active load balancer
  	
 1. Force `F51` to standby state  
-  a) Login to `F51`
-  b) On the Main menu, click Device Management > Devices
-  c) Click the name of `F51`
-  d) The device properties screen opens
-  e) Click Force to Standby
+  a) Login to `F51`  
+  b) On the Main menu, click Device Management > Devices  
+  c) Click the name of `F51`  
+  d) The device properties screen opens  
+  e) Click Force to Standby  
   f) `F51` changes to standby state<br /><br />
 Once `F51` changes to offline state, ensure that traffic passes normally for all active traffic groups on `F52`.
 2. Verify that `F52` is the active load balancer
 3. Verify expected objects appear in the shared and non-shared portions of the configuration.
-  a) To verify that the expected objects appear in the shared and non-shared portions of the configuration, navigate to Local Traffic > Pools.
+  a) To verify that the expected objects appear in the shared and non-shared portions of the configuration, navigate to Local Traffic > Pools.  
 Confirm that the expected objects are present and compare with `F51`.
-  b) Navigate to Network > VLANs.
+  b) Navigate to Network > VLANs.  
 Confirm that the expected objects are present and compare with `F51`
-  c) Go to iApps, open a VIP and go to Reconfigure to see if everything is loading properly.
+  c) Go to iApps, open a VIP and go to Reconfigure to see if everything is loading properly.  
 4. Check the most recent logs (/var/log/ltm for example) for obvious signs of issues like repeating messages. Comparing logs to the active unit or to the logs prior to the upgrade can be helpful. 
 5. Check SSL with SSLLabs
 6. Generate a qkview and review it in the iHealth Diagnostics section for currently known issues.
@@ -306,10 +306,10 @@ Confirm that the expected objects are present and compare with `F51`
 #### Upgrade F51.example.com  
 
 1. Force `F51` to offline state  
-  a) On the Main menu, click Device Management > Devices
-  b) Click the name of `F51`
-  c) The device properties screen opens
-  d) Click Force Offline
+  a) On the Main menu, click Device Management > Devices  
+  b) Click the name of `F51`  
+  c) The device properties screen opens  
+  d) Click Force Offline  
   e) `F51` changes to offline state<br /><br />
 Once `F51` changes to offline state, ensure that traffic passes normally for all active traffic groups on the other devices.
 2. Restart mcpd and then reboot. This will force F5 to recompile the configuration and load it into memory
