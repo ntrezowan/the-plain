@@ -4,18 +4,17 @@ comments: false
 description: "Installing OwnCloud on CentOS"
 keywords: "owncloud, install, centos, nginx, mariadb"
 ---
-> Operating System: _CentOS-7 64-bit_  
-> Web Server: _Nginx v1.8.0_  
-> Database: _MariaDB v5.5.44_  
-> PHP: _FastCGI-PM v5.4.16_  
-> VM: _vSphere ESXi 5.5_  
+> Operating System: _CentOS 7_  
+> Web Server: _Nginx 1.8.0_  
+> Database: _MariaDB 5.5.44_  
+> PHP: _FastCGI-PM 5.4.16_  
   
 ___
 
-1. Import web server (Nginx) repository;  
+1. Import Nginx repository;  
 ```
 # yum -y install epel-release
-# rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+# rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-x-0.elx.ngx.noarch.rpm
 ```
 
 2. Install web server, database and other dependencies;  
@@ -80,7 +79,7 @@ php_value[session.save_path] = /var/lib/php/session
 ```
 # printenv PATH
 ```
-The printenv PATH output is required to verify if php-fpm can have access to all the env[PATH]. If "env[PATH]" and "printenv PATH" are different, then define those paths.
+The printenv PATH output is required to verify if php-fpm can have access to all the `env[PATH]`. If `env[PATH]` and `printenv PATH` are different, then define those paths.
 
 9. Create self-signed SSL certification with default configuration;  
 ```
@@ -98,8 +97,8 @@ This crt/key is only valid for one year.
 10. Download OwnCloud [source](https://github.com/owncloud), extracting the tar.bz2 in `/tmp` and then move it into Nginx html folder;  
 ```
 # cd /tmp/
-# wget https://download.owncloud.org/community/owncloud-8.2.1.tar.bz2
-# tar -xjvf owncloud-8.2.1.tar.bz2
+# wget https://download.owncloud.org/community/owncloud-x.x.x.tar.bz2
+# tar -xjvf owncloud-x.x.x.tar.bz2
 # mv owncloud/ /usr/share/nginx/html/
 # cd /usr/share/nginx/html/
 # chown nginx:nginx -R owncloud/
@@ -130,7 +129,7 @@ return 301 https://$server_name;
 }
 server {
 listen 443 ssl;
-server_name your_IP/your_FQDN;
+server_name example.com;
 #SSL Certificate
 ssl_certificate /etc/nginx/cert/owncloud.crt;
 ssl_certificate_key /etc/nginx/cert/owncloud.key;
@@ -186,7 +185,7 @@ access_log off;
 
 ___
 
-Browse to [https://your_IP/](https://your_IP/) and log in as `admin` using password `admin`.
+Browse to [https://example.com/](https://example.com) and log in as `admin` using password `admin`.
 
 ___
 
