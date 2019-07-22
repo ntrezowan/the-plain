@@ -291,9 +291,7 @@ The new version of BIG-IP software is installed on `F52`, with all traffic group
   d)	The device properties screen opens
   e)	Click Force to Standby
   f)	`F51` changes to standby state<br /><br />
-
 Once `F51` changes to offline state, ensure that traffic passes normally for all active traffic groups on `F52`.
-
 2. Verify that `F52` is the active load balancer
 3. Verify expected objects appear in the shared and non-shared portions of the configuration.
   a)	To verify that the expected objects appear in the shared and non-shared portions of the configuration, navigate to Local Traffic > Pools.
