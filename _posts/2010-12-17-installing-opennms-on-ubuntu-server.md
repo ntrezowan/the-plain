@@ -4,13 +4,13 @@ comments: false
 description: "Installing OpenNMS on Ubuntu Server"
 keywords: "opennms, install, ubuntu, postgresql"
 ---
-> Operating System: _Ubuntu Server_  
-> Web Server: _Apache_  
-> Database: _PostgreSQL_  
+> Operating System: _Ubuntu Server 8.04_  
+> Web Server: _Apache 2.2_  
+> Database: _PostgreSQL 8.4_  
 
 ___
 
-#### A. Adding OpenNMS repository
+### A. Add OpenNMS repository
 
 1. Add the repository from `/etc/apt/sources.list.d`;
 ```
@@ -34,7 +34,7 @@ Add OpenNMS PGP key;
 ___
 
 
-#### B. Installing and configuring OpenNMS
+### B. Install and configuring OpenNMS
 
 1. Install OpenNMS;
 ```
@@ -44,7 +44,7 @@ It will install OpenNMS along with PostgreSQL database.
 
 2. Edit `pg_hba.conf` to grant permission to `postgres` user to have access to the database without password;
 ```
-# cd /etc/postgresql/8.4/main/
+# cd /etc/postgresql/x.x/main/
 # nano pg_hba.conf
 ```
 Add the following lines;
@@ -80,7 +80,7 @@ max_connections = 100
 
 ___
 
-#### C. Installing IPLIKE
+### C. Install IPLIKE
 
 1. Install IPLIKE as `postgres` user, to do so we need to create a postgres system account;
 ```
@@ -93,7 +93,7 @@ ___
 2. Setting up Java environment;
 ```
 # sudo /usr/share/opennms/bin/runjava -s
-# sudo /usr/share/opennms/bin/runjava -S /usr/java/jdk1.5.0_12/bin/java
+# sudo /usr/share/opennms/bin/runjava -S /usr/java/jdkx.x.x_xx/bin/java
 ```
 
 3. Run OpenNMS installer;
