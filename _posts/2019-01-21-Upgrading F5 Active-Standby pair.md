@@ -221,6 +221,7 @@ Proactive service requests provide F5 Technical Support advance notice of your m
 https://support.f5.com/csp/article/K16022
 
 ---
+
 ---DO-NOT-SYNC-UNTIL-SECTION-D-IS-COMPLETED---
 
 ### D. Upgrading the units
@@ -368,6 +369,8 @@ Check logs to see if there is any `ERROR` or `WARNING`;
   f) `F51` changes to standby state  
 
 The new version of BIG-IP software is installed on `F51`, with all traffic groups in standby state.  
+
+---
 
 ---SYNC-IS-ALLOWED---
 
