@@ -199,7 +199,7 @@ There were warnings:
 SSLv2 is no longer supported and has been removed. The 'sslv2' keyword in the cipher string of the ssl profile (/Common/clientssl-test) has been ignored.
 SSLv2 is no longer supported and has been removed. The 'sslv2' keyword in the cipher string of the ssl profile (/Common/serverssl-test) has been ignored.
 ```
-Fix the issues before you go forward with upgrading F5. `WARNING` can be ignored but not suggested.<br /><br />
+Fix the issues before you go forward with upgrading F5. `WARNING` can be ignored but not suggested.
 
 2. Turn off Auto-Failover;  
 To turn off Auto-Failback on both F5 before upgrade to prevent active-active condition, do the following in v13 or above;
