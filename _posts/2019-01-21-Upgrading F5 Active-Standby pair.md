@@ -284,7 +284,7 @@ Check logs to see if there is any `ERROR` or `WARNING`;
     c) Click the name of Device `F52`  
     d) Click Release Offline  
     e) `F52` changes to standby state<br /><br />
-The new version of BIG-IP software is installed on `F52`, with all traffic groups in standby state.
+The new version of BIG-IP software is installed on `F52`, with all traffic groups in standby state
 
 #### Make F52.example.com the active load balancer
  	
@@ -372,7 +372,7 @@ Check logs to see if there is any `ERROR` or `WARNING`;
     c) Click the name of Device `F51`  
     d) Click Release Offline  
     e) `F51` changes to standby state<br /><br />
-The new version of BIG-IP software is installed on `F51`, with all traffic groups in standby state.
+The new version of BIG-IP software is installed on `F51`, with all traffic groups in standby state
 
 #### Make F51.example.com the active load balancer
  	
@@ -399,7 +399,7 @@ Confirm that the expected objects are present and compare with `F52`
 
 6. Generate a qkview and review it in the iHealth Diagnostics section for currently known issues  
 
-7. Contact teams to begin application testing. 
+7. Contact teams to begin application testing 
 
 ---
 
@@ -407,7 +407,8 @@ Confirm that the expected objects are present and compare with `F52`
 
 ### E. Sync config and enable Auto-Failback
 
-1. From `F51`, sync configuration with `F51`  
+1. Do a config sync;  
+Sync the configuration from `F51` to `F52`;
   a) Log in to the Configuration utility  
   b) Navigate to Device Management > Overview  
   c) For Device Groups, click the name of the device group (device-group-a-failover or datasync-global-dg) you want to synchronize  
@@ -415,20 +416,19 @@ Confirm that the expected objects are present and compare with `F52`
   e) For Sync, click the appropriate synchronization action  
   f) Click Sync  
 
-2. Force `F52` to be standby mode  
-  a) Login to `F52`  
-  b) On the Main menu, click Device Management > Devices  
-  c) Click the name of `F52`  
-  d) The device properties screen opens  
-  e) Click Force to Standby  
-  f) `F52` changes to standby state  
-
-3. Enable Auto failover and sync  
-Do the following to disable Network failover;
+2. Enable Auto-failback;  
+Do the following to disable Network failover;  
   a) On the Main menu, Click Device Management > Device Groups  
   b) Select device-group-a-failover  
   c) Select Advanced from Configuration  
   d) Uncheck Network Failover  
   e) Click Update  
+
+---
+
+### Backing out software upgrade
+
+
+
 
 Ref: https://support.f5.com/csp/article/K11215
