@@ -374,11 +374,38 @@ Check logs to see if there is any `ERROR` or `WARNING`;
     e) `F51` changes to standby state<br /><br />
 The new version of BIG-IP software is installed on `F51`, with all traffic groups in standby state.
 
+#### Make F51.example.com the active load balancer
+ 	
+1. Force `F52` to standby state;  
+    a) Login to `F52`  
+    b) On the Main menu, click Device Management > Devices  
+    c) Click the name of `F52`  
+    d) Click Force to Standby  
+    e) `F52` changes to standby state<br /><br />
+Once `F52` changes to offline state, ensure that traffic passes normally for all active traffic groups on `F51`  
+
+2. Verify that `F51` is the active load balancer  
+
+3. Verify expected objects appear in the shared and non-shared portions of the configuration;  
+    a) To verify that the expected objects appear in the shared and non-shared portions of the configuration, navigate to Local Traffic > Pools  
+Confirm that the expected objects are present and compare with `F52`  
+    b) Navigate to Network > VLANs  
+Confirm that the expected objects are present and compare with `F52`  
+    c) Go to iApps, open a VIP and go to Reconfigure to see if everything is loading properly  
+    
+4. Check the most recent logs (/var/log/ltm for example) for obvious signs of issues like repeating messages. Comparing logs to the active unit or to the logs prior to the upgrade can be helpful  
+
+5. Check SSL with SSLLabs  
+
+6. Generate a qkview and review it in the iHealth Diagnostics section for currently known issues  
+
+7. Contact teams to begin application testing. 
+
 ---
 
 ---CONFIG-SYNC-IS-ALLOWED---
 
-### E. Sync config and enable Auto failover
+### E. Sync config and enable Auto-Failback
 
 1. From `F51`, sync configuration with `F51`  
   a) Log in to the Configuration utility  
