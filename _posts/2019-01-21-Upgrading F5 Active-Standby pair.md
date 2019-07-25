@@ -257,19 +257,19 @@ Check logs to see if there is any `ERROR` or `WARNING`;
 4. Reboot to the newly upgraded software volume;  
     a) Log in to the Configuration utility with administrative privileges  
     b) Navigate to System > Software Management > Boot Locations  
-    c) If you select Install Configuration to Yes, it will ask from where you want to copy the configuration from. Choose the latest one. If there have been no changes since you performed the upgrade and /or make any changes in the configuration and syncs, you do not need to set the Install Configuration option to Yes when activating the new volume. But if you make any changes, it’s better to select Yes when activating the new volume.  
+    c) If you select Install Configuration to Yes, it will ask from where you want to copy the configuration from. Choose the latest one. If there have been no changes since you performed the upgrade and /or make any changes in the configuration and syncs, you do not need to set the Install Configuration option to Yes when activating the new volume. But if you make any changes, it’s better to select Yes when activating the new volume  
     d) Click the boot location containing the newly upgraded software volume  
     e) To restart the system to the specified boot location, click Activate  
-    f) To close the confirmation message, click OK  
-    g) Check which boot location is loaded after reboot  
+    f) To close the confirmation message, click OK. At this point, BIG-IP will reboots automatically  
+    g) Check which boot location is loaded after reboot;  
 ```
 # watch tmsh show sys software
 ```
-    h) Also check if installation fails  
+    h) Check if installation fails;  
 ```
 # tail -f/var/log/liveinstall.log
 ```
-    i) Check LTM logs  
+    i) Check LTM logs;  
 ```
 # tail -f /var/log/ltm
 ```
@@ -281,9 +281,8 @@ Check logs to see if there is any `ERROR` or `WARNING`;
     a) Release Device `F52` from offline state  
     b) On the Main menu, click Device Management > Devices  
     c) Click the name of Device `F52`  
-    d) The device properties screen opens  
-    e) Click Release Offline  
-    f) `F52` changes to standby state  
+    d) Click Release Offline  
+    e) `F52` changes to standby state  
 The new version of BIG-IP software is installed on `F52`, with all traffic groups in standby state.
 
 #### Make F52.example.com the active load balancer
