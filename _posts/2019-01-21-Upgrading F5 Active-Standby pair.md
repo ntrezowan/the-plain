@@ -260,7 +260,8 @@ Check logs to see if there is any `ERROR` or `WARNING`;
     c) If you select Install Configuration to Yes, it will ask from where you want to copy the configuration from. Choose the latest one. If there have been no changes since you performed the upgrade and /or make any changes in the configuration and syncs, you do not need to set the Install Configuration option to Yes when activating the new volume. But if you make any changes, it’s better to select Yes when activating the new volume  
     d) Click the boot location containing the newly upgraded software volume  
     e) To restart the system to the specified boot location, click Activate  
-    f) To close the confirmation message, click OK. At this point, BIG-IP will reboots automatically  
+    f) To close the confirmation message, click OK. At this point, BIG-IP will reboots automatically
+
 5. Check which boot location is loaded after reboot;  
 ```
 # watch tmsh show sys software
