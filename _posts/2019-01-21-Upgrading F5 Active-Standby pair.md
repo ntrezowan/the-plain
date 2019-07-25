@@ -25,7 +25,7 @@ HD1.2    BIG-IP  13.1.0.7  0.0.1      no  complete
 HD1.3    BIG-IP  13.1.1.3  0.0.1      yes complete
 ```
 From the output, look for the partition which is Active and then you will find the `Version`. Here the version is `13.1.1.3`.
-2. Verify license and renew if necessary;<br /><br />
+2. Verify license and renew if necessary;  
 BIG-IP license is stored at `/config/bigip.license` and it has two dates; `Licensed date` and `Service check date`.<br /><br />
 `Licensed date` will show the date when you used your Registration Key for the first time to license your BIG-IP system. To find `Licensed date`, run the following;
 ```
@@ -78,19 +78,19 @@ After download the file from F5, upload it to https://ihealth.f5.com/ and then g
 For example, here is one advise that iHealth provided when we are upgrading from `12.1.3.4` to `13.1.1.3`;  
 TMOS vulnerability: Password changes for local users may not be preserved unless the configuration is explicitly saved (K37250780)  
 
-6. Create a backup of the config file;<br /><br />
+6. Create a backup of the config file;  
 It is always good to have a backup of the config file before upgrade. This way, we can quickly restore F5 to previous stable state if there is any issues during upgrade.<br /><br />
 To create UCS file, do the following;
-  a) Log in to the Configuration utility  
-  b) Navigate to System > Archives  
-  c) To initiate the process of creating a new UCS archive, click Create  
-  d) In the File Name box, type a name for the file  
-  e) To create the UCS archive file, click Finished  
-  f) When the system completes the backup process, examine the status page for any reported errors before proceeding to the next step  
-  g) To return to the Archive List page, click OK  
-  h) Copy the .ucs file to a secure file system (i.e. shared NFS)
+    a) Log in to the Configuration utility  
+    b) Navigate to System > Archives  
+    c) To initiate the process of creating a new UCS archive, click Create  
+    d) In the File Name box, type a name for the file  
+    e) To create the UCS archive file, click Finished  
+    f) When the system completes the backup process, examine the status page for any reported errors before proceeding to the next step  
+    g) To return to the Archive List page, click OK  
+    h) Copy the .ucs file to a secure file system (i.e. to a shared NFS)
 
-7. Verify volume formatting scheme;<br /><br />
+7. Verify volume formatting scheme;  
 Run the following to check if Big-IP system is using volume formatting system or partition formatting system;
 ```
 # lvscan
@@ -117,19 +117,19 @@ Run the following to check if Big-IP system is using volume formatting system or
 ```
 If it returns no volume scheme, then it means Big-IP is using partition formatting scheme.  
 
-8. Import the software/hotfix image:<br /><br />
-  a) Log in to the Configuration utility with administrative privileges  
-  b) To upload the necessary ISO files, navigate to System > Software Management  
-  c) Click Import  
-  d) Click Browse to select the SIG file (BIGIP-13.xxx.iso.384.sig). This is a SHA384 signed digest  
-  e) Click Import again  
-  f) Click Browse to select the ISO file (BIGIP-13.x.x.x.x.xxxx.iso)  
-  g) Click Import  
-  h) Click Import again  
-  i) Click Browse to select the pem file (archive.pubkey.xxxxxxxxx.pem). Download 3072 bit one since the SIG is using 3072 bit RSA public key  
-  j) Click Import  
-  k) After uploading the image, it will be listed under software image list  
-  l) Verify that all the files are under /shared/images;  
+8. Import the software/hotfix image;  
+    a) Log in to the Configuration utility with administrative privileges  
+    b) To upload the necessary ISO files, navigate to System > Software Management  
+    c) Click Import  
+    d) Click Browse to select the SIG file (BIGIP-13.xxx.iso.384.sig). This is a SHA384 signed digest  
+    e) Click Import again  
+    f) Click Browse to select the ISO file (BIGIP-13.x.x.x.x.xxxx.iso)  
+    g) Click Import  
+    h) Click Import again  
+    i) Click Browse to select the pem file (archive.pubkey.xxxxxxxxx.pem). Download 3072 bit one since the SIG is using 3072 bit RSA public key  
+    j) Click Import  
+    k) After uploading the image, it will be listed under software image list  
+    l) Verify that all the files are under /shared/images;  
 ```
 ls -ltr /shared/images
 total 7048744
@@ -139,19 +139,19 @@ total 7048744
 -rw-r--r--. 1 tomcat tomcat        384 2019-01-15 11:23 BIGIP-13.1.1.3-0.0.1.iso.384.sig
 -rw-r--r--. 1 tomcat tomcat        625 2019-01-15 11:28 archive.pubkey.20160210.pem
 ```
-  m) Verify the SIG;  
+    m) Verify the SIG;  
 ```
 # openssl dgst -sha384 -verify /shared/images/archive.pubkey.20160210.pem -signature /shared/images/BIGIP-13.1.1.3-0.0.1.iso.384.sig /shared/images/BIGIP-13.1.1.3-0.0.1.iso
 Verified OK
 ```
-9. Check that root login to shell is possible;<br /><br />
+9. Check that root login to shell is possible;  
 In situation during the upgrade, F5 might not be able to access ADFS/LDAP and so your user/pass might not work. Check if you have a root account and if you can SSH to it by running the following;
 ```
 ssh root@f51.example.com
 ssh root@f52.example.com
 ```
 
-10. Check that admin login to GUI is possible;<br /><br />
+10. Check that admin login to GUI is possible;  
 In situation during the upgrade, F5 might not be able to access ADFS/LDAP and so your user/pass might not work. Check if you have a admin account and if you can login to GUI using the admin account;
 ```
 https://f51.example.com
