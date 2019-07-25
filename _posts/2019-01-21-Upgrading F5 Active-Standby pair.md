@@ -466,7 +466,6 @@ tmsh reboot volume HD1.3
 
 1. Log in to the BIG-IP command line   
 2. Display the available boot locations by running the following;
-
 ```
 # tmsh show /sys software status  
 --------------------------------------------------
