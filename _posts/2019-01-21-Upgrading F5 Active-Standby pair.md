@@ -66,7 +66,7 @@ To do a config sync, do the following;
   e) For Sync, click the appropriate synchronization action  
   f) Click Sync  
   
-5. Generate a qkview and check for Upgrade Advisor in iHealth;<br /><br />
+5. Generate a qkview and check for Upgrade Advisor in iHealth;  
 iHealth reports can be used to find if there is any issue if we upgrade F5 units from one version to another. To generate a qkview, do the following;  
   a) Log in to the Configuration utility  
   b) Navigate to System > Support  
