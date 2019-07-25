@@ -161,7 +161,7 @@ https://f52.example.com
 
 ---
 
-### B. Check running configuration integrity (applied to both active/standby) and disable Auto-Failover
+### B. Check running configuration integrity (applied to both active/standby) and disable Auto-Failback
 1. Check running configuration integrity;  
 If there is an issue in the running configuration, then it will give error when F5 reboots first time after the upgrade. Check if there is any error in the configuration file by running the following command;
 ```
@@ -201,18 +201,18 @@ SSLv2 is no longer supported and has been removed. The 'sslv2' keyword in the ci
 ```
 Fix the issues before you go forward with upgrading F5. `WARNING` can be ignored but not suggested.
 
-2. Turn off Auto-Failover;  
-To turn off Auto-Failback on both F5 before upgrade to prevent active-active condition, do the following in v13 or above;
-  a) On the Main menu, Click Device Management > Traffic Group > traffic-group-1  
-  b) Uncheck "Always Failback to First Device if it is Available"  
-  c) Click Save  
-  d) Do a config sync<br /><br />
-Do the following to disable Auto failover in v12 or below;
-  a) On the Main menu, Click Device Management > Traffic Groups  
-  b) Select traffic-group-1  
-  c) Select Advanced from Configuration  
-  d) Uncheck Auto Failover  
-  e) Click Update  
+2. Turn off Auto-Failback;  
+To turn off Auto-Failback on both F5 before upgrade to prevent active-active condition, do the following in v13 or above;  
+    a) On the Main menu, Click Device Management > Traffic Group > traffic-group-1  
+    b) Uncheck "Always Failback to First Device if it is Available"  
+    c) Click Save  
+    d) Do a config sync<br /><br />
+Do the following to turn off Auto-Failback in v12 or below;  
+    a) On the Main menu, Click Device Management > Traffic Groups  
+    b) Select traffic-group-1  
+    c) Select Advanced from Configuration  
+    d) Uncheck Auto Failover  
+    e) Click Update  
   
 ---
 
