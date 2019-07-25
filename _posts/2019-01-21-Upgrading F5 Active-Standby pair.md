@@ -12,7 +12,8 @@ F5 Standby Server = f52.example.com
 
 ---
 ### A. Preparation before upgrade (applied to both active/standby)
-1. Check current software version of F5;
+1. Check current software version of F5;  
+Run the following;
 ```
 # tmsh
 # show /sys software status  
@@ -118,6 +119,7 @@ Run the following to check if Big-IP system is using volume formatting system or
 If it returns no volume scheme, then it means Big-IP is using partition formatting scheme.  
 
 8. Import the software/hotfix image;  
+To import a software/hotfix image, do the following;
     a) Log in to the Configuration utility with administrative privileges  
     b) To upload the necessary ISO files, navigate to System > Software Management  
     c) Click Import  
