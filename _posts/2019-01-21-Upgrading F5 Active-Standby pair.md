@@ -428,13 +428,13 @@ Do the following to disable Network failover;
 
 ### Backing out software upgrade
 
-1. Gathering troubleshooting information:
+1. Gathering troubleshooting information;
 
     a) To determine what may be causing the configuration load error, run the following;
 ```
 tmsh load /sys config command.
 ```
-    b) Create a qkview file.
+    b) Create a qkview file
 
 2. If you can access Configuration Utility, boot from a previously working software version;
     a) Log in to the Configuration utility with administrative privileges
@@ -443,7 +443,7 @@ tmsh load /sys config command.
     d) Click Activate
     e) To close the confirmation message, click OK. At this point, BIG-IP will reboots automatically
 
-3. If you cannot access Configuration Utility, run the following from command line to boot from a previously working software version:
+3. If you cannot access Configuration Utility, run the following from command line to boot from a previously working software version;
 
     a) Log in to the command line  
     b) Find the volume name by running the following;
@@ -458,8 +458,9 @@ HD1.2    BIG-IP  13.1.0.7  0.0.1      no  complete
 HD1.3    BIG-IP  13.1.1.3  0.0.1      yes complete
 ```
     c) To reboot to a different HDD, use the following command syntax:
-    tmsh reboot volume HD1.3
-
+````
+tmsh reboot volume HD1.3
+```
 
 
 Ref: https://support.f5.com/csp/article/K11215
