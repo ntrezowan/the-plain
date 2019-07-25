@@ -15,8 +15,7 @@ F5 Standby Server = f52.example.com
 1. Check current software version of F5;  
 Run the following;
 ```
-# tmsh
-# show /sys software status  
+# tmsh show /sys software status  
 --------------------------------------------------
 Sys::Software Status
 Volume  Product   Version  Build  Active    Status
@@ -119,13 +118,13 @@ Run the following to check if Big-IP system is using volume formatting system or
 If it returns no volume scheme, then it means Big-IP is using partition formatting scheme.  
 
 8. Import the software/hotfix image;  
-To import a software/hotfix image, do the following;
+To import a software/hotfix image, do the following;  
     a) Log in to the Configuration utility with administrative privileges  
     b) To upload the necessary ISO files, navigate to System > Software Management  
     c) Click Import  
-    d) Click Browse to select the SIG file (BIGIP-13.xxx.iso.384.sig). This is a SHA384 signed digest  
+    d) Click Browse to select the SIG file (BIGIP-xx.xxx.iso.xxx.sig). This is a SHA384 signed digest  
     e) Click Import again  
-    f) Click Browse to select the ISO file (BIGIP-13.x.x.x.x.xxxx.iso)  
+    f) Click Browse to select the ISO file (BIGIP-xx.x.x.x.x.xxxx.iso)  
     g) Click Import  
     h) Click Import again  
     i) Click Browse to select the pem file (archive.pubkey.xxxxxxxxx.pem). Download 3072 bit one since the SIG is using 3072 bit RSA public key  
@@ -146,14 +145,14 @@ total 7048744
 # openssl dgst -sha384 -verify /shared/images/archive.pubkey.20160210.pem -signature /shared/images/BIGIP-13.1.1.3-0.0.1.iso.384.sig /shared/images/BIGIP-13.1.1.3-0.0.1.iso
 Verified OK
 ```
-9. Check that root login to shell is possible;  
+9. Verify root login to shell is possible;  
 In situation during the upgrade, F5 might not be able to access ADFS/LDAP and so your user/pass might not work. Check if you have a root account and if you can SSH to it by running the following;
 ```
 ssh root@f51.example.com
 ssh root@f52.example.com
 ```
 
-10. Check that admin login to GUI is possible;  
+10. Verify admin login to GUI is possible;  
 In situation during the upgrade, F5 might not be able to access ADFS/LDAP and so your user/pass might not work. Check if you have a admin account and if you can login to GUI using the admin account;
 ```
 https://f51.example.com
