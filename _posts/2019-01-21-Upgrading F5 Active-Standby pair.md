@@ -432,7 +432,7 @@ Do the following to disable Network failover;
 
     a) To determine what may be causing the configuration load error, run the following;
 ```
-tmsh load /sys config verify
+# load /sys config verify
 ```
     b) Create a qkview file
 
@@ -461,6 +461,33 @@ HD1.3    BIG-IP  13.1.1.3  0.0.1      yes complete
 ````
 tmsh reboot volume HD1.3
 ```
+
+### Copying configuration from one boot location to another
+
+1. Log in to the BIG-IP command line   
+2. Display the available boot locations by running the following;
+
+```
+# tmsh show /sys software status  
+--------------------------------------------------
+Sys::Software Status
+Volume  Product   Version  Build  Active    Status
+--------------------------------------------------
+HD1.1    BIG-IP  12.1.3.4  0.0.2      no  complete
+HD1.2    BIG-IP  13.1.0.7  0.0.1      no  complete
+HD1.3    BIG-IP  13.1.1.3  0.0.1      yes complete
+```
+3. Copy the configuration from the source boot location to the target boot location using the following;
+```
+# cpcfg --source=HD1.2 HD1.3
+```
+This command will copy the configuration from boot location `HD1.2` to boot location `HD1.3`
+
+4. To copy a configuration from one boot location to another and rebooting to the specific target boot location, run the following;
+```
+# cpcfg --source=HD1.2 --reboot HD1.3
+```
+This command will copy the configuration from boot location `HD1.2` to `HD1.3` and immediately reboot the system to the `HD1.3` boot location
 
 
 Ref: https://support.f5.com/csp/article/K11215
