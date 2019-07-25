@@ -292,21 +292,20 @@ The new version of BIG-IP software is installed on `F52`, with all traffic group
     a) Login to `F51`  
     b) On the Main menu, click Device Management > Devices  
     c) Click the name of `F51`  
-    d) The device properties screen opens  
-    e) Click Force to Standby  
-    f) `F51` changes to standby state<br /><br />
+    d) Click Force to Standby  
+    e) `F51` changes to standby state<br /><br />
 Once `F51` changes to offline state, ensure that traffic passes normally for all active traffic groups on `F52`.
 2. Verify that `F52` is the active load balancer
 3. Verify expected objects appear in the shared and non-shared portions of the configuration;  
-    a) To verify that the expected objects appear in the shared and non-shared portions of the configuration, navigate to Local Traffic > Pools.  
-Confirm that the expected objects are present and compare with `F51`.  
-    b) Navigate to Network > VLANs.  
-Confirm that the expected objects are present and compare with `F51`.  
-    c) Go to iApps, open a VIP and go to Reconfigure to see if everything is loading properly.  
+    a) To verify that the expected objects appear in the shared and non-shared portions of the configuration, navigate to Local Traffic > Pools  
+Confirm that the expected objects are present and compare with `F51`  
+    b) Navigate to Network > VLANs  
+Confirm that the expected objects are present and compare with `F51`  
+    c) Go to iApps, open a VIP and go to Reconfigure to see if everything is loading properly  
 4. Check the most recent logs (/var/log/ltm for example) for obvious signs of issues like repeating messages. Comparing logs to the active unit or to the logs prior to the upgrade can be helpful. 
 5. Check SSL with SSLLabs
-6. Generate a qkview and review it in the iHealth Diagnostics section for currently known issues.
-7. Contact teams to begin application testing. If testing successes, processed with upgrading `F51`. Otherwise check “Backing out software upgrade” 
+6. Generate a qkview and review it in the iHealth Diagnostics section for currently known issues  
+7. Contact teams to begin application testing. If testing successes, processed with upgrading `F51`. Otherwise check “Backing out software upgrade” section
 
 #### Upgrade F51.example.com  
 
