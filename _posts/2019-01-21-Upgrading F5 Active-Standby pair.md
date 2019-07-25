@@ -59,23 +59,23 @@ If you need to renew device certificate, do the following;
 4. Do a ConfigSync to sync configuration on both units;  
 It is always a better to do a config sync before the upgrade and this way both units will have the latest configuration.<br /><br />
 To do a config sync, do the following;  
-  a) Log in to the Configuration utility  
-  b) Navigate to Device Management > Overview  
-  c) For Device Groups, click the name of the device group (device-group-a-failover) you want to synchronize  
-  d) For Devices, click the name of the device from which you want to perform the synchronization action  
-  e) For Sync, click the appropriate synchronization action  
-  f) Click Sync  
+    a) Log in to the Configuration utility  
+    b) Navigate to Device Management > Overview  
+    c) For Device Groups, click the name of the device group (device-group-a-failover) you want to synchronize  
+    d) For Devices, click the name of the device from which you want to perform the synchronization action  
+    e) For Sync, click the appropriate synchronization action  
+    f) Click Sync  
   
 5. Generate a qkview and check for Upgrade Advisor in iHealth;  
 iHealth reports can be used to find if there is any issue if we upgrade F5 units from one version to another. To generate a qkview, do the following;  
-  a) Log in to the Configuration utility  
-  b) Navigate to System > Support  
-  c) Click New Support Snapshot  
-  d) For Health Utility, click Generate QKView  
-  e) Click Start  
-  f) To download the output file, click Download<br /><br />
+    a) Log in to the Configuration utility  
+    b) Navigate to System > Support  
+    c) Click New Support Snapshot  
+    d) For Health Utility, click Generate QKView  
+    e) Click Start  
+    f) To download the output file, click Download<br /><br />
 After download the file from F5, upload it to https://ihealth.f5.com/ and then go to `Upgrade Advisor` and select the version to which you want to upgrade your units. Then check the recommended feedback.<br /><br />
-For example, here is one advise that iHealth provided when we are upgrading from `12.1.3.4` to `13.1.1.3`;<br /><br />
+For example, here is one advise that iHealth provided when we are upgrading from `12.1.3.4` to `13.1.1.3`;  
 TMOS vulnerability: Password changes for local users may not be preserved unless the configuration is explicitly saved (K37250780)  
 
 6. Create a backup of the config file;<br /><br />
