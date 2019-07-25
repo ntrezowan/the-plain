@@ -222,20 +222,19 @@ https://support.f5.com/csp/article/K16022
 
 ---
 
----DO-NOT-SYNC-UNTIL-SECTION-D-IS-COMPLETED---
+---DO-NOT-CONFIG-SYNC-UNTIL-SECTION-D-IS-COMPLETED---
 
 ### D. Upgrading the units
 
 #### Upgrade F52.example.com (standby unit first)
-1. Force `F52` to offline state  
-  a) On the Main menu, click Device Management > Devices  
-  b) Click the name of `F52`  
-  c) The device properties screen opens  
-  d) Click Force Offline  
-  e) `F52` changes to offline state<br /><br />
+1. Force `F52` to offline state;  
+    a) On the Main menu, click Device Management > Devices  
+    b) Click the name of `F52`  
+    c) Click Force Offline  
+    d) `F52` changes to offline state<br /><br />
 Once `F52` changes to offline state, ensure that traffic passes normally for all active traffic groups on the other devices 
 
-2. Restart mcpd and then reboot. This will force F5 to recompile the configuration and load it into memory
+2. Restart mcpd and then reboot. This will force F5 to recompile the configuration and load it into memory;
 ```
 # touch /service/mcpd/forceload
 # reboot
@@ -246,64 +245,64 @@ Check logs to see if there is any `ERROR` or `WARNING`;
 # tail -f /var/log/ltm | egrep “err|warn”
 # egrep 'err|warn' /var/log/ltm
 ```
-3. Install the new version software  
-  a) Log in to the Configuration utility with administrative privileges  
-  b) Navigate to System > Software Management > Image List  
-  c) Select the Software Image and click Install. A new window will pop up called Install Software Image  
-  d) Select an available disk from the Select Disk menu. Here HD1 is an LVM disk  
-  e) Select an empty volume set from the Volume Set Name menu, or type a new volume set name. Volumes are named as HD1.1, HD1.2, HD1.3 etc, so to create a new volume, type “3” and it will create HD1.3 and install the image there  
-  f) Click Install  
-  g) To see the installation progress, view the Install Status column of the Installed Images section of the page  
+3. Install the new version software;  
+    a) Log in to the Configuration utility with administrative privileges  
+    b) Navigate to System > Software Management > Image List  
+    c) Select the Software Image and click Install. A new window will pop up called Install Software Image  
+    d) Select an available disk from the Select Disk menu. Here HD1 is an LVM disk  
+    e) Select an empty volume set from the Volume Set Name menu, or type a new volume set name. Volumes are named as HD1.1, HD1.2, HD1.3 etc, so to create a new volume, type “3” and it will create HD1.3 and install the image there  
+    f) Click Install  
+    g) To see the installation progress, view the Install Status column of the Installed Images section of the page  
 
-4. Reboot to the newly upgraded software volume  
-  a) Log in to the Configuration utility with administrative privileges  
-  b) Navigate to System > Software Management > Boot Locations  
-  c) If you select Install Configuration to Yes, it will ask from where you want to copy the configuration from. Choose the latest one. If there have been no changes since you performed the upgrade and /or make any changes in the configuration and syncs, you do not need to set the Install Configuration option to Yes when activating the new volume. But if you make any changes, it’s better to select Yes when activating the new volume.  
-  d) Click the boot location containing the newly upgraded software volume  
-  e) To restart the system to the specified boot location, click Activate  
-  f) To close the confirmation message, click OK  
-  g) Check which boot location is loaded after reboot  
+4. Reboot to the newly upgraded software volume;  
+    a) Log in to the Configuration utility with administrative privileges  
+    b) Navigate to System > Software Management > Boot Locations  
+    c) If you select Install Configuration to Yes, it will ask from where you want to copy the configuration from. Choose the latest one. If there have been no changes since you performed the upgrade and /or make any changes in the configuration and syncs, you do not need to set the Install Configuration option to Yes when activating the new volume. But if you make any changes, it’s better to select Yes when activating the new volume.  
+    d) Click the boot location containing the newly upgraded software volume  
+    e) To restart the system to the specified boot location, click Activate  
+    f) To close the confirmation message, click OK  
+    g) Check which boot location is loaded after reboot  
 ```
 # watch tmsh show sys software
 ```
-  h) Also check if installation fails  
+    h) Also check if installation fails  
 ```
 # tail -f/var/log/liveinstall.log
 ```
-  i) Check LTM logs  
+    i) Check LTM logs  
 ```
 # tail -f /var/log/ltm
 ```
-5. Check `F52` version after reboot  
-  a) Go to System > Configuration > Device > General  
-  b) Check the version  
+5. Check `F52` version after reboot;  
+    a) Go to System > Configuration > Device > General  
+    b) Check the version  
 
-6. Bring `F52` to Standby state  
-  a) Release Device `F52` from offline state  
-  b) On the Main menu, click Device Management > Devices  
-  c) Click the name of Device `F52`  
-  d) The device properties screen opens  
-  e) Click Release Offline  
-  f) `F52` changes to standby state  
+6. Bring `F52` to Standby state;  
+    a) Release Device `F52` from offline state  
+    b) On the Main menu, click Device Management > Devices  
+    c) Click the name of Device `F52`  
+    d) The device properties screen opens  
+    e) Click Release Offline  
+    f) `F52` changes to standby state  
 The new version of BIG-IP software is installed on `F52`, with all traffic groups in standby state.
 
 #### Make F52.example.com the active load balancer
  	
-1. Force `F51` to standby state  
-  a) Login to `F51`  
-  b) On the Main menu, click Device Management > Devices  
-  c) Click the name of `F51`  
-  d) The device properties screen opens  
-  e) Click Force to Standby  
-  f) `F51` changes to standby state<br /><br />
+1. Force `F51` to standby state;  
+    a) Login to `F51`  
+    b) On the Main menu, click Device Management > Devices  
+    c) Click the name of `F51`  
+    d) The device properties screen opens  
+    e) Click Force to Standby  
+    f) `F51` changes to standby state<br /><br />
 Once `F51` changes to offline state, ensure that traffic passes normally for all active traffic groups on `F52`.
 2. Verify that `F52` is the active load balancer
-3. Verify expected objects appear in the shared and non-shared portions of the configuration.  
-  a) To verify that the expected objects appear in the shared and non-shared portions of the configuration, navigate to Local Traffic > Pools.  
+3. Verify expected objects appear in the shared and non-shared portions of the configuration;  
+    a) To verify that the expected objects appear in the shared and non-shared portions of the configuration, navigate to Local Traffic > Pools.  
 Confirm that the expected objects are present and compare with `F51`.  
-  b) Navigate to Network > VLANs.  
+    b) Navigate to Network > VLANs.  
 Confirm that the expected objects are present and compare with `F51`.  
-  c) Go to iApps, open a VIP and go to Reconfigure to see if everything is loading properly.  
+    c) Go to iApps, open a VIP and go to Reconfigure to see if everything is loading properly.  
 4. Check the most recent logs (/var/log/ltm for example) for obvious signs of issues like repeating messages. Comparing logs to the active unit or to the logs prior to the upgrade can be helpful. 
 5. Check SSL with SSLLabs
 6. Generate a qkview and review it in the iHealth Diagnostics section for currently known issues.
@@ -372,7 +371,7 @@ The new version of BIG-IP software is installed on `F51`, with all traffic group
 
 ---
 
----SYNC-IS-ALLOWED---
+---CONFIG-SYNC-IS-ALLOWED---
 
 ### E. Sync config and enable Auto failover
 
