@@ -261,28 +261,28 @@ Check logs to see if there is any `ERROR` or `WARNING`;
     d) Click the boot location containing the newly upgraded software volume  
     e) To restart the system to the specified boot location, click Activate  
     f) To close the confirmation message, click OK. At this point, BIG-IP will reboots automatically  
-    g) Check which boot location is loaded after reboot;  
+5. Check which boot location is loaded after reboot;  
 ```
 # watch tmsh show sys software
 ```
-    h) Check if installation fails;  
+6. Check if installation fails;  
 ```
 # tail -f/var/log/liveinstall.log
 ```
-    i) Check LTM logs;  
+7. Check LTM logs;  
 ```
 # tail -f /var/log/ltm
 ```
-5. Check `F52` version after reboot;  
+8. Check `F52` version after reboot;  
     a) Go to System > Configuration > Device > General  
     b) Check the version  
 
-6. Bring `F52` to Standby state;  
+9. Bring `F52` to Standby state;  
     a) Release Device `F52` from offline state  
     b) On the Main menu, click Device Management > Devices  
     c) Click the name of Device `F52`  
     d) Click Release Offline  
-    e) `F52` changes to standby state  
+    e) `F52` changes to standby state<br /><br />
 The new version of BIG-IP software is installed on `F52`, with all traffic groups in standby state.
 
 #### Make F52.example.com the active load balancer
