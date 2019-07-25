@@ -432,7 +432,7 @@ Do the following to disable Network failover;
 
     a) To determine what may be causing the configuration load error, run the following;
 ```
-tmsh load /sys config command.
+tmsh load /sys config verify
 ```
     b) Create a qkview file
 
