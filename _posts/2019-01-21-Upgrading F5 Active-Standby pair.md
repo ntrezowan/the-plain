@@ -161,7 +161,7 @@ https://f52.example.com
 
 ---
 
-### B. Check running configuration integrity (applied to both active/standby) and disable Auto-Failback
+### B. Check running configuration (applied to both active/standby) and disable Auto-Failback
 1. Check running configuration integrity;  
 If there is an issue in the running configuration, then it will give error when F5 reboots first time after the upgrade. Check if there is any error in the configuration file by running the following command;
 ```
@@ -218,7 +218,7 @@ Do the following to turn off Auto-Failback in v12 or below;
 
 ### C. Open a proactive service request with F5 Technical Support
 Proactive service requests provide F5 Technical Support advance notice of your maintenance window to save time in case a problem arises that requires F5 Technical Support assistance. Here is more on this;
-https://support.f5.com/csp/article/K16022  
+https://support.f5.com/csp/article/K16022<br /><br />
 
 ---DO-NOT-SYNC-UNTIL-SECTION-D-IS-COMPLETED---
 
