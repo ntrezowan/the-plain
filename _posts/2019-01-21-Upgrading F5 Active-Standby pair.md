@@ -457,7 +457,7 @@ HD1.1    BIG-IP  12.1.3.4  0.0.2      no  complete
 HD1.2    BIG-IP  13.1.0.7  0.0.1      no  complete
 HD1.3    BIG-IP  13.1.1.3  0.0.1      yes complete
 ```
-    c) To reboot to a different HDD, use the following command syntax:
+    c) To reboot to a different HDD, run the following;
 ````
 tmsh reboot volume HD1.3
 ```
