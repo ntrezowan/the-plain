@@ -161,8 +161,9 @@ https://f52.example.com
 
 ---
 
-### B. Check running configuration integrity (applied to all HA units) and disable Auto-Failover
-If there is an issue in the running configuration, then it will give error after the upgrade. Check if there is any error in the configuration file by running the following command;
+### B. Check running configuration integrity (applied to both active/standby) and disable Auto-Failover
+1. Check running configuration integrity;  
+If there is an issue in the running configuration, then it will give error when F5 reboots first time after the upgrade. Check if there is any error in the configuration file by running the following command;
 ```
 # tmsh load /sys config verify
 Validating system configuration...
@@ -199,6 +200,8 @@ SSLv2 is no longer supported and has been removed. The 'sslv2' keyword in the ci
 SSLv2 is no longer supported and has been removed. The 'sslv2' keyword in the cipher string of the ssl profile (/Common/serverssl-test) has been ignored.
 ```
 Fix the issues before you go forward with upgrading F5. `WARNING` can be ignored but not suggested.<br /><br />
+
+2. Turn off Auto-Failover;  
 To turn off Auto-Failback on both F5 before upgrade to prevent active-active condition, do the following in v13 or above;
   a) On the Main menu, Click Device Management > Traffic Group > traffic-group-1  
   b) Uncheck "Always Failback to First Device if it is Available"  
