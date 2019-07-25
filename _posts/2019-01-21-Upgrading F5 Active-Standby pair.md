@@ -491,41 +491,43 @@ This command will copy the configuration from boot location `HD1.2` to `HD1.3` a
 
 ### Upgrade Consideration
 
-* Software images can be installed to any software volume except the running volume. This behavior ensures the running software volume is available should a need arise to revert to the prior Big-IP version and configuration.
+* Software images can be installed to any software volume except the running volume. This behavior ensures the running software volume is available should a need arise to revert to the prior Big-IP version and configuration
  
-* It is recommended to install the Big-IP update to an empty software volume to avoid potential confusion should the configuration fail to push to the new software volume.
+* It is recommended to install the Big-IP update to an empty software volume to avoid potential confusion should the configuration fail to push to the new software volume
  
-* By default, the current running configuration is pushed to the new software volume automatically.
+* By default, the current running configuration is pushed to the new software volume automatically
  
-* The 'Install Configuration' option in the Configuration Utility can be used to update the target software volume prior to booting/activating the volume if time has elapsed since the software was installed and some of the Big-IP configuration has changed in the interim. This is generally unnecessary if you install the software and immediately boot into it. For more information, refer to K14704: Installing a configuration when activating a boot location.
+* The 'Install Configuration' option in the Configuration Utility can be used to update the target software volume prior to booting/activating the volume if time has elapsed since the software was installed and some of the Big-IP configuration has changed in the interim. This is generally unnecessary if you install the software and immediately boot into it.  
+For more information, refer to K14704: Installing a configuration when activating a boot location.
  
-* For a Big-IP instance, multiple Big-IP software installations can exist on disk. Use the tmsh show sys software command to view all software volumes. You can install directly over an existing software volume and the target volume will be overwritten. In order to delete a software volume, you can use the Configuration Utility or tmsh. Software installation can be performed via the Configuration Utility or tmsh. For more information, refer to: 
-o	K13123: Managing BIG-IP product hotfixes (11.x - 12.x)
-o	K34745165: Managing software images on the BIG-IP system using the tmsh utility
+* For a Big-IP instance, multiple Big-IP software installations can exist on disk. Use the `msh show sys software`command to view all software volumes. You can install directly over an existing software volume and the target volume will be overwritten. In order to delete a software volume, you can use the Configuration Utility or tmsh. Software installation can be performed via the Configuration Utility or tmsh.  
+For more information, refer to KB34745165: Managing software images on the BIG-IP system using the tmsh utility  
  
-* When a Hotfix ISO file is installed, two installations will happen in the background; the first will install the Final (larger) ISO and the second will install the Hotfix ISO. In the GUI, you will see two progress bars progress from 0-100%.
+* When a Hotfix ISO file is installed, two installations will happen in the background; the first will install the Final (larger) ISO and the second will install the Hotfix ISO. In the GUI, you will see two progress bars progress from 0-100%
  
-* The first boot of the new Big-IP software volume will take extra time, compared to a reboot, in order to decompress packages and to import the running configuration for the first time. Installation progress can be monitored via the serial console port or via the vconsole command in the case of vCMP Guest upgrades. For more information, refer to K15372: Overview of the vconsole utility.
+* The first boot of the new Big-IP software volume will take extra time, compared to a regular reboot, in order to decompress packages and to import the running configuration for the first time. Installation progress can be monitored via the serial console port or via the vconsole command in the case of vCMP Guest upgrades.  
+For more information, refer to K15372: Overview of the vconsole utility
  
-* For Big-IP 10.x to 11.x upgrades, the previous configuration will first appear in the /config/bigpipe/ directory in the new software volume. When the new software volume is first booted, the configuration in /config/bigpipe/ will be converted and copied to the /config/ directory. So, if there are no virtual servers in /config/bigip.conf after upgrading from v10.x, the conversion process from /config/bigpipe/ likely failed for some reason.
+* High Availability (HA) communication via network failover will function between major software branches but is only supported for the duration of the upgrade process. For example, a pair of Big-IPs running 11.5.3 and 12.1.1 can negotiate Active/Standby status via network failover.  
+For more information, refer to K8665: BIG-IP redundant configuration hardware and software parity requirements
  
-* High Availability (HA) communication via network failover will function between major software branches but is only supported for the duration of the upgrade process. For example, a pair of Big-IPs running 11.5.3 and 12.1.1 can negotiate Active/Standby status via network failover. For more information, refer to K8665: BIG-IP redundant configuration hardware and software parity requirements.
- 
-* Configsync will not operate between different major software branches. For example, you cannot synchronize configurations from a unit running 11.5.3 unit to a unit running 11.5.4; you must wait for both units to be upgraded until configsync will operate. For more information, refer to K13946: Troubleshooting ConfigSync and device service clustering issues (11.x - 12.x).
+* Configsync will not operate between different major software branches. For example, you cannot synchronize configurations from a unit running 11.5.3 unit to a unit running 11.5.4; you must wait for both units to be upgraded until configsync will operate.  
+For more information, refer to K13946: Troubleshooting ConfigSync and device service clustering issues (11.x - 12.x)
 
-* If a blank configuration is desired after the upgrade is complete, refer to  K13438: Controlling configuration import when performing software installations (11.x - 12.x).
+* If a blank configuration is desired after the upgrade is complete, refer to  K13438: Controlling configuration import when performing software installations (11.x - 12.x)
  
-* As an alternative method to install the desired software version, prepared USB media can be used to reinitialize the disk and Big-IP software to factory defaults. Once complete, a previously saved UCS archive can be loaded to restore configuration. This method will wipe all data on the system. For more information, refer to: 
-o	K13132: Backing up and restoring BIG-IP configuration files (11.x - 12.x)
-o	K13117: Performing a clean installation of BIG-IP 11.x - 12.x or Enterprise Manager 3.x
+* As an alternative method to install the desired software version, prepared USB media can be used to reinitialize the disk and Big-IP software to factory defaults. Once complete, a previously saved UCS archive can be loaded to restore configuration. This method will wipe all data on the system.  
+For more information, refer to: 
+K13132: Backing up and restoring BIG-IP configuration files (11.x - 12.x)  
+K13117: Performing a clean installation of BIG-IP 11.x - 12.x or Enterprise Manager 3.x  
  
-* If the software installation completes and you are able to boot the new volume but the Big-IP configuration fails to be migrated, you may see an error in the Configuration Utility.
-
-* Big-IP 10.x can be upgraded to any version of 11.x given your hardware supports the new version. Big-IP 11.x can be upgraded to any version of 12.x given your hardware supports the new version. You cannot upgrade directly from 10.x to 12.x. For more information, refer to:
-K13845: Overview of supported BIG-IP upgrade paths and an upgrade planning reference
+* Big-IP 10.x can be upgraded to any version of 11.x given your hardware supports the new version. Big-IP 11.x can be upgraded to any version of 12.x given your hardware supports the new version. You cannot upgrade directly from 10.x to 12.x.   
+For more information, refer to:
+K13845: Overview of supported BIG-IP upgrade paths and an upgrade planning reference  
 K9476: The F5 hardware/software compatibility matrix
 
-* The Latest Maintenance Release of each Long-Term Stability Release are the best choices for security and sustainability. For more information, refer to K5903: BIG-IP software support policy. The lowest-numbered version in the Latest Maintenance Release column is generally considered the most stable while the highest number contains the newest features and security fixes.
+* The Latest Maintenance Release of each Long-Term Stability Release are the best choices for security and sustainability.  
+For more information, refer to K5903: BIG-IP software support policy. The lowest-numbered version in the Latest Maintenance Release column is generally considered the most stable while the highest number contains the newest features and security fixes.
 
 
 Ref: https://support.f5.com/csp/article/K11215
