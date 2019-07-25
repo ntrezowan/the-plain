@@ -437,11 +437,11 @@ tmsh load /sys config command.
     b) Create a qkview file
 
 2. If you can access Configuration Utility, boot from a previously working software version;
-    a) Log in to the Configuration utility with administrative privileges
-    b) Navigate to System > Software Management > Boot Locations
-    c) Click the Boot Location for the previous software version
-    d) Click Activate
-    e) To close the confirmation message, click OK. At this point, BIG-IP will reboots automatically
+    a) Log in to the Configuration utility with administrative privileges  
+    b) Navigate to System > Software Management > Boot Locations  
+    c) Click the Boot Location for the previous software version  
+    d) Click Activate  
+    e) To close the confirmation message, click OK. At this point, BIG-IP will reboots automatically  
 
 3. If you cannot access Configuration Utility, run the following from command line to boot from a previously working software version;
 
