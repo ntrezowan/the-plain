@@ -11,7 +11,7 @@ F5 Standby Server = f52.example.com
 
 
 ---
-### A. Preparation before upgrade (applied to all HA units)
+### A. Preparation before upgrade (applied to both active/standby)
 1. Check current software version of F5;
 ```
 # tmsh
@@ -24,7 +24,7 @@ HD1.1    BIG-IP  12.1.3.4  0.0.2      no  complete
 HD1.2    BIG-IP  13.1.0.7  0.0.1      no  complete
 HD1.3    BIG-IP  13.1.1.3  0.0.1      yes complete
 ```
-From the output, look for the partition which is Active and then you will find the Version. Here the version is `13.1.1.3`.
+From the output, look for the partition which is Active and then you will find the `Version`. Here the version is `13.1.1.3`.
 2. Verify license and renew if necessary;<br /><br />
 BIG-IP license is stored at `/config/bigip.license` and it has two dates; `Licensed date` and `Service check date`.<br /><br />
 `Licensed date` will show the date when you used your Registration Key for the first time to license your BIG-IP system. To find `Licensed date`, run the following;
@@ -40,10 +40,10 @@ Service check date :               20171013
 There is another interesting date called `License Check Date` and this date is related with the software version of BIG-IP. For example, Version `12.1.0-12.1.3` has a `License Check Date` 2016-03-2018. The `License Check Date` enforcement is applied during system startup. The system compares the `License Check Date` with the `Service Check Date` exists in the license file. If the `Service Check Date` is earlier than the `License Check Date`, the system will initialize but will not load the configuration. To allow the configuration to load properly, you must update the `Service Check Date` in the `bigip.license` file by reactivating the system's license. To find the `License Check Date` for the version you planned to upgrade, visit https://support.f5.com/csp/article/K7727. For example, if you plan to upgrade to version `13.1.0-13.1.1`, then `License Check Date` is 20170912.<br /><br />
 Now by comparing `Service check date` with `License Check Date`, we see that 20171013 > 20170912 which means you do not need to reactive the license before upgrade. But it is always a good practice to reactivate your license everytime you upgrade the F5 because it extends your `Service check date` in the license file.<br /><br />
 If `Service Check Date` < `License Check Date`, do the following to reactivate the license before upgrade;  
-  a) Log in to the Configuration utility  
-  b) Navigate to System > License > Reactivate  
-  c) Select either Automatic or Manual (if F5 cannot reach internet)  
-  d) Click Next and it will be reactivated  
+    a) Log in to the Configuration utility  
+    b) Navigate to System > License > Reactivate  
+    c) Select either Automatic (if F5 can reach internet) or Manual (if F5 cannot reach internet)  
+    d) Click Next and it will be reactivated  
 
 3. Check device certificate and renew if necessary;  
 To check the device certificate, do the following;  
