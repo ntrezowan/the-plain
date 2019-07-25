@@ -56,7 +56,7 @@ If you need to renew device certificate, do the following;
     d) Choose both certificate and key  
     e) Click Import  
     
-4. Do a ConfigSync to sync configuration on both units;
+4. Do a ConfigSync to sync configuration on both units;  
 It is always a better to do a config sync before the upgrade and this way both units will have the latest configuration.<br /><br />
 To do a config sync, do the following;  
   a) Log in to the Configuration utility  
