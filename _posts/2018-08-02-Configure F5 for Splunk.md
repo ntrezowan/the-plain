@@ -329,7 +329,7 @@ when LB_FAILED {
 
 ---
 
-### E. Configure HSL for custom AFM logs
+### E. Configure HSL for AFM/DOS/BOT/SSL
 1. Create an unformatted HSL log destination. 
 Go to `System > Logs > Configuration > Log Destinations`. Click on Create and configure as following;
 ```
@@ -343,7 +343,7 @@ Protocol = UDP
 ```
 Name = splunk_afm_formatted
 Type = Remote Syslog
-Syslog Format = BSD Syslog
+Syslog Format = Splunk
 Forward to = splunk_afm_unformatted
 ```
 
