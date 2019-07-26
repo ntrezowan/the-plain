@@ -25,7 +25,7 @@ when LB_FAILED {
 NB: If your html file is in a different partition, then you have to use something like `/Common/maintenance.html` in the iRule. We are also using `503` because it will tell the search crawler not to cache this page.  
 
 ---
-### Create redirection page if a URI is down without iFile
+### Create redirection page if a URI is down without HTML iFile
 1.	Go to `System > File Management > iFile List`. Click on import and upload your image (companylogo.png) and give it a Name (companylogo.png). You can also upload more files (such as css or js) to support your HTML template.  
 
 2.	Go to `Local Traffic > iRules > iFile List`. Click on Create, select the iFile you have just uploaded from File Name and give it a Name (companylogo.png).  
@@ -85,5 +85,6 @@ when HTTP_RESPONSE {
 
 3.	Go to `Local Traffic > Virtual Servers > Virtual Servers List`. Select the VIP you want to apply iRule to and go to Resource Tab. In the iRule section, click on Manage, add the iRule and click Finished.  
 
-NB: To test if the iRule is working, visit http://example.com/a/b/c and it should load 404.html page.
+---
+To test if the iRule is working, visit http://example.com/a/b/c and it should load 404.html page.
 
