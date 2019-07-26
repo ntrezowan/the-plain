@@ -500,7 +500,7 @@ This command will copy the configuration from boot location `HD1.2` to `HD1.3` a
 * The 'Install Configuration' option in the Configuration Utility can be used to update the target software volume prior to booting/activating the volume if time has elapsed since the software was installed and some of the Big-IP configuration has changed in the interim. This is generally unnecessary if you install the software and immediately boot into it.  
 https://support.f5.com/csp/article/K14704
  
-* For a Big-IP instance, multiple Big-IP software installations can exist on disk. Use the `msh show sys software`command to view all software volumes. You can install directly over an existing software volume and the target volume will be overwritten. In order to delete a software volume, you can use the Configuration Utility or tmsh. Software installation can be performed via the Configuration Utility or tmsh.  
+* For a Big-IP instance, multiple Big-IP software installations can exist on disk. Use the `tmsh show sys software`command to view all software volumes. You can install directly over an existing software volume and the target volume will be overwritten. In order to delete a software volume, you can use the Configuration Utility or tmsh. Software installation can be performed via the Configuration Utility or tmsh.  
 https://support.f5.com/csp/article/K34745165  
  
 * When a Hotfix ISO file is installed, two installations will happen in the background; the first will install the Final (larger) ISO and the second will install the Hotfix ISO. In the GUI, you will see two progress bars progress from 0-100%.
