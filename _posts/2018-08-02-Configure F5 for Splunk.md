@@ -1,5 +1,5 @@
 ---
-title: "Configure F5 for Splunk"
+title: "Configure F5 to send logs to Splunk"
 comments: false
 description: "Configure F5 for Splunk"
 keywords: "F5, hsl, hish speed logging, request logging, management port logging, asm logging, apm logging, configure"
@@ -17,7 +17,7 @@ Splunk TCP Port = 9515 (for ASM)
 Splunk UDP Port = 9514 (for SYSLOG, HSL and APM) 
 
 ---
-### Logging Flow
+### Log Flow
 > Virtual Server >> Logging Profile >> Log Publisher >> Log Destination >> Pool >> Splunk Log Server
 
 ---
