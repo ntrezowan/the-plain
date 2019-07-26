@@ -240,25 +240,25 @@ when LB_FAILED {
 }
 ```
 
-3. Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* HSL`. If nothing shows up in Splunk, uncomment `#log local0.info` from the iRule to start writing logs in local SYSLOG (/var/logs/ltm). If logs are writing in local file but not showing up in Splunk, it means there is some network issue. If logs are not writing in local SYSLOG, try using a simpler iRule.
+3. Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f51* HSL`. If nothing shows up in Splunk, uncomment `#log local0.info` from the iRule to start writing logs in local SYSLOG (/var/logs/ltm). If logs are writing in local file but not showing up in Splunk, it means there is some network issue. If logs are not writing in local SYSLOG, try using a simpler iRule.
 
 ---
 
 ### D. Configure HSL to use Management port
 1. Verify that F5 is using management port to reach Splunk;
 ```
-user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# ip route get 10.10.10.1
+# ip route get 10.10.10.1
 10.10.10.1 via 10.1.1.1 prd mgmt  src 10.1.1.2
 ```
 If not, configure F5 so that it uses management port to reach Splunk;
 ```
-user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# create /sys log-config destination management-port splunk ip-address 10.10.10.1 port 9514 protocol udp
-user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# list sys management-route
+(tmos)# create /sys log-config destination management-port splunk ip-address 10.10.10.1 port 9514 protocol udp
+(tmos)# list sys management-route
 sys management-route splunk {
     gateway 10.1.1.1
     network 10.10.10.1/32
 }
-user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save sys config
+(tmos)# save sys config
 ```
 
 2. Create a Log destination.  
@@ -325,7 +325,7 @@ when LB_FAILED {
     HSL::send $hsl "<190> HSL, CLIENT_IP=$client_address, VIP=$vip, VIP_NAME=\"$virtual_server\", SERVER_NODE=$node, SERVER_NODE_PORT=$node_port, HTTP_URL=$http_url, HTTP_VERSION=$http_version, HTTP_STATUS=$http_status, HTTP_METHOD=$http_method, HTTP_CONTENT_TYPE=$http_content_type, HTTP_USER_AGENT=\"$http_user_agent\", HTTP_REFERRER=\"$http_referrer\", COOKIE=\"$cookie\", REQUEST_START_TIME=$req_start_time,REQUEST_ELAPSED_TIME=$req_elapsed_time, BYTES_IN=$req_length, BYTES_OUT=$res_length\r\n"
 }
 ```
-5. Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* HSL`.
+5. Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f511* HSL`.
 
 ---
 
@@ -395,7 +395,7 @@ Policy = {a_prefedined policy}
 Log Profile = splunk_afm_logging
 ```
 
-6. Go to Splunk and search for `host=f5serv1* "ACTION=Drop"`.
+6. Go to Splunk and search for `host=f51* "ACTION=Drop"`.
 
 ---
 
@@ -416,5 +416,5 @@ Pool Name = splunk_pool
 
 2. Go to `Local Traffic > Virtual Servers`. Click on the VIP which you want to use Request Logging. Select Advanced of Configuration and then choose `Request Logging Profile` as `splunk_http_request_logging`
 
-3. Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f5serv1* REQUEST`
+3. Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f51* REQUEST`
 
