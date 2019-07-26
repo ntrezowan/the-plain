@@ -1,5 +1,5 @@
 ---
-title: "Configure F5 to send logs to Splunk"
+title: "Configure F5 with High Speed Logging for Splunk"
 comments: false
 description: "Configure F5 for Splunk"
 keywords: "F5, hsl, hish speed logging, request logging, management port logging, asm logging, apm logging, configure"
@@ -75,7 +75,7 @@ If `nc` or `tcpdump` works, it means F5 can send logs to specific Splunk ports w
 
 ---
 
-### B. Add Splunk on F5
+### B. Add Splunk server on F5
 1. In F5, check `syslog-ng` global and local configuration;  
 ```
 # cat /var/run/config/syslog-ng.conf
@@ -329,7 +329,7 @@ when LB_FAILED {
 
 ---
 
-### E. Configure HSL for AFM
+### E. Configure HSL for custom AFM logs
 1. Create an unformatted HSL log destination. 
 Go to `System > Logs > Configuration > Log Destinations`. Click on Create and configure as following;
 ```
@@ -399,7 +399,7 @@ Log Profile = splunk_afm_logging
 
 ---
 
-### F. Configure Request Logging
+### F. Configure HSL for Request Logging
 1. Go to `Local Traffic > Profiles > Other > Request Logging`. Click Create and configure as following;
 ```
 Name = splunk_http_request_logging
@@ -417,4 +417,3 @@ Pool Name = splunk_pool
 2. Go to `Local Traffic > Virtual Servers`. Click on the VIP which you want to use Request Logging. Select Advanced of Configuration and then choose `Request Logging Profile` as `splunk_http_request_logging`
 
 3. Browse the VIP where you have applied the iRule and then go to Splunk and search for `HOST=f51* REQUEST`
-
