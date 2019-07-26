@@ -6,8 +6,8 @@ keywords: "F5, hsl, hish speed logging, request logging, management port logging
 published: true
 ---
 > Operating System: _RHEL 7.5_  
-> Web Server: _Apache v2.4_  
-> Shibboleth: _v3.0.2_  
+> Web Server: _Apache 2.4_  
+> Shibboleth: _3.0.2_  
 
 ---
 
