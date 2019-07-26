@@ -76,7 +76,7 @@ iHealth reports can be used to find if there is any issue if we upgrade F5 units
     f) To download the output file, click Download<br /><br />
 After download the file from F5, upload it to https://ihealth.f5.com/ and then go to `Upgrade Advisor` and select the version to which you want to upgrade your units. Then check the recommended feedback.<br /><br />
 For example, here is one advise that iHealth provided when we are upgrading from `12.1.3.4` to `13.1.1.3`;  
-TMOS vulnerability: Password changes for local users may not be preserved unless the configuration is explicitly saved (K37250780)  
+TMOS vulnerability: Password changes for local users may not be preserved unless the configuration is explicitly saved (K37250780).  
 
 6. Create a backup of the config file;  
 It is always good to have a backup of the config file before upgrade. This way, we can quickly restore F5 to previous stable state if there is any issues during upgrade.<br /><br />
@@ -232,7 +232,7 @@ https://support.f5.com/csp/article/K16022
     b) Click the name of `F52`  
     c) Click Force Offline  
     d) `F52` changes to offline state<br /><br />
-Once `F52` changes to offline state, ensure that traffic passes normally for all active traffic groups on the other devices 
+Once `F52` changes to offline state, ensure that traffic passes normally for all active traffic groups on the other devices. 
 
 2. Restart mcpd and then reboot. This will force F5 to recompile the configuration and load it into memory;
 ```
@@ -284,7 +284,7 @@ Check logs to see if there is any `ERROR` or `WARNING`;
     c) Click the name of Device `F52`  
     d) Click Release Offline  
     e) `F52` changes to standby state<br /><br />
-The new version of BIG-IP software is installed on `F52`, with all traffic groups in standby state
+The new version of BIG-IP software is installed on `F52`, with all traffic groups in standby state.
 
 #### Make F52.example.com the active load balancer
  	
@@ -294,7 +294,7 @@ The new version of BIG-IP software is installed on `F52`, with all traffic group
     c) Click the name of `F51`  
     d) Click Force to Standby  
     e) `F51` changes to standby state<br /><br />
-Once `F51` changes to offline state, ensure that traffic passes normally for all active traffic groups on `F52`  
+Once `F51` changes to offline state, ensure that traffic passes normally for all active traffic groups on `F52`.  
 
 2. Verify that `F52` is the active load balancer  
 
@@ -320,7 +320,7 @@ Confirm that the expected objects are present and compare with `F51`
     b) Click the name of `F51`  
     c) Click Force Offline  
     d) `F51` changes to offline state<br /><br />
-Once `F51` changes to offline state, ensure that traffic passes normally for all active traffic groups on the other devices 
+Once `F51` changes to offline state, ensure that traffic passes normally for all active traffic groups on the other devices. 
 
 2. Restart mcpd and then reboot. This will force F5 to recompile the configuration and load it into memory;
 ```
@@ -372,7 +372,7 @@ Check logs to see if there is any `ERROR` or `WARNING`;
     c) Click the name of Device `F51`  
     d) Click Release Offline  
     e) `F51` changes to standby state<br /><br />
-The new version of BIG-IP software is installed on `F51`, with all traffic groups in standby state
+The new version of BIG-IP software is installed on `F51`, with all traffic groups in standby state.
 
 #### Make F51.example.com the active load balancer
  	
@@ -382,7 +382,7 @@ The new version of BIG-IP software is installed on `F51`, with all traffic group
     c) Click the name of `F52`  
     d) Click Force to Standby  
     e) `F52` changes to standby state<br /><br />
-Once `F52` changes to offline state, ensure that traffic passes normally for all active traffic groups on `F51`  
+Once `F52` changes to offline state, ensure that traffic passes normally for all active traffic groups on `F51`.  
 
 2. Verify that `F51` is the active load balancer  
 
@@ -486,55 +486,45 @@ This command will copy the configuration from boot location `HD1.2` to boot loca
 ```
 # cpcfg --source=HD1.2 --reboot HD1.3
 ```
-This command will copy the configuration from boot location `HD1.2` to `HD1.3` and immediately reboot the system to the `HD1.3` boot location
+This command will copy the configuration from boot location `HD1.2` to `HD1.3` and immediately reboot the system to the `HD1.3` boot location.
 
 
 ### Upgrade Consideration
 
-* Software images can be installed to any software volume except the running volume. This behavior ensures the running software volume is available should a need arise to revert to the prior Big-IP version and configuration
+* Software images can be installed to any software volume except the running volume. This behavior ensures the running software volume is available should a need arise to revert to the prior Big-IP version and configuration.
  
-* It is recommended to install the Big-IP update to an empty software volume to avoid potential confusion should the configuration fail to push to the new software volume
+* It is recommended to install the Big-IP update to an empty software volume to avoid potential confusion should the configuration fail to push to the new software volume.
  
-* By default, the current running configuration is pushed to the new software volume automatically
+* By default, the current running configuration is pushed to the new software volume automatically.
  
 * The 'Install Configuration' option in the Configuration Utility can be used to update the target software volume prior to booting/activating the volume if time has elapsed since the software was installed and some of the Big-IP configuration has changed in the interim. This is generally unnecessary if you install the software and immediately boot into it.  
-For more information, refer to;  
-K14704: Installing a configuration when activating a boot location.
+https://support.f5.com/csp/article/K14704
  
 * For a Big-IP instance, multiple Big-IP software installations can exist on disk. Use the `msh show sys software`command to view all software volumes. You can install directly over an existing software volume and the target volume will be overwritten. In order to delete a software volume, you can use the Configuration Utility or tmsh. Software installation can be performed via the Configuration Utility or tmsh.  
-For more information, refer to;  
-KB34745165: Managing software images on the BIG-IP system using the tmsh utility  
+https://support.f5.com/csp/article/K34745165  
  
-* When a Hotfix ISO file is installed, two installations will happen in the background; the first will install the Final (larger) ISO and the second will install the Hotfix ISO. In the GUI, you will see two progress bars progress from 0-100%
+* When a Hotfix ISO file is installed, two installations will happen in the background; the first will install the Final (larger) ISO and the second will install the Hotfix ISO. In the GUI, you will see two progress bars progress from 0-100%.
  
 * The first boot of the new Big-IP software volume will take extra time, compared to a regular reboot, in order to decompress packages and to import the running configuration for the first time. Installation progress can be monitored via the serial console port or via the vconsole command in the case of vCMP Guest upgrades.  
-For more information, refer to;  
-K15372: Overview of the vconsole utility
+https://support.f5.com/csp/article/K15372
  
 * High Availability (HA) communication via network failover will function between major software branches but is only supported for the duration of the upgrade process. For example, a pair of Big-IPs running 11.5.3 and 12.1.1 can negotiate Active/Standby status via network failover.  
-For more information, refer to;  
-K8665: BIG-IP redundant configuration hardware and software parity requirements
+https://support.f5.com/csp/article/K8665
  
 * Configsync will not operate between different major software branches. For example, you cannot synchronize configurations from a unit running 11.5.3 unit to a unit running 11.5.4; you must wait for both units to be upgraded until configsync will operate.  
-For more information, refer to;  
-K13946: Troubleshooting ConfigSync and device service clustering issues (11.x - 12.x)
+https://support.f5.com/csp/article/K13946
 
-* If a blank configuration is desired after the upgrade is complete, refer to  K13438: Controlling configuration import when performing software installations (11.x - 12.x)
+* It is possible to upgrade an unit with a blank configuration.  
+https://support.f5.com/csp/article/K13438
  
 * As an alternative method to install the desired software version, prepared USB media can be used to reinitialize the disk and Big-IP software to factory defaults. Once complete, a previously saved UCS archive can be loaded to restore configuration. This method will wipe all data on the system.  
-For more information, refer to;   
-K13132: Backing up and restoring BIG-IP configuration files (11.x - 12.x)  
-K13117: Performing a clean installation of BIG-IP 11.x - 12.x or Enterprise Manager 3.x  
+https://support.f5.com/csp/article/K13132   
+https://support.f5.com/csp/article/K13117  
  
-* Big-IP 10.x can be upgraded to any version of 11.x given your hardware supports the new version. Big-IP 11.x can be upgraded to any version of 12.x given your hardware supports the new version. You cannot upgrade directly from 10.x to 12.x.   
-For more information, refer to;  
-K13845: Overview of supported BIG-IP upgrade paths and an upgrade planning reference  
-K9476: The F5 hardware/software compatibility matrix
+* Big-IP 10.x can be upgraded to any version of 11.x given your hardware supports the new version. Big-IP 11.x can be upgraded to any version of 12.x given your hardware supports the new version. You cannot upgrade directly from 10.x to 12.x. 
+https://support.f5.com/csp/article/K13845    
+https://support.f5.com/csp/article/K9476
 
 * The Latest Maintenance Release of each Long-Term Stability Release are the best choices for security and sustainability.  
-For more information, refer to;  
-K5903: BIG-IP software support policy.  
-The lowest-numbered version in the Latest Maintenance Release column is generally considered the most stable while the highest number contains the newest features and security fixes.
-
-
-Ref: https://support.f5.com/csp/article/K11215
+The lowest-numbered version in the Latest Maintenance Release column is generally considered the most stable while the highest number contains the newest features and security fixes.  
+https://support.f5.com/csp/article/K5903
