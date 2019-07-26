@@ -521,10 +521,9 @@ https://support.f5.com/csp/article/K13438
 https://support.f5.com/csp/article/K13132   
 https://support.f5.com/csp/article/K13117  
  
-* Big-IP 10.x can be upgraded to any version of 11.x given your hardware supports the new version. Big-IP 11.x can be upgraded to any version of 12.x given your hardware supports the new version. You cannot upgrade directly from 10.x to 12.x. 
+* Big-IP 10.x can be upgraded to any version of 11.x given your hardware supports the new version. Big-IP 11.x can be upgraded to any version of 12.x given your hardware supports the new version. You cannot upgrade directly from 10.x to 12.x.   
 https://support.f5.com/csp/article/K13845    
 https://support.f5.com/csp/article/K9476
 
-* The Latest Maintenance Release of each Long-Term Stability Release are the best choices for security and sustainability.  
-The lowest-numbered version in the Latest Maintenance Release column is generally considered the most stable while the highest number contains the newest features and security fixes.  
+* The Latest Maintenance Release of each Long-Term Stability Release are the best choices for security and sustainability. The lowest-numbered version in the Latest Maintenance Release column is generally considered the most stable while the highest number contains the newest features and security fixes.  
 https://support.f5.com/csp/article/K5903
