@@ -75,7 +75,7 @@ If `nc` or `tcpdump` works, it means F5 can send logs to specific Splunk ports w
 
 ---
 
-### B. Add Splunk server on F5
+### B. Configure F5 and Splunk server
 1. In F5, check `syslog-ng` global and local configuration;  
 ```
 # cat /var/run/config/syslog-ng.conf
@@ -149,7 +149,7 @@ Here under `include` section, `10.10.10.1` is Splunk server IP and F5 will send 
 (tmos)# modify sys syslog iso-date enabled
 (tmos)# save /sys config
 ```
-5. In Splunk, modify `inputs.conf` so that F5 source-type matches with `inputs.conf`;  
+5. In Splunk server, modify `inputs.conf` so that F5 source-type matches with `inputs.conf`;  
 F5 Source Type ->
 ```
 SYSLOG  (/var/log/ltm) -> f5:bigip:syslog
@@ -330,7 +330,8 @@ when LB_FAILED {
 ---
 
 ### E. Configure HSL for AFM/DOS/BOT/SSL
-1. Create an unformatted HSL log destination. 
+1. In this section, we are going to create a log publisher for AFM.  
+First, create an unformatted HSL log destination. 
 Go to `System > Logs > Configuration > Log Destinations`. Click on Create and configure as following;
 ```
 Name = splunk_afm_unformatted
