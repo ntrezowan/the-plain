@@ -24,24 +24,24 @@ Splunk UDP Port = 9514 (for SYSLOG, HSL and APM)
 ### A. Check network connectivity
 1. Ping Splunk log server from F5;  
 ```
-[user@f5serv1:Active:In Sync] ~ # ping 10.10.10.1
+# ping 10.10.10.1
 PING 10.10.10.1 (10.10.10.1) 56(84) bytes of data.
 64 bytes from 10.10.10.1: icmp_seq=1 ttl=63 time=0.838 ms
 ^C
 ```
-If ping is down, it does not necessarily mean that no log will go to Splunk server because F5 will send logs to a predefined TCP/UDP port. But we need to have ping enabled so that we can use gateway_icmp for monitoring when we create a pool.
+If ping is down, it does not necessarily mean that no log will go to Splunk server because F5 will send logs to a predefined TCP/UDP port. But we need to have ping enabled so that we can use `gateway_icmp` for monitoring when we create a pool.
 
 2. Check how F5 is reaching Splunk log server;  
 ```
-[user@f5serv1:Active:In Sync] ~ # ip route get 10.10.10.1
+# ip route get 10.10.10.1
 10.10.10.1 via 20.20.20.1 prd vlan1  src 11.11.11.2
 cache
 ```
-Here `11.11.11.2` is the TMM interface (also self non-floating IP for F5SERV1) which will be the source when logs are send to `10.10.10.1`.
+Here `11.11.11.2` is the TMM interface (also self non-floating IP for `F51`) which will be the source when logs are send to `10.10.10.1`.
 If there is no route to Splunk, add a static route and verify;  
 ```
-user@f5serv1:Active:In Sync] ~ # ip route add 10.10.10.1/32 via vlan1
-user@f5serv1:Active:In Sync] ~ # route -n
+# ip route add 10.10.10.1/32 via vlan1
+# route -n
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 0.0.0.0         20.20.20.1      0.0.0.0         UG    0      0        0 vlan1
@@ -54,31 +54,31 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 20.20.20.0      0.0.0.0         255.255.255.0   U     0      0        0 vlan1
 ```
 3. Run Netcat to check if you can send logs to a specific remote port of Splunk server.  
-To test if you can reach a UDP remote port, run the following and then search in Splunk with `HOST=f5serv1* f5serv1-UDP`. 
+To test if you can reach a UDP remote port, run the following and then search in Splunk with `HOST=f51* f51-UDP`. 
 ```
-user@f5serv1:Active:In Sync] ~ # route echo '<0>f5serv1-UDP' | nc -w 1 -u 10.10.10.1 9514
+# route echo '<0>f51-UDP' | nc -w 1 -u 10.10.10.1 9514
 ```
-To test if you can reach a TCP remote port, run the following and then search in Splunk with `HOST=f5serv1* f5serv1-TCP`. 
+To test if you can reach a TCP remote port, run the following and then search in Splunk with `HOST=f51* f51-TCP`. 
 ```
-user@f5serv1:Active:In Sync] ~ # route echo '<0>f5serv1-TCP' | nc -w 1 -t 10.10.10.1 9515
+# route echo '<0>f51-TCP' | nc -w 1 -t 10.10.10.1 9515
 ```
 4. You can also do a tcpdump to check if you can send logs to a specific remote port of Splunk server.  
 Run the following in one terminal to monitor TCP port;
 ```
-user@f5serv1:Active:In Sync] ~ # tcpdump -A -nni vlan1 host 10.10.10.1 and port 9515
+# tcpdump -A -nni vlan1 host 10.10.10.1 and port 9515
 ```
-While tcpdump is running, open another terminal and run the following and check if this log shows in tcpdump output. Also check /var/log/ltm and search in Splunk server with `HOST=f5serv1* DUMPLING`.
+While tcpdump is running, open another terminal and run the following and check if this log shows in tcpdump output. Also check `/var/log/ltm` and search in Splunk server with `HOST=f51* DUMPLING`.
 ```
-user@f5serv1:Active:In Sync] ~ # logger -p local0.notice "DUMPLING”
+# logger -p local0.notice "DUMPLING”
 ```
-If nc or tcpdump works, it means F5 can send logs to specific Splunk ports without any issue. If any of them did not worked, revisit "Check Network Connectivity" section above.
+If `nc` or `tcpdump` works, it means F5 can send logs to specific Splunk ports without any issue. If any of them did not worked, check "Check Network Connectivity" section again.
 
 ---
 
 ### B. Add Splunk on F5
 1. In F5, check `syslog-ng` global and local configuration;  
 ```
-[user@f5serv1:Active:In Sync] ~ # cat /var/run/config/syslog-ng.conf
+# cat /var/run/config/syslog-ng.conf
 ```
 Check default log path of SYSLOG, APM and ASM;  
 SYSLOG  -> # local0.*  
@@ -87,19 +87,20 @@ ASM     -> # local3.*
 
 2. Check if there is any pre-configured remote log server in F5; 
 ```
-user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# list /sys syslog remote-servers
+# tmsh list /sys syslog remote-servers
 sys syslog {
     remote-servers none
 }
 ```
 If there is any remote log server, we need to remove it because this type of configuration does not allow us to set severity level of outgoing logs. To remove `remote-servers`, run the following;
 ```
-user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# modify /sys syslog remote-servers none
-user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save /sys config
+# tmsh
+(tmos)# modify /sys syslog remote-servers none
+(tmos)# save /sys config
 ```
 3. Now add Splunk server as a `include` which will allow us to filter outgoing logs;
 ```
-user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# edit /sys syslog all-properties
+(tmos)# edit /sys syslog all-properties
 sys syslog {
     auth-priv-from notice
     auth-priv-to emerg
@@ -145,8 +146,8 @@ Here under `include` section, `10.10.10.1` is Splunk server IP and F5 will send 
 
 4. Change date format to `iso-date`;
 ```
-user@(f5serv1)(cfg-sync In Sync)(Standby)(/Common)(tmos)# modify sys syslog iso-date enabled
-user@(f5serv1)(cfg-sync In Sync)(Active)(/Common)(tmos)# save /sys config
+(tmos)# modify sys syslog iso-date enabled
+(tmos)# save /sys config
 ```
 5. In Splunk, modify `inputs.conf` so that F5 source-type matches with `inputs.conf`;  
 F5 Source Type ->
@@ -173,8 +174,8 @@ sourcetype = f5:bigip:asm:syslog
 In here, SYSLOG and APM is using `9514/udp` and ASM is using `9515/tcp`.
 
 6. Go to Splunk and search with the following to verify that SYSLOG (/var/log/ltm) shows up in Splunk;
-- Search `host=f5serv1* mcpd` to see if it’s getting `mcpd` logs
-- Search `host=f5serv1* tmm*` to see if it’s getting `tmm` logs
+- Search `host=f51* mcpd` to see if it’s getting `mcpd` logs
+- Search `host=f51* tmm*` to see if it’s getting `tmm` logs
 
 ---
 
