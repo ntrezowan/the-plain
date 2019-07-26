@@ -31,7 +31,7 @@ The directories you want to protect need to be configured in Apache virtual host
 /var/cache/shibboleth -> Cache directory  
 /etc/init.d/shibd -> Startup script (shibd) 
 /var/log/shibboleth/transcation.log -> Transaction logs
-/var/log/shibboleth/shibd.log -> SAML and security related logs
+/var/log/shibboleth/shibd.log -> Metadata and security related logs
 /var/log/shibboleth/shibd_warn.log -> Logs containing issue with shibd process
 
 *Permission:*  
