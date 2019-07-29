@@ -104,7 +104,7 @@ tcp6       0      0 :::8080       :::*          LISTEN
 source /etc/profile
 ```
 
-3. Login to Tomcat Web Application Manager (http://localhost:8080/manager/html) with `tomcat` user that we have configured in `tomcat-users.xml` file.
+3. Login to Tomcat Web Application Manager, `http://localhost:8080/manager/html` with `tomcat` user that we have configured in `tomcat-users.xml` file.
 
 4. Go to the Deploy section and complete as following;
 ```
@@ -172,6 +172,6 @@ Name=system
 Hostname=system.example.com
 Username=juser
 ```
-Click on Test Configuration and it should yield `Success`. If not, verify that `juser` user of `jenkins1` can ssh to system without password.
+Click on `Test Configuration` and it should yield `Success`. If not, verify that `juser` can ssh to `app1` from `jenkins1` without password.
 
 ---
