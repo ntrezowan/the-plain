@@ -52,7 +52,7 @@ source /etc/profile
 
 2. Configure a Tomcat user for Tomcat Web Application Manager;
 ```
-# vi /opt/tomcat/conf/tomcat-users.xml  
+# vi /opt/tomcat/conf/tomcat-users.xml
     <?xml version='1.0' encoding='utf-8'?>
     <tomcat-users>
         <role rolename="manager-gui"/>
