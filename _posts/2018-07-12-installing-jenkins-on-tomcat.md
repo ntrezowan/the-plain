@@ -6,7 +6,7 @@ keywords: "jenkins, tomcat, publish over ssh"
 published: true
 ---
 
-### A. Install JAVA
+### A. Install Java
 
 1. Install OpenJDK;
 ```
@@ -33,7 +33,8 @@ source /etc/profile
 ```
 # echo $JAVA_HOME
 /usr/lib/jvm/jre-x.x.x-openjdk
-
+````
+```
 # echo $JRE_HOME
 /usr/lib/jvm/jre
 ```
@@ -52,7 +53,9 @@ source /etc/profile
 2. Configure a Tomcat user for Tomcat Web Application Manager;
 ```
 # vi /opt/tomcat/conf/tomcat-users.xml
-
+```
+Sample config;
+```
 <?xml version='1.0' encoding='utf-8'?>
 <tomcat-users>
     <role rolename="manager-gui"/>
@@ -104,8 +107,10 @@ source /etc/profile
 3. Login to Tomcat Web Application Manager (http://localhost:8080/manager/html) with `tomcat` user that we have configured in `tomcat-users.xml` file.
 
 4. Go to the Deploy section and complete as following;
+```
 Context Path: /jenkins
 WAR or Directory URL: /opt/jenkins.war
+```
 
 Click on Deploy.
 
@@ -152,7 +157,6 @@ cat /usr/Jenkins/.ssh/known_hosts | grep system
 6. Login to Jenkins GUI, and go to `Manage Jenkins > Configure System`. In the Publish over SSH section, add the following;
 ```
 Path to key=/usr/Jenkins/.ssh/id_rsa
-
 SSH Servers
 Name=system
 Hostname=system.example.com
