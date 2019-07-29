@@ -130,41 +130,47 @@ Paste the `secret` to the browser and press Continue.
 
 **Configuring Publish Over SSH plugin**
 
-This plugin can be used to push code from Jenkins server to a remote application server using SSH protocol. For example, if you have your code hosted in a Jenkins server and you want to push the code automatically to an application servers, (appserver1) this plugin can do it for you. To install the plugin and configure the plugin for remote application server, do the following;
+This plugin can be used to push code from Jenkins server to a remote application server using SSH protocol. For example, if you have your code hosted in a Jenkins server (jenkinsserver1) and you want to push the code automatically to an application servers, (appserver1) this plugin can do it for you. 
+Jenkins server: jenkins1
+Application server: app1
+Jenkins user: juser
 
-1. Install the plugin;  
-Go to `Manage Jenkins > Manage Plugins` and search for `publish orver ssh` and then install the plugin
+To install the plugin and configure the plugin for remote application server, do the following;
 
-2. Create ssh key in the Jenkins server;
+1. Go to `Manage Jenkins > Manage Plugins` and search for `publish orver ssh` and then install the plugin.
+
+2. Create an user, `juser` on both `jenkins1` and `app1`.
+
+3. Create ssh key in the `jenkins1`;
 ```
 # ssh-keygen
 ```
 
-3. Copy the public key to an application server where you are hosting your application. If `appserver1` is the application server, then we will send the public key of Jenkins user in Jenkins server to sysA Jenkins user’s `./ssh` folder.
+3. Copy the public key to `./ssh` folder of `juser` in `app1` server;
 ```
-# ssh-copy-id -i id_rsa.pub jenkins@appserver1 
+# ssh-copy-id -i id_rsa.pub juser@app1 
 ```
 
-4. Login to `appserver1` using Jenkins user and check if it has the `authorized_keys` file;
+4. Login to `app1` as `juser` and check if it has the `authorized_keys` file;
 ```
-# ls -la /usr/Jenkins/.ssh/
+# ls -la /usr/juser/.ssh/
 total 4
--rw------- 1 jenkins jenkins 397 Oct  1 15:53 authorized_keys
+-rw------- 1 juser juser 397 Oct  1 15:53 authorized_keys
 ```
 
-5. Login to Jenkins server with jenkins user and check if `appserver1` info is listed in `known_hosts` file;
+5. Login to `jenkins1` server as `juser` and check if `app1` server info is listed in `known_hosts` file;
 ```
-cat /usr/Jenkins/.ssh/known_hosts | grep system
+cat /usr/juser/.ssh/known_hosts | grep system
 ```
 
-6. Login to Jenkins GUI, and go to `Manage Jenkins > Configure System`. In the Publish over SSH section, add the following;
+6. Login to `jenkins1` GUI, and go to `Manage Jenkins > Configure System`. In the `Publish over SSH` section, add the following;
 ```
-Path to key=/usr/Jenkins/.ssh/id_rsa
+Path to key=/usr/juser/.ssh/id_rsa
 SSH Servers
 Name=system
 Hostname=system.example.com
-Username=Jenkins
+Username=juser
 ```
-Click on Test Configuration and it should yield `Success`. If not, verify that `jenkins` user of Jenkins server can ssh to system without password.
+Click on Test Configuration and it should yield `Success`. If not, verify that `juser` user of `jenkins1` can ssh to system without password.
 
 ---
