@@ -53,15 +53,15 @@ source /etc/profile
 2. Configure a Tomcat user for Tomcat Web Application Manager;
 ```
 # vi /opt/tomcat/conf/tomcat-users.xml  
-<?xml version='1.0' encoding='utf-8'?>
-<tomcat-users>
-    <role rolename="manager-gui"/>
-    <role rolename="manager-script"/>
-    <role rolename="manager-jmx"/>
-    <role rolename="manager-jmx"/>
-    <role rolename="admin-gui"/>
-    <role rolename="admin-script"/>
-    <user username="tomcat" password="tomcat" roles="manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script"/>
+    <?xml version='1.0' encoding='utf-8'?>
+    <tomcat-users>
+        <role rolename="manager-gui"/>
+        <role rolename="manager-script"/>
+        <role rolename="manager-jmx"/>
+        <role rolename="manager-jmx"/>
+        <role rolename="admin-gui"/>
+        <role rolename="admin-script"/>
+        <user username="tomcat" password="tomcat" roles="manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script"/>
 </tomcat-users>
 ```
 
