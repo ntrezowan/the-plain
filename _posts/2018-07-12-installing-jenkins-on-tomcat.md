@@ -130,7 +130,7 @@ Paste the `secret` to the browser and press Continue.
 
 **Configuring Publish Over SSH plugin**
 
-This plugin can be used to push code from Jenkins server to a remote application server using SSH protocol. For example, if you have your code hosted in a Jenkins server and you want to push the code automatically to an application servers, then this plugin can do it for you.  
+This plugin can be used to push code from Jenkins server to a remote application server using SSH protocol. For example, if you have your code hosted in a Jenkins server and you want to push the code automatically to an application servers, then this plugin can do it for you.<br /><br />
 Here is an example environment which we will use to configure this plugin;  
 Jenkins server: _jenkins1_  
 Application server: _app1_  
