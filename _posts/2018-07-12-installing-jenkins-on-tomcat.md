@@ -53,6 +53,8 @@ source /etc/profile
 2. Configure a Tomcat user for Tomcat Web Application Manager;
 ```
 # vi /opt/tomcat/conf/tomcat-users.xml
+```    
+```    
     <?xml version='1.0' encoding='utf-8'?>
     <tomcat-users>
         <role rolename="manager-gui"/>
@@ -62,7 +64,7 @@ source /etc/profile
         <role rolename="admin-gui"/>
         <role rolename="admin-script"/>
         <user username="tomcat" password="tomcat" roles="manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script"/>
-</tomcat-users>
+    </tomcat-users>
 ```
 
 3. Open port `8080` from firewalld and reload the configuration;
