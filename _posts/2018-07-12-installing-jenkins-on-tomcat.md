@@ -38,6 +38,7 @@ source /etc/profile
 # echo $JRE_HOME
 /usr/lib/jvm/jre
 ```
+
 ---
 
 ### B. Install Tomcat
