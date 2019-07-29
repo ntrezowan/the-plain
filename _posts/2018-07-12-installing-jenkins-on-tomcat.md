@@ -160,7 +160,6 @@ Name=system
 Hostname=system.example.com
 Username=Jenkins
 ```
-
 Click on Test Configuration and it should yield `Success`. If not, verify that `jenkins` user of Jenkins server can ssh to system without password.
 
 ---
