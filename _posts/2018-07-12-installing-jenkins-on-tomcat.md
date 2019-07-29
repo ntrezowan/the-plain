@@ -110,7 +110,6 @@ source /etc/profile
 Context Path: /jenkins
 WAR or Directory URL: /opt/jenkins.war
 ```
-
 Click on Deploy.
 
 5. Check if Jenkins has started running by looking at the `Running` column of the Application lists.
