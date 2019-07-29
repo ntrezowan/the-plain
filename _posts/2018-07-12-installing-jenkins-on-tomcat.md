@@ -33,7 +33,7 @@ source /etc/profile
 ```
 # echo $JAVA_HOME
 /usr/lib/jvm/jre-x.x.x-openjdk
-````
+```
 ```
 # echo $JRE_HOME
 /usr/lib/jvm/jre
