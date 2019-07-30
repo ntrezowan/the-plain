@@ -6,6 +6,10 @@ keywords: "jenkins, tomcat, publish over ssh"
 published: true
 ---
 
+> Operating System: _RHEL 6.5_  
+> Web Server: _Tomcat 8.5_ 
+
+---
 ### A. Install Java
 
 1. Install OpenJDK;
