@@ -124,30 +124,30 @@ Paste the `secret` to the browser and press Continue.
 
 7. The next page will ask you to `Install plugins`. You can either choose `Install Suggested Plugins` or you can choose `Select plugins to Install`. You can remove/add new plugins later from GUI by visiting `Manage Jenkins > Manage Plugins`.
 8. After plugin installation is complete, it will ask you to create a new admin account. Create the account and click Continue.
-9. In the `Instance Configuration` page, it will ask for the Jenkins URL. If you prefer to have FQDN name (https://example.com/jenkins), set it here.
+9. In the `Instance Configuration` page, it will ask for the Jenkins URL. If you prefer to have FQDN name (e.g. `https://example.com/jenkins`), set it here.
 
 ---
 
 **Configuring Publish Over SSH plugin**
 
-This plugin can be used to push code from Jenkins server to a remote application server using SSH protocol. For example, if you have your code hosted in a Jenkins server and you want to push the code automatically to an application servers, then this plugin can do it for you.<br /><br />
+This plugin can be used to push code before build starts or after build finishes to a remote application server using SSH protocol. For example, if you have your code hosted in a Jenkins server and you want to push build artifacts upon completion of build process to an application servers, then this plugin can do it for you.<br /><br />
 Here is an example environment which we will use to configure this plugin;  
 Jenkins server: _jenkins1_  
 Application server: _app1_  
-Jenkins user (exists on both Jenkins and Application server): _juser_  
+Jenkins user (exists on both jenkins1 and app1): _juser_  
 
 To install the plugin and configure the plugin for remote application server, do the following;
 
-1. Go to `Manage Jenkins > Manage Plugins` and search for `publish orver ssh` and then install the plugin.
+1. Go to `Manage Jenkins > Manage Plugins` and search for `publish over ssh` and then install the plugin.
 
 2. Create an user, `juser` on both `jenkins1` and `app1`.
 
-3. Create ssh key in the `jenkins1`;
+3. Create ssh key in the `jenkins1` for `juser`;
 ```
 # ssh-keygen
 ```
 
-3. Copy the public key to `./ssh` folder of `juser` in `app1` server;
+3. Copy the public key of `juser` in `jenkins1` to `app1`;
 ```
 # ssh-copy-id -i id_rsa.pub juser@app1 
 ```
@@ -161,15 +161,15 @@ total 4
 
 5. Login to `jenkins1` server as `juser` and check if `app1` server info is listed in `known_hosts` file;
 ```
-cat /usr/juser/.ssh/known_hosts | grep system
+# cat /usr/juser/.ssh/known_hosts | grep system
 ```
 
 6. Login to `jenkins1` GUI, and go to `Manage Jenkins > Configure System`. In the `Publish over SSH` section, add the following;
 ```
 Path to key=/usr/juser/.ssh/id_rsa
 SSH Servers
-Name=system
-Hostname=system.example.com
+Name=Application
+Hostname=app1.example.com
 Username=juser
 ```
 Click on `Test Configuration` and it should yield `Success`. If not, verify that `juser` can ssh to `app1` from `jenkins1` without password.
