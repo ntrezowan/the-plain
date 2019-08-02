@@ -3,7 +3,7 @@ body {
   line-height: 20px;
   font-weight: normal;
   font-style: normal;
-  font-family: Helvetica, Arial;
+  font-family: Helvetica, Arial, fixed-width;
   color: #333333;
   padding: 20px;
   margin: 0;
@@ -142,7 +142,7 @@ time {
 }
 code,
 pre {
-  font-family: monospace, fixed-width;
+  font-family: Helvetica, Arial, fixed-width;
 }
 code {
   color: #f14e32;
