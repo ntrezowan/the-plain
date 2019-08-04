@@ -6,9 +6,9 @@ description: "GlusterFS and CephFS Performance in Xen Hypervisor"
 keywords: "glusterfs, cephfs, performance, xen, hypervisor, virtual, machine"
 ---
 
-# A. Host/Virtual Machines Configuration
-## 1. Virtual Machines
-### 1.1 GlusterFS VMs
+## A. Host/Virtual Machines Configuration
+### 1. Virtual Machines
+#### 1.1 GlusterFS VMs
 
 Hostname | gfs1 | gfs2 | gfs3
 --- | --- | --- | ---
@@ -18,7 +18,7 @@ Disk | 100 GB | 100 GB | 100 GB
 Network | Bridged | Bridged | Bridged
 IP Address | 192.168.26.234 | 192.168.26.235 | 192.168.26.236
 
-### 1.2 CephFS VMs
+#### 1.2 CephFS VMs
 
 Hostname | gfs1 | gfs2 | gfs3
 --- | --- | --- | ---
@@ -28,7 +28,7 @@ Disk | 100 GB | 100 GB | 100 GB
 Network | Bridged | Bridged | Bridged
 IP Address | 192.168.26.237 | 192.168.26.238 | 192.168.26.239
 
-### 1.3 Client VMs
+#### 1.3 Client VMs
 
 Hostname | client1 | client2
 --- | --- | ---
@@ -38,7 +38,7 @@ Disk | 100 GB | 100 GB
 Network | Bridged | Bridged
 IP Address | 192.168.26.240 | 192.168.26.241
 
-## 2. Host Machines
+### 2. Host Machines
 
 Hostname | server1 | server2 | server3 | server4
 --- | --- | --- | --- | ---
@@ -50,8 +50,8 @@ IP Address | 192.168.26.230 | 192.168.26.231 | 192.168.26.232 | 192.168.26.233
 
 ___
 
-# B. Install Hypervisor and configure VMs
-## 1. Installing the hypervisor
+## B. Install Hypervisor and configure VMs
+### 1. Installing the hypervisor
 
 1. Install Xen4 CentOS stack from the repository;
 ```
@@ -117,7 +117,7 @@ BRIDGE=br0
 
 9. Xen is ready and we can start installing virtual machines there.
 
-## 2 Installing virtual machine for GlusterFS/Ceph/Client
+### 2. Installing virtual machine for GlusterFS/Ceph/Client
 
 Based on the above Host machine configuration, we need to create 8 virtual machine out of which 3 machines will be used for GlusterFS and 3 machines will be used for Ceph File System. Remaining 2 machines will be used as client machines. Out of these 8 machines, 7 of them will have CentOS 6.5 and one of the client machine will have Ubuntu 14.04.
 Below is a sample configuration used to create 7 CentOS virtual machines;
@@ -148,7 +148,7 @@ Below is the configuration used to create 1 Ubuntu virtual machine;
 --os-type=linux \ 
 --os-variant=ubuntuquantal
 ```
-## 3. Post installation requirments
+### 3. Post installation requirments
 
 1. Configure network for all of these three servers  
 2. Configure `/etc/host`s file so that they can resolve each other hostname to IP  
