@@ -50,7 +50,8 @@ IP Address | 192.168.26.230 | 192.168.26.231 | 192.168.26.232 | 192.168.26.233
 
 ___
 
-# B. Installing Xen Hypervisor
+# B. Install Hypervisor and configure VMs
+## 1. Installing the hypervisor
 
 1. Install Xen4 CentOS stack from the repository;
 ```
@@ -70,11 +71,11 @@ ___
 Which will change `/boot/grub/grub.conf` to the following configuration;  
 ```
 # cat /boot/grub/grub.conf | more
-title CentOS (3.4.46-8.el6.centos.alt.x86_64) 
+title CentOS (x.x.xx-x.elx.centos.alt.x86_64) 
 root (hd0,0) 
 kernel /xen.gz dom0_mem=1024M,max:1024M loglvl=all guest_loglvl=all 
-module /vmlinuz-3.4.46-8.el6.centos.alt.x86_64 ro root=/dev/mapper/vg_xen01-lv_root rd_LVM_LV=vg_xen01/lv_swap rd_NO_LUKS KEYBOARDTYPE=pc KEYTABLE=uk rd_NO_MD LANG=en_GB rd_LVM_LV=vg_xen01/lv_root SYSFONT=latarcyrheb-sun16 crashkernel=auto rd_NO_DM rhgb quiet 
-module /initramfs-3.4.46-8.el6.centos.alt.x86_64.img
+module /vmlinuz-x.x.xx-x.elx.centos.alt.x86_64 ro root=/dev/mapper/vg_xen01-lv_root rd_LVM_LV=vg_xen01/lv_swap rd_NO_LUKS KEYBOARDTYPE=pc KEYTABLE=uk rd_NO_MD LANG=en_GB rd_LVM_LV=vg_xen01/lv_root SYSFONT=latarcyrheb-sun16 crashkernel=auto rd_NO_DM rhgb quiet 
+module /initramfs-x.x.xx-x.elx.centos.alt.x86_64.img
 ```
 
 4. After the reboot, Xen is loaded properly and to verify;
@@ -116,7 +117,7 @@ BRIDGE=br0
 
 9. Xen is ready and we can start installing virtual machines there.
 
-## 2.1 Installing virtual machine for GlusterFS/Ceph/Client
+## 2 Installing virtual machine for GlusterFS/Ceph/Client
 
 Based on the above Host machine configuration, we need to create 8 virtual machine out of which 3 machines will be used for GlusterFS and 3 machines will be used for Ceph File System. Remaining 2 machines will be used as client machines. Out of these 8 machines, 7 of them will have CentOS 6.5 and one of the client machine will have Ubuntu 14.04.
 Below is a sample configuration used to create 7 CentOS virtual machines;
@@ -147,7 +148,7 @@ Below is the configuration used to create 1 Ubuntu virtual machine;
 --os-type=linux \ 
 --os-variant=ubuntuquantal
 ```
-## 2.2 Post Installation requirments
+## 3. Post installation requirments
 
 1. Configure network for all of these three servers  
 2. Configure `/etc/host`s file so that they can resolve each other hostname to IP  
