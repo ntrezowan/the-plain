@@ -798,9 +798,9 @@ id 	pool	image	snap	device
 
 ___
 
-# E. Installing Benchmark Tools
+## E. Installing Benchmark Tools
 
-## 5.1 Installing iozone
+### 1. Installing iozone
 
 1. Since we are using 64-bit operating system, it will be good if we use 64-bit version of iozone. But iozone only provides 32-bit version of RPM package, so we will use Source RPM, compile it to a 64-bit RPM package and then install it. Initially, we will install `rpm-build`, `make` and `gcc` to resolve the dependencies for `rpmbuild`; 
 ```
@@ -833,7 +833,7 @@ ___
 # apt-get install iozone3
 ```
 
-## 5.2 Installing Bonnie++
+### 2. Installing Bonnie++
 
 1. Bonnie++ does not come with the default CentOS repo list. So we have to frist add `RPMForge` repository and then we can install it;
 ```
