@@ -113,6 +113,31 @@ keystoreFile="conf/certs/example.com.jks"
 
 5. Verify the changes by visiting hosted site's certificate.
 
+
+### 3. Install root/intermediate to Java keystore
+
+
+1. The root/intermediate certs are stored in `cacerts` keystore file located in `/usr/bin/java/jre/lib/security/`.
+
+2. To install a root CA certificate, copy the root certificate to `/tmp` folder and save as `root.cer`. Run the following command to import the certificate;
+```
+# /usr/bin/java/keytool -import -alias rootca -file /tmp/root.cer -keystore /usr/bin/java/jre/lib/security/cacerts
+Enter keystore password:
+```
+Here the `cacerts` keystore password is `changeit` (Default).
+
+3. To view all the root certificate, run the following command;
+```
+# /usr/bin/java/keytool -list -v -keystore /usr/bin/java/jre/lib/security/cacerts | grep Alias | sort
+Enter keystore password:
+```
+
+4. If you want to add an intermediate to `cacerts`, run the following to add the intermediate (assuming `intermediate.cer` is in `/tmp`);
+```
+# /usr/bin/java/keytool -import -alias intermediateca -file /tmp/intermediate.cer -keystore /usr/bin/java/jre/lib/security/cacerts
+Enter keystore password:
+```
+
 ---
 
 ## B. Windows
@@ -224,12 +249,12 @@ C:\Program Files\Apache Tomcat\conf\SSL\>C:\Program Files\Java\jre\bin\keytool -
 5. Verify the changes by visiting hosted site's certificate.
 
 
-### 3. Install root certificate
+### 3. Install root/intermediate to Java keystore
 
 
-1. Obtain the root certificate from CA and then import it to the `cacerts` keystore file located in `C:\Program Files\Java\jre\lib\security\` folder.
+1. The root/intermediate certs are stored in `cacerts` keystore file located in `C:\Program Files\Java\jre\lib\security\`.
 
-2. To install a root CA certificate, copy the root certificate to `C:\Users\Administrator\Desktop\` folder and save as `root.cer`. Run the following command to import the certificate;
+2. To install a root certificate, copy the root certificate to `C:\Users\Administrator\Desktop\` folder and save as `root.cer`. Run the following command to import the certificate;
 ```
 C:\Program Files\Java\jre\lib\security\>C:\Program Files\Java\jre\bin\keytool -import -trustcacerts -alias rootca -file C:\Users\Administrator\Desktop\root.cer -keystore cacerts
 Enter keystore password:
@@ -242,7 +267,7 @@ C:\Program Files\Java\jre\lib\security\>C:\Program Files\Java\jre\bin\keytool -l
 Enter keystore password:
 ```
 
-4. If you want to add an intermediate to `cacerts`, run the following to add the intermediate (assuming intermediate.cer is in `C:\Users\Administrator\Desktop\`);
+4. If you want to add an intermediate to `cacerts`, run the following to add the intermediate (assuming `intermediate.cer` is in `C:\Users\Administrator\Desktop\`);
 ```
 C:\Program Files\Java\jre\lib\security\>C:\Program Files\Java\jre\bin\keytool -import -alias intermediate -file C:\Users\Administrator\Desktop\intermediate.cer -keystore cacerts
 ```
