@@ -5,11 +5,6 @@ comments: false
 description: "GlusterFS and CephFS Performance in Xen Hypervisor"
 keywords: "glusterfs, cephfs, performance, xen, hypervisor, virtual, machine"
 ---
-> GlusterFS – *3.5*  
-> CephFS – *Gluster node 2 (Monitor daemon, Object storage)*  
-
-
----
 
 ## A. Host/Virtual Machines Configuration
 ### 1. Virtual Machines
@@ -25,7 +20,7 @@ IP Address | 192.168.26.234 | 192.168.26.235 | 192.168.26.236
 
 #### 1.2 CephFS VMs
 
-Hostname | gfs1 | gfs2 | gfs3
+Hostname | ceph1 | ceph2 | ceph3
 --- | --- | --- | ---
 Operating System | CentOS 6.5 | CentOS 6.5 | CentOS 6.5 
 RAM | 2 GB | 2 GB | 2 GB
