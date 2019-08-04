@@ -188,8 +188,15 @@ keystoreFile="conf/SSL/keystore-example.com.jks"
 
 9. Restart Apache Tomcat service from Windows Services.
 
-10. Verify the changes by visiting hosted site's certificate.
-
+10. Verify the changes by visiting hosted site's certificate;  
+```
+# openssl s_client -connect www.example.com:443 | openssl x509 -noout -issuer -subject -dates
+depth=2 /C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert Global Root CA
+verify error:num=19:self signed certificate in certificate chain
+verify return:0
+issuer= /C=US/O=DigiCert Inc/CN=DigiCert SHA2 Secure Server CA
+subject= /C=US/ST=California/L=Los Angeles/O=Internet Corporation for Assigned Names and Numbers/OU=Technology/CN=www.example.org
+```
 
 ### 2. Renew certificate for an existing keystore
 
