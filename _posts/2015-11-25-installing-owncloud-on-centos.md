@@ -7,14 +7,13 @@ keywords: "owncloud, install, centos, nginx, mariadb"
 > Operating System: _CentOS 7_  
 > Web Server: _Nginx 1.8.0_  
 > Database: _MariaDB 5.5.44_  
-> PHP: _FastCGI-PM 5.4.16_  
   
 ___
 
 1. Import Nginx repository;  
 ```
 # yum -y install epel-release
-# rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-x-0.elx.ngx.noarch.rpm
+# rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-x-x.elx.ngx.noarch.rpm
 ```
 
 2. Install web server, database and other dependencies;  
