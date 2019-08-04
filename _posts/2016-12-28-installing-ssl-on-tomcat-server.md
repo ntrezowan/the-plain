@@ -76,7 +76,7 @@ keystoreFile="conf/certs/example.com.jks"
 
 9. Restart Apache Tomcat service.
 
-10. Verify the changes by visiting hosted site's certificate;
+10. Verify the changes by visiting hosted site's certificate;  
 ```
 # openssl s_client -connect www.example.com:443 | openssl x509 -noout -issuer -subject -dates
 
