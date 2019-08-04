@@ -86,7 +86,7 @@ issuer= /C=US/O=DigiCert Inc/CN=DigiCert SHA2 Secure Server CA
 subject= /C=US/ST=California/L=Los Angeles/O=Internet Corporation for Assigned Names and Numbers/OU=Technology/CN=www.example.org
 ```
 
-### 2. Create keystore from existing certficate and key
+### 2. Renew certificate for existing keystore
 
 1. Generate the CSR from from your machine and obtain the certificate from CA. Transfer both `example.com.crt` and `example.com.key` file to `/opt/tomcat/conf/certs/`.
 
