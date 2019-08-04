@@ -195,7 +195,7 @@ ___
 5. Check the installed version of the GlusterFS;
 ```
 # glusterfsd --version
-glusterfs 3.5.0 built on Apr 23 2014 12:53:55
+glusterfs x.x.x built on Apr 23 2014 12:53:55
 Repository revision: git://git.gluster.com/glusterfs.git
 Copyright (c) 2006-2013 Red Hat, Inc. http://www.redhat.com/
 ```
@@ -215,7 +215,7 @@ Copyright (c) 2006-2013 Red Hat, Inc. http://www.redhat.com/
 2. Now check the installed version of the GlusterFS;
 ```
 # glusterfsd --version
-glusterfs 3.5.1 built on Jun 24 2014 15:09:41
+glusterfs x.x.x built on Jun 24 2014 15:09:41
 Repository revision: git://git.gluster.com/glusterfs.git
 Copyright (c) 2006-2013 Red Hat, Inc. http://www.redhat.com/
 ```
@@ -598,7 +598,7 @@ total 33G
 
 ___
 
-# D. Installing and configuring CephFS
+## D. Installing and configuring CephFS
 
 > *ceph1 – Admin node*  
 > *ceph2 – Ceph node 1 (Monitor daemon, Object storage)*  
@@ -606,7 +606,7 @@ ___
 > *client1 – CentOS*  
 > *client2 – Ubuntu*  
 
-## 4.1 Install CephFS on the storage servers
+### 1. Install CephFS on the storage servers
 
 1. Create a new Ceph user and set password;
 ```
@@ -754,7 +754,7 @@ And change the following line;
 Defaults:ceph !requiretty
 ```
 
-## 4.2 Ceph Client Installation
+### 2. Ceph Client Installation
 
 1. From Admin node (ceph1), install ceph client;
 ```
