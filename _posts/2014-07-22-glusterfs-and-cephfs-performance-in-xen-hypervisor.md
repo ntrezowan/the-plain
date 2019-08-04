@@ -157,7 +157,7 @@ Below is the configuration used to create 1 Ubuntu virtual machine;
 
 ___
 
-# C. Installing and configuring GlusterFS
+## C. Installing and configuring GlusterFS
 
 > *gfs1 – Admin node + Gluster node 1*  
 > *gfs2 – Gluster node 2 (Monitor daemon, Object storage)*  
@@ -165,7 +165,7 @@ ___
 > *client1 – CentOS*  
 > *client2 – Ubuntu* 
 
-### 3.1 Install GlusterFS on the storage servers
+### 1. Install GlusterFS on the storage servers
 
 1. Installing required packages since we have installed the minimal version of CentOS;
 ```
@@ -200,7 +200,7 @@ Copyright (c) 2006-2013 Red Hat, Inc. http://www.redhat.com/
 #  chkconfig glusterfsd on
 ```
 
-### 3.2 Installing GlusterFS on the client machines
+### 2. Installing GlusterFS on the client machines
 
 1. The client only require glusterfs and glusterfs-fuse to communicate with the servers;
 ```
@@ -215,7 +215,7 @@ Repository revision: git://git.gluster.com/glusterfs.git
 Copyright (c) 2006-2013 Red Hat, Inc. http://www.redhat.com/
 ```
 
-### 3.3 Creating a trusted pool among the storage servers
+### 3. Creating a trusted pool among the storage servers
 
 1. To create a trusted pool, we have to make sure that all these servers can resolve each other hostname, we will manually enter this information in the `/etc/hosts` file to map IP to hostname;
 ```
@@ -257,7 +257,7 @@ Uuid: cbda474e-efd7-4bc8-9c6c-4456bf4ec1b6
 State: Peer in Cluster (Connected)
 ```
 
-## 3.4 Creating a distributed volume in the trusted pool
+### 4. Creating a distributed volume in the trusted pool
 
 1. At first, check if TCP connection between three servers are functional or not;
 ```
@@ -393,7 +393,7 @@ total 0
 
 11. We can see that all the files are distributed among all three storage servers.
 
-## 3.5 Creating a replicated volume in the trusted pool
+### 5. Creating a replicated volume in the trusted pool
 
 1. Create the first replicated volume, `rep-volume` for all these three servers;
 ```
@@ -504,7 +504,7 @@ total 0
 
 10. We can see that all the files are distributed among all three servers.
 
-## 3.6 Creating a stripped volume in the trusted pool
+### 6. Creating a stripped volume in the trusted pool
 
 1. Now create the first replicated volume, `strip-volume` for all these three servers;
 ```
