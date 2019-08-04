@@ -4,6 +4,110 @@ comments: false
 description: "Installing SSL on Tomcat Server"
 keywords: "ssl, certificate, install, java, keytool, windows, apache, tomcat, linux, unix"
 ---
+
+## Red Hat Enterprise Linux
+Java Keytool location: `/usr/bin/java`  
+Tomcat config location: `/opt/tomcat/conf`  
+Tomcat keystore location: `/opt/tomcat/conf/certs`
+
+### A. Create new keystore to install a new certificate
+
+1. Login to the server and create new keystore (SHA-2) in the Tomcat keystore folder;  
+```
+# /usr/bin/java/keytool -genkey -alias example.com -keyalg RSA -keystore /opt/tomcat/conf/certs/example.com.jks -keysize 2048
+Enter keystore password:
+Re-enter new password:
+What is your first and last name?
+  [Unknown]:  example.com
+What is the name of your organizational unit?
+  [Unknown]:  Information Technology
+What is the name of your organization?
+  [Unknown]:  Internet Assigned Numbers Authority
+What is the name of your City or Locality?
+  [Unknown]:  Los Angeles
+What is the name of your State or Province?
+  [Unknown]:  California
+What is the two-letter country code for this unit?
+  [Unknown]:  US
+Is CN=example.com, OU=Information Technology, O=Internet Assigned Numbers Authority, L=Los Angeles, ST=California, C=US correct?
+  [no]:  yes
+Enter key password for <example.com>
+	(RETURN if same as keystore password):
+Re-enter new password:
+```
+The password that is used here will require every time we open/modify this newly created keystore file.
+
+2. Generate a new CSR for `example.com` domain;
+```
+# /usr/bin/java/keytool -certreq -alias example.com -keystore /opt/tomcat/conf/certs/example.com.jks -file /opt/tomcat/conf/certs/example.com.csr
+Enter keystore password:
+```
+
+3. Use `example.com.csr` to get a new certificate From a CA. Save intermediate certificate as `intermediate.crt` and site certificate as `example.com.crt`. Transfer both certs at `/opt/tomcat/conf/certs/`.
+
+4. Import intermediate certificate to the keystore;
+```
+# /usr/bin/java/keytool -import -trustcacerts -alias intermediate -file /opt/tomcat/conf/certs/intermediate.crt -keystore /opt/tomcat/conf/certs/example.com.jks
+Enter keystore password:
+Certificate was added to keystore
+```
+
+5. Verify that intermediate certificate is imported correctly;
+```
+# /usr/bin/java/keytool -list -v -alias intermediate -keystore /opt/tomcat/conf/certs/example.com.jks | more
+```
+
+6. Import site certificate (example.com) to the keystore;
+```
+# /usr/bin/java/keytool -import -alias example.com -trustcacerts -file /opt/tomcat/conf/certs/example.com.crt -keystore /opt/tomcat/conf/certs/example.com.jks
+Enter keystore password:
+Certificate reply was installed in keystore
+```
+
+7. Verify that site certificate is imported correctly;
+```
+# /usr/bin/java/keytool -list -v -alias example.com -keystore /opt/tomcat/conf/certs/example.com.jks | more
+```
+
+8. Open `server.xml` file located at `/opt/tomcat/conf/` and look for `keystoreFile` string. Modify it to the following;
+```
+keystoreFile="conf/certs/example.com.jks"
+```
+
+9. Restart Apache Tomcat service.
+
+10. Verify the changes by visiting hosted site's certificate.
+
+
+### B. Create keystore from existing certficate and key
+
+1. Generate the CSR from from your machine and obtain the certificate from CA. Transfer both `example.com.crt` and `example.com.key` file to `/opt/tomcat/conf/certs/`.
+
+2. Create pcks12 using the crt and key;
+```
+# openssl pkcs12 -export -out /opt/tomcat/conf/certs/example.com.pfx -inkey /opt/tomcat/conf/certs/example.com.key -in /opt/tomcat/conf/certs/example.com.crt
+```
+
+3. Create jks using the pcks12 with an alias `example.com`;
+```
+# /usr/bin/java/keytool -importkeystore -srckeystore /opt/tomcat/conf/certs/example.pfx -srcstoretype pkcs12 -destkeystore /opt/tomcat/conf/certs/example.com.jks -deststoretype jks -destalias example.com
+```
+
+4. Check the certificate;
+```
+#  /usr/bin/java/keytool -list -v -keystore /opt/tomcat/conf/certs/example.com.jks -alias example.com
+```
+
+5. Open `server.xml` file located at `/opt/tomcat/conf/` and look for `keystoreFile` string. Modify it to the following;
+```
+keystoreFile="conf/certs/example.com.jks"
+```
+4. Restart Apache Tomcat service.
+
+5. Verify the changes by visiting hosted site's certificate.
+
+---
+
 ## Windows
 
 Java Keytool location: `C:\Program Files\Java\jre\bin\`  
@@ -128,107 +232,3 @@ Enter keystore password:
 ```
 C:\Program Files\Java\jre\lib\security\>C:\Program Files\Java\jre\bin\keytool -import -alias intermediate -file C:\Users\Administrator\Desktop\intermediate.cer -keystore cacerts
 ```
-
----
-
-## Red Hat Enterprise Linux
-Java Keytool location: `/usr/bin/java`  
-Tomcat config location: `/opt/tomcat/conf`  
-Tomcat keystore location: `/opt/tomcat/conf/certs`
-
-### A. Create new keystore to install a new certificate
-
-1. Login to the server and create new keystore (SHA-2) in the Tomcat keystore folder;  
-```
-# /usr/bin/java/keytool -genkey -alias example.com -keyalg RSA -keystore /opt/tomcat/conf/certs/example.com.jks -keysize 2048
-Enter keystore password:
-Re-enter new password:
-What is your first and last name?
-  [Unknown]:  example.com
-What is the name of your organizational unit?
-  [Unknown]:  Information Technology
-What is the name of your organization?
-  [Unknown]:  Internet Assigned Numbers Authority
-What is the name of your City or Locality?
-  [Unknown]:  Los Angeles
-What is the name of your State or Province?
-  [Unknown]:  California
-What is the two-letter country code for this unit?
-  [Unknown]:  US
-Is CN=example.com, OU=Information Technology, O=Internet Assigned Numbers Authority, L=Los Angeles, ST=California, C=US correct?
-  [no]:  yes
-Enter key password for <example.com>
-	(RETURN if same as keystore password):
-Re-enter new password:
-```
-The password that is used here will require every time we open/modify this newly created keystore file.
-
-2. Generate a new CSR for `example.com` domain;
-```
-# /usr/bin/java/keytool -certreq -alias example.com -keystore /opt/tomcat/conf/certs/example.com.jks -file /opt/tomcat/conf/certs/example.com.csr
-Enter keystore password:
-```
-
-3. Use `example.com.csr` to get a new certificate From a CA. Save intermediate certificate as `intermediate.crt` and site certificate as `example.com.crt`. Transfer both certs at `/opt/tomcat/conf/certs/`.
-
-4. Import intermediate certificate to the keystore;
-```
-# /usr/bin/java/keytool -import -trustcacerts -alias intermediate -file /opt/tomcat/conf/certs/intermediate.crt -keystore /opt/tomcat/conf/certs/example.com.jks
-Enter keystore password:
-Certificate was added to keystore
-```
-
-5. Verify that intermediate certificate is imported correctly;
-```
-# /usr/bin/java/keytool -list -v -alias intermediate -keystore /opt/tomcat/conf/certs/example.com.jks | more
-```
-
-6. Import site certificate (example.com) to the keystore;
-```
-# /usr/bin/java/keytool -import -alias example.com -trustcacerts -file /opt/tomcat/conf/certs/example.com.crt -keystore /opt/tomcat/conf/certs/example.com.jks
-Enter keystore password:
-Certificate reply was installed in keystore
-```
-
-7. Verify that site certificate is imported correctly;
-```
-# /usr/bin/java/keytool -list -v -alias example.com -keystore /opt/tomcat/conf/certs/example.com.jks | more
-```
-
-8. Open `server.xml` file located at `/opt/tomcat/conf/` and look for `keystoreFile` string. Modify it to the following;
-```
-keystoreFile="conf/certs/example.com.jks"
-```
-
-9. Restart Apache Tomcat service.
-
-10. Verify the changes by visiting hosted site's certificate.
-
-
-### B. Create keystore from existing certficate and key
-
-1. Generate the CSR from from your machine and obtain the certificate from CA. Transfer both `example.com.crt` and `example.com.key` file to `/opt/tomcat/conf/certs/`.
-
-2. Create pcks12 using the crt and key;
-```
-# openssl pkcs12 -export -out /opt/tomcat/conf/certs/example.com.pfx -inkey /opt/tomcat/conf/certs/example.com.key -in /opt/tomcat/conf/certs/example.com.crt
-```
-
-3. Create jks using the pcks12 with an alias `example.com`;
-```
-# /usr/bin/java/keytool -importkeystore -srckeystore /opt/tomcat/conf/certs/example.pfx -srcstoretype pkcs12 -destkeystore /opt/tomcat/conf/certs/example.com.jks -deststoretype jks -destalias example.com
-```
-
-4. Check the certificate;
-```
-#  /usr/bin/java/keytool -list -v -keystore /opt/tomcat/conf/certs/example.com.jks -alias example.com
-```
-
-5. Open `server.xml` file located at `/opt/tomcat/conf/` and look for `keystoreFile` string. Modify it to the following;
-```
-keystoreFile="conf/certs/example.com.jks"
-```
-4. Restart Apache Tomcat service.
-
-5. Verify the changes by visiting hosted site's certificate.
-
