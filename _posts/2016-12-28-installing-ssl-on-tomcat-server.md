@@ -140,7 +140,7 @@ Enter keystore password:
 
 ---
 
-## B. Windows
+## B. Windows Server
 
 Java Keytool location: `C:\Program Files\Java\jre\bin\`  
 Tomcat config location: `C:\Program Files\Apache Tomcat\conf\`  
