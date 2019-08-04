@@ -7,8 +7,8 @@ keywords: "glusterfs, cephfs, performance, xen, hypervisor, virtual, machine"
 ---
 
 # A. Host/Virtual Machines Configuration
-## 1.1 Virtual Machines
-### 1.1.1 GlusterFS VMs
+## 1. Virtual Machines
+### 1.1 GlusterFS VMs
 
 Hostname | gfs1 | gfs2 | gfs3
 --- | --- | --- | ---
@@ -18,7 +18,7 @@ Disk | 100 GB | 100 GB | 100 GB
 Network | Bridged | Bridged | Bridged
 IP Address | 192.168.26.234 | 192.168.26.235 | 192.168.26.236
 
-### 1.1.2 CephFS VMs
+### 1.2 CephFS VMs
 
 Hostname | gfs1 | gfs2 | gfs3
 --- | --- | --- | ---
@@ -28,7 +28,7 @@ Disk | 100 GB | 100 GB | 100 GB
 Network | Bridged | Bridged | Bridged
 IP Address | 192.168.26.237 | 192.168.26.238 | 192.168.26.239
 
-### 1.1.3 Client VMs
+### 1.3 Client VMs
 
 Hostname | client1 | client2
 --- | --- | ---
@@ -38,7 +38,7 @@ Disk | 100 GB | 100 GB
 Network | Bridged | Bridged
 IP Address | 192.168.26.240 | 192.168.26.241
 
-## 1.2 Host Machines
+## 2. Host Machines
 
 Hostname | server1 | server2 | server3 | server4
 --- | --- | --- | --- | ---
