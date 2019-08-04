@@ -7,7 +7,7 @@ keywords: "glusterfs, cephfs, performance, xen, hypervisor, virtual, machine"
 ---
 
 ## A. Host/Virtual Machines Configuration
-### 1. Virtual Machines
+### 1 Virtual Machines
 #### 1.1 GlusterFS VMs
 
 Hostname | gfs1 | gfs2 | gfs3
@@ -38,7 +38,7 @@ Disk | 100 GB | 100 GB
 Network | Bridged | Bridged
 IP Address | 192.168.26.240 | 192.168.26.241
 
-### 2. Host Machines
+### 2 Host Machines
 
 Hostname | server1 | server2 | server3 | server4
 --- | --- | --- | --- | ---
@@ -51,7 +51,7 @@ IP Address | 192.168.26.230 | 192.168.26.231 | 192.168.26.232 | 192.168.26.233
 ___
 
 ## B. Install Hypervisor and configure VMs
-### 1. Installing the hypervisor
+### 1 Installing the hypervisor
 
 1. Install Xen4 CentOS stack from the repository;
 ```
@@ -117,7 +117,7 @@ BRIDGE=br0
 
 9. Xen is ready and we can start installing virtual machines there.
 
-### 2. Installing virtual machine for GlusterFS/Ceph/Client
+### 2 Installing virtual machine for GlusterFS/Ceph/Client
 
 Based on the above Host machine configuration, we need to create 8 virtual machine out of which 3 machines will be used for GlusterFS and 3 machines will be used for Ceph File System. Remaining 2 machines will be used as client machines. Out of these 8 machines, 7 of them will have CentOS 6.5 and one of the client machine will have Ubuntu 14.04.
 Below is a sample configuration used to create 7 CentOS virtual machines;
@@ -148,7 +148,7 @@ Below is the configuration used to create 1 Ubuntu virtual machine;
 --os-type=linux \ 
 --os-variant=ubuntuquantal
 ```
-### 3. Post installation requirments
+### 3 Post installation requirments
 
 1. Configure network for all of these three servers  
 2. Configure `/etc/host`s file so that they can resolve each other hostname to IP  
@@ -165,7 +165,7 @@ ___
 > *client1 – CentOS*  
 > *client2 – Ubuntu* 
 
-### 1. Install GlusterFS on the storage servers
+### 1 Install GlusterFS on the storage servers
 
 1. Installing required packages since we have installed the minimal version of CentOS;
 ```
@@ -200,7 +200,7 @@ Copyright (c) 2006-2013 Red Hat, Inc. http://www.redhat.com/
 #  chkconfig glusterfsd on
 ```
 
-### 2. Installing GlusterFS on the client machines
+### 2 Installing GlusterFS on the client machines
 
 1. The client only require glusterfs and glusterfs-fuse to communicate with the servers;
 ```
@@ -215,7 +215,7 @@ Repository revision: git://git.gluster.com/glusterfs.git
 Copyright (c) 2006-2013 Red Hat, Inc. http://www.redhat.com/
 ```
 
-### 3. Creating a trusted pool among the storage servers
+### 3 Creating a trusted pool among the storage servers
 
 1. To create a trusted pool, we have to make sure that all these servers can resolve each other hostname, we will manually enter this information in the `/etc/hosts` file to map IP to hostname;
 ```
@@ -257,7 +257,7 @@ Uuid: cbda474e-efd7-4bc8-9c6c-4456bf4ec1b6
 State: Peer in Cluster (Connected)
 ```
 
-### 4. Creating a distributed volume in the trusted pool
+### 4 Creating a distributed volume in the trusted pool
 
 1. At first, check if TCP connection between three servers are functional or not;
 ```
@@ -393,7 +393,7 @@ total 0
 
 11. We can see that all the files are distributed among all three storage servers.
 
-### 5. Creating a replicated volume in the trusted pool
+### 5 Creating a replicated volume in the trusted pool
 
 1. Create the first replicated volume, `rep-volume` for all these three servers;
 ```
@@ -504,7 +504,7 @@ total 0
 
 10. We can see that all the files are distributed among all three servers.
 
-### 6. Creating a stripped volume in the trusted pool
+### 6 Creating a stripped volume in the trusted pool
 
 1. Now create the first replicated volume, `strip-volume` for all these three servers;
 ```
@@ -601,7 +601,7 @@ ___
 > *client1 – CentOS*  
 > *client2 – Ubuntu*  
 
-### 1. Install CephFS on the storage servers
+### 1 Install CephFS on the storage servers
 
 1. Create a new Ceph user and set password;
 ```
@@ -749,7 +749,7 @@ And change the following line;
 Defaults:ceph !requiretty
 ```
 
-### 2. Ceph Client Installation
+### 2 Ceph Client Installation
 
 1. From Admin node (ceph1), install ceph client;
 ```
@@ -800,7 +800,7 @@ ___
 
 ## E. Installing Benchmark Tools
 
-### 1. Installing iozone
+### 1 Installing iozone
 
 1. Since we are using 64-bit operating system, it will be good if we use 64-bit version of iozone. But iozone only provides 32-bit version of RPM package, so we will use Source RPM, compile it to a 64-bit RPM package and then install it. Initially, we will install `rpm-build`, `make` and `gcc` to resolve the dependencies for `rpmbuild`; 
 ```
@@ -833,7 +833,7 @@ ___
 # apt-get install iozone3
 ```
 
-### 2. Installing Bonnie++
+### 2 Installing Bonnie++
 
 1. Bonnie++ does not come with the default CentOS repo list. So we have to frist add `RPMForge` repository and then we can install it;
 ```
@@ -856,7 +856,7 @@ ___
 
 ## F. Results
 
-### 1. IOzone
+### 1 IOzone
 
 Create a 100 GB File using iozone;
 ```
@@ -895,7 +895,7 @@ We are exporting the result in the txt file to create graph afterword’s.
 
 We cannot completely rely on testing `1GB-dist.img` because iozone start buffereing while file size is less than the memory, so we will only focus on 4GB, 8GB and 10GB measurement and 1GB will be only used for reference.
 
-#### 1.1. iozone performance in GlusterFS
+#### 1.1 iozone performance in GlusterFS
 
 In this experiment, we are using the Gluster file system distributed volume which is mounted in the client machine and this directory has used to create dummy files (for example iozone.DUMMY.1, iozone.DUMMY.2 etc) for I/O benchmarking. We have used different file block size (512K, 1024K, 2048K) and different file size (1GB, 4GB, 8GB, 10GB) to get more diverse results. All the testing is run in throughput mode with 4 threads/process and we have taken the average throughput per process. In Figure-1 and Figure-2 we have seen that, file operations such as Write, Read, Re-write, Re-read, Random Write are better in Client1 than Client2 where Random read operation is still bad on both machines. Also note to mention that Client2 works better on Write and Re-write operation than other file operations. In Random read operation, the bigger the file block size, the performance gets better. 
 
@@ -907,7 +907,7 @@ In this experiment, we are using the Gluster file system distributed volume whic
 
 ![GlusterFS Ubuntu Client](http://ntrezowan.github.com/images/gfs2-iozone.jpg)
 
-#### 1.2. iozone performance in CephFS
+#### 1.2 iozone performance in CephFS
  
 *CephFS CentOS Client*
 
@@ -917,11 +917,11 @@ In this experiment, we are using the Gluster file system distributed volume whic
 
 ![Ceph Ubuntu Client](http://ntrezowan.github.com/images/cfs2-iozone.jpg)
 
-### 2. dd
+### 2 dd
 
-#### 2.1. GlusterFS Testbed
+#### 2.1 GlusterFS Testbed
 
-##### 2.1.1. client1
+##### 2.1.1 client1
 
 1. Creating 1GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 1000 times;
 ```
@@ -943,7 +943,7 @@ In this experiment, we are using the Gluster file system distributed volume whic
 #  dd if=/dev/zero of=/mnt/distributed/10GB-dist.img bs=1024k count=10000 oflag=direct
 ```
 
-##### 2.1.2. client2
+##### 2.1.2 client2
 
 1. Creating 1GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 1000 times;
 ```
@@ -967,7 +967,7 @@ In this experiment, we are using the Gluster file system distributed volume whic
 
 #### 2.2 CephFS Testbed
 
-##### 2.2.1. client1
+##### 2.2.1 client1
 
 1. Creating 1GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 1000 times;
 ```
@@ -989,7 +989,7 @@ In this experiment, we are using the Gluster file system distributed volume whic
 #  sudo dd if=/dev/zero of=/mnt/distributed/10GB-dist.img bs=1024k count=10000 oflag=direct
 ```
 
-##### 2.2.2. client2
+##### 2.2.2 client2
 
 1. Creating 1GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 1000 times;
 ```
@@ -1019,6 +1019,6 @@ In this experiment, we are using the Gluster file system distributed volume whic
 
 ___
 
-# G. Summary
+## G. Summary
 Ceph and Gluster file system emerge good technologies to the storage system even if their internal structure are different. Gluster file system performance appear practically solid than Ceph file system which is still in development stage. Both file system supports data de-duplication with fail-over and load balancing which is expected in clustered storage. Ceph file system can be installed and managed very efficiently because a single node interface is capable of managing the entire cluster where in Gluster file system, every node have to managed separately for different purposes. Both file system can be deployed in virtual environments and in cloud computing platform from where clients can manage their user space. These two file system are open-source which gives alternative solution to expensive storage system and also supports most of the inexpenvive and commodity hardware.
 
