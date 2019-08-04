@@ -45,7 +45,7 @@ Enter keystore password:
 
 3. Use `example.com.csr` to get a new certificate From a CA. Save intermediate certificate as `intermediate.crt` and site certificate as `example.com.crt`. Transfer both certs at `/opt/tomcat/conf/certs/`.
 
-4. Import intermediate certificate to the keystore;
+4. Import intermediate certificate to the Tomcat keystore;
 ```
 # /usr/bin/java/keytool -import -trustcacerts -alias intermediate -file /opt/tomcat/conf/certs/intermediate.crt -keystore /opt/tomcat/conf/certs/example.com.jks
 Enter keystore password:
@@ -57,7 +57,7 @@ Certificate was added to keystore
 # /usr/bin/java/keytool -list -v -alias intermediate -keystore /opt/tomcat/conf/certs/example.com.jks | more
 ```
 
-6. Import site certificate (example.com) to the keystore;
+6. Import site certificate (example.com) to the Tomcat keystore;
 ```
 # /usr/bin/java/keytool -import -alias example.com -trustcacerts -file /opt/tomcat/conf/certs/example.com.crt -keystore /opt/tomcat/conf/certs/example.com.jks
 Enter keystore password:
@@ -76,8 +76,16 @@ keystoreFile="conf/certs/example.com.jks"
 
 9. Restart Apache Tomcat service.
 
-10. Verify the changes by visiting hosted site's certificate.
+10. Verify the changes by visiting hosted site's certificate;
+```
+# openssl s_client -connect www.example.com:443 | openssl x509 -noout -issuer -subject -dates
 
+depth=2 /C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert Global Root CA
+verify error:num=19:self signed certificate in certificate chain
+verify return:0
+issuer= /C=US/O=DigiCert Inc/CN=DigiCert SHA2 Secure Server CA
+subject= /C=US/ST=California/L=Los Angeles/O=Internet Corporation for Assigned Names and Numbers/OU=Technology/CN=www.example.org
+```
 
 ### 2. Create keystore from existing certficate and key
 
