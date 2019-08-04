@@ -854,9 +854,9 @@ ___
 
 ___
 
-# F. Results
+## F. Results
 
-## 6.1 IOzone
+### 1. IOzone
 
 Create a 100 GB File using iozone;
 ```
@@ -895,7 +895,7 @@ We are exporting the result in the txt file to create graph afterword’s.
 
 We cannot completely rely on testing `1GB-dist.img` because iozone start buffereing while file size is less than the memory, so we will only focus on 4GB, 8GB and 10GB measurement and 1GB will be only used for reference.
 
-### 6.1.1 iozone performance in GlusterFS
+#### 1.1. iozone performance in GlusterFS
 
 In this experiment, we are using the Gluster file system distributed volume which is mounted in the client machine and this directory has used to create dummy files (for example iozone.DUMMY.1, iozone.DUMMY.2 etc) for I/O benchmarking. We have used different file block size (512K, 1024K, 2048K) and different file size (1GB, 4GB, 8GB, 10GB) to get more diverse results. All the testing is run in throughput mode with 4 threads/process and we have taken the average throughput per process. In Figure-1 and Figure-2 we have seen that, file operations such as Write, Read, Re-write, Re-read, Random Write are better in Client1 than Client2 where Random read operation is still bad on both machines. Also note to mention that Client2 works better on Write and Re-write operation than other file operations. In Random read operation, the bigger the file block size, the performance gets better. 
 
@@ -907,7 +907,7 @@ In this experiment, we are using the Gluster file system distributed volume whic
 
 ![GlusterFS Ubuntu Client](http://ntrezowan.github.com/images/gfs2-iozone.jpg)
 
-### 6.1.2 iozone performance in CephFS
+#### 1.2. iozone performance in CephFS
  
 *CephFS CentOS Client*
 
@@ -917,33 +917,11 @@ In this experiment, we are using the Gluster file system distributed volume whic
 
 ![Ceph Ubuntu Client](http://ntrezowan.github.com/images/cfs2-iozone.jpg)
 
-## 6.2 dd
+### 2. dd
 
-### 6.2.1 GlusterFS Testbed
+#### 2.1. GlusterFS Testbed
 
-#### 6.2.1.1 client1
-
-1. Creating 1GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 1000 times;
-```
-#  dd if=/dev/zero of=/mnt/distributed/1GB-dist.img bs=1024k count=1000 oflag=direct
-```
-
-2. Creating 4GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 4000 times;
-```
-#  dd if=/dev/zero of=/mnt/distributed/4GB-dist.img bs=1024k count=4000 oflag=direct
-```
-
-3. Creating 8GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 8000 times;
-```
-#  dd if=/dev/zero of=/mnt/distributed/8GB-dist.img bs=1024k count=8000 oflag=direct
-```
-
-4. Creating 10GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 10000 times;
-```
-#  dd if=/dev/zero of=/mnt/distributed/10GB-dist.img bs=1024k count=10000 oflag=direct
-```
-
-#### 6.2.1.2 client2
+##### 2.1.1. client1
 
 1. Creating 1GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 1000 times;
 ```
@@ -965,9 +943,31 @@ In this experiment, we are using the Gluster file system distributed volume whic
 #  dd if=/dev/zero of=/mnt/distributed/10GB-dist.img bs=1024k count=10000 oflag=direct
 ```
 
-### 6.2.2 CephFS Testbed
+##### 2.1.2. client2
 
-#### 6.2.2.1 client1
+1. Creating 1GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 1000 times;
+```
+#  dd if=/dev/zero of=/mnt/distributed/1GB-dist.img bs=1024k count=1000 oflag=direct
+```
+
+2. Creating 4GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 4000 times;
+```
+#  dd if=/dev/zero of=/mnt/distributed/4GB-dist.img bs=1024k count=4000 oflag=direct
+```
+
+3. Creating 8GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 8000 times;
+```
+#  dd if=/dev/zero of=/mnt/distributed/8GB-dist.img bs=1024k count=8000 oflag=direct
+```
+
+4. Creating 10GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 10000 times;
+```
+#  dd if=/dev/zero of=/mnt/distributed/10GB-dist.img bs=1024k count=10000 oflag=direct
+```
+
+#### 2.2 CephFS Testbed
+
+##### 2.2.1. client1
 
 1. Creating 1GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 1000 times;
 ```
@@ -989,7 +989,7 @@ In this experiment, we are using the Gluster file system distributed volume whic
 #  sudo dd if=/dev/zero of=/mnt/distributed/10GB-dist.img bs=1024k count=10000 oflag=direct
 ```
 
-#### 6.2.2.2 client2
+##### 2.2.2. client2
 
 1. Creating 1GB of endless stream of zero bytes to /mnt/distributed with block size=1024k and repeat this 1000 times;
 ```
@@ -1011,7 +1011,7 @@ In this experiment, we are using the Gluster file system distributed volume whic
 #  sudo dd if=/dev/zero of=/mnt/distributed/10GB-dist.img bs=1024k count=10000 oflag=direct
 ```
 
-### 6.2.3 dd Performance for GlusterFS and CephFS
+#### 2.3 dd Performance for GlusterFS and CephFS
 
 *dd performance*
 
