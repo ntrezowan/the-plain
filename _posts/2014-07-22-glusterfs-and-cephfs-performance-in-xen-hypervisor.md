@@ -5,6 +5,11 @@ comments: false
 description: "GlusterFS and CephFS Performance in Xen Hypervisor"
 keywords: "glusterfs, cephfs, performance, xen, hypervisor, virtual, machine"
 ---
+> GlusterFS – *3.5*  
+> CephFS – *Gluster node 2 (Monitor daemon, Object storage)*  
+
+
+---
 
 ## A. Host/Virtual Machines Configuration
 ### 1. Virtual Machines
