@@ -168,7 +168,7 @@ c42a03ac6d61d8749d89668e71c5acaa
 ---
 
 #### Renew F5 Device Certificate
-You need to update F5 Device Certificate when you renew SSL certificate for the VIPs. To see current Device Certificate, go to `System > Certificate Management > Device Certificate Management > Device Certificate`.
+To see current Device Certificate, go to `System > Certificate Management > Device Certificate Management > Device Certificate`.
 
 To renew Device certificate, do the following;  
 
