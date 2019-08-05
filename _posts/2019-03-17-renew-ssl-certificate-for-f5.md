@@ -15,7 +15,6 @@ If you want to create a Certificate Signing Request (CSR) on F5, do the followin
 # tmsh 
 # create sys crypto key example.key key-size 2048 gen-csr country US city 'Los Angeles' state CA organization 'Internet Assigned Numbers Authority' ou 'Information Technology' common-name example.com email-address admin@example.com
 ```
-
 2. To view the new CSR info, do the following;
 ```
 # list sys crypto csr example.csr
@@ -150,7 +149,6 @@ Save the configuration by running the following;
 
 #### Verify certificate and key fingerprint
 After you obtained the site certificate and private key, you can do the following to check the certificate/key fingerprint;
-
 1. Go to the following location;
 ```
 # cd /config/filestore/files_d/Common_d/certificate_d
