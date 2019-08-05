@@ -9,14 +9,14 @@ published: true
 ### Renew SSL certificate using CSR
 
 #### A. Create a CSR on F5
-If you want to create a Certificate Signing Request (CSR) from F5, do the following;  
-1.	The following will create a CSR (example.csr) for a site, `example.com` and will also generate a private key (example.key);
+If you want to create a Certificate Signing Request (CSR) on F5, do the following;  
+1. The following will create a CSR (example.csr) for a site, `example.com` and will also generate a private key (example.key);
 ```
 # tmsh 
 # create sys crypto key example.key key-size 2048 gen-csr country US city 'Los Angeles' state CA organization 'Internet Assigned Numbers Authority' ou 'Information Technology' common-name example.com email-address admin@example.com
 ```
 
-2.	To view the new CSR info, do the following;
+2. To view the new CSR info, do the following;
 ```
 # list sys crypto csr example.csr
 -----BEGIN CERTIFICATE REQUEST-----
@@ -55,7 +55,7 @@ sys crypto csr example.csr {
 ```
 You can also verify the CSR from `https://ssltools.digicert.com/checker/views/csrCheck.jsp`.
 
-3.	To view the key associated with the CSR, do the following;
+3. To view the key associated with the CSR, do the following;
 ```
 # list sys crypto key example.key
 sys crypto key example.key {
@@ -64,7 +64,7 @@ sys crypto key example.key {
     security-type normal
 }
 ```
-4.	Save the configuration;
+4. Save the configuration;
 ```
 # save sys config
 ```
@@ -83,11 +83,13 @@ Intermediate Certificate
 ```
 You can also check if your certificate chain is complete from `https://tools.keycdn.com/ssl`. 
 
-You do not need to include the root certificate but if you have two intermediate CAs, then you have to add both in the certificate chain so that your site certificate can be validated using both certificate chain path.
+You do not need to include the root certificate but if you have two intermediate CAs, then you have to add both in the certificate chain so that your site certificate can be validated using both certificate chain path as following;
+site_cert -> intermediate_1 -> root  
+site_cert -> intermediate_2 -> root  
 
 
 #### C. Import the certificate
-1.	To import the new cert, do the following;
+1.	To import the new certificate, do the following;
 ```
 # tmsh
 # install sys crypto cert example.crt from-editor
