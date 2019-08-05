@@ -172,8 +172,7 @@ c42a03ac6d61d8749d89668e71c5acaa
 #### Renew F5 Device Certificate
 To see current Device Certificate, go to `System > Certificate Management > Device Certificate Management > Device Certificate`.
 
-To renew Device Certificate, do the following;  
-
+To renew Device Certificate, do the following;
 1. Go to Apache certificate crt file location of F5;
 ```
 # cd /etc/httpd/conf/ssl.crt/
