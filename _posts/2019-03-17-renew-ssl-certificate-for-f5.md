@@ -88,19 +88,19 @@ site_cert -> intermediate_1 -> root
 site_cert -> intermediate_2 -> root  
 
 
-#### C. Import the certificate
-1.	To import the new certificate, do the following;
+#### C. Import the certificate to F5
+1. To import the new certificate, do the following;
 ```
 # tmsh
 # install sys crypto cert example.crt from-editor
 ```
 This command is equivalent to `vi example.crt`. Paste the new cert (full chain) and save.
 
-2.	Save the configuration;
+2. Save the configuration;
 ```
 # save sys config
 ```
-3.	To view the cert info, do the following;
+3. To view the cert info, do the following;
 ```
 # list sys crypto cert example.crt
 sys crypto cert example.crt {
@@ -155,17 +155,17 @@ After you obtained the site certificate and private key, you can do the followin
 ```
 # cd /config/filestore/files_d/Common_d/certificate_d
 ```
-2.  To check the public key (.crt) information for a SSL certificate, run the following;
+2. To check the public key (.crt) information for a SSL certificate, run the following;
 ```
 # openssl x509 -in \:Common\:example.crt_40746_1 -pubkey -noout | md5sum
 c42a03ac6d61d8749d89668e71c5acaa
 ```
-3.  To check the public key information for a SSL private key (.key), run the following;
+3. To check the public key information for a SSL private key (.key), run the following;
 ```
 # openssl rsa -in \:Common\:example.key_40746_1 -pubkey | md5sum
 c42a03ac6d61d8749d89668e71c5acaa
 ```
-4.  If both `2` and `3` yields the same `md5`, it validates that the key and certificate are same.
+4. If both `2` and `3` yields the same `md5`, it validates that the key and certificate are same.
 
 ---
 
@@ -194,15 +194,15 @@ To renew Device Certificate, do the following;
 ```
 # mv server.key server.key.bak
 ```
-6.	Create a new `server.key` file, paste the key and save;
+6. Create a new `server.key` file, paste the key and save;
 ```
 # vi server.key
 ```
-7.	Restart Apache;
+7. Restart Apache;
 ```
 # tmsh restart /sys service httpd
 ```
-8.	Check the device certificate;
+8. Check the device certificate;
 ```
 # openssl s_client -connect f5.example.com:443 | openssl x509 -noout -text
 depth=2 C = US, O = DigiCert Inc, OU = www.digicert.com, CN = DigiCert Global Root CA
