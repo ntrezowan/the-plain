@@ -83,7 +83,7 @@ Intermediate Certificate
 ```
 You can also check if your certificate chain is complete from `https://tools.keycdn.com/ssl`. 
 
-You do not need to include the root certificate but if you have two intermediate CAs, then you have to add both in the certificate chain so that your site certificate can be validated using both certificate chain path as following;
+You do not need to include the root certificate but if you have two intermediate CAs, then you have to add both in the certificate chain so that your site certificate can be validated using both certificate chain path as following;  
 site_cert -> intermediate_1 -> root  
 site_cert -> intermediate_2 -> root  
 
