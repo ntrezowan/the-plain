@@ -6,9 +6,9 @@ keywords: "shibboleth, service, provider, rhel"
 published: true
 ---
 
-A.	Renew SSL certificate by using CSR
+### Renew SSL certificate by using CSR
 
-### Create a CSR from F5
+#### A. Create a CSR from F5
 If you want to create a Certificate Signing Request (CSR) from F5, do the following;  
 1.	The following will create a CSR (example.csr) for a site, `example.com` and will also generate a private key (example.key);
 ```
@@ -71,7 +71,7 @@ sys crypto key example.key {
 5.	Use `example.csr` to obtain the site certificate (example.crt) and intermediates (intermediate.crt) from Certificate Authority (CA).
 
 
-### Construct certificate chain
+#### B. Construct certificate chain
 After you obtained the site cert and intermediates from the CA, add them in a single txt file in the following order;
 ```
 -----BEGIN CERTIFICATE-----
@@ -86,7 +86,7 @@ You can also check if your certificate chain is complete from `https://tools.key
 You do not need to include the root certificate but if you have two intermediate CAs, then you have to add both in the certificate chain so that your site certificate can be validated using both certificate chain path.
 
 
-### Import the certificate
+#### C. Import the certificate
 1.	To import the new cert, do the following;
 ```
 # tmsh
@@ -126,7 +126,7 @@ sys crypto cert example.crt {
 ---
 
 
-B.	Renew SSL certificate from existing certificate/key
+### Renew SSL certificate from existing certificate/key
 
 If you have obtained the site certificate and private key without using CSR, then you can install the site certificate (example.crt) by following “Import Site Certificate” section above.
 
@@ -146,10 +146,7 @@ Save the configuration by running the following;
 # save sys config
 ```
 
-
-
-
-### Verify Certificate and Key fingerprint (for security paranoids)
+#### Verify Certificate and Key fingerprint
 After you obtained the site certificate and private key, you can do the following to check the certificate/key fingerprint;
 
 1. Go to the following location;
@@ -170,7 +167,7 @@ c42a03ac6d61d8749d89668e71c5acaa
 
 ---
 
-### Update Device Certificate;
+#### Update Device Certificate;
 1. Go to /etc/httpd/conf/ssl.crt/
 2. Take a backup of existing server.crt
 ```
