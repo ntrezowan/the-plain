@@ -19,7 +19,6 @@ If you want to create a Certificate Signing Request (CSR) from F5, do the follow
 2.	To view the new CSR info, do the following;
 ```
 # list sys crypto csr example.csr
-
 -----BEGIN CERTIFICATE REQUEST-----
 MIIDLDCCAhQCAQAwgbcxCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEUMBIGA1UE
 BxMLTG9zIEFuZ2VsZXMxLDAqBgNVBAoTI0ludGVybmV0IEFzc2lnbmVkIE51bWJl
@@ -102,7 +101,6 @@ This command is equivalent to `vi example.crt`. Paste the new cert (full chain) 
 3.	To view the cert info, do the following;
 ```
 # list sys crypto cert example.crt
-
 sys crypto cert example.crt {
     cert-validation-options none
     cert-validators {
@@ -199,8 +197,7 @@ Save it.
 ```
 8.	Check the device certificate
 ```
-openssl s_client -connect f5.example.com:443 | openssl x509 -noout -text
-
+# openssl s_client -connect f5.example.com:443 | openssl x509 -noout -text
 depth=2 C = US, O = DigiCert Inc, OU = www.digicert.com, CN = DigiCert Global Root CA
 verify return:1
 depth=1 C = US, O = DigiCert Inc, CN = DigiCert SHA2 Secure Server CA
