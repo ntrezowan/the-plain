@@ -128,7 +128,7 @@ sys crypto cert example.crt {
 
 ### Renew SSL certificate using existing certificate/key
 
-If you have obtained the site certificate and private key without using CSR, then you can install the site certificate (example.crt) by following “Import Site Certificate” section above.
+If you have obtained the site certificate (example.crt) and private key (example.key) without using CSR, then you can install the site certificate by following "Import Site Certificate" section above.
 
 To import the private key, do the following;
 ```
@@ -163,7 +163,7 @@ c42a03ac6d61d8749d89668e71c5acaa
 # openssl rsa -in \:Common\:example.key_40746_1 -pubkey | md5sum
 c42a03ac6d61d8749d89668e71c5acaa
 ```
-4.  If both 2&3 yields the same md5, it validates that the key and certificate are same.
+4.  If both `2` and `3` yields the same `md5`, it validates that the key and certificate are same.
 
 ---
 
