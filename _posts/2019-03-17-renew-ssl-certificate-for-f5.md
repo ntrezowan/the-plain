@@ -167,7 +167,7 @@ c42a03ac6d61d8749d89668e71c5acaa
 
 ---
 
-#### Update Device Certificate;
+#### Update Device Certificate
 1. Go to /etc/httpd/conf/ssl.crt/
 2. Take a backup of existing server.crt
 ```
