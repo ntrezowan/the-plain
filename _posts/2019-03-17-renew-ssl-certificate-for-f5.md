@@ -1,14 +1,14 @@
 ---
 title: "Renew SSL Certificate for F5"
 comments: false
-description: "Installing Shibboleth Service Provider in RHEL"
-keywords: "shibboleth, service, provider, rhel"
+description: "Renew SSL Certificate for F5"
+keywords: "renew, ssl, certificate, f5, device"
 published: true
 ---
 
-### Renew SSL certificate by using CSR
+### Renew SSL certificate using CSR
 
-#### A. Create a CSR from F5
+#### A. Create a CSR on F5
 If you want to create a Certificate Signing Request (CSR) from F5, do the following;  
 1.	The following will create a CSR (example.csr) for a site, `example.com` and will also generate a private key (example.key);
 ```
@@ -126,7 +126,7 @@ sys crypto cert example.crt {
 ---
 
 
-### Renew SSL certificate from existing certificate/key
+### Renew SSL certificate using existing certificate/key
 
 If you have obtained the site certificate and private key without using CSR, then you can install the site certificate (example.crt) by following “Import Site Certificate” section above.
 
@@ -146,7 +146,7 @@ Save the configuration by running the following;
 # save sys config
 ```
 
-#### Verify Certificate and Key fingerprint
+#### Verify certificate and key fingerprint
 After you obtained the site certificate and private key, you can do the following to check the certificate/key fingerprint;
 
 1. Go to the following location;
@@ -167,7 +167,11 @@ c42a03ac6d61d8749d89668e71c5acaa
 
 ---
 
-#### Update Device Certificate
+#### Renew F5 Device Certificate
+You need to update F5 Device Certificate when you renew SSL certificate for the VIPs. To see current Device Certificate, go to `System > Certificate Management > Device Certificate Management > Device Certificate`.
+
+To renew Device certificate, do the following;  
+
 1. Go to /etc/httpd/conf/ssl.crt/
 2. Take a backup of existing server.crt
 ```
