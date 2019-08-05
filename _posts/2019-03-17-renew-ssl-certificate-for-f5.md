@@ -170,33 +170,37 @@ c42a03ac6d61d8749d89668e71c5acaa
 #### Renew F5 Device Certificate
 To see current Device Certificate, go to `System > Certificate Management > Device Certificate Management > Device Certificate`.
 
-To renew Device certificate, do the following;  
+To renew Device Certificate, do the following;  
 
-1. Go to /etc/httpd/conf/ssl.crt/
-2. Take a backup of existing server.crt
+1. Go to Apache certificate crt file location of F5;
 ```
-# cp server.crt server.crt.key
+# cd /etc/httpd/conf/ssl.crt/
 ```
-3. Modify the file as paste the full certificate chain
+2. Take a backup of existing `server.crt`;
+```
+# mv server.crt server.crt.bak
+```
+3. Create a new `server.crt` file, paste the full certificate chain and save;
 ```
 # vi server.crt
 ```
-Save it.
-
-4. Go to `/etc/httpd/conf/ssl.key/`;
-5. Take a backup of existing `server.key`.
+4. Go to Apache certificate crt file location of F5;
 ```
-# cp server.key server.key.backup
+# cd /etc/httpd/conf/ssl.key/
 ```
-6.	Modify the file and paste the key
+5. Take a backup of existing `server.key`;
+```
+# mv server.key server.key.bak
+```
+6.	Create a new `server.key` file, paste the key and save;
 ```
 # vi server.key
 ```
-7.	Restart Apache
+7.	Restart Apache;
 ```
 # tmsh restart /sys service httpd
 ```
-8.	Check the device certificate
+8.	Check the device certificate;
 ```
 # openssl s_client -connect f5.example.com:443 | openssl x509 -noout -text
 depth=2 C = US, O = DigiCert Inc, OU = www.digicert.com, CN = DigiCert Global Root CA
