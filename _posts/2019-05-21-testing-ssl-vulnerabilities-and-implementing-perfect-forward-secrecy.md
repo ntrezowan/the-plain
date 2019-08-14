@@ -55,7 +55,7 @@ verify return:0
 Certificate chain
 ```
 
-3.	List all cipher suites supported by a web server  
+3.	List all cipher suites supported by a web server <br/><br/>
 There are two tools which can show which cipher suites are supported by a web server; sslscan and nmap.<br/><br/>
 _sslscan_ (https://github.com/rbsec/sslscan):  
 Here is an example which will show all the Preferred/Accepted cipher suites by a web server;
@@ -143,8 +143,8 @@ SSL-Session:
 ```
 If it returns `Verify return code: 0 (ok)` at the end of the output, then it indicates that there is no certificate chain issue with this web server.
 
-5.	Check if renegotiation is enabled  
-SSL protocol that allows server/client to renegotiate new encryption key during an existing session will create a vulnerability by exploiting the flaw in the renegotiation process. <br/>
+5.	Check if renegotiation is enabled <br/><br/>
+SSL protocol that allows server/client to renegotiate new encryption key during an existing session will create a vulnerability by exploiting the flaw in the renegotiation process. <br/><br/>
 a.	Check if server renegotiation is allowed;  
 Run the following to check if renegotiation is enabled in a web server;
 ```
@@ -207,7 +207,7 @@ R
 RENEGOTIATING
 write:errno=104
 ```
-6.	Check if TLS compression is enabled  
+6.	Check if TLS compression is enabled <br/><br/>
 Run the following;
 ```
 # openssl s_client -connect example.com:443
@@ -252,9 +252,10 @@ SSL-Session:
 ---
 ```
 
-Configure Apache with Perfect Forward Secrecy
----------
+---
 
+### B. Implementing Perfect Forward Secrecy
+#### Configure Apache with PFS
 1. Find all vhosts where TLS is configured;
 ```
 # egrep -r "SSLEngine" /etc/httpd/
@@ -263,25 +264,27 @@ Configure Apache with Perfect Forward Secrecy
 ```
 # Only allow TLSv1.2 and TLSv1.3
 SSLProtocol "-all +TLSv1.2 +TLSv1.3"
-
+```
+```
 # Choose cipher suites which allows Perfect Forward Secrecy
 SSLCipherSuite "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4 !SHA !DHE"
-
+```
+```
 # Instead of client preference of the cipher suite during handshake, server’s preference will be used 
 SSLHonorCipherOrder on
-
+```
+```
 # Enable Perfect Forward Secrecy
 SSLSessionTickets off
 ```
-
-3. Restart httpd
+3. Restart httpd;
 ```
 # /sbin/services httpd restart
 ```
 
-4. Check supported suite
+4. Check supported cipher suites;
 ```
-# sslscan backendserver-utl:443
+# sslscan serv1.example.com:443
 
 Preferred TLSv1.2  128 bits  ECDHE-RSA-AES128-GCM-SHA256   Curve P-256 DHE 256
 Accepted  TLSv1.2  256 bits  ECDHE-RSA-AES256-GCM-SHA384   Curve P-256 DHE 256
@@ -293,11 +296,7 @@ Accepted  TLSv1.2  256 bits  AES256-GCM-SHA384
 Accepted  TLSv1.2  256 bits  AES256-SHA256
 ```
 
-5. Disable SSL Compression
-SSLCompression off
-
-
-### Configure F5 with Perfect Forward Secrecy
+#### Configure F5 with PFS
 1. Save old cipher to the excel file for each VIP and replace with
 ```
 ECDHE+AES-GCM:NATIVE:!MD5:!EXPORT:!DES:!DHE:!EDH:!RC4:!ADH:!SSLv3:!TLSv1:!SHA
