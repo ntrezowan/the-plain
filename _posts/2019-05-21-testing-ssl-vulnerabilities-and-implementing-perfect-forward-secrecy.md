@@ -127,10 +127,9 @@ In here, `A` is a grade which indicates the strength of the cipher.
 4. Check if a web server certificate has any chain issue  
 Run the following;
 ```
-openssl s_client -connect example:443
-```
-If it returns;
-```
+# openssl s_client -connect example.com:443
+...
+...
 SSL-Session:
     Protocol  : TLSv1
     Cipher    : AES256-SHA
@@ -142,7 +141,7 @@ SSL-Session:
     Timeout   : 300 (sec)
     Verify return code: 0 (ok)
 ```
-Here “Verify return code: 0 (ok)” indicates that there is no certificate chain issue with this web server.
+If it returns `Verify return code: 0 (ok)` at the end of the output, then it indicates that there is no certificate chain issue with this web server.
 
 5.	Check if renegotiation is enabled  
 
