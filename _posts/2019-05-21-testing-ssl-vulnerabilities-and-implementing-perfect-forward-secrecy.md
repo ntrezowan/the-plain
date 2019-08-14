@@ -125,7 +125,7 @@ Here is an example which will show all the TLS cipher suites that are supported 
 ```
 In here, `A` is a grade which indicates the strength of the cipher.
 
-4. Check if a web server certificate has any chain issue
+4. Check if a web server certificate has any chain issue  
 Run the following;
 ```
 openssl s_client -connect example:443
@@ -145,7 +145,7 @@ SSL-Session:
 ```
 Here “Verify return code: 0 (ok)” indicates that there is no certificate chain issue with this web server.
 
-5.	Check if renegotiation is enabled
+5.	Check if renegotiation is enabled  
 
 SSL/TLS protocol allows server/client to renegotiate new encryption key during an existing session which creates a vulnerability by exploiting the flaw in the renegotiation process. 
 
@@ -218,7 +218,7 @@ RENEGOTIATING
 write:errno=104
 ```
 
-6.	Check if TLS compression is enabled
+6.	Check if TLS compression is enabled  
 
 Run the following;
 
