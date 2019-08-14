@@ -55,10 +55,9 @@ verify return:0
 Certificate chain
 ```
 
-3.	List all cipher suites supported by a web server
+3.	List all cipher suites supported by a web server  
 There are two tools which can show which cipher suites are supported by a web server; sslscan and nmap.
-
-_sslscan_ (https://github.com/rbsec/sslscan):
+_sslscan_ (https://github.com/rbsec/sslscan):  
 Here is an example which will show all the Preferred/Accepted cipher suites by a web server;
 ```
 # sslscan example.com | egrep "Preferred|Accepted"
@@ -89,8 +88,7 @@ Accepted  TLSv1.0  128 bits  AES128-SHA
 Accepted  TLSv1.0  128 bits  CAMELLIA128-SHA
 Accepted  TLSv1.0  128 bits  SEED-SHA
 ```
-
-_nmap_ (https://nmap.org/):
+_nmap_ (https://nmap.org/):  
 Here is an example which will show all the TLS cipher suites that are supported by a web server;
 ```
 # nmap -sV --script ssl-enum-ciphers -p 443 example.com | grep -i TLS*
