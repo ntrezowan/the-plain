@@ -56,7 +56,7 @@ Certificate chain
 ```
 
 3.	List all cipher suites supported by a web server  
-There are two tools which can show which cipher suites are supported by a web server; sslscan and nmap.  
+There are two tools which can show which cipher suites are supported by a web server; sslscan and nmap.<br/>
 _sslscan_ (https://github.com/rbsec/sslscan):  
 Here is an example which will show all the Preferred/Accepted cipher suites by a web server;
 ```
@@ -122,7 +122,6 @@ Here is an example which will show all the TLS cipher suites that are supported 
 |       TLS_RSA_WITH_CAMELLIA_128_CBC_SHA (rsa 2048) - A
 |       TLS_RSA_WITH_SEED_CBC_SHA (rsa 2048) – A
 ```
-
 In here, `A` is a grade which indicates the strength of the cipher.
 
 4. Check if a web server certificate has any chain issue
