@@ -1,7 +1,7 @@
 ---
-title: "Testing SSL vulnerabilities and implementing PFS"
+title: "Testing SSL Vulnerabilities and Implementing PFS"
 comments: false
-description: "Testing SSL vulnerabilities and implementing Perfect Forward Secrecy (PFS)"
+description: "Testing SSL Vulnerabilities and Implementing Perfect Forward Secrecy (PFS)"
 keywords: "testing, ssl, vulnerabilities, implementing, perfect, forward, secrecy, pfs"
 published: true
 ---
