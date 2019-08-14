@@ -10,8 +10,7 @@ published: true
 
 1.	View the web server certificate  
 ```
-# openssl s_client -connect example.com:443<br/>
-
+# openssl s_client -connect example.com:443
 CONNECTED(00000003)
 depth=2 /C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert Global Root CA
 verify error:num=19:self signed certificate in certificate chain
