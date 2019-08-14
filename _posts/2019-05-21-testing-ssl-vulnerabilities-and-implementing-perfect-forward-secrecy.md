@@ -144,10 +144,8 @@ SSL-Session:
 If it returns `Verify return code: 0 (ok)` at the end of the output, then it indicates that there is no certificate chain issue with this web server.
 
 5.	Check if renegotiation is enabled  
-
-SSL/TLS protocol allows server/client to renegotiate new encryption key during an existing session which creates a vulnerability by exploiting the flaw in the renegotiation process. 
-
-a.	Check server renegotiation
+SSL protocol that allows server/client to renegotiate new encryption key during an existing session will create a vulnerability by exploiting the flaw in the renegotiation process.  
+a.	Check if server renegotiation is allowed;  
 Run the following to check if renegotiation is enabled in a web server;
 ```
 openssl s_client -connect example.com:443
@@ -160,7 +158,6 @@ Secure Renegotiation IS supported
 Compression: NONE
 Expansion: NONE
 ```
-
 If it does not support key renegotiation, then you will get the following;
 ```
 New, TLSv1/SSLv3, Cipher is ECDHE-RSA-AES128-GCM-SHA256
@@ -169,9 +166,7 @@ Secure Renegotiation IS NOT supported
 Compression: NONE
 Expansion: NONE
 ```
-
-b.	Check client renegotiation
-
+b.	Check client renegotiation is allowed;  
 To test if you site supports client-initiated renegotiation, run the following;
 ```
 openssl s_client -connect example.com:443
@@ -193,13 +188,12 @@ SSL-Session:
     Verify return code: 0 (ok)
 ---
 ```
-
-At this point, type the following two line and press Enter;
+At this point, type the following two line and press `Enter`;
 ```
 HEAD / HTTP/1.0
 R
 ```
-If your site supports client-initiate Rrnegotiation, then you will see the following;
+If your site supports client-initiated renegotiation, then you will see the following;
 ```
 RENEGOTIATING
 depth=3 C = SE, O = AddTrust AB, OU = AddTrust External TTP Network, CN = AddTrust External CA Root
@@ -207,15 +201,13 @@ verify return:1
 depth=2 C = GB, ST = Greater Manchester, L = Salford, O = COMODO CA Limited, CN = COMODO RSA Certification Authority
 verify return:1
 ```
-
-If your site does not support Client Initiate Renegotiation, then you will see the following;
+If your site does not support client-initiated renegotiation, then you will see the following;
 ```
 HEAD / HTTP/1.0
 R
 RENEGOTIATING
 write:errno=104
 ```
-
 6.	Check if TLS compression is enabled  
 
 Run the following;
