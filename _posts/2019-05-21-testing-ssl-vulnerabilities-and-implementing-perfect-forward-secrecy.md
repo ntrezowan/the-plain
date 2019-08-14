@@ -144,11 +144,11 @@ SSL-Session:
 If it returns `Verify return code: 0 (ok)` at the end of the output, then it indicates that there is no certificate chain issue with this web server.
 
 5.	Check if renegotiation is enabled  
-SSL protocol that allows server/client to renegotiate new encryption key during an existing session will create a vulnerability by exploiting the flaw in the renegotiation process.  
+SSL protocol that allows server/client to renegotiate new encryption key during an existing session will create a vulnerability by exploiting the flaw in the renegotiation process. <br/>
 a.	Check if server renegotiation is allowed;  
 Run the following to check if renegotiation is enabled in a web server;
 ```
-openssl s_client -connect example.com:443
+# openssl s_client -connect example.com:443
 ```
 If it returns `Secure Renegotiation IS supported` like the following, then it means the server allows key renegotiation;
 ```
@@ -169,8 +169,7 @@ Expansion: NONE
 b.	Check client renegotiation is allowed;  
 To test if you site supports client-initiated renegotiation, run the following;
 ```
-openssl s_client -connect example.com:443
-
+# openssl s_client -connect example.com:443
 New, TLSv1/SSLv3, Cipher is AES256-SHA
 Server public key is 2048 bit
 Secure Renegotiation IS supported
@@ -209,9 +208,8 @@ RENEGOTIATING
 write:errno=104
 ```
 6.	Check if TLS compression is enabled  
-
 Run the following;
-
+```
 # openssl s_client -connect example.com:443
 ---
 New, TLSv1/SSLv3, Cipher is AES256-SHA
@@ -230,8 +228,11 @@ SSL-Session:
     Timeout   : 300 (sec)
     Verify return code: 0 (ok)
 ---
-
-If Compression disabled;
+```
+If you see the above, then it means compression is enabled and it is using zlib data compression.  
+But if you see the following, then it means compression is disabled;
+```
+# openssl s_client -connect example.com:443
 ---
 New, TLSv1/SSLv3, Cipher is AES256-SHA
 Server public key is 2048 bit
@@ -249,14 +250,15 @@ SSL-Session:
     Timeout   : 300 (sec)
     Verify return code: 0 (ok)
 ---
-
+```
 
 Configure Apache with Perfect Forward Secrecy
 ---------
 
 1. Find all vhosts where TLS is configured;
+```
 # egrep -r "SSLEngine" /etc/httpd/
-
+```
 2. Modify each vhost to the following;
 ```
 # Only allow TLSv1.2 and TLSv1.3
@@ -274,12 +276,12 @@ SSLSessionTickets off
 
 3. Restart httpd
 ```
-/sbin/services httpd restart
+# /sbin/services httpd restart
 ```
 
 4. Check supported suite
 ```
-sslscan backendserver-utl:443
+# sslscan backendserver-utl:443
 
 Preferred TLSv1.2  128 bits  ECDHE-RSA-AES128-GCM-SHA256   Curve P-256 DHE 256
 Accepted  TLSv1.2  256 bits  ECDHE-RSA-AES256-GCM-SHA384   Curve P-256 DHE 256
@@ -295,14 +297,14 @@ Accepted  TLSv1.2  256 bits  AES256-SHA256
 SSLCompression off
 
 
-Configure F5 with Perfect Forward Secrecy
+### Configure F5 with Perfect Forward Secrecy
 1. Save old cipher to the excel file for each VIP and replace with
-
+```
 ECDHE+AES-GCM:NATIVE:!MD5:!EXPORT:!DES:!DHE:!EDH:!RC4:!ADH:!SSLv3:!TLSv1:!SHA
-
+```
 2. Check supported suite
-sslscan VIP:443
-
+```
+sslscan example.com:443
 Preferred TLSv1.2  128 bits  ECDHE-RSA-AES128-GCM-SHA256   Curve P-256 DHE 256
 Accepted  TLSv1.2  256 bits  ECDHE-RSA-AES256-GCM-SHA384   Curve P-256 DHE 256
 Accepted  TLSv1.2  128 bits  ECDHE-RSA-AES128-SHA256       Curve P-256 DHE 256
@@ -311,3 +313,4 @@ Accepted  TLSv1.2  128 bits  AES128-GCM-SHA256
 Accepted  TLSv1.2  128 bits  AES128-SHA256
 Accepted  TLSv1.2  256 bits  AES256-GCM-SHA384
 Accepted  TLSv1.2  256 bits  AES256-SHA256
+```
