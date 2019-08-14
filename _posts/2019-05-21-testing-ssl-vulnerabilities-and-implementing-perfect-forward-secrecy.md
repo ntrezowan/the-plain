@@ -256,7 +256,7 @@ SSL-Session:
 
 ### B. Implementing Perfect Forward Secrecy
 #### Configure Apache with PFS
-1. Find all vhosts where TLS is configured;
+1. Find all vhosts where SSL is configured;
 ```
 # egrep -r "SSLEngine" /etc/httpd/
 ```
@@ -274,7 +274,7 @@ SSLCipherSuite "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+EC
 SSLHonorCipherOrder on
 ```
 ```
-# Enable Perfect Forward Secrecy
+# Disable Session Tickets
 SSLSessionTickets off
 ```
 3. Restart httpd;
