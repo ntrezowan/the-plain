@@ -1,8 +1,8 @@
 ---
-title: "Testing SSL vulnerabilities and implementing Perfect Forward Secrecy"
+title: "Testing SSL vulnerabilities and implementing PFS"
 comments: false
-description: "Renew SSL Certificate on F5"
-keywords: "renew, ssl, certificate, f5, device"
+description: "Testing SSL vulnerabilities and implementing Perfect Forward Secrecy"
+keywords: "testing, ssl, vulnerabilities, implementing, perfect, forward, secrecy, pfs"
 published: true
 ---
 
