@@ -124,7 +124,7 @@ Here is an example which will show all the TLS cipher suites that are supported 
 ```
 In here, `A` is a grade which indicates the strength of the cipher.
 
-4. Check if a web server certificate has any chain issue  
+4. Check if a web server certificate chain has any issues
 Run the following;
 ```
 # openssl s_client -connect example.com:443
