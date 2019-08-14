@@ -11,7 +11,6 @@ published: true
 1.	View a web server certificate  
 ```
 # openssl s_client -connect example.com:443
-
 CONNECTED(00000003)
 depth=2 /C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert Global Root CA
 verify error:num=19:self signed certificate in certificate chain
@@ -60,10 +59,10 @@ Certificate chain
 3.	List all cipher suites supported by a web server
 There are two tools which can show which cipher suites are supported by a web server; sslscan and nmap.
 
-sslscan (https://github.com/rbsec/sslscan):
+_sslscan_ (https://github.com/rbsec/sslscan):
 Here is an example which will show all the Preferred/Accepted cipher suites by a web server;
 ```
-sslscan example.com | egrep "Preferred|Accepted"
+# sslscan example.com | egrep "Preferred|Accepted"
 Preferred TLSv1.2  128 bits  ECDHE-RSA-AES128-GCM-SHA256   Curve P-256 DHE 256
 Accepted  TLSv1.2  256 bits  ECDHE-RSA-AES256-GCM-SHA384   Curve P-256 DHE 256
 Accepted  TLSv1.2  128 bits  ECDHE-RSA-AES128-SHA256       Curve P-256 DHE 256
@@ -92,10 +91,10 @@ Accepted  TLSv1.0  128 bits  CAMELLIA128-SHA
 Accepted  TLSv1.0  128 bits  SEED-SHA
 ```
 
-nmap (https://nmap.org/):
+_nmap_ (https://nmap.org/):
 Here is an example which will show all the TLS cipher suites that are supported by a web server;
 ```
-nmap -sV --script ssl-enum-ciphers -p 443 example.com | grep -i TLS*
+# nmap -sV --script ssl-enum-ciphers -p 443 example.com | grep -i TLS*
 |   TLSv1.0:
 |       TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA (secp256r1) - A
 |       TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (secp256r1) - A
@@ -129,8 +128,7 @@ nmap -sV --script ssl-enum-ciphers -p 443 example.com | grep -i TLS*
 
 In here, `A` is a grade which indicates the strength of the cipher.
 
-
-4.	Check if a web server certificate has any chain issue
+4. Check if a web server certificate has any chain issue
 Run the following;
 ```
 openssl s_client -connect example:443
