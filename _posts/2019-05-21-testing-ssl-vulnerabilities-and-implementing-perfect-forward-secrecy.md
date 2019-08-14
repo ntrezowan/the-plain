@@ -282,10 +282,9 @@ SSLSessionTickets off
 # /sbin/services httpd restart
 ```
 
-4. Check supported cipher suites;
+4. Check supported cipher suites on the web server;
 ```
 # sslscan serv1.example.com:443
-
 Preferred TLSv1.2  128 bits  ECDHE-RSA-AES128-GCM-SHA256   Curve P-256 DHE 256
 Accepted  TLSv1.2  256 bits  ECDHE-RSA-AES256-GCM-SHA384   Curve P-256 DHE 256
 Accepted  TLSv1.2  128 bits  ECDHE-RSA-AES128-SHA256       Curve P-256 DHE 256
@@ -297,11 +296,11 @@ Accepted  TLSv1.2  256 bits  AES256-SHA256
 ```
 
 #### Configure F5 with PFS
-1. Save old cipher to the excel file for each VIP and replace with
+1. Go to `Local Traffic > Profiles > SSL > Clients` and open the client SSL profile where you want to implement PFS. Select `Configuration` as `Custom`, select `Ciphers` as `Custom` and then use the following string;
 ```
 ECDHE+AES-GCM:NATIVE:!MD5:!EXPORT:!DES:!DHE:!EDH:!RC4:!ADH:!SSLv3:!TLSv1:!SHA
 ```
-2. Check supported suite
+2. Check supported cipher suites on the VIP;
 ```
 sslscan example.com:443
 Preferred TLSv1.2  128 bits  ECDHE-RSA-AES128-GCM-SHA256   Curve P-256 DHE 256
