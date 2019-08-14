@@ -1,7 +1,7 @@
 ---
-title: "Upgrading F5 Active-Standby pair"
+title: "Upgrading F5 Active-Standby Pair"
 comments: false
-description: "Configure F5 for Splunk"
+description: "Upgrading F5 Active-Standby Pair"
 keywords: "f5, active, standby, pair upgrade, ha, high availability"
 published: true
 ---
