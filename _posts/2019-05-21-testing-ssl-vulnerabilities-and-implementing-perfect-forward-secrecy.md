@@ -1,14 +1,14 @@
 ---
 title: "Testing SSL vulnerabilities and implementing PFS"
 comments: false
-description: "Testing SSL vulnerabilities and implementing Perfect Forward Secrecy"
+description: "Testing SSL vulnerabilities and implementing Perfect Forward Secrecy (PFS)"
 keywords: "testing, ssl, vulnerabilities, implementing, perfect, forward, secrecy, pfs"
 published: true
 ---
 
 ### A. Testing SSL vulnerabilities
 
-1.	View the web server certificate
+1.	View the web server certificate  
 ```
 # openssl s_client -connect example.com:443
 CONNECTED(00000003)
@@ -32,10 +32,10 @@ aWdpQ2VydCBTSEEyIFNlY3VyZSBTZXJ2ZXIgQ0EwHhcNMTgxMTI4MDAwMDAwWhcN
 MjAxMjAyMTIwMDAwWjCBpTELMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3Ju
 aWExFDASBgNVBAcTC0xvcyBBbmdlbGVzMTwwOgYDVQQKEzNJbnRlcm5ldCBDb3Jw
 b3JhdGlvbiBmb3IgQXNzaWduZWQgTmFtZXMgYW5kIE51bWJlcnMxEzARBgNVBAsT
-ClRlY2hub2xvZ3kxGDAWBgNVBAMTD3d3dy5leGFtcGxlLm9yZzCCASIwDQYJKoZI```
-
-2.	Check which TLS/SSL protocols are enabled by a web server
+ClRlY2hub2xvZ3kxGDAWBgNVBAMTD3d3dy5leGFtcGxlLm9yZzCCASIwDQYJKoZI
 ```
+
+2.	Check which TLS/SSL protocols are enabled by a web server  
 To see if the web server supports a particular protocol (e.g. TLSv1), run the following;
 ```
 openssl s_client – tls1-connect example.com:443
