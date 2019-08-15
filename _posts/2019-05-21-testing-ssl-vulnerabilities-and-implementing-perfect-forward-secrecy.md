@@ -302,7 +302,7 @@ But if you see the following, then it means compression is disabled;
     Accepted  TLSv1.2  256 bits  AES256-SHA256
 ```
 
-#### Configure F5 with PFS
+#### Configure F5 Virtual Servers with PFS
 1. Go to `Local Traffic > Profiles > SSL > Clients` and open the client SSL profile where you want to implement PFS. Select `Configuration` as `Advanced`, select `Ciphers` as `Custom` and then use the following string;
 ```
     ECDHE+AES-GCM:NATIVE:!MD5:!EXPORT:!DES:!DHE:!EDH:!RC4:!ADH:!SSLv3:!TLSv1:!SHA
