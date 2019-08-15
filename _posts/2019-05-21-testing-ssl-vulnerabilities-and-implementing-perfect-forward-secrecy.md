@@ -39,10 +39,11 @@ published: true
 2.	Check which TLS/SSL protocols are enabled on a web server <br/><br/>
 To see if the web server supports a particular protocol (e.g. TLSv1), run the following;  
 ```
-# openssl s_client – tls1-connect example.com:443
-CONNECTED(00000003)
-2666:error:14094410:SSL routines:SSL3_READ_BYTES:sslv3 alert handshake failure:/BuildRoot/Library/Caches/com.apple.xbs/Sources/OpenSSL098/OpenSSL098-64.50.7/src/ssl/s3_pkt.c:1145:SSL alert number 40
-2666:error:1409E0E5:SSL routines:SSL3_WRITE_BYTES:ssl handshake failure:/BuildRoot/Library/Caches/com.apple.xbs/Sources/OpenSSL098/OpenSSL098-64.50.7/src/ssl/s3_pkt.c:566:
+    # openssl s_client – tls1-connect example.com:443
+
+    CONNECTED(00000003)
+    2666:error:14094410:SSL routines:SSL3_READ_BYTES:sslv3 alert handshake failure:/BuildRoot/Library/Caches/com.apple.xbs/Sources/OpenSSL098/OpenSSL098-64.50.7/src/ssl/s3_pkt.c:1145:SSL alert number 40
+    2666:error:1409E0E5:SSL routines:SSL3_WRITE_BYTES:ssl handshake failure:/BuildRoot/Library/Caches/com.apple.xbs/Sources/OpenSSL098/OpenSSL098-64.50.7/src/ssl/s3_pkt.c:566:
 ```
 If it returns the above, it means the web server does not support TLSv1 protocol.
 But if it returns the following, then it means the web server supports TLSv1 protocol;
