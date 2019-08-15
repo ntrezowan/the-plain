@@ -11,7 +11,6 @@ published: true
 1.	View a web server certificate  
 ```
 # openssl s_client -connect example.com:443
-  
 CONNECTED(00000003)
 depth=2 /C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert Global Root CA
 verify error:num=19:self signed certificate in certificate chain
@@ -36,7 +35,7 @@ b3JhdGlvbiBmb3IgQXNzaWduZWQgTmFtZXMgYW5kIE51bWJlcnMxEzARBgNVBAsT
 ClRlY2hub2xvZ3kxGDAWBgNVBAMTD3d3dy5leGFtcGxlLm9yZzCCASIwDQYJKoZI
 ```
 
-2.	Check which TLS/SSL protocols are enabled by a web server <br/><br/>
+2.	Check which TLS/SSL protocols are enabled on a web server <br/><br/>
 To see if the web server supports a particular protocol (e.g. TLSv1), run the following;  
 ```
 # openssl s_client – tls1-connect example.com:443
