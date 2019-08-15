@@ -60,7 +60,7 @@ But if it returns the following, then it means the web server supports TLSv1 pro
 
 3.	List all cipher suites supported by a web server <br/><br/>
 There are two tools which can show which cipher suites are supported by a web server; sslscan and nmap.<br/><br/>
-_sslscan_ (https://github.com/rbsec/sslscan):  
+_**sslscan**_ (https://github.com/rbsec/sslscan):  
 Here is an example which will show all the Preferred/Accepted cipher suites by a web server;
 ```
     # sslscan example.com | egrep "Preferred|Accepted"
@@ -92,7 +92,7 @@ Here is an example which will show all the Preferred/Accepted cipher suites by a
     Accepted  TLSv1.0  128 bits  CAMELLIA128-SHA
     Accepted  TLSv1.0  128 bits  SEED-SHA
 ```
-_nmap_ (https://nmap.org/):  
+_**nmap**_ (https://nmap.org/):  
 Here is an example which will show all the TLS cipher suites that are supported by a web server;
 ```
     # nmap -sV --script ssl-enum-ciphers -p 443 example.com | grep -i TLS*
@@ -309,7 +309,7 @@ But if you see the following, then it means compression is disabled;
 ```
 2. Check supported cipher suites on the VIP;
 ```
-    sslscan example.com:443
+    # sslscan example.com:443
 
     Preferred TLSv1.2  128 bits  ECDHE-RSA-AES128-GCM-SHA256   Curve P-256 DHE 256
     Accepted  TLSv1.2  256 bits  ECDHE-RSA-AES256-GCM-SHA384   Curve P-256 DHE 256
