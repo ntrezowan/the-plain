@@ -61,7 +61,7 @@ But if it returns the following, then it means the web server supports TLSv1 pro
 3.	List all cipher suites supported by a web server <br/><br/>
 There are two tools which can show which cipher suites are supported by a web server; sslscan and nmap.<br/><br/>
 _**sslscan**_ (https://github.com/rbsec/sslscan):  
-Here is an example which will show all the Preferred/Accepted cipher suites by a web server;
+To see all the Preferred/Accepted cipher suites by a web server;
 ```
     # sslscan example.com | egrep "Preferred|Accepted"
     
@@ -93,7 +93,7 @@ Here is an example which will show all the Preferred/Accepted cipher suites by a
     Accepted  TLSv1.0  128 bits  SEED-SHA
 ```
 _**nmap**_ (https://nmap.org/):  
-Here is an example which will show all the TLS cipher suites that are supported by a web server;
+To see all the TLS cipher suites that are supported by a web server;
 ```
     # nmap -sV --script ssl-enum-ciphers -p 443 example.com | grep -i TLS*
     
