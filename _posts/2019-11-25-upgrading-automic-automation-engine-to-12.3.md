@@ -179,6 +179,7 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
 
 
 3. Upgrade Automation Engine
+
     a) Upgrade Automation Engine;
     
         # cp -r /apps/automic/automationengine/bin_new/bin/* /apps/automic/automationengine/bin/
@@ -313,3 +314,135 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
 
         # ps -ef | grep ucsrvwp
         # kill pid
+
+
+
+
+
+
+8. Upgrade Service Manager
+
+    a) Upgrade Service Manager bin folder;
+
+        # cp -r /apps/automic/servicemanager/bin_new/bin/* /apps/automic/servicemanager/bin/
+
+    Check if all the files are owned by autotask user and autotask group
+
+    b) Start ServiceManager;
+
+        # cd /apps/automic/servicemanager/bin/
+        # nohup ./ucybsmgr &
+
+        # ps -ef | grep ucybsmgr
+
+    Check logs
+
+        # cat /apps/automic/servicemanager/temp/SMgr_log_00.txt
+
+
+
+9.	Install JWP
+
+    a) Remove the following content so that AE lib and plugins folder are empty;
+
+        # rm /apps/automic/automationengine/bin/lib/*
+        # rm /apps/automic/automationengine/bin/plugins/*
+
+    b) Copy content of lib and plugins folders to AE;
+
+        # cp /apps/automic/automationengine/bin_new/bin/lib/* /apps/automic/automationengine/bin/lib/
+
+    It will copy org.eclipse.osgi.jar file only
+
+        # cp /home/autotask/jwp/bin/plugins/* /apps/automic/automationengine/bin/plugins/
+
+    c) Copy xdb6.jar and xmlparserv2.jar files to the lib folder to ensure that XML variables can be processed correctly;
+
+        # cp /opt/app/oracle/product/12.2.0.1/dbhome_1/sqldeveloper/modules/oracle.xdk/xmlparserv2.jar /apps/automic/automationengine/bin/lib/
+
+        # cp /opt/app/oracle/product/12.2.0.1/dbhome_1/sqldeveloper/rdbms/jlib/xdb6.jar /apps/automic/automationengine/bin/lib/
+
+    d) Copy ojdbc8.jar from Oracle to lib folder;
+    
+        # cp /opt/app/oracle/product/12.2.0.1/dbhome_1/jdbc/lib/ojdbc8.jar /apps/automic/automationengine/bin/lib/
+
+    e)	Install LDAP certificate;
+
+    By default, JWP uses Java keystore cacerts. To import a LDAP cert, add both site cert and intermediate;
+
+    •	Directly install the cert: 
+    To directly install the certificate from LDAP F5 VIP;
+
+        # telnet ldapqna.its.fsu.edu 636
+        # cd /apps/java/jre/lib/security/
+        # cp cacerts cacerts.backup
+        # cd /apps/automic/automationengine/bin/
+        # java -jar ucsrvjp.jar -installcert ldapqna.its.fsu.edu:636
+
+        Loading KeyStore /apps/jdk1.8.0_181/jre/lib/security/cacerts...
+        Opening connection to ldapqna.its.fsu.edu:636...
+        Starting SSL handshake...
+
+        No errors, certificate installed.
+
+        # cd /apps/java/jre/lib/security/
+        # keytool -list -v -keystore cacerts -alias "ldapqna" | more
+        # keytool -list -v -keystore cacerts -alias "sectigo_intermediate" | more
+
+
+
+
+    Create a new keystore if preferred: 
+    You can also manually create a new file as following;
+    
+        # java -jar ucsrvjp.jar -installcert ldapqna.its.fsu.edu:636 /apps/automic/automationengine/bin/automic.jks
+
+    f) Configure the Database;
+
+    AUTOTASKSAN is working fine with OCI+JDBC driver, so no need to configure anything here, just verify that ucsrv.ini has OCI connection string;
+
+        # vi /apps/automic/automationengine/bin/ucsrv.ini
+
+        SQLDRIVERCONNECT=ODBCVAR=NNJNNORO,DSN=ATASKS;UID=AUTOTASK;PWD=--1066AB96C2CAB174EA07390CA11EB75A8D;SP=NLS_LANGUAGE=AMERICAN,NLS_TERRITORY=AMERICA,CODESET=WE8ISO8859P15
+
+    In version 11.2.7, you do not need to use JDBC connection string, the OCI connection string will work;
+
+    But for version 12.1 or higher, you have to use JDBC driver. Here is SAN JDBC connection string (not tested yet);
+        [JDBC]
+        SQLDRIVERCONNECT=jdbc:oracle:thin:@autotasksan01-utl.its.fsu.edu:1521/ATASKS
+
+    Remember that UID must be all capital and this is a bug in Automic.
+
+    g) Start JWP
+
+        # cd /apps/automic/automationengine/bin
+        # java -Xmx512M -jar ucsrvjp.jar
+
+        UC4 ATASKDEV#WP-Server Version 12.3.0+hf.1.build.1565696063450 (PID=64826)
+
+        # ps -ef | grep -i ucsrvjp
+
+    Check logs;
+        # cd /apps/automic/automationengine/temp/
+
+    h) Add JWP to Service Manager;
+
+    Add the following to uc4.smd;
+        # vi /apps/automic/servicemanager/bin/uc4.smd
+
+        ! JWP
+        DEFINE UC4 JWP1;java -jar -Xrs -Xmx512M /apps/automic/automationengine/bin/ucsrvjp.jar -i/apps/automic/automationengine/bin/ucsrv.ini -svc%port%;/apps/automic/automationengine/bin
+
+
+    Add the following to uc4.smc;
+        # vi /apps/automic/servicemanager/uc4.smc
+
+        WAIT 10
+        CREATE UC4 WP5
+
+    i) Restart Service Manager and check if JWP can be start/stop from ServiceManagerDialogue (THIS ONLY WORKS NOW AFTER DEFINING EVERYTHING)
+
+        # cat CPsrv_log_002_00.txt | grep "R E A D Y   F O R   R U N
+
+
+
