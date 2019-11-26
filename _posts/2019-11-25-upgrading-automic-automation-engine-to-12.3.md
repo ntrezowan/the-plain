@@ -61,33 +61,32 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
     a) Check Java version;
     Automation Engine supports OpenJDK Java 11 , Oracle Java 1.8 and Oracle Java 11. Check if you have proper version of Java;  
         ```
-        # java -version
+            # java -version
         ```
         
     b) Check environment variables;  
         ```
-        # vi ~/.bashrc
-
-        # AUTOMIC System Settings
-        ORACLE_HOME=/opt/oracle/product/12.2.0.1/dbhome_1; export ORACLE_HOME
-        AUTOMIC=/opt/ae/utility; export AUTOMIC
-        PATH=.:$ORACLE_HOME/bin[:$PATH]; export PATH
-        LD_LIBRARY_PATH=.:${AUTOMIC}/bin:$ORACLE_HOME/lib:/usr/lib:/lib[:$LD_LIBRARY_PATH]; export LD_LIBRARY_PATH
-        TNS_ADMIN=/opt/oracle/product/12.2.0.1/dbhome_1/network/admin; export TNS_ADMIN
-        CLASSPATH=${ORACLE_HOME}/jdbc/lib/:${ORACLE_HOME}/jlib/; export CLASSPATH
+            # vi ~/.bashrc
+            
+            # AUTOMIC System Settings
+            ORACLE_HOME=/opt/oracle/product/12.2.0.1/dbhome_1; export ORACLE_HOME
+            AUTOMIC=/opt/ae/utility; export AUTOMIC
+            PATH=.:$ORACLE_HOME/bin[:$PATH]; export PATH
+            LD_LIBRARY_PATH=.:${AUTOMIC}/bin:$ORACLE_HOME/lib:/usr/lib:/lib[:$LD_LIBRARY_PATH]; export LD_LIBRARY_PATH
+            TNS_ADMIN=/opt/oracle/product/12.2.0.1/dbhome_1/network/admin; export TNS_ADMIN
+            CLASSPATH=${ORACLE_HOME}/jdbc/lib/:${ORACLE_HOME}/jlib/; export CLASSPATH
         ```
 
 ### B. Upgrade Automation Engine
 
-1.	Upgrade Automic Utility
-
-    a.	Upgrade Automic Utility bin folder;
+1. Upgrade Automic Utility;
+    a. Upgrade Automic Utility bin folder;
     ```
-    # cp -r /apps/automic/utility/bin_new/bin/* /apps/automic/utility/bin/
+    # cp -r /opt/ae/utility/bin_new/bin/* /opt/ae/utility/bin/
     ```
-    Check if all the files are owned by autotask user and fsubatch group
+    Check if all the files are owned by autotask user
 
-    b.	Check the config files;
+    b. Check the config files;
 
     All config file (*.INI) will not be replaced when we upgraded Automic utility bin folder. These INI files have OCI driver defined and you should verify this.
 
