@@ -79,7 +79,7 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
 
 ### B. Upgrade Automation Engine
 
-1. Upgrade Automic Utility;
+1. Upgrade Automic Utility;  
     a. Upgrade Automic Utility bin folder;
     ```
     # cp -r /opt/ae/utility/bin_new/bin/* /opt/ae/utility/bin/
@@ -87,7 +87,6 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
     Check if all the files are owned by autotask user
 
     b. Check the config files;
-
     All config file (*.INI) will not be replaced when we upgraded Automic utility bin folder. These INI files have OCI driver defined and you should verify this.
 
     Compare the below files from the the following two folders;
