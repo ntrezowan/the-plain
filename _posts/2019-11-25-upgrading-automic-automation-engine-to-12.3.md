@@ -438,108 +438,102 @@ Download `CAPKI` installer from [https://downloads.automic.com/downloads](https:
 
 10.	Install JCP
 
-    a) Add the following to ucsrv.ini;
-        # vi /apps/automic/automationengine/bin/ucsrv.ini
+    a) If you want to use HTTPS for JCP, create a keystore for `*.example.com` and rename the alias to `jetty`;
 
-        [REST]
-        port=8088
-        sslEnabled=0
-        keystore=/apps/automic/automationengine/bin/ssl/keystore
-        keystorePassword=changeit
-        keyPassword=changeit
-        parallelDbConnections=5
-
-    or HTTPS
+        # cd $JAVA_HOME/jre/lib/security/
+        # openssl pkcs12 -inkey example.com.key -in example.com.crt -export -out jcp.pkcs12
+        # keytool -importkeystore -srckeystore jcp.pkcs12 -srcstoretype PKCS12 -destkeystore jcp.jks 
+        # keytool -changealias -alias 1 -destalias jetty -keystore jcp.jks
+        # cp jcp.jks /opt/ae/automationengine/bin/ssl_certs/
+        
+    Now add the following to `ucsrv.ini`;
+    
+        # vi /opt/ae/automationengine/bin/ucsrv.ini
 
         [REST]
         port=8443
         sslEnabled=1
-        keystore=/apps/ssl_certs/tomcat-jcp.jks
-        keystorePassword=changeit
-        keyPassword=changeit
+        keystore=/opt/ae/automationengine/bin/ssl_certs/jcp.jks
+        keystorePassword=
+        keyPassword=
         parallelDbConnections=5
+        
+    But if you want to use HTTP for JCP, configure as following;
+        
+        # vi /opt/ae/automationengine/bin/ucsrv.ini
 
-    Copy the file tomcat-jcp.jks from autotaskdev01/autotasksan01 to autotaskprd01.
+        [REST]
+        port=8088
+        sslEnabled=0
+        keystore=
+        keystorePassword=
+        keyPassword=
+        parallelDbConnections=5
 
     b) Add JCP to Service Manager;
 
-    Add the following to uc4.smd;
-        # vi /apps/automic/servicemanager/bin/uc4.smd
+    Add the following to `uc4.smd` in Service Manager;
+    
+        # vi /opt/ae/servicemanager/bin/uc4.smd
 
         ! JCP
-        DEFINE UC4 JCP1;java -jar -Xrs -Xmx512M /apps/automic/automationengine/bin/ucsrvjp.jar -i/apps/automic/automationengine/bin/ucsrv.ini -svc%port% -rest;/apps/automic/automationengine/bin
+        DEFINE UC4 JCP1;java -jar -Xrs -Xmx512M /opt/ae/automationengine/bin/ucsrvjp.jar -i/opt/ae/automationengine/bin/ucsrv.ini -svc%port% -rest;/opt/ae/automationengine/bin
 
-    Add the following to uc4.smc
-        # vi /apps/automic/servicemanager/bin/uc4.smc
+    Add the following to `uc4.smc` in Service Manager;
+    
+        # vi /opt/ae/servicemanager/bin/uc4.smc
 
         WAIT 10
         CREATE UC4 JCP1
 
-    c) If you want to use HTTPS, create a keystore with *.its.fsu.edu cert+key and rename the alias to jetty;
-
-        # cd /apps/java/jre/lib/security/
-
-        # openssl pkcs12 -inkey its_fsu_edu_wildcard_2021.key -in its_fsu_edu_wildcard_2021.crt -export -out jetty.pkcs12
-
-        # keytool -importkeystore -srckeystore jetty.pkcs12 -srcstoretype PKCS12 -destkeystore keystore
-
-        # keytool -changealias -alias 1 -destalias jetty -keystore keystore
-
-        # keytool -v -list -keystore keystore
-
-        # cp keystore /apps/automic/automationengine/bin/ssl/
-
-    d) Restart Service Manager and check if JWP can be start/stop from ServiceManagerDialogue
+    d) Restart Service Manager and check if JWP can be start/stop from Service Manager Dialogue
 
     e) Check logs;
-        # cd /apps/automic/automationengine/temp/
+    
+        # cat /opt/ae/automationengine/temp/CPsrv_log_002_00.txt
 
-    JCP normally will be the last of the CP’s.
-
-
+    JCP normally will be the last of the CP.
 
 12.	Install CAPKI
 
     a) Install CAPKI
 
-    Go to https://downloads.automic.com/downloads/component_downloads and search for capki. Download it and move it to /apps/automic/capki.
+    Go to [https://downloads.automic.com/downloads/component_downloads](https://downloads.automic.com/downloads/component_downloads) and search for `capki`. Download it and then run the setup script as root;
 
-    Request UNIX team to install it as root;
-        # cd /apps/automic/capki/
-        # ./setup install caller=AE123 veryverbose env=all instdir=/apps/automic/capki/
+        # cd /opt/ae/capki/
+        # ./setup install caller=AE123 veryverbose env=all instdir=/opt/ae/capki/
 
-    If return code is 0, it means CAPKI has installed successfully. 
+    If `return code = 0`, it means CAPKI has installed successfully. 
 
     b) Check the environmental variable;
 
         # echo $CALIB
-        /apps/automic/capki/lib
+        /opt/ae/capki/lib
 
         # echo $CABIN
-        /apps/automic/capki/bin
+        /opt/ae/capki/bin
 
         # echo $CASHCOMP
-        /apps/automic/capki
+        /opt/ae/capki
 
-    If these returns NULL, logout and then login and then restart Service Manager in the server.
-
+    If any of the variable returns `NULL`, logout from the current SSH session and log back in.
+    
     c) Check certificate;  
-    When CAPKI setup script finishes, it will create a self-signed certificate. The cert and key will be stored in the following location;
+    When CAPKI is installed, it will create a self-signed certificate. The certificate and key will be stored in the following location;
 
-    Cert: /apps/automic/automationengine/bin/ucsrv_certificate.pem
-    Key: /apps/automic/automationengine/bin/ucsrv_key.pem
+    Cert: /opt/ae/automationengine/bin/ucsrv_certificate.pem
+    Key: /opt/ae/automationengine/bin/ucsrv_key.pem
 
-    Check ucsrv.ini file to see if CAPKI is configured to point to these locations;
+    Check `ucsrv.ini` file to see if CAPKI is configured correctly;
 
-        # vi /apps/automic/automationengine/bin/ucsrv.ini
+        # vi /opt/ae/automationengine/bin/ucsrv.ini
 
-        certificate=/apps/automic/servicemanager/bin/../../automationengine/bin/ucsrv_certificate.pem
-        key=/apps/automic/servicemanager/bin/../../automationengine/bin/ucsrv_key.pem
-        chain=
+        certificate=/opt/ae/automationengine/bin/ucsrv_certificate.pem
+        key=/opt/ae/automationengine/bin/ucsrv_key.pem
 
-    d) Restart ServiceManager and then use ServiceManager Dialogue. Now it will show as Secure (TLS 1.2)
+    d) Restart Service Manager and then use Service Manager Dialogue and you will see that the connection between Service Manager Dialogue and server's Service Manager are using TLS1.2.
 
-    e) To install this into your machine, get CA.PKI from autotaskprd01 and install it with the following parameter;
+    e) You also need to install CAPKI in your machine from where you are running the Service Manager Dialogue. To install CAPKI in your machine, do the following;
     
         PS > .\setup.exe install caller=AE123
 
