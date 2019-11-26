@@ -45,13 +45,13 @@ In here, we are only interested of bin folder and db folder will be empty.
 ```
 
 5. Create folder for CAPKI and copy the installer;  
-Download CAPKI installer from [https://downloads.automic.com/downloads](https://downloads.automic.com/downloads).
+Download `CAPKI` installer from [https://downloads.automic.com/downloads](https://downloads.automic.com/downloads).
 ```
 # mkdir /opt/ae/capki/
 # cp /opt/iso/CA.PKI/unix/linux/x64/setup /opt/ae/capki/
 ```
 
-6. Shutdown the system ;
+6. Shutdown the system;
 ```
 # ps -ef | grep ucybsmgr
 # kill pid
@@ -90,7 +90,7 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
 
     Check if all the files are owned by autotask user
 
-    b) Check the config files;  
+    b) Check config files;  
     All config file (*.INI) will not be replaced when we upgraded Automic Utility bin folder. These INI files have OCI DB connection string defined and you should verify the following files;
 
         AE.DB Archive: ucybdbar.ini
@@ -101,9 +101,9 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
         AE.DB Revision Report: ucybdbrr.ini
         AE.DB Unload: ucybdbun.ini
 
-    The UID should be in all capital as AUTOTASK.
+    The UID should be in all capital.
 
-    c) Check ucybdbar.sh execute permission;
+    c) Check `ucybdbar.sh` execute permission;
 
         # ll ucybdbar.sh
         -rwxr-xr-x 1 autotask autotask 27 Sep  5 12:55 ucybdbar.sh
@@ -112,14 +112,13 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
 
         # chmod +x ucybdbar.sh
 
-
-2. Upgrade AE DB scheme and load initial data
+2. Upgrade AE DB scheme and load initial data;
 
     a. Upgrade db folder;
 
         # cp -r /opt/ae/utility/db_new/* /opt/ae/utility/db/
 
-    Check if all the files are owned by autotask user and autotask group
+    Check if all the files are owned by `autotask` user and `autotask` group
 
     b. Start AE DB Load;
 
@@ -167,8 +166,10 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
         20190911/131257.736 - U00003549 UCUDB: '            3025' 'CLOSESTMT ' calls took '0:000.052.000' sec.
         20190911/131257.736 - U00003549 UCUDB: '            1014' 'TRANSACT  ' calls took '0:005.173.999' sec.
         Application return code = 0
-
-    c. Load RA Jar;
+    
+    If the script `return code = 0`, then it means AE DB has been upgraded successfully.
+    
+    c. Load Rapid Automation to DB;
 
         # java -jar ./ucybdbld.jar -B -X/opt/iso/Automic.Automation_12.3.0_HF1/Rapid.Automation/RA.FTP/FtpAgent_solution.jar
 
@@ -179,9 +180,6 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
         20191106/120923.702 - U00038269 Version check result:
         Version of the RA Plugins: '4.0.7'.
         Version of database objects: '12.3.0+hf.1.build.1565956991091'.
-
-
-
 
 3. Upgrade Automation Engine
 
