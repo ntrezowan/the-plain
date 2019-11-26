@@ -26,7 +26,7 @@ In here, we are only interested of bin folder and db folder will be empty.
 # tar -zxvf db.tar.gz
 ```
 
-3. Backup Automic Engine and extract new JAR;
+3. Backup Automation Engine and extract new JAR;
 ```
 # rm -rf /opt/ae/automationengine/bin_new/*
 # rm -rf /opt/ae/automationengine/bin_orig/*
@@ -45,7 +45,7 @@ In here, we are only interested of bin folder and db folder will be empty.
 ```
 
 5. Create folder for CAPKI and copy the installer;  
-Download CAPKI installer from https://downloads.automic.com/downloads.
+Download CAPKI installer from [https://downloads.automic.com/downloads](https://downloads.automic.com/downloads).
 ```
 # mkdir /opt/ae/capki/
 # cp /opt/iso/CA.PKI/unix/linux/x64/setup /opt/ae/capki/
