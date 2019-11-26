@@ -491,9 +491,9 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
         WAIT 10
         CREATE UC4 JCP1
 
-    d) Restart Service Manager and check if JCP can be start/stop from Service Manager Dialogue.
+    c) Restart Service Manager and check if JCP can be start/stop from Service Manager Dialogue.
 
-    e) Check logs;
+    d) Check logs;
     
         # cat /opt/ae/automationengine/temp/CPsrv_log_002_00.txt
 
