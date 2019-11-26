@@ -82,6 +82,7 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
 ### B. Upgrade Automation Engine
 
 1. Upgrade Automic Utility;  
+
     a) Upgrade Automic Utility bin folder;  
 
         # cp -r /opt/ae/utility/bin_new/bin/* /opt/ae/utility/bin/
