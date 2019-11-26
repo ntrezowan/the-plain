@@ -60,7 +60,8 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
 
 7. Check environment;  
 
-    a) Check Java version;   
+    a) Check Java version;  
+    
     Automation Engine supports `OpenJDK Java 11`, `Oracle Java 1.8` and `Oracle Java 11`. Check if you have proper version of Java;
 
         # java -version
@@ -117,13 +118,13 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
 
 2. Upgrade AE DB scheme;
 
-    a. Upgrade `db` folder;
+    a) Upgrade `db` folder;
 
         # cp -r /opt/ae/utility/db_new/* /opt/ae/utility/db/
 
     Check if all the files are owned by `autotask` user and `autotask` group
 
-    b. Start AE DB Load;
+    b) Start AE DB Load;
 
         # cd /opt/ae/utility/bin
         # ./ucybdbld -B -X/opt/ae/utility/db/general/12.3/UC_UPD.TXT
@@ -172,7 +173,7 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
     
     If `return code = 0`, then it means AE DB has been upgraded successfully.
     
-    c. Load Rapid Automation to DB;
+    c) Load Rapid Automation to DB;
 
         # java -jar ./ucybdbld.jar -B -X/opt/iso/Automic.Automation_12.3.0_HF1/Rapid.Automation/RA.FTP/FtpAgent_solution.jar
 
