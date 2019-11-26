@@ -337,7 +337,7 @@ Download `CAPKI` installer from [https://downloads.automic.com/downloads](https:
 
         # cat /opt/ae/servicemanager/temp/SMgr_log_00.txt
 
-9.	Install JWP
+5. Install JWP
 
     a) Remove the following content so that AE lib and plugins folder are empty;
 
@@ -436,7 +436,7 @@ Download `CAPKI` installer from [https://downloads.automic.com/downloads](https:
 
     i) Restart Service Manager and check if JWP can be start/stop from Service Manager Dialogue
 
-10.	Install JCP
+6. Install JCP
 
     a) If you want to use HTTPS for JCP, create a keystore for `*.example.com` and rename the alias to `jetty`;
 
@@ -494,7 +494,7 @@ Download `CAPKI` installer from [https://downloads.automic.com/downloads](https:
 
     JCP normally will be the last of the CP.
 
-12.	Install CAPKI
+7. Install CAPKI
 
     a) Install CAPKI
 
