@@ -80,33 +80,33 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
 
 1. Upgrade Automic Utility;  
     a) Upgrade Automic Utility bin folder;  
-```
-# cp -r /opt/ae/utility/bin_new/bin/* /opt/ae/utility/bin/
-```
+
+        # cp -r /opt/ae/utility/bin_new/bin/* /opt/ae/utility/bin/
+
     Check if all the files are owned by autotask user
 
     b) Check the config files;  
     All config file (*.INI) will not be replaced when we upgraded Automic Utility bin folder. These INI files have OCI DB connection string defined and you should verify the following files;
-```
-AE.DB Archive: ucybdbar.ini
-AE.DB Client Copy: ucybdbcc.ini
-AE.DB Load: ucybdbld.ini
-AE.DB Reorg: ucybdbre.ini
-AE.DB Reporting Tool: ucybdbrt.ini
-AE.DB Revision Report: ucybdbrr.ini
-AE.DB Unload: ucybdbun.ini
-```
+
+        AE.DB Archive: ucybdbar.ini
+        AE.DB Client Copy: ucybdbcc.ini
+        AE.DB Load: ucybdbld.ini
+        AE.DB Reorg: ucybdbre.ini
+        AE.DB Reporting Tool: ucybdbrt.ini
+        AE.DB Revision Report: ucybdbrr.ini
+        AE.DB Unload: ucybdbun.ini
+
     The UID should be in all capital as AUTOTASK.
 
     c) Check ucybdbar.sh execute permission;
-```
-# ll ucybdbar.sh
--rwxr-xr-x 1 autotask autotask 27 Sep  5 12:55 ucybdbar.sh
-```
+
+        # ll ucybdbar.sh
+        -rwxr-xr-x 1 autotask autotask 27 Sep  5 12:55 ucybdbar.sh
+
     If it does not have execute permission, set the permission;
-```
-# chmod +x ucybdbar.sh
- ```
+
+        # chmod +x ucybdbar.sh
+
 
 
 
