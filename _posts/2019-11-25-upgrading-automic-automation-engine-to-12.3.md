@@ -108,6 +108,88 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
         # chmod +x ucybdbar.sh
 
 
+2. Upgrade AE DB scheme and load initial data
+
+    a. Upgrade db folder;
+
+        # cp -r /apps/automic/utility/db_new/* /apps/automic/utility/db/
+
+    Check if all the files are owned by autotask user and fsubatch group
+
+    b. Start AE DB Load;
+
+        # cd /apps/automic/utility/bin
+        # ./ucybdbld -B -X/apps/automic/utility/db/general/12.3/UC_UPD.TXT
+
+        ========================================================
+        Starting C++ batch mode loader...
+        User account (user/domain) <AUTOTASK/>
+        Startup parameter <-B -X/apps/automic/utility/db/general/12.3/UC_UPD.TXT >
+        Application name <./ucybdbld>
+        Launch from </apps/automic/utility/bin/>
+        LoadLibrary pointer = <0x1b882d0>
+        20190905/134647.081 - U00033125 Operating System: <UC4_ON_UNIX>
+        20190905/134647.081 - U00033125 Operating System: <UC4_ON_UNIX_LINUX>
+        20190905/134647.081 - U00038002 DLL 'ucybdbld', version '12.3.0+build.1560517368775'. Start parameter: '-B -X/apps/automic/utility/db/general/12.3/UC_UPD.TXT ', (changelist '1560507727').
+        20190905/134647.081 - U00038259 Build Date: '2019-06-14', '15:07:38'
+        20190905/134647.092 - ----------------------------------------------------------------------------------------------------
+        20190905/134647.092 - [GLOBAL]
+        20190905/134647.092 - language  = (E,D)
+        20190905/134647.092 - logging   = ../temp/ucybdbld_log_##.txt
+        20190905/134647.092 - logcount  = 10
+        20190905/134647.092 - helplib   = uc.msl
+        20190905/134647.092 - helpcache = ALL
+        20190905/134647.092 - docu_path = ../../Docu/uc4/webhelp
+        20190905/134647.092 - input     = ../db/
+        …
+        …
+        20190911/131253.733 - U00003532 UCUDB: Checking data source ...
+        20190911/131257.706 - U00003533 UCUDB: Check of data source finished: No errors. Performance CPU/DB: '1842013'/'369 (1000/2.706869 s)'
+        20190911/131257.706 - U00003544 UCUDB: Reference values tested with Windows 2003 on XEON 1500 MHz: CPU 813865, DB 470
+        20190911/131257.706 - U00003524 UCUDB: ===> Time critical DB call!       OPC: 'OPEN' time: '4:047.702.000'
+        20190911/131257.706 - U00003525 UCUDB: ===> ''
+        20190911/131257.707 - U00038091 Change application directory to '../db/'.
+        20190911/131257.707 - U00038042 DB-Version = 12.3/R
+        20190911/131257.731 - U00038084 Processing completed. Caution: If you use two or more users, you have to renew the roles of the AE user (privileges) and the synonyms.
+        20190911/131257.736 - U00003523 UCUDB: Maximum time required for a DB call: '4:047.702.000'.
+        20190911/131257.736 - U00003522 UCUDB: Database closed. Total time for DB calls: '4:075.260.999' seconds.
+        20190911/131257.736 - U00003549 UCUDB: '            2026' 'OTHERS    ' calls took '0:002.766.000' sec.
+        20190911/131257.736 - U00003549 UCUDB: '               3' 'SELECT    ' calls took '0:008.211.000' sec.
+        20190911/131257.736 - U00003549 UCUDB: '               5' 'EXECUTE   ' calls took '4:059.009.999' sec.
+        20190911/131257.736 - U00003549 UCUDB: '               0' 'UPDATE    ' calls took '0:000.000.000' sec.
+        20190911/131257.736 - U00003549 UCUDB: '               0' 'DELETE    ' calls took '0:000.000.000' sec.
+        20190911/131257.736 - U00003549 UCUDB: '               0' 'INSERT    ' calls took '0:000.000.000' sec.
+        20190911/131257.736 - U00003549 UCUDB: '               3' 'READ      ' calls took '0:000.047.999' sec.
+        20190911/131257.736 - U00003549 UCUDB: '            3025' 'CLOSESTMT ' calls took '0:000.052.000' sec.
+        20190911/131257.736 - U00003549 UCUDB: '            1014' 'TRANSACT  ' calls took '0:005.173.999' sec.
+        Application return code = 0
+
+    c. Load RA Jar;
+
+        # java -jar ./ucybdbld.jar -B -X/apps/iso/Autotask/Rapid.Automation/RA.FTP/FtpAgent_solution.jar
+
+        20191106/120923.533 - U00038162 Loading file: '/apps/iso/Autotask/Rapid.Automation/RA.FTP/FtpAgent/FtpAgent_deploy_file.jar'.
+        20191106/120923.661 - U00038163 File '/apps/iso/Autotask/Rapid.Automation/RA.FTP/FtpAgent/FtpAgent_deploy_file.jar' successfully loaded.
+        20191106/120923.701 - U00038165 RA Solution loaded successfully.
+        20191106/120923.701 - U00038272 Loading RA Plugins.
+        20191106/120923.702 - U00038269 Version check result:
+        Version of the RA Plugins: '4.0.7'.
+        Version of database objects: '12.3.0+hf.1.build.1565956991091'.
+
+        20191106/120923.711 - U00038162 Loading file: '/apps/iso/Autotask/Rapid.Automation/RA.FTP/FtpAgent/ecc-ae-sheet-ra-ftp.jar'.
+        20191106/120923.724 - U00038163 File '/apps/iso/Autotask/Rapid.Automation/RA.FTP/FtpAgent/ecc-ae-sheet-ra-ftp.jar' successfully loaded.
+        20191106/120923.737 - U00038273 RA Plugins loaded successfully.
+        20191106/120923.754 - U00003523 UCUDB: Maximum time required for a DB call: '19:700.547.000'.
+        20191106/120923.754 - U00003522 UCUDB: Database closed. Total time for DB calls: '20:794.676.000' seconds.
+        20191106/120923.754 - U00003549 UCUDB: '            2306' 'OTHERS    ' calls took '0:007.253.000' sec.
+        20191106/120923.754 - U00003549 UCUDB: '              31' 'SELECT    ' calls took '0:110.639.000' sec.
+        20191106/120923.754 - U00003549 UCUDB: '             290' 'EXECUTE   ' calls took '20:239.570.000' sec.
+        20191106/120923.754 - U00003549 UCUDB: '               5' 'UPDATE    ' calls took '0:010.429.999' sec.
+        20191106/120923.754 - U00003549 UCUDB: '               0' 'DELETE    ' calls took '0:000.000.000' sec.
+        20191106/120923.754 - U00003549 UCUDB: '             270' 'INSERT    ' calls took '0:377.413.000' sec.
+        20191106/120923.754 - U00003549 UCUDB: '              32' 'READ      ' calls took '0:001.380.000' sec.
+        20191106/120923.754 - U00003549 UCUDB: '            3867' 'CLOSESTMT ' calls took '0:001.500.999' sec.
+        20191106/120923.754 - U00003549 UCUDB: '            1018' 'TRANSACT  ' calls took '0:046.489.999' sec.
 
 
 
