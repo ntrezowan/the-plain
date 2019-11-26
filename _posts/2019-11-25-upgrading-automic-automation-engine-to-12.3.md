@@ -183,15 +183,15 @@ Download `CAPKI` installer from [https://downloads.automic.com/downloads](https:
 
 3. Upgrade Automation Engine
 
-    a) Upgrade Automation Engine;
+    a) Upgrade Automation Engine bin folder;
     
-        # cp -r /apps/automic/automationengine/bin_new/bin/* /apps/automic/automationengine/bin/
+        # cp -r /opt/ae/automationengine/bin_new/bin/* /opt/ae/automationengine/bin/
         
     Check if all the files are owned by autotask user and autotask group
 
     b) Check CP libraries;
     
-        # cd /apps/automic/automationengine/bin/
+        # cd /opt/ae/automationengine/bin/
         # ldd -r ucsrvcp > wk.txt
         # cat wk.txt
         linux-vdso.so.1 =>  (0x00007ffd88724000)
@@ -215,7 +215,7 @@ Download `CAPKI` installer from [https://downloads.automic.com/downloads](https:
 
     c) Check WP libraries;
     
-        # cd /apps/automic/automationengine/bin/
+        # cd /opt/ae/automationengine/bin/
         # ldd -r ucsrvwp > wk.txt
         # cat wk.txt
         linux-vdso.so.1 =>  (0x00007ffccdf97000)
@@ -252,14 +252,14 @@ Download `CAPKI` installer from [https://downloads.automic.com/downloads](https:
 
     d) Check DB libraries;
     
-        # cd /apps/automic/automationengine/bin/
+        # cd /opt/ae/automationengine/bin/
         # ldd -r ucuoci.so > wk.txt
         # cat wk.txt
         linux-vdso.so.1 =>  (0x00007ffe7b5f1000)
         libsysapi.so => ./libsysapi.so (0x00007f4c178e1000)
         libzu00132.so => ./libzu00132.so (0x00007f4c176af000)
         libuc001.so => ./libuc001.so (0x00007f4c174aa000)
-        libclntsh.so.12.1 => /opt/app/oracle/product/12.2.0.1/dbhome_1/lib/libclntsh.so.12.1 (0x00007f4c139f9000)
+        libclntsh.so.12.1 => /opt/oracle/product/12.2.0.1/dbhome_1/lib/libclntsh.so.12.1 (0x00007f4c139f9000)
         libdl.so.2 => /lib64/libdl.so.2 (0x00007f4c137e8000)
         libpthread.so.0 => /lib64/libpthread.so.0 (0x00007f4c135cb000)
         libstdc++.so.6 => ./libstdc++.so.6 (0x00007f4c133db000)
@@ -267,19 +267,19 @@ Download `CAPKI` installer from [https://downloads.automic.com/downloads](https:
         libgcc_s.so.1 => ./libgcc_s.so.1 (0x00007f4c13049000)
         libc.so.6 => /lib64/libc.so.6 (0x00007f4c12cb5000)
         librt.so.1 => /lib64/librt.so.1 (0x00007f4c12aac000)
-        libmql1.so => /opt/app/oracle/product/12.2.0.1/dbhome_1/lib/libmql1.so (0x00007f4c12835000)
-        libipc1.so => /opt/app/oracle/product/12.2.0.1/dbhome_1/lib/libipc1.so (0x00007f4c123f9000)
-        libnnz12.so => /opt/app/oracle/product/12.2.0.1/dbhome_1/lib/libnnz12.so (0x00007f4c11cb0000)
-        libons.so => /opt/app/oracle/product/12.2.0.1/dbhome_1/lib/libons.so (0x00007f4c11a62000)
+        libmql1.so => /opt/oracle/product/12.2.0.1/dbhome_1/lib/libmql1.so (0x00007f4c12835000)
+        libipc1.so => /opt/oracle/product/12.2.0.1/dbhome_1/lib/libipc1.so (0x00007f4c123f9000)
+        libnnz12.so => /opt/oracle/product/12.2.0.1/dbhome_1/lib/libnnz12.so (0x00007f4c11cb0000)
+        libons.so => /opt/oracle/product/12.2.0.1/dbhome_1/lib/libons.so (0x00007f4c11a62000)
         libnsl.so.1 => /lib64/libnsl.so.1 (0x00007f4c11848000)
         libaio.so.1 => /lib64/libaio.so.1 (0x00007f4c11647000)
         libresolv.so.2 => /lib64/libresolv.so.2 (0x00007f4c1142d000)
         /lib64/ld-linux-x86-64.so.2 (0x000055b48bc43000)
-        libclntshcore.so.12.1 => /opt/app/oracle/product/12.2.0.1/dbhome_1/lib/libclntshcore.so.12.1 (0x00007f4c10e5e000)
+        libclntshcore.so.12.1 => /opt/oracle/product/12.2.0.1/dbhome_1/lib/libclntshcore.so.12.1 (0x00007f4c10e5e000)
 
     e) Start a CP;
     
-        # cd /apps/automic/automationengine/bin/
+        # cd /opt/ae/automationengine/bin/
         # ./ucsrvcp &
 
         UC4 CP-Server Version 12.3.0+hf.1.build.1565007573762 (PID=57961)
@@ -290,17 +290,17 @@ Download `CAPKI` installer from [https://downloads.automic.com/downloads](https:
 
     Check log;
     
-        # cat /apps/automic/automationengine/temp/CPsrv_log_001_00.txt
+        # cat /opt/ae/automationengine/temp/CPsrv_log_001_00.txt
 
     f) Start a WP;
     
-        # cd /apps/automic/automationengine/bin/
+        # cd /opt/ae/automationengine/bin/
         # ./ucsrvwp &
 
         UC4 WP-Server Version 12.3.0+hf.1.build.1565007573762 (PID=58630)
 
-        [autotask@autotaskdev01 bin]$ SERVER=ATASKDEV#WP001
-        *** PRIMARY(ATASKDEV#WP001) ***
+        # SERVER=AE#WP001
+        *** PRIMARY(AE#WP001) ***
 
     Check if WP has started;
     
@@ -308,7 +308,7 @@ Download `CAPKI` installer from [https://downloads.automic.com/downloads](https:
 
     Check log;
     
-        # cat /apps/automic/automationengine/temp/WPsrv_log_001_00.txt
+        # cat /opt/ae/automationengine/temp/WPsrv_log_001_00.txt
 
     g) Stop CP/WP processes;
 
@@ -318,56 +318,49 @@ Download `CAPKI` installer from [https://downloads.automic.com/downloads](https:
         # ps -ef | grep ucsrvwp
         # kill pid
 
-
-
-
-
-
-8. Upgrade Service Manager
+4. Upgrade Service Manager
 
     a) Upgrade Service Manager bin folder;
 
-        # cp -r /apps/automic/servicemanager/bin_new/bin/* /apps/automic/servicemanager/bin/
+        # cp -r /opt/ae/servicemanager/bin_new/bin/* /opt/ae/servicemanager/bin/
 
     Check if all the files are owned by autotask user and autotask group
 
-    b) Start ServiceManager;
+    b) Start Service Manager;
 
-        # cd /apps/automic/servicemanager/bin/
+        # cd /opt/ae/servicemanager/bin/
         # nohup ./ucybsmgr &
 
         # ps -ef | grep ucybsmgr
 
     Check logs
 
-        # cat /apps/automic/servicemanager/temp/SMgr_log_00.txt
-
-
+        # cat /opt/ae/servicemanager/temp/SMgr_log_00.txt
 
 9.	Install JWP
 
     a) Remove the following content so that AE lib and plugins folder are empty;
 
-        # rm /apps/automic/automationengine/bin/lib/*
-        # rm /apps/automic/automationengine/bin/plugins/*
+        # rm /opt/ae/automationengine/bin/lib/*
+        # rm /opt/ae/automationengine/bin/plugins/*
 
     b) Copy content of lib and plugins folders to AE;
 
-        # cp /apps/automic/automationengine/bin_new/bin/lib/* /apps/automic/automationengine/bin/lib/
+        # cp /opt/ae/automationengine/bin_new/bin/lib/* /opt/ae/automationengine/bin/lib/
 
-    It will copy org.eclipse.osgi.jar file only
+    It will copy `org.eclipse.osgi.jar` file only.
 
-        # cp /home/autotask/jwp/bin/plugins/* /apps/automic/automationengine/bin/plugins/
+        # cp /opt/ae/automationengine/bin_new/bin/plugins/* /opt/ae/automationengine/bin/plugins/
 
-    c) Copy xdb6.jar and xmlparserv2.jar files to the lib folder to ensure that XML variables can be processed correctly;
+    c) Copy `xdb6.jar` and `xmlparserv2.jar` files to the lib folder to ensure that XML variables can be processed correctly;
 
-        # cp /opt/app/oracle/product/12.2.0.1/dbhome_1/sqldeveloper/modules/oracle.xdk/xmlparserv2.jar /apps/automic/automationengine/bin/lib/
+        # cp /opt/oracle/product/12.2.0.1/dbhome_1/sqldeveloper/modules/oracle.xdk/xmlparserv2.jar /opt/ae/automationengine/bin/lib/
 
-        # cp /opt/app/oracle/product/12.2.0.1/dbhome_1/sqldeveloper/rdbms/jlib/xdb6.jar /apps/automic/automationengine/bin/lib/
+        # cp /opt/oracle/product/12.2.0.1/dbhome_1/sqldeveloper/rdbms/jlib/xdb6.jar /opt/ae/automationengine/bin/lib/
 
-    d) Copy ojdbc8.jar from Oracle to lib folder;
+    d) Copy `ojdbc8.jar` from Oracle to lib folder;
     
-        # cp /opt/app/oracle/product/12.2.0.1/dbhome_1/jdbc/lib/ojdbc8.jar /apps/automic/automationengine/bin/lib/
+        # cp /opt/oracle/product/12.2.0.1/dbhome_1/jdbc/lib/ojdbc8.jar /opt/ae/automationengine/bin/lib/
 
     e)	Install LDAP certificate;
 
