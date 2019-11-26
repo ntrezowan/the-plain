@@ -59,23 +59,23 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
 
 7. Check environment;  
     a) Check Java version;  
-        Automation Engine supports OpenJDK Java 11 , Oracle Java 1.8 and Oracle Java 11. Check if you have proper version of Java;  
-        ```
-        # java -version
-        ```
-        
-    b) Check environment variables;  
-        ```
-        # vi ~/.bashrc
+    Automation Engine supports OpenJDK Java 11 , Oracle Java 1.8 and Oracle Java 11. Check if you have proper version of Java;  
+```
+# java -version
+```
 
-        # AUTOMIC System Settings
-        ORACLE_HOME=/opt/oracle/product/12.2.0.1/dbhome_1; export ORACLE_HOME
-        AUTOMIC=/opt/ae/utility; export AUTOMIC
-        PATH=.:$ORACLE_HOME/bin[:$PATH]; export PATH
-        LD_LIBRARY_PATH=.:${AUTOMIC}/bin:$ORACLE_HOME/lib:/usr/lib:/lib[:$LD_LIBRARY_PATH]; export LD_LIBRARY_PATH
-        TNS_ADMIN=/opt/oracle/product/12.2.0.1/dbhome_1/network/admin; export TNS_ADMIN
-        CLASSPATH=${ORACLE_HOME}/jdbc/lib/:${ORACLE_HOME}/jlib/; export CLASSPATH
-        ```
+    b) Check environment variables;  
+```
+# vi ~/.bashrc
+
+# AUTOMIC System Settings
+ORACLE_HOME=/opt/oracle/product/12.2.0.1/dbhome_1; export ORACLE_HOME
+AUTOMIC=/opt/ae/utility; export AUTOMIC
+PATH=.:$ORACLE_HOME/bin[:$PATH]; export PATH
+LD_LIBRARY_PATH=.:${AUTOMIC}/bin:$ORACLE_HOME/lib:/usr/lib:/lib[:$LD_LIBRARY_PATH]; export LD_LIBRARY_PATH
+TNS_ADMIN=/opt/oracle/product/12.2.0.1/dbhome_1/network/admin; export TNS_ADMIN
+CLASSPATH=${ORACLE_HOME}/jdbc/lib/:${ORACLE_HOME}/jlib/; export CLASSPATH
+```
 
 ### B. Upgrade Automation Engine
 
