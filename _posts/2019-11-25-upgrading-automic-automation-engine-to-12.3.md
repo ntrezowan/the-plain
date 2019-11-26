@@ -45,6 +45,7 @@ In here, we are only interested of bin folder and db folder will be empty.
 ```
 
 5. Create folder for CAPKI and copy the installer;
+
 Download CAPKI installer from https://downloads.automic.com/downloads.
 ```
 # mkdir /opt/ae/capki/
@@ -68,13 +69,11 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
     # vi ~/.bashrc
 
     # AUTOMIC System Settings
-    ORACLE_HOME=/opt/app/oracle/product/12.2.0.1/dbhome_1; export ORACLE_HOME
-    AUTOMIC=/apps/automic/utility; export AUTOMIC
-    # PATH=${ORACLE_HOME}/bin:${PATH}; export PATH
+    ORACLE_HOME=/opt/oracle/product/12.2.0.1/dbhome_1; export ORACLE_HOME
+    AUTOMIC=/opt/ae/utility; export AUTOMIC
     PATH=.:$ORACLE_HOME/bin[:$PATH]; export PATH
-    # LD_LIBRARY_PATH=.:${AUTOMIC}/bin:${ORACLE_HOME}:${ORACLE_HOME}/lib:${LD_LIBRARY_PATH}; export LD_LIBRARY_PATH
     LD_LIBRARY_PATH=.:${AUTOMIC}/bin:$ORACLE_HOME/lib:/usr/lib:/lib[:$LD_LIBRARY_PATH]; export LD_LIBRARY_PATH
-    TNS_ADMIN=/opt/app/oracle/product/12.2.0.1/dbhome_1/network/admin; export TNS_ADMIN
+    TNS_ADMIN=/opt/oracle/product/12.2.0.1/dbhome_1/network/admin; export TNS_ADMIN
     CLASSPATH=${ORACLE_HOME}/jdbc/lib/:${ORACLE_HOME}/jlib/; export CLASSPATH
     ```
 
