@@ -62,6 +62,9 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
     Automation Engine supports OpenJDK Java 11, Oracle Java 1.8 and Oracle Java 11. Check if you have proper version of Java;
 
         # java -version
+        openjdk version "11.0.4" 2019-07-16 LTS
+        OpenJDK Runtime Environment 18.9 (build 11.0.4+11-LTS)
+        OpenJDK 64-Bit Server VM 18.9 (build 11.0.4+11-LTS, mixed mode, sharing)
 
     b) Check environment variables;  
 
