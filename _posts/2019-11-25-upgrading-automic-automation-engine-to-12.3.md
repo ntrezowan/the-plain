@@ -184,15 +184,15 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
         Version of the RA Plugins: '4.0.7'.
         Version of database objects: '12.3.0+hf.1.build.1565956991091'.
 
-3. Upgrade Automation Engine
+3. Upgrade Automation Engine;
 
-    a) Upgrade Automation Engine bin folder;
+    a) Upgrade Automation Engine `bin` folder;
     
         # cp -r /opt/ae/automationengine/bin_new/bin/* /opt/ae/automationengine/bin/
         
-    Check if all the files are owned by autotask user and autotask group
+    Check if all the files are owned by `autotask` user and `autotask` group.
 
-    b) Check CP libraries;
+    b) Check `CP` libraries;
     
         # cd /opt/ae/automationengine/bin/
         # ldd -r ucsrvcp > wk.txt
@@ -216,7 +216,7 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
         librt.so.1 => /lib64/librt.so.1 (0x0000003168200000)
         /lib64/ld-linux-x86-64.so.2 (0x0000556b5c1be000)
 
-    c) Check WP libraries;
+    c) Check `WP` libraries;
     
         # cd /opt/ae/automationengine/bin/
         # ldd -r ucsrvwp > wk.txt
@@ -253,7 +253,7 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
         librt.so.1 => /lib64/librt.so.1 (0x0000003168200000)
         /lib64/ld-linux-x86-64.so.2 (0x0000562aa7289000)
 
-    d) Check DB libraries;
+    d) Check `DB` libraries;
     
         # cd /opt/ae/automationengine/bin/
         # ldd -r ucuoci.so > wk.txt
@@ -280,14 +280,14 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
         /lib64/ld-linux-x86-64.so.2 (0x000055b48bc43000)
         libclntshcore.so.12.1 => /opt/oracle/product/12.2.0.1/dbhome_1/lib/libclntshcore.so.12.1 (0x00007f4c10e5e000)
 
-    e) Start a CP;
+    e) Start a `CP`;
     
         # cd /opt/ae/automationengine/bin/
         # ./ucsrvcp &
 
         UC4 CP-Server Version 12.3.0+hf.1.build.1565007573762 (PID=57961)
 
-    Check if CP has started;
+    Check if `CP` has started;
     
         # ps -ef | grep ucsrvcp
 
@@ -295,7 +295,7 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
     
         # cat /opt/ae/automationengine/temp/CPsrv_log_001_00.txt
 
-    f) Start a WP;
+    f) Start a `WP`;
     
         # cd /opt/ae/automationengine/bin/
         # ./ucsrvwp &
@@ -305,7 +305,7 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
         # SERVER=AE#WP001
         *** PRIMARY(AE#WP001) ***
 
-    Check if WP has started;
+    Check if `WP` has started;
     
         # ps -ef | grep ucsrvwp
 
@@ -321,33 +321,35 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
         # ps -ef | grep ucsrvwp
         # kill pid
 
-4. Upgrade Service Manager
+4. Upgrade Service Manager;
 
-    a) Upgrade Service Manager bin folder;
+    a) Upgrade Service Manager `bin` folder;
 
         # cp -r /opt/ae/servicemanager/bin_new/bin/* /opt/ae/servicemanager/bin/
 
-    Check if all the files are owned by autotask user and autotask group
+    Check if all the files are owned by `autotask` user and `autotask` group.
 
     b) Start Service Manager;
 
         # cd /opt/ae/servicemanager/bin/
         # nohup ./ucybsmgr &
 
+    Check if Service Manager has started;
+    
         # ps -ef | grep ucybsmgr
 
-    Check logs
+    Check logs;
 
         # cat /opt/ae/servicemanager/temp/SMgr_log_00.txt
 
-5. Install JWP
+5. Install JWP;
 
-    a) Remove the following content so that AE lib and plugins folder are empty;
+    a) Remove the following content so that AE `lib` and `plugins` folder are empty;
 
         # rm /opt/ae/automationengine/bin/lib/*
         # rm /opt/ae/automationengine/bin/plugins/*
 
-    b) Copy content of lib and plugins folders to AE;
+    b) Copy new content of `lib` and `plugins` to AE;
 
         # cp /opt/ae/automationengine/bin_new/bin/lib/* /opt/ae/automationengine/bin/lib/
 
@@ -355,17 +357,16 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
 
         # cp /opt/ae/automationengine/bin_new/bin/plugins/* /opt/ae/automationengine/bin/plugins/
 
-    c) Copy `xdb6.jar` and `xmlparserv2.jar` files to the lib folder to ensure that XML variables can be processed correctly;
+    c) Copy `xdb6.jar` and `xmlparserv2.jar` to the lib folder to ensure that XML variables can be processed correctly;
 
         # cp /opt/oracle/product/12.2.0.1/dbhome_1/sqldeveloper/modules/oracle.xdk/xmlparserv2.jar /opt/ae/automationengine/bin/lib/
-
         # cp /opt/oracle/product/12.2.0.1/dbhome_1/sqldeveloper/rdbms/jlib/xdb6.jar /opt/ae/automationengine/bin/lib/
 
-    d) Copy `ojdbc8.jar` from Oracle to lib folder;
+    d) Copy `ojdbc8.jar` from Oracle to AE `lib` folder;
     
         # cp /opt/oracle/product/12.2.0.1/dbhome_1/jdbc/lib/ojdbc8.jar /opt/ae/automationengine/bin/lib/
 
-    e)	Install LDAP certificate if you want OUD/LDAP for authentication;
+    e)	Install LDAP certificate if you want `OUD/LDAP` for authentication;
 
     By default, JWP uses Java keystore `cacerts`. To directly install LDAP certificate;
 
@@ -390,18 +391,18 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
     If you prefer to create a new keystore and use it for JWP, do the following;
     
         # cd /opt/ae/automationengine/bin/
-        # java -jar ucsrvjp.jar -installcert ldap.example.com:636 /opt/ae/automationengine/bin/ldap.jks
+        # java -jar ucsrvjp.jar -installcert ldap.example.com:636 /opt/ae/automationengine/bin/ssl_certs/ldap.jks
 
     f) Configure the Database;
 
-    If you prefer to use Oracle OCI, configure AE as following;
+    If you prefer to use `Oracle OCI`, configure AE as following;
 
         # vi /opt/ae/automationengine/bin/ucsrv.ini
 
         [OCI]
         SQLDRIVERCONNECT=ODBCVAR=NNJNNORO,DSN=DB_NAME;UID=;PWD=;SP=NLS_LANGUAGE=AMERICAN,NLS_TERRITORY=AMERICA,CODESET=
 
-    If you prefer to use JDBC, configure AE as following;
+    If you prefer to use `JDBC`, configure AE as following;
     
         [JDBC]
         SQLDRIVERCONNECT=jdbc:oracle:thin:@AE_DB_SERVER_IP:1521/DB_NAME
@@ -415,11 +416,11 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
 
         # ps -ef | grep -i ucsrvjp
 
+    JWP will use the last WP as worker process.
+    
     Check logs;
     
         # cat /opt/ae/automationengine/temp/WPsrv_log_002_00.txt
-        
-    JWP normally will be the last of the WP.
 
     h) Add JWP to Service Manager;
 
@@ -437,7 +438,7 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
         WAIT 10
         CREATE UC4 WP2
 
-    i) Restart Service Manager and check if JWP can be start/stop from Service Manager Dialogue
+    i) Restart Service Manager and check if JWP can be start/stop from Service Manager Dialogue.
 
 6. Install JCP
 
