@@ -7,7 +7,7 @@ published: true
 ---
 
 ### A. Preparation before upgrade 
-1. Backup Automic Utility and extract new JAR;
+1. Backup `Automic Utility` and extract new JAR;
 ```
 # rm -rf /opt/ae/utility/bin_new/*
 # rm -rf /opt/ae/utility/bin_orig/*
@@ -15,9 +15,9 @@ published: true
 # cp /opt/iso/Automic.Automation_12.3.0_HF1/Automation.Platform/Utility/unix/linux/x64/utillx6.tar.gz /opt/ae/utility/bin_new
 # tar -zxvf utillx6.tar.gz
 ```
-In here, we are only interested of bin folder and db folder will be empty.
+In here, we are only interested of `bin` folder and `db` folder should be empty.
 
-2. Backup Automic DB and extract new JAR;
+2. Backup `Automic DB` and extract new JAR;
 ```
 # rm -rf /opt/ae/utility/db_new/*
 # rm -rf /opt/ae/utility/db_orig/*
@@ -26,7 +26,7 @@ In here, we are only interested of bin folder and db folder will be empty.
 # tar -zxvf db.tar.gz
 ```
 
-3. Backup Automation Engine and extract new JAR;
+3. Backup `Automation Engine` and extract new JAR;
 ```
 # rm -rf /opt/ae/automationengine/bin_new/*
 # rm -rf /opt/ae/automationengine/bin_orig/*
@@ -35,7 +35,7 @@ In here, we are only interested of bin folder and db folder will be empty.
 # tar -zxvf ucslx6.tar.gz
 ```
 
-4. Backup Service Manager and extract new JAR;
+4. Backup `Service Manager` and extract new JAR;
 ```
 # rm -rf /opt/ae/servicemanager/bin_new/*
 # rm -rf /opt/ae/servicemanager/bin_orig/*
@@ -44,14 +44,14 @@ In here, we are only interested of bin folder and db folder will be empty.
 # tar -zxvf ucsmgrlx6.tar.gz
 ```
 
-5. Create folder for CAPKI and copy the installer;  
-Download `CAPKI` installer from [https://downloads.automic.com/downloads](https://downloads.automic.com/downloads).
+5. Create folder for `CAPKI` and copy the installer;  
+Download CAPKI installer from [https://downloads.automic.com/downloads](https://downloads.automic.com/downloads) and move it to the server.
 ```
 # mkdir /opt/ae/capki/
 # cp /opt/iso/CA.PKI/unix/linux/x64/setup /opt/ae/capki/
 ```
 
-6. Shutdown the system;
+6. Shutdown AE;
 ```
 # ps -ef | grep ucybsmgr
 # kill pid
@@ -60,7 +60,7 @@ Download `CAPKI` installer from [https://downloads.automic.com/downloads](https:
 7. Check environment;  
 
     a) Check Java version;   
-    Automation Engine supports OpenJDK Java 11, Oracle Java 1.8 and Oracle Java 11. Check if you have proper version of Java;
+    Automation Engine supports `OpenJDK Java 11`, `Oracle Java 1.8` and `Oracle Java 11`. Check if you have proper version of Java;
 
         # java -version
         openjdk version "11.0.4" 2019-07-16 LTS
