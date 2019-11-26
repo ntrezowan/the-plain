@@ -112,25 +112,25 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
 
     a. Upgrade db folder;
 
-        # cp -r /apps/automic/utility/db_new/* /apps/automic/utility/db/
+        # cp -r /opt/ae/utility/db_new/* /opt/ae/utility/db/
 
-    Check if all the files are owned by autotask user and fsubatch group
+    Check if all the files are owned by autotask user and autotask group
 
     b. Start AE DB Load;
 
-        # cd /apps/automic/utility/bin
-        # ./ucybdbld -B -X/apps/automic/utility/db/general/12.3/UC_UPD.TXT
+        # cd /opt/ae/utility/bin
+        # ./ucybdbld -B -X/opt/ae/utility/db/general/12.3/UC_UPD.TXT
 
         ========================================================
         Starting C++ batch mode loader...
         User account (user/domain) <AUTOTASK/>
-        Startup parameter <-B -X/apps/automic/utility/db/general/12.3/UC_UPD.TXT >
+        Startup parameter <-B -X/opt/ae/utility/db/general/12.3/UC_UPD.TXT >
         Application name <./ucybdbld>
-        Launch from </apps/automic/utility/bin/>
+        Launch from </opt/ae/utility/bin/>
         LoadLibrary pointer = <0x1b882d0>
         20190905/134647.081 - U00033125 Operating System: <UC4_ON_UNIX>
         20190905/134647.081 - U00033125 Operating System: <UC4_ON_UNIX_LINUX>
-        20190905/134647.081 - U00038002 DLL 'ucybdbld', version '12.3.0+build.1560517368775'. Start parameter: '-B -X/apps/automic/utility/db/general/12.3/UC_UPD.TXT ', (changelist '1560507727').
+        20190905/134647.081 - U00038002 DLL 'ucybdbld', version '12.3.0+build.1560517368775'. Start parameter: '-B -X/opt/ae/utility/db/general/12.3/UC_UPD.TXT ', (changelist '1560507727').
         20190905/134647.081 - U00038259 Build Date: '2019-06-14', '15:07:38'
         20190905/134647.092 - ----------------------------------------------------------------------------------------------------
         20190905/134647.092 - [GLOBAL]
@@ -146,7 +146,6 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
         20190911/131253.733 - U00003532 UCUDB: Checking data source ...
         20190911/131257.706 - U00003533 UCUDB: Check of data source finished: No errors. Performance CPU/DB: '1842013'/'369 (1000/2.706869 s)'
         20190911/131257.706 - U00003544 UCUDB: Reference values tested with Windows 2003 on XEON 1500 MHz: CPU 813865, DB 470
-        20190911/131257.706 - U00003524 UCUDB: ===> Time critical DB call!       OPC: 'OPEN' time: '4:047.702.000'
         20190911/131257.706 - U00003525 UCUDB: ===> ''
         20190911/131257.707 - U00038091 Change application directory to '../db/'.
         20190911/131257.707 - U00038042 DB-Version = 12.3/R
@@ -166,69 +165,157 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
 
     c. Load RA Jar;
 
-        # java -jar ./ucybdbld.jar -B -X/apps/iso/Autotask/Rapid.Automation/RA.FTP/FtpAgent_solution.jar
+        # java -jar ./ucybdbld.jar -B -X/opt/iso/Automic.Automation_12.3.0_HF1/Rapid.Automation/RA.FTP/FtpAgent_solution.jar
 
-        20191106/120923.533 - U00038162 Loading file: '/apps/iso/Autotask/Rapid.Automation/RA.FTP/FtpAgent/FtpAgent_deploy_file.jar'.
-        20191106/120923.661 - U00038163 File '/apps/iso/Autotask/Rapid.Automation/RA.FTP/FtpAgent/FtpAgent_deploy_file.jar' successfully loaded.
+        20191106/120923.533 - U00038162 Loading file: '/opt/iso/Automic.Automation_12.3.0_HF1/Rapid.Automation/RA.FTP/FtpAgent_solution.jar'.
+        20191106/120923.661 - U00038163 File '/opt/iso/Automic.Automation_12.3.0_HF1/Rapid.Automation/RA.FTP/FtpAgent_solution.jar' successfully loaded.
         20191106/120923.701 - U00038165 RA Solution loaded successfully.
         20191106/120923.701 - U00038272 Loading RA Plugins.
         20191106/120923.702 - U00038269 Version check result:
         Version of the RA Plugins: '4.0.7'.
         Version of database objects: '12.3.0+hf.1.build.1565956991091'.
 
-        20191106/120923.711 - U00038162 Loading file: '/apps/iso/Autotask/Rapid.Automation/RA.FTP/FtpAgent/ecc-ae-sheet-ra-ftp.jar'.
-        20191106/120923.724 - U00038163 File '/apps/iso/Autotask/Rapid.Automation/RA.FTP/FtpAgent/ecc-ae-sheet-ra-ftp.jar' successfully loaded.
-        20191106/120923.737 - U00038273 RA Plugins loaded successfully.
-        20191106/120923.754 - U00003523 UCUDB: Maximum time required for a DB call: '19:700.547.000'.
-        20191106/120923.754 - U00003522 UCUDB: Database closed. Total time for DB calls: '20:794.676.000' seconds.
-        20191106/120923.754 - U00003549 UCUDB: '            2306' 'OTHERS    ' calls took '0:007.253.000' sec.
-        20191106/120923.754 - U00003549 UCUDB: '              31' 'SELECT    ' calls took '0:110.639.000' sec.
-        20191106/120923.754 - U00003549 UCUDB: '             290' 'EXECUTE   ' calls took '20:239.570.000' sec.
-        20191106/120923.754 - U00003549 UCUDB: '               5' 'UPDATE    ' calls took '0:010.429.999' sec.
-        20191106/120923.754 - U00003549 UCUDB: '               0' 'DELETE    ' calls took '0:000.000.000' sec.
-        20191106/120923.754 - U00003549 UCUDB: '             270' 'INSERT    ' calls took '0:377.413.000' sec.
-        20191106/120923.754 - U00003549 UCUDB: '              32' 'READ      ' calls took '0:001.380.000' sec.
-        20191106/120923.754 - U00003549 UCUDB: '            3867' 'CLOSESTMT ' calls took '0:001.500.999' sec.
-        20191106/120923.754 - U00003549 UCUDB: '            1018' 'TRANSACT  ' calls took '0:046.489.999' sec.
 
 
 
+3. Upgrade Automation Engine 
 
-There is another interesting date called `License Check Date` and this date is related with the software version of BIG-IP. For example, Version `12.1.0-12.1.3` has a `License Check Date` 2016-03-2018. The `License Check Date` enforcement is applied during system startup. The system compares the `License Check Date` with the `Service Check Date` exists in the license file. If the `Service Check Date` is earlier than the `License Check Date`, the system will initialize but will not load the configuration. To allow the configuration to load properly, you must update the `Service Check Date` in the `bigip.license` file by reactivating the system's license. To find the `License Check Date` for the version you planned to upgrade, visit https://support.f5.com/csp/article/K7727. For example, if you plan to upgrade to version `13.1.0-13.1.1`, then `License Check Date` is 20170912.<br /><br />
-Now by comparing `Service check date` with `License Check Date`, we see that 20171013 > 20170912 which means you do not need to reactive the license before upgrade. But it is always a good practice to reactivate your license everytime you upgrade the F5 because it extends your `Service check date` in the license file.<br /><br />
-If `Service Check Date` < `License Check Date`, do the following to reactivate the license before upgrade;  
-    a) Log in to the Configuration utility  
-    b) Navigate to System > License > Reactivate  
-    c) Select either Automatic (if F5 can reach internet) or Manual (if F5 cannot reach internet)  
-    d) Click Next and it will be reactivated  
+    a. Upgrade Automation Engine;
 
-3. Check device certificate and renew if necessary;  
-To check the device certificate, do the following;  
-    a) Log in to the Configuration utility  
-    b) Navigate to System > Certificate Management > Device Certificate Management > Device Certificate<br /><br />
-If you need to renew device certificate, do the following;  
-    a) Log in to the Configuration utility  
-    b) Navigate to System > Certificate Management > Device Certificate Management > Device Certificate  
-    c) Click Import and choose Certificate and Key as Import Type  
-    d) Choose both certificate and key  
-    e) Click Import  
-    
-4. Do a ConfigSync to sync configuration on both units;  
-It is always a better to do a config sync before the upgrade and this way both units will have the latest configuration.<br /><br />
-To do a config sync, do the following;  
-    a) Log in to the Configuration utility  
-    b) Navigate to Device Management > Overview  
-    c) For Device Groups, click the name of the device group (device-group-a-failover) you want to synchronize  
-    d) For Devices, click the name of the device from which you want to perform the synchronization action  
-    e) For Sync, click the appropriate synchronization action  
-    f) Click Sync  
-  
-5. Generate a qkview and check for Upgrade Advisor in iHealth;  
-iHealth reports can be used to find if there is any issue if we upgrade F5 units from one version to another. To generate a qkview, do the following;  
-    a) Log in to the Configuration utility  
-    b) Navigate to System > Support  
-    c) Click New Support Snapshot  
-    d) For Health Utility, click Generate QKView  
-    e) Click Start  
-    f) To download the output file, click Download<br /><br />
-After download the file from F5, upload it to https://ihealth.f5.com/ and then go to `Upgrade Advisor` and select the version to which you want to upgrade your units. Then che
+        # cp -r /apps/automic/automationengine/bin_new/bin/* /apps/automic/automationengine/bin/
+
+    Check if all the files are owned by autotask user and autotask group
+
+    b. Check the libraries (CP, WP, DB);
+
+    # cd /apps/automic/automationengine/bin/
+
+        i. Check CP libraries;
+
+        # ldd -r ucsrvcp > wk.txt
+        # cat wk.txt
+        linux-vdso.so.1 =>  (0x00007ffd88724000)
+        libzu00132.so => ./libzu00132.so (0x00007fe425490000)
+        libucmsgq.so => ./libucmsgq.so (0x00007fe425259000)
+        libucudb32.so => ./libucudb32.so (0x00007fe425008000)
+        libuccache.so => ./libuccache.so (0x00007fe424dfb000)
+        libsysapi.so => ./libsysapi.so (0x00007fe424bf6000)
+        libzusynchk.so => ./libzusynchk.so (0x00007fe4249e9000)
+        libuc001.so => ./libuc001.so (0x00007fe4247e4000)
+        libzugss.so => ./libzugss.so (0x00007fe4245cc000)
+        libzukms.so => ./libzukms.so (0x00007fe4243c6000)
+        libpthread.so.0 => /lib64/libpthread.so.0 (0x0000003167e00000)
+        libdl.so.2 => /lib64/libdl.so.2 (0x0000003167a00000)
+        libstdc++.so.6 => ./libstdc++.so.6 (0x00000031cfa00000)
+        libm.so.6 => /lib64/libm.so.6 (0x0000003168600000)
+        libgcc_s.so.1 => ./libgcc_s.so.1 (0x00000031cf600000)
+        libc.so.6 => /lib64/libc.so.6 (0x0000003167600000)
+        librt.so.1 => /lib64/librt.so.1 (0x0000003168200000)
+        /lib64/ld-linux-x86-64.so.2 (0x0000556b5c1be000)
+
+        ii. Check WP libraries;
+
+        # ldd -r ucsrvwp > wk.txt
+        # cat wk.txt
+        linux-vdso.so.1 =>  (0x00007ffccdf97000)
+        libucsj.so => ./libucsj.so (0x00007f4b61277000)
+        libucdsfun.so => ./libucdsfun.so (0x00007f4b60ec7000)
+        libucucc.so => ./libucucc.so (0x00007f4b60cb5000)
+        libucuhg.so => ./libucuhg.so (0x00007f4b60a8f000)
+        libucrtl.so => ./libucrtl.so (0x00007f4b60886000)
+        libzuxml.so => ./libzuxml.so (0x00007f4b60664000)
+        libucldap.so => ./libucldap.so (0x00007f4b60443000)
+        libucexith.so => ./libucexith.so (0x00007f4b6023f000)
+        libucuhsta.so => ./libucuhsta.so (0x00007f4b60032000)
+        libucsmtp.so => ./libucsmtp.so (0x00007f4b5fe28000)
+        libucumqa.so => ./libucumqa.so (0x00007f4b5fbb6000)
+        libucqert.so => ./libucqert.so (0x00007f4b5f99e000)
+        libucumulti.so => ./libucumulti.so (0x00007f4b5f798000)
+        libzu00132.so => ./libzu00132.so (0x00007f4b5f566000)
+        libucmsgq.so => ./libucmsgq.so (0x00007f4b5f330000)
+        libucudb32.so => ./libucudb32.so (0x00007f4b5f0df000)
+        libuccache.so => ./libuccache.so (0x00007f4b5eed1000)
+        libsysapi.so => ./libsysapi.so (0x00007f4b5eccd000)
+        libzusynchk.so => ./libzusynchk.so (0x00007f4b5eac0000)
+        libuc001.so => ./libuc001.so (0x00007f4b5e8ba000)
+        libzugss.so => ./libzugss.so (0x00007f4b5e6a3000)
+        libzukms.so => ./libzukms.so (0x00007f4b5e49d000)
+        libpthread.so.0 => /lib64/libpthread.so.0 (0x0000003167e00000)
+        libdl.so.2 => /lib64/libdl.so.2 (0x0000003167a00000)
+        libstdc++.so.6 => ./libstdc++.so.6 (0x00000031cfa00000)
+        libm.so.6 => /lib64/libm.so.6 (0x0000003168600000)
+        libgcc_s.so.1 => ./libgcc_s.so.1 (0x00000031cf600000)
+        libc.so.6 => /lib64/libc.so.6 (0x0000003167600000)
+        librt.so.1 => /lib64/librt.so.1 (0x0000003168200000)
+        /lib64/ld-linux-x86-64.so.2 (0x0000562aa7289000)
+
+        iii. Check DB libraries;
+
+        # ldd -r ucuoci.so > wk.txt
+        # cat wk.txt
+        linux-vdso.so.1 =>  (0x00007ffe7b5f1000)
+        libsysapi.so => ./libsysapi.so (0x00007f4c178e1000)
+        libzu00132.so => ./libzu00132.so (0x00007f4c176af000)
+        libuc001.so => ./libuc001.so (0x00007f4c174aa000)
+        libclntsh.so.12.1 => /opt/app/oracle/product/12.2.0.1/dbhome_1/lib/libclntsh.so.12.1 (0x00007f4c139f9000)
+        libdl.so.2 => /lib64/libdl.so.2 (0x00007f4c137e8000)
+        libpthread.so.0 => /lib64/libpthread.so.0 (0x00007f4c135cb000)
+        libstdc++.so.6 => ./libstdc++.so.6 (0x00007f4c133db000)
+        libm.so.6 => /lib64/libm.so.6 (0x00007f4c13156000)
+        libgcc_s.so.1 => ./libgcc_s.so.1 (0x00007f4c13049000)
+        libc.so.6 => /lib64/libc.so.6 (0x00007f4c12cb5000)
+        librt.so.1 => /lib64/librt.so.1 (0x00007f4c12aac000)
+        libmql1.so => /opt/app/oracle/product/12.2.0.1/dbhome_1/lib/libmql1.so (0x00007f4c12835000)
+        libipc1.so => /opt/app/oracle/product/12.2.0.1/dbhome_1/lib/libipc1.so (0x00007f4c123f9000)
+        libnnz12.so => /opt/app/oracle/product/12.2.0.1/dbhome_1/lib/libnnz12.so (0x00007f4c11cb0000)
+        libons.so => /opt/app/oracle/product/12.2.0.1/dbhome_1/lib/libons.so (0x00007f4c11a62000)
+        libnsl.so.1 => /lib64/libnsl.so.1 (0x00007f4c11848000)
+        libaio.so.1 => /lib64/libaio.so.1 (0x00007f4c11647000)
+        libresolv.so.2 => /lib64/libresolv.so.2 (0x00007f4c1142d000)
+        /lib64/ld-linux-x86-64.so.2 (0x000055b48bc43000)
+        libclntshcore.so.12.1 => /opt/app/oracle/product/12.2.0.1/dbhome_1/lib/libclntshcore.so.12.1 (0x00007f4c10e5e000)
+
+    c. Test CP/WP processes;
+
+        i. Start a CP;
+
+        # cd /apps/automic/automationengine/bin/
+        # ./ucsrvcp &
+
+        UC4 CP-Server Version 12.3.0+hf.1.build.1565007573762 (PID=57961)
+
+        Please check atleast one of the following conditions are met.
+            *) Set CAPKIHOME environment variable.
+            *) Pass valid second parameter to etpki_lib_init function. Ex: if the second parameter is /a/b/c/[lib]cryptocme2.[dll][so][sl], it is assumed that /a/b/c has all the required CAPKI shared libraries
+
+
+        Check if CP has started;
+        # ps -ef | grep ucsrvcp
+
+        Check log;
+        # cat /apps/automic/automationengine/temp/CPsrv_log_001_00.txt
+
+        ii. Start a WP;
+
+        # cd /apps/automic/automationengine/bin/
+        # ./ucsrvwp &
+
+        UC4 WP-Server Version 12.3.0+hf.1.build.1565007573762 (PID=58630)
+
+        [autotask@autotaskdev01 bin]$ SERVER=ATASKDEV#WP001
+        *** PRIMARY(ATASKDEV#WP001) ***
+
+        Check if WP has started;
+        # ps -ef | grep ucsrvwp
+
+        Check log;
+        # cat /apps/automic/automationengine/temp/WPsrv_log_001_00.txt
+
+        iii. Stop CP/WP processes;
+
+        # ps -ef | grep ucsrvcp
+        # kill pid
+
+        # ps -ef | grep ucsrvwp
+        # kill pid
+
