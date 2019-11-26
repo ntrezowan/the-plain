@@ -4,6 +4,7 @@ comments: false
 description: "Upgrading Automic Automation Engine to 12.3"
 keywords: "upgrade, automic, automation, engine, workload, 12.3. ca, broadcom"
 published: true
+
 ---
 
 ### A. Preparation before upgrade 
@@ -79,6 +80,8 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
         TNS_ADMIN=/opt/oracle/product/12.2.0.1/dbhome_1/network/admin; export TNS_ADMIN
         CLASSPATH=${ORACLE_HOME}/jdbc/lib/:${ORACLE_HOME}/jlib/; export CLASSPATH
 
+
+---
 
 ### B. Upgrade Automation Engine
 
