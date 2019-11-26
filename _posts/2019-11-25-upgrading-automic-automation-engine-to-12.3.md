@@ -44,8 +44,7 @@ In here, we are only interested of bin folder and db folder will be empty.
 # tar -zxvf ucsmgrlx6.tar.gz
 ```
 
-5. Create folder for CAPKI and copy the installer;
-
+5. Create folder for CAPKI and copy the installer;  
 Download CAPKI installer from https://downloads.automic.com/downloads.
 ```
 # mkdir /opt/ae/capki/
@@ -58,7 +57,7 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
 # kill pid
 ```
 
-7. Check environment;
+7. Check environment;  
     a. Check Java version;
     Automation Engine supports OpenJDK Java 11 , Oracle Java 1.8 and Oracle Java 11. Check if you have proper version of Java;
     ```
