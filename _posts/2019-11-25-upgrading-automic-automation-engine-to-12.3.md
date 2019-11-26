@@ -65,15 +65,15 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
 
     b) Check environment variables;  
 ```
-# vi ~/.bashrc
+    # vi ~/.bashrc
 
-# AUTOMIC System Settings
-ORACLE_HOME=/opt/oracle/product/12.2.0.1/dbhome_1; export ORACLE_HOME
-AUTOMIC=/opt/ae/utility; export AUTOMIC
-PATH=.:$ORACLE_HOME/bin[:$PATH]; export PATH
-LD_LIBRARY_PATH=.:${AUTOMIC}/bin:$ORACLE_HOME/lib:/usr/lib:/lib[:$LD_LIBRARY_PATH]; export LD_LIBRARY_PATH
-TNS_ADMIN=/opt/oracle/product/12.2.0.1/dbhome_1/network/admin; export TNS_ADMIN
-CLASSPATH=${ORACLE_HOME}/jdbc/lib/:${ORACLE_HOME}/jlib/; export CLASSPATH
+    # AUTOMIC System Settings
+    ORACLE_HOME=/opt/oracle/product/12.2.0.1/dbhome_1; export ORACLE_HOME
+    AUTOMIC=/opt/ae/utility; export AUTOMIC
+    PATH=.:$ORACLE_HOME/bin[:$PATH]; export PATH
+    LD_LIBRARY_PATH=.:${AUTOMIC}/bin:$ORACLE_HOME/lib:/usr/lib:/lib[:$LD_LIBRARY_PATH]; export LD_LIBRARY_PATH
+    TNS_ADMIN=/opt/oracle/product/12.2.0.1/dbhome_1/network/admin; export TNS_ADMIN
+    CLASSPATH=${ORACLE_HOME}/jdbc/lib/:${ORACLE_HOME}/jlib/; export CLASSPATH
 ```
 
     a) Check Java version;  
