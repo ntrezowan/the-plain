@@ -503,7 +503,7 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
 
     a) Install CAPKI;
 
-    Go to [https://downloads.automic.com/downloads/component_downloads](https://downloads.automic.com/downloads/component_downloads) and search for `capki`. Download it and then run the `setup` script as root;
+    Go to [https://downloads.automic.com/downloads/component_downloads](https://downloads.automic.com/downloads/component_downloads) and search for `capki`. Download it and then run the `setup` script as `root`;
 
         # cd /opt/ae/capki/
         # ./setup install caller=AE123 veryverbose env=all instdir=/opt/ae/capki/
