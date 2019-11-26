@@ -87,14 +87,14 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
 
 1. Upgrade Automic Utility;  
 
-    a) Upgrade Automic Utility bin folder;  
+    a) Upgrade Automic Utility `bin` folder;  
 
         # cp -r /opt/ae/utility/bin_new/bin/* /opt/ae/utility/bin/
 
-    Check if all the files are owned by autotask user
+    Check if all the files are owned by `autotask` user and `autotask` group.
 
     b) Check config files;  
-    All config file (*.INI) will not be replaced when we upgraded Automic Utility bin folder. These INI files have OCI DB connection string defined and you should verify the following files;
+    All config file will not be replaced when we upgraded Automic Utility bin folder. These `INI` files have OCI DB connection string defined and you should verify the following files;
 
         AE.DB Archive: ucybdbar.ini
         AE.DB Client Copy: ucybdbcc.ini
@@ -104,7 +104,7 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
         AE.DB Revision Report: ucybdbrr.ini
         AE.DB Unload: ucybdbun.ini
 
-    The UID should be in all capital.
+    The `UID` should be in all capital.
 
     c) Check `ucybdbar.sh` execute permission;
 
@@ -115,9 +115,9 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
 
         # chmod +x ucybdbar.sh
 
-2. Upgrade AE DB scheme and load initial data;
+2. Upgrade AE DB scheme;
 
-    a. Upgrade db folder;
+    a. Upgrade `db` folder;
 
         # cp -r /opt/ae/utility/db_new/* /opt/ae/utility/db/
 
@@ -170,7 +170,7 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
         20190911/131257.736 - U00003549 UCUDB: '            1014' 'TRANSACT  ' calls took '0:005.173.999' sec.
         Application return code = 0
     
-    If the script `return code = 0`, then it means AE DB has been upgraded successfully.
+    If `return code = 0`, then it means AE DB has been upgraded successfully.
     
     c. Load Rapid Automation to DB;
 
