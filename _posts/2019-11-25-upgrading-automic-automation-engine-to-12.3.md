@@ -178,20 +178,16 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
 
 
 
-3. Upgrade Automation Engine 
-
-    a. Upgrade Automation Engine;
-
+3. Upgrade Automation Engine
+    a) Upgrade Automation Engine;
+    
         # cp -r /apps/automic/automationengine/bin_new/bin/* /apps/automic/automationengine/bin/
-
+        
     Check if all the files are owned by autotask user and autotask group
 
-    b. Check the libraries (CP, WP, DB);
-
-    # cd /apps/automic/automationengine/bin/
-
-        i. Check CP libraries;
-
+    b) Check CP libraries;
+    
+        # cd /apps/automic/automationengine/bin/
         # ldd -r ucsrvcp > wk.txt
         # cat wk.txt
         linux-vdso.so.1 =>  (0x00007ffd88724000)
@@ -213,8 +209,9 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
         librt.so.1 => /lib64/librt.so.1 (0x0000003168200000)
         /lib64/ld-linux-x86-64.so.2 (0x0000556b5c1be000)
 
-        ii. Check WP libraries;
-
+    c) Check WP libraries;
+    
+        # cd /apps/automic/automationengine/bin/
         # ldd -r ucsrvwp > wk.txt
         # cat wk.txt
         linux-vdso.so.1 =>  (0x00007ffccdf97000)
@@ -249,8 +246,9 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
         librt.so.1 => /lib64/librt.so.1 (0x0000003168200000)
         /lib64/ld-linux-x86-64.so.2 (0x0000562aa7289000)
 
-        iii. Check DB libraries;
-
+    d) Check DB libraries;
+    
+        # cd /apps/automic/automationengine/bin/
         # ldd -r ucuoci.so > wk.txt
         # cat wk.txt
         linux-vdso.so.1 =>  (0x00007ffe7b5f1000)
@@ -275,28 +273,23 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
         /lib64/ld-linux-x86-64.so.2 (0x000055b48bc43000)
         libclntshcore.so.12.1 => /opt/app/oracle/product/12.2.0.1/dbhome_1/lib/libclntshcore.so.12.1 (0x00007f4c10e5e000)
 
-    c. Test CP/WP processes;
-
-        i. Start a CP;
-
+    e) Start a CP;
+    
         # cd /apps/automic/automationengine/bin/
         # ./ucsrvcp &
 
         UC4 CP-Server Version 12.3.0+hf.1.build.1565007573762 (PID=57961)
 
-        Please check atleast one of the following conditions are met.
-            *) Set CAPKIHOME environment variable.
-            *) Pass valid second parameter to etpki_lib_init function. Ex: if the second parameter is /a/b/c/[lib]cryptocme2.[dll][so][sl], it is assumed that /a/b/c has all the required CAPKI shared libraries
-
-
-        Check if CP has started;
+    Check if CP has started;
+    
         # ps -ef | grep ucsrvcp
 
-        Check log;
+    Check log;
+    
         # cat /apps/automic/automationengine/temp/CPsrv_log_001_00.txt
 
-        ii. Start a WP;
-
+    f) Start a WP;
+    
         # cd /apps/automic/automationengine/bin/
         # ./ucsrvwp &
 
@@ -305,17 +298,18 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
         [autotask@autotaskdev01 bin]$ SERVER=ATASKDEV#WP001
         *** PRIMARY(ATASKDEV#WP001) ***
 
-        Check if WP has started;
+    Check if WP has started;
+    
         # ps -ef | grep ucsrvwp
 
-        Check log;
+    Check log;
+    
         # cat /apps/automic/automationengine/temp/WPsrv_log_001_00.txt
 
-        iii. Stop CP/WP processes;
+    g) Stop CP/WP processes;
 
         # ps -ef | grep ucsrvcp
         # kill pid
 
         # ps -ef | grep ucsrvwp
         # kill pid
-
