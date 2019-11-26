@@ -393,7 +393,7 @@ Download `CAPKI` installer from [https://downloads.automic.com/downloads](https:
 
     If you prefer to use Oracle OCI, configure AE as following;
 
-        # vi /apps/automic/automationengine/bin/ucsrv.ini
+        # vi /opt/ae/automationengine/bin/ucsrv.ini
 
         [OCI]
         SQLDRIVERCONNECT=ODBCVAR=NNJNNORO,DSN=DB_NAME;UID=;PWD=;SP=NLS_LANGUAGE=AMERICAN,NLS_TERRITORY=AMERICA,CODESET=
