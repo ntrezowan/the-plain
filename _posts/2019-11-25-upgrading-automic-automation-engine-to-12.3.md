@@ -446,3 +446,64 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
 
 
 
+10.	Install JCP
+
+    a) Add the following to ucsrv.ini;
+        # vi /apps/automic/automationengine/bin/ucsrv.ini
+
+        [REST]
+        port=8088
+        sslEnabled=0
+        keystore=/apps/automic/automationengine/bin/ssl/keystore
+        keystorePassword=changeit
+        keyPassword=changeit
+        parallelDbConnections=5
+
+    or HTTPS
+
+        [REST]
+        port=8443
+        sslEnabled=1
+        keystore=/apps/ssl_certs/tomcat-jcp.jks
+        keystorePassword=changeit
+        keyPassword=changeit
+        parallelDbConnections=5
+
+    Copy the file tomcat-jcp.jks from autotaskdev01/autotasksan01 to autotaskprd01.
+
+    b) Add JCP to Service Manager;
+
+    Add the following to uc4.smd;
+        # vi /apps/automic/servicemanager/bin/uc4.smd
+
+        ! JCP
+        DEFINE UC4 JCP1;java -jar -Xrs -Xmx512M /apps/automic/automationengine/bin/ucsrvjp.jar -i/apps/automic/automationengine/bin/ucsrv.ini -svc%port% -rest;/apps/automic/automationengine/bin
+
+    Add the following to uc4.smc
+        # vi /apps/automic/servicemanager/bin/uc4.smc
+
+        WAIT 10
+        CREATE UC4 JCP1
+
+    c) If you want to use HTTPS, create a keystore with *.its.fsu.edu cert+key and rename the alias to jetty;
+
+        # cd /apps/java/jre/lib/security/
+
+        # openssl pkcs12 -inkey its_fsu_edu_wildcard_2021.key -in its_fsu_edu_wildcard_2021.crt -export -out jetty.pkcs12
+
+        # keytool -importkeystore -srckeystore jetty.pkcs12 -srcstoretype PKCS12 -destkeystore keystore
+
+        # keytool -changealias -alias 1 -destalias jetty -keystore keystore
+
+        # keytool -v -list -keystore keystore
+
+        # cp keystore /apps/automic/automationengine/bin/ssl/
+
+    d) Restart Service Manager and check if JWP can be start/stop from ServiceManagerDialogue
+
+    e) Check logs;
+        # cd /apps/automic/automationengine/temp/
+
+    JCP normally will be the last of the CP’s.
+
+
