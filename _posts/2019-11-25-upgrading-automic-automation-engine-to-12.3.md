@@ -440,7 +440,7 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
 
     i) Restart Service Manager and check if JWP can be start/stop from Service Manager Dialogue.
 
-6. Install JCP
+6. Install JCP;
 
     a) If you want to use HTTPS for JCP, create a keystore for `*.example.com` and rename the alias to `jetty`;
 
@@ -490,19 +490,19 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
         WAIT 10
         CREATE UC4 JCP1
 
-    d) Restart Service Manager and check if JWP can be start/stop from Service Manager Dialogue
+    d) Restart Service Manager and check if JCP can be start/stop from Service Manager Dialogue.
 
     e) Check logs;
     
         # cat /opt/ae/automationengine/temp/CPsrv_log_002_00.txt
 
-    JCP normally will be the last of the CP.
+    JCP will use the last CP as communication process.
 
-7. Install CAPKI
+7. Install CAPKI;
 
-    a) Install CAPKI
+    a) Install CAPKI;
 
-    Go to [https://downloads.automic.com/downloads/component_downloads](https://downloads.automic.com/downloads/component_downloads) and search for `capki`. Download it and then run the setup script as root;
+    Go to [https://downloads.automic.com/downloads/component_downloads](https://downloads.automic.com/downloads/component_downloads) and search for `capki`. Download it and then run the `setup` script as root;
 
         # cd /opt/ae/capki/
         # ./setup install caller=AE123 veryverbose env=all instdir=/opt/ae/capki/
@@ -523,9 +523,10 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
     If any of the variable returns `NULL`, logout from the current SSH session and log back in.
     
     c) Check certificate;  
+    
     When CAPKI is installed, it will create a self-signed certificate. The certificate and key will be stored in the following location;
 
-    Cert: /opt/ae/automationengine/bin/ucsrv_certificate.pem
+    Cert: /opt/ae/automationengine/bin/ucsrv_certificate.pem  
     Key: /opt/ae/automationengine/bin/ucsrv_key.pem
 
     Check `ucsrv.ini` file to see if CAPKI is configured correctly;
@@ -535,9 +536,8 @@ Download CAPKI installer from [https://downloads.automic.com/downloads](https://
         certificate=/opt/ae/automationengine/bin/ucsrv_certificate.pem
         key=/opt/ae/automationengine/bin/ucsrv_key.pem
 
-    d) Restart Service Manager and then use Service Manager Dialogue and you will see that the connection between Service Manager Dialogue and server's Service Manager are using TLS1.2.
+    d) Restart Service Manager and then use Service Manager Dialogue to connect to the server. Now the connection between Service Manager Dialogue running in your machine and server's Service Manager will use TLS1.2 for communication.
 
-    e) You also need to install CAPKI in your machine from where you are running the Service Manager Dialogue. To install CAPKI in your machine, do the following;
+    e) You also need to install CAPKI in your machine from where you are running the Service Manager Dialogue. To install CAPKI in your machine, run the following;
     
         PS > .\setup.exe install caller=AE123
-
