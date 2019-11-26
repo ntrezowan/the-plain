@@ -59,7 +59,7 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
 
 7. Check environment;  
     a) Check Java version;   
-        Automation Engine supports OpenJDK Java 11 , Oracle Java 1.8 and Oracle Java 11. Check if you have proper version of Java;
+    Automation Engine supports OpenJDK Java 11, Oracle Java 1.8 and Oracle Java 11. Check if you have proper version of Java;
 ```
 # java -version
 ```
@@ -77,64 +77,37 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
     CLASSPATH=${ORACLE_HOME}/jdbc/lib/:${ORACLE_HOME}/jlib/; export CLASSPATH
 ```
 
-    a) Check Java version;  
-Automation Engine supports OpenJDK Java 11 , Oracle Java 1.8 and Oracle Java 11. Check if you have proper version of Java;
-```
-# java -version
-```
-Automation Engine supports OpenJDK Java 11 , Oracle Java 1.8 and Oracle Java 11. Check if you have proper version of Java;
-
-b) Check environment variables;  
-```
-# vi ~/.bashrc
-
-# AUTOMIC System Settings
-ORACLE_HOME=/opt/oracle/product/12.2.0.1/dbhome_1; export ORACLE_HOME
-AUTOMIC=/opt/ae/utility; export AUTOMIC
-PATH=.:$ORACLE_HOME/bin[:$PATH]; export PATH
-LD_LIBRARY_PATH=.:${AUTOMIC}/bin:$ORACLE_HOME/lib:/usr/lib:/lib[:$LD_LIBRARY_PATH]; export LD_LIBRARY_PATH
-TNS_ADMIN=/opt/oracle/product/12.2.0.1/dbhome_1/network/admin; export TNS_ADMIN
-CLASSPATH=${ORACLE_HOME}/jdbc/lib/:${ORACLE_HOME}/jlib/; export CLASSPATH
-```
-
 ### B. Upgrade Automation Engine
 
 1. Upgrade Automic Utility;  
-    a. Upgrade Automic Utility bin folder;
-    ```
-    # cp -r /opt/ae/utility/bin_new/bin/* /opt/ae/utility/bin/
-    ```
+    a) Upgrade Automic Utility bin folder;  
+```
+# cp -r /opt/ae/utility/bin_new/bin/* /opt/ae/utility/bin/
+```
     Check if all the files are owned by autotask user
 
-    b. Check the config files;
-    All config file (*.INI) will not be replaced when we upgraded Automic utility bin folder. These INI files have OCI driver defined and you should verify this.
-
-    Compare the below files from the the following two folders;
-
-    NEW -> /apps/automic/utility/bin/
-    OLD -> /apps/automic/utility/bin-orig/
-    ```
-    AE.DB Archive: ucybdbar.ini -> Check OCI
-    AE.DB Change: ucybchng.ini
-    AE.DB Client Copy: ucybdbcc.ini -> Check OCI
-    AE.DB Load: ucybdbld.ini -> Check OCI
-    AE.DB Reorg: ucybdbre.ini -> Check OCI
-    AE.DB Reporting Tool: ucybdbrt.ini -> Check OCI
-    AE.DB Revision Report: ucybdbrr.ini -> Check OCI
-    AE.DB Unload: ucybdbun.ini -> Check OCI
-    ```
+    b) Check the config files;  
+    All config file (*.INI) will not be replaced when we upgraded Automic Utility bin folder. These INI files have OCI DB connection string defined and you should verify the following files;
+```
+AE.DB Archive: ucybdbar.ini
+AE.DB Client Copy: ucybdbcc.ini
+AE.DB Load: ucybdbld.ini
+AE.DB Reorg: ucybdbre.ini
+AE.DB Reporting Tool: ucybdbrt.ini
+AE.DB Revision Report: ucybdbrr.ini
+AE.DB Unload: ucybdbun.ini
+```
     The UID should be in all capital as AUTOTASK.
 
-
-    c.	Check ucybdbar.sh execute permission;
-    ```
-    # ll ucybdbar.sh
-    -rwxr-xr-x 1 autotask fsubatch 27 Sep  5 12:55 ucybdbar.sh
-    ```
+    c) Check ucybdbar.sh execute permission;
+```
+# ll ucybdbar.sh
+-rwxr-xr-x 1 autotask autotask 27 Sep  5 12:55 ucybdbar.sh
+```
     If it does not have execute permission, set the permission;
-    ```
-    # chmod +x ucybdbar.sh
-    ```
+```
+# chmod +x ucybdbar.sh
+ ```
 
 
 
