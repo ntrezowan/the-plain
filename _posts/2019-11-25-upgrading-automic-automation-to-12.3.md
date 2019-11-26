@@ -11,8 +11,8 @@ published: true
 1. Backup `Automic Utility` and extract new JAR;
 ```
 # rm -rf /opt/ae/utility/bin_new/*
-# rm -rf /opt/ae/utility/bin_orig/*
-# cp -r /opt/ae/utility/bin/* /opt/ae/utility/bin_orig/
+# rm -rf /opt/ae/utility/bin_old/*
+# cp -r /opt/ae/utility/bin/* /opt/ae/utility/bin_old/
 # cp /opt/iso/Automic.Automation_12.3.0_HF1/Automation.Platform/Utility/unix/linux/x64/utillx6.tar.gz /opt/ae/utility/bin_new
 # tar -zxvf utillx6.tar.gz
 ```
@@ -21,8 +21,8 @@ In here, we are only interested of `bin` folder and `db` folder should be empty.
 2. Backup `Automic DB` and extract new JAR;
 ```
 # rm -rf /opt/ae/utility/db_new/*
-# rm -rf /opt/ae/utility/db_orig/*
-# cp -r /opt/ae/utility/db/* /opt/ae/utility/db_orig/
+# rm -rf /opt/ae/utility/db_old/*
+# cp -r /opt/ae/utility/db/* /opt/ae/utility/db_old/
 # cp /opt/iso/Automic.Automation_12.3.0_HF1/Automation.Platform/db/db.tar.gz /opt/ae/utility/db_new
 # tar -zxvf db.tar.gz
 ```
@@ -30,8 +30,8 @@ In here, we are only interested of `bin` folder and `db` folder should be empty.
 3. Backup `Automation Engine` and extract new JAR;
 ```
 # rm -rf /opt/ae/automationengine/bin_new/*
-# rm -rf /opt/ae/automationengine/bin_orig/*
-# cp -r /opt/ae/automationengine/bin/* /opt/ae/automationengine/bin_orig/
+# rm -rf /opt/ae/automationengine/bin_old/*
+# cp -r /opt/ae/automationengine/bin/* /opt/ae/automationengine/bin_old/
 # cp /opt/iso/Automic.Automation_12.3.0_HF1/Automation.Platform/AutomationEngine/unix/linux/x64/ucslx6.tar.gz /opt/ae/automationengine/bin_new/
 # tar -zxvf ucslx6.tar.gz
 ```
@@ -39,8 +39,8 @@ In here, we are only interested of `bin` folder and `db` folder should be empty.
 4. Backup `Service Manager` and extract new JAR;
 ```
 # rm -rf /opt/ae/servicemanager/bin_new/*
-# rm -rf /opt/ae/servicemanager/bin_orig/*
-# cp -r /opt/ae/servicemanager/bin/* /opt/ae/servicemanager/bin_orig/
+# rm -rf /opt/ae/servicemanager/bin_old/*
+# cp -r /opt/ae/servicemanager/bin/* /opt/ae/servicemanager/bin_old/
 # cp /opt/iso/Automic.Automation_12.3.0_HF1/Automation.Platform/ServiceManager/unix/linux/x64/ucsmgrlx6.tar.gz /opt/ae/servicemanager/bin_new/
 # tar -zxvf ucsmgrlx6.tar.gz
 ```
