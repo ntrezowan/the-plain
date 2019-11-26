@@ -507,3 +507,49 @@ Download CAPKI installer from https://downloads.automic.com/downloads.
     JCP normally will be the last of the CP’s.
 
 
+
+12.	Install CAPKI
+
+    a) Install CAPKI
+
+    Go to https://downloads.automic.com/downloads/component_downloads and search for capki. Download it and move it to /apps/automic/capki.
+
+    Request UNIX team to install it as root;
+        # cd /apps/automic/capki/
+        # ./setup install caller=AE123 veryverbose env=all instdir=/apps/automic/capki/
+
+    If return code is 0, it means CAPKI has installed successfully. 
+
+    b) Check the environmental variable;
+
+        # echo $CALIB
+        /apps/automic/capki/lib
+
+        # echo $CABIN
+        /apps/automic/capki/bin
+
+        # echo $CASHCOMP
+        /apps/automic/capki
+
+    If these returns NULL, logout and then login and then restart Service Manager in the server.
+
+    c) Check certificate;  
+    When CAPKI setup script finishes, it will create a self-signed certificate. The cert and key will be stored in the following location;
+
+    Cert: /apps/automic/automationengine/bin/ucsrv_certificate.pem
+    Key: /apps/automic/automationengine/bin/ucsrv_key.pem
+
+    Check ucsrv.ini file to see if CAPKI is configured to point to these locations;
+
+        # vi /apps/automic/automationengine/bin/ucsrv.ini
+
+        certificate=/apps/automic/servicemanager/bin/../../automationengine/bin/ucsrv_certificate.pem
+        key=/apps/automic/servicemanager/bin/../../automationengine/bin/ucsrv_key.pem
+        chain=
+
+    d) Restart ServiceManager and then use ServiceManager Dialogue. Now it will show as Secure (TLS 1.2)
+
+    e) To install this into your machine, get CA.PKI from autotaskprd01 and install it with the following parameter;
+    
+        PS > .\setup.exe install caller=AE123
+
