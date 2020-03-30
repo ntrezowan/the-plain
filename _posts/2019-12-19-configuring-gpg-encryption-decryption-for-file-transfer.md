@@ -7,7 +7,7 @@ published: true
 
 ---
 
-### A. Symmetric key encryption 
+### Symmetric key encryption 
 1. Create a sample text file first which will be encrypted;
 
         # echo Plain Text > input.txt
@@ -55,7 +55,7 @@ published: true
 
 ---
 
-### B. Asymmetric Key encryption
+### Asymmetric Key encryption
 
 1. Upgrade Automic Utility;  
 
