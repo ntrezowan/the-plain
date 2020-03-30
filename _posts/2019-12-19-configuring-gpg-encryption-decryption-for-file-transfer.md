@@ -11,6 +11,7 @@ published: true
 1. Create a sample text file first which will be encrypted;
 
         # echo Plain Text > input.txt
+        
         # cat input.txt 
         Plain Text
 
@@ -23,7 +24,7 @@ published: true
         gpg: new configuration file `/home/user1/.gnupg/gpg.conf' created
         gpg: WARNING: options in `/home/user1/.gnupg/gpg.conf' are not yet active during this run
 
-        If you are using GPG for the first time on this server, it will ask to set a passphrase. Choose a passphrase (this will be the symmetric key) and it will confirm that the key has been created;
+    If you are using GPG for the first time on this server, it will ask to set a passphrase. Choose a passphrase (this will be the symmetric key) and it will confirm that the key has been created;
 
         gpg: keyring `/home/user1/.gnupg/pubring.gpg' created
 
@@ -31,29 +32,25 @@ published: true
         # ls ~/.gnupg/
         gpg.conf  private-keys-v1.d  pubring.gpg  random_seed  S.gpg-agent
 
-
 3. The encrypted file will have .gpg extension. Check if the file is encrypted;
-```
-# cat input.txt.gpg 
-�g�E|u�X��+R��l��*�u����t       �Cy��
-���rg�s�6d
-```
-Now you can send this file to anyone and only they can decrypt it if they have the symmetric key/passphrase.
+
+        # cat input.txt.gpg 
+        �g�E|u�X��+R��l��*�u����t       �Cy��
+        ���rg�s�6d
+
+    Now you can send this file to anyone and only they can decrypt it if they have the symmetric key/passphrase.
 
 4. To decrypt the file, do the following;
-```
-# gpg -o output.txt input.txt.gpg 
-gpg: CAST5 encrypted data
-gpg: encrypted with 1 passphrase
-gpg: WARNING: message was not integrity protected
-```
+
+        # gpg -o output.txt input.txt.gpg 
+        gpg: CAST5 encrypted data
+        gpg: encrypted with 1 passphrase
+        gpg: WARNING: message was not integrity protected
 
 5. To verify if the file has decrypted correct, do the following;  
 
-```
-# cat output.txt
-Plain Text
-```
+        # cat output.txt
+        Plain Text
 
 
 
