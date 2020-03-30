@@ -12,6 +12,7 @@ published: true
 ```
 # echo Plain Text > input.txt
 ```
+
 ```
 # cat input.txt 
 Plain Text
@@ -52,40 +53,12 @@ gpg: WARNING: message was not integrity protected
 ```
 
 5. To verify if the file has decrypted correct, do the following;  
-Download CAPKI installer from [https://downloads.automic.com/downloads](https://downloads.automic.com/downloads) and move it to the server.
+
 ```
 # cat output.txt
 Plain Text
 ```
 
-6. Shutdown AE;
-```
-# ps -ef | grep ucybsmgr
-# kill pid
-```
-
-7. Check environment;  
-
-    a) Check Java version;  
-
-    Automation Engine supports `OpenJDK Java 11`, `Oracle Java 1.8` and `Oracle Java 11`. Check if you have proper version of Java;
-
-        # java -version
-        openjdk version "11.0.4" 2019-07-16 LTS
-        OpenJDK Runtime Environment 18.9 (build 11.0.4+11-LTS)
-        OpenJDK 64-Bit Server VM 18.9 (build 11.0.4+11-LTS, mixed mode, sharing)
-
-    b) Check environment variables;  
-
-        # vi ~/.bashrc
-
-        # AUTOMIC System Settings
-        ORACLE_HOME=/opt/oracle/product/12.2.0.1/dbhome_1; export ORACLE_HOME
-        AUTOMIC=/opt/ae/utility; export AUTOMIC
-        PATH=.:$ORACLE_HOME/bin[:$PATH]; export PATH
-        LD_LIBRARY_PATH=.:${AUTOMIC}/bin:$ORACLE_HOME/lib:/usr/lib:/lib[:$LD_LIBRARY_PATH]; export LD_LIBRARY_PATH
-        TNS_ADMIN=/opt/oracle/product/12.2.0.1/dbhome_1/network/admin; export TNS_ADMIN
-        CLASSPATH=${ORACLE_HOME}/jdbc/lib/:${ORACLE_HOME}/jlib/; export CLASSPATH
 
 
 ---
