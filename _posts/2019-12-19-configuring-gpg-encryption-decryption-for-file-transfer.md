@@ -8,7 +8,7 @@ published: true
 ---
 
 ### Symmetric key encryption 
-1. Create a sample text file first which will be encrypted;
+1. Create a sample text file which will be encrypted;
 
         # echo Plain Text > input.txt
         
@@ -82,8 +82,6 @@ published: true
 
         GnuPG needs to construct a user ID to identify your key.
 
-        Real name: user
-        Name must be at least 5 characters long
         Real name: user1
         Email address: user1@example.com
         Comment: 
@@ -93,7 +91,7 @@ published: true
         Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
         You need a Passphrase to protect your secret key.
 
-    At this point it will ask for a passphrase. This is the passphrase which you will use to decrypt encrypted files send to you along with your private key. You should not share this passphrase with anyone.
+    At this point it will ask for a passphrase. This is the passphrase which you will use to decrypt encrypted files send to you along with your private key. You should not share this passphrase and private key with anyone.
 
         We need to generate a lot of random bytes. It is a good idea to perform
         some other action (type on the keyboard, move the mouse, utilize the
@@ -129,7 +127,7 @@ published: true
         uid                  user1 <user1@example.com>
         sub   2048R/78C8F6D8 2019-12-18   
 
-3. To encrypt input.txt with this new asymmetric key, do the following;
+3. To encrypt `input.txt` with this new asymmetric key, do the following;
 
         gpg --encrypt --recipient user1@example.com input.txt
 
@@ -148,7 +146,7 @@ published: true
 
         gpg --armor --output public_key.cer --export 'user1@example.com'
 
-6. If you want to export your private key, do the following;  
+6. If you want to export your private key for backup purposes or anything else, do the following;  
 
         # gpg --armor --output private_key.asc --export-secret-keys 'user1@example.com'
 
