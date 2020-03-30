@@ -11,9 +11,6 @@ published: true
 1. Create a sample text file first which will be encrypted;
 ```
 # echo Plain Text > input.txt
-```
-
-```
 # cat input.txt 
 Plain Text
 ```
