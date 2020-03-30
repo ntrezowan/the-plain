@@ -15,8 +15,6 @@ published: true
         # cat input.txt 
         Plain Text
 
-    In here, we are only interested of `bin` folder and `db` folder should be empty.
-
 2. Encrypt unencrypted.txt file;
 
         # gpg -c input.txt
@@ -28,11 +26,12 @@ published: true
 
         gpg: keyring `/home/user1/.gnupg/pubring.gpg' created
 
-        The newly created key is located here;
+    The newly created key is located here;
+        
         # ls ~/.gnupg/
         gpg.conf  private-keys-v1.d  pubring.gpg  random_seed  S.gpg-agent
 
-3. The encrypted file will have .gpg extension. Check if the file is encrypted;
+3. The encrypted file will have `.gpg` extension. Check if the file is encrypted;
 
         # cat input.txt.gpg 
         �g�E|u�X��+R��l��*�u����t       �Cy��
