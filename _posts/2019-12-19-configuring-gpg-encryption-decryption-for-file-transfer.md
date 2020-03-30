@@ -16,7 +16,6 @@ published: true
 ```
 # cat input.txt 
 Plain Text
-
 ```
 In here, we are only interested of `bin` folder and `db` folder should be empty.
 
