@@ -10,9 +10,9 @@ published: true
 ### A. Symmetric key encryption 
 1. Create a sample text file first which will be encrypted;
 
-    # echo Plain Text > input.txt
-    # cat input.txt 
-    Plain Text
+        # echo Plain Text > input.txt
+        # cat input.txt 
+        Plain Text
 
 In here, we are only interested of `bin` folder and `db` folder should be empty.
 
