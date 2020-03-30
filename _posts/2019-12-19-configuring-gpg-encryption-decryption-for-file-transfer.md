@@ -15,7 +15,7 @@ published: true
         # cat input.txt 
         Plain Text
 
-2. Encrypt unencrypted.txt file;
+2. Encrypt `input.txt` file;
 
         # gpg -c input.txt
         gpg: directory `/home/user1/.gnupg' created
@@ -37,7 +37,7 @@ published: true
         �g�E|u�X��+R��l��*�u����t       �Cy��
         ���rg�s�6d
 
-    Now you can send this file to anyone and only they can decrypt it if they have the symmetric key/passphrase.
+    Now you can send this file to anyone and only they can decrypt it if they know the symmetric key/passphrase.
 
 4. To decrypt the file, do the following;
 
@@ -50,8 +50,6 @@ published: true
 
         # cat output.txt
         Plain Text
-
-
 
 ---
 
