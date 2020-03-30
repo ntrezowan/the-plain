@@ -1,8 +1,8 @@
 ---
 title: "Configuring GPG Symmetric/Asymmetric Key for File Transfer"
 comments: false
-description: "Upgrading Automic Automation to 12.3"
-keywords: "upgrade, automic, automation, engine, workload, 12.3. ca, broadcom"
+description: "Configuring GPG Symmetric/Asymmetric Key for File Transfer"
+keywords: "gpg, encryption, decryption, symmetric, asymmetric, public, private, file, transfer"
 published: true
 
 ---
