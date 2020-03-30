@@ -17,20 +17,20 @@ published: true
 In here, we are only interested of `bin` folder and `db` folder should be empty.
 
 2. Encrypt unencrypted.txt file;
-```
-# gpg -c input.txt
-gpg: directory `/home/user1/.gnupg' created
-gpg: new configuration file `/home/user1/.gnupg/gpg.conf' created
-gpg: WARNING: options in `/home/user1/.gnupg/gpg.conf' are not yet active during this run
 
-If you are using GPG for the first time on this server, it will ask to set a passphrase. Choose a passphrase (this will be the symmetric key) and it will confirm that the key has been created;
+        # gpg -c input.txt
+        gpg: directory `/home/user1/.gnupg' created
+        gpg: new configuration file `/home/user1/.gnupg/gpg.conf' created
+        gpg: WARNING: options in `/home/user1/.gnupg/gpg.conf' are not yet active during this run
 
-gpg: keyring `/home/user1/.gnupg/pubring.gpg' created
+        If you are using GPG for the first time on this server, it will ask to set a passphrase. Choose a passphrase (this will be the symmetric key) and it will confirm that the key has been created;
 
-The newly created key is located here;
-# ls ~/.gnupg/
-gpg.conf  private-keys-v1.d  pubring.gpg  random_seed  S.gpg-agent
-```
+        gpg: keyring `/home/user1/.gnupg/pubring.gpg' created
+
+        The newly created key is located here;
+        # ls ~/.gnupg/
+        gpg.conf  private-keys-v1.d  pubring.gpg  random_seed  S.gpg-agent
+
 
 3. The encrypted file will have .gpg extension. Check if the file is encrypted;
 ```
