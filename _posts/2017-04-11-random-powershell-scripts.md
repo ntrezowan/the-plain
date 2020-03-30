@@ -3,7 +3,7 @@ title: "Random PowerShell Scripts"
 comments: false
 description: "Random PowerShell Scripts"
 keywords: "sharepoint, 2016, blob, cache, web application, availability, monitor, start, stop, distributed cache, os, version, architecture, hostname, domain, cname, processors, ram, disks, ip address, licensing status, uac, firewall, snmp, rdp scan, administrators, users, disk, spacec, smtp"
-published: true
+published: false
 ---
 #### Find OS, OSArchitecture and Service Pack version of remote machines
 
