@@ -13,7 +13,7 @@ published: true
 
 2. KMS sends a `Data Encryption Key` encrypted by the `Customer Managed Key` which is stored in the EBS volume metadata
 
-3. When a EC2 instance is launched, the instance (not the EBS volume) sends a request to KMS to decrypt the  `Data Encryption Key`
+3. When an EC2 instance is launched, the instance (not the EBS volume) sends a request to KMS to decrypt the  `Data Encryption Key`
 
 4. KMS decrypts the `Data Encryption Key` using the `Customer Managed Key` and sends it as plaintext to EC2 instance
 
