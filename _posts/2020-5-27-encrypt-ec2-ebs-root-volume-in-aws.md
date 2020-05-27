@@ -10,15 +10,15 @@ published: true
  
 ### 1. Create IAM KMS encryption key
 
-	a. Go to KMS > Customer managed keys and click on Create Key
+a. Go to KMS > Customer managed keys and click on Create Key
 
-	b. Choose Key Type as Symmetric and click Next
+b. Choose Key Type as Symmetric and click Next
 	
-	c. Set an Alias/Tag and click Next
+c. Set an Alias/Tag and click Next
 	
-	d. Choose the Key administrators and click Next.
+d. Choose the Key administrators and click Next.
 	
-	e. In the next page, verify the policy and click Finish.
+e. In the next page, verify the policy and click Finish.
 		
 ### 2. Check the exisitng partition table
 
