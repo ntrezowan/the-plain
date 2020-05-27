@@ -7,17 +7,17 @@ published: true
 
 ---
 
-### How EBS decrypts a volume
+### How EBS volume encryption/decryption works
 
-1. An EBS volume requests for Data Encryption key to KMS
+1. An encrypted EBS volume requests for `Data Encryption Key` to KMS upon creation
 
-2. KMS sends a Data Encryption Key encrypted by the Customer Managed Key which is stored in the EBS volume metadata
+2. KMS sends a `Data Encryption Key` encrypted by the `Customer Managed Key` which is stored in the EBS volume metadata
 
-3. When the instance is launched, EC2 instance sends a request to KMS to decrypt the encrypted Data Encryption Key to the KMS 
+3. When the instance is launched, EC2 instance (not the EBS volume) sends a request to KMS to decrypt the  Data Encryption Key to the KMS 
 
-4. KMS decrypts the Data Encryption Key and sends it back to EC2 instance
+4. KMS decrypts the Data Encryption Key and sends it as plaintext to EC2 instance
 
-5. Now EC2 instance decrypts the volume using the Data Encryption Key
+5. EC2 instance decrypts the volume using the Data Encryption Key
 
  
 ---
