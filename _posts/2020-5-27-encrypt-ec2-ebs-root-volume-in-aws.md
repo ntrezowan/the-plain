@@ -8,73 +8,73 @@ published: true
 ---
 
  
-1. Create IAM KMS encryption key
+1. Create a KMS encryption key
 
-	a. Go to KMS > Customer managed keys and click on Create Key
+	a. Go to `KMS > Customer managed keys` and click `Create Key`
 
-	b. Choose Key Type as Symmetric and click Next
+	b. Choose `Key Type` as `Symmetric` and click Next
 
-	c. Set an Alias/Tag and click Next
+	c. Set an `Alias` and click Next
 
-	d. Choose the Key administrators and click Next
+	d. Choose the `Key administrators` and click Next
 
-	e. In the next page, verify the policy and click Finish
+	e. Verify the policy and click Finish
 
 		
-2. Check the exisitng partition table
+2. Check existing volume
 
-	a. SSH to the EC2 instance and check the curent partition;
+	a. SSH to the EC2 instance and check the current volumes;
 
 		# lsblk
 		NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
 		xvda    202:0    0   8G  0 disk
 		└─xvda1 202:1    0   8G  0 part /
 
-	b. Create a file and check later to see if all files are available after restore;
+	b. Create a file and check later to see if this file is available after restore
 
 		# touch abc.txt
 		
-3. Create snapshot of the root volume (/dev/xvda) 
+3. Create snapshot of the root volume (/dev/xvda)
 
-	a. Select the unencrypted volume
+	a. Go to `Volumes`, and select the unencrypted root volume
 	
-	b. Select Action > Create Snapshot.
+	b. Select `Action > Create Snapshot`
 	
-	c. Open the newly created Snapshot and name it as ec2name-unencrypted-snapshot.
+	c. Open the newly created snapshot and name it something as `ec2name-unencrypted-snapshot`
 		
-4. Encrypt the newly created snapshot 
+4. Encrypt the new snapshot 
 
-	a. On the newly created snapshot, select Action > Copy.
+	a. Go to `Snapshots`, select the the new snapshot, select `Action > Copy`
 	
-	b. Check the Destination Regoion and name it as ec2name-encrypted-snapshot.
+	b. Check the `Destination Regoion` and name it as `ec2name-encrypted-snapshot`
 	
-	c. Enable Encryption, choose the Master Key and click Finish.
+	c. Select `Encryption`, choose the `Master Key` that you have just created and click Finish
 	
-	d. Verify that this copied snapshot is encrypted
+	d. Verify that the snapshot is encrypted with the KMS key
 		
 5. Create a new encrypted volume from the encrypted snapshot
 
-	a. Choose the encrypted snapshot, select Action > Create Volume.
+	a. Go to Snapshots, select the encrypted snapshot, and select `Action > Create Volume`
 	
-	b. Name it ec2name-encrypted-volume, check the AZ (both EC2 and Volume needs to be in the same AZ), and Master Key. 
+	b. Name it `ec2name-encrypted-volume`, check the AZ (both EC2 and Volume needs to be in the same AZ), and `Master Key`
 	
-	c. Click Create Volume and open the volume
+	c. Click `Create Volume`
 		
-6. Detach the existing unencryoted volume and replace with the encrypted volume
+6. Detach the existing unencryoted volume from the EC2 and attach the encrypted volume
 
-	a. Go to the EC2, select Action > Instance State > Stop.
+	a. Go to `EC2 > Instances`, and select `Action > Instance State > Stop`
 	
-	b. Go to Volumes, select the unencrypted volume (in-use state), select Action > Detach Volume.
+	b. Go to `Volumes`, select the unencrypted volume (in-use state), select `Action > Detach Volume`
 	
-	c. Go to Volumes, select the encrypted volume (ec2name-encrypted-volume), select Action > Attach Volume.
+	c. Go to `Volumes`, select the encrypted volume, select `Action > Attach Volume`
 	
-	d. Choose the original instance where you want to attach this volume, modify the Device to /dev/xvda (previous name) and click Attach.
+	d. Choose the `Instance ID` to select the `Instance`, modify `Device` to `/dev/xvda` and click `Attach`
 		
 7. Start the instance
 	
 8. Check the partition table
 
-	a. SSH to the EC2 instance and check the curent partition;
+	a. SSH to the EC2 instance and check curent volume;
 
 		# lsblk 
 		NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT 
