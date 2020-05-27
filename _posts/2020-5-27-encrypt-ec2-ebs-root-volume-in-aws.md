@@ -7,7 +7,7 @@ published: true
 
 ---
 
-### How EBS volume encryption/decryption works
+### How EBS encrypts/decrypts a volume
 
 1. An encrypted EBS volume requests for `Data Encryption Key` to KMS upon creation
 
