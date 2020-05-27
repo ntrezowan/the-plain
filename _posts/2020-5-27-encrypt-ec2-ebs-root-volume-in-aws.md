@@ -7,8 +7,8 @@ published: true
 
 ---
 
-### Symmetric key encryption 
-1. Create IAM KMS encryption key
+ 
+### 1. Create IAM KMS encryption key
 
 	a. Go to KMS > Customer managed keys and click on Create Key
 
@@ -20,16 +20,17 @@ published: true
 	
 	e. In the next page, verify the policy and click Finish.
 		
-2. Check the exisitng partition table
+### 2. Check the exisitng partition table
 
 	a. SSH to the EC2 instance and check the curent partition;
 
-	# lsblk 
-	NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT 
+	# lsblk
+	NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
 	xvda    202:0    0   8G  0 disk
 	└─xvda1 202:1    0   8G  0 part /
 
-	b. Create a file and check later to see if all files are available after restore;
+
+b. Create a file and check later to see if all files are available after restore;
 
 	touch abc.txt
 		
