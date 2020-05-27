@@ -24,7 +24,8 @@ published: true
 
 
 ### Encrypting the Root Volume 
-1. Create a KMS encryption key
+
+1. Create a `Customer Managed Key`
 
 	a. Go to `KMS > Customer managed keys` and click `Create Key`
 
