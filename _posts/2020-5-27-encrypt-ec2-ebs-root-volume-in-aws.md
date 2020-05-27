@@ -34,6 +34,7 @@ published: true
 
 		# touch abc.txt
 		
+		
 3. Create snapshot of the root volume
 
 	a. Go to `EC2 > Volumes`, and choose the unencrypted root volume
@@ -41,6 +42,7 @@ published: true
 	b. Select `Action > Create Snapshot`
 	
 	c. Open the newly created snapshot and name it something as `ec2name-unencrypted-snapshot`
+		
 		
 4. Encrypt the new snapshot 
 
@@ -52,6 +54,7 @@ published: true
 	
 	d. Verify that the snapshot is encrypted with the KMS key
 		
+		
 5. Create a new encrypted volume from the encrypted snapshot and attach to the instance
 
 	a. Go to `EC2 > Snapshots`, choose the encrypted snapshot, and select `Action > Create Volume`
@@ -59,6 +62,7 @@ published: true
 	b. Name it `ec2name-encrypted-volume`, check the AZ (both EC2 and Volume needs to be in the same AZ), and `Master Key`
 	
 	c. Click `Create Volume`
+		
 		
 6. Detach the existing unencrypted volume from the EC2 and attach the encrypted volume
 
@@ -70,11 +74,13 @@ published: true
 	
 	d. Choose the `Instance ID` to select the `Instance`, modify `Device` to `/dev/xvda` and click `Attach`
 		
+		
 7. Start the instance
 
 	a. Go to `EC2 > Instances`, choose the instance
 
 	b. Select `Action > Instance State > Start`
+	
 	
 8. Check the partition table
 
@@ -88,5 +94,6 @@ published: true
 	b. Check if the previously created file exists
 	
 		# ls -la
+
 
 9. Delete the old volume and the two snapshots (both unencrypted and encrypted)
