@@ -23,20 +23,20 @@ published: true
 		
 2. Check existing volume
 
-	a. SSH to the EC2 instance and check the current volumes;
+	a. SSH to the EC2 instance and check current volumes
 
 		# lsblk
 		NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
 		xvda    202:0    0   8G  0 disk
 		└─xvda1 202:1    0   8G  0 part /
 
-	b. Create a file and check later to see if this file is available after restore
+	b. Create a file to check later if this file is available after restore
 
 		# touch abc.txt
 		
-3. Create snapshot of the root volume (/dev/xvda)
+3. Create snapshot of the root volume
 
-	a. Go to `Volumes`, and select the unencrypted root volume
+	a. Go to `EC2 > Volumes`, and choose the unencrypted root volume
 	
 	b. Select `Action > Create Snapshot`
 	
@@ -44,7 +44,7 @@ published: true
 		
 4. Encrypt the new snapshot 
 
-	a. Go to `Snapshots`, select the the new snapshot, select `Action > Copy`
+	a. Go to `EC2 > Snapshots`, choose the the new snapshot, select `Action > Copy`
 	
 	b. Check the `Destination Regoion` and name it as `ec2name-encrypted-snapshot`
 	
@@ -52,9 +52,9 @@ published: true
 	
 	d. Verify that the snapshot is encrypted with the KMS key
 		
-5. Create a new encrypted volume from the encrypted snapshot
+5. Create a new encrypted volume from the encrypted snapshot and attach to the instance
 
-	a. Go to Snapshots, select the encrypted snapshot, and select `Action > Create Volume`
+	a. Go to `EC2 > Snapshots`, choose the encrypted snapshot, and select `Action > Create Volume`
 	
 	b. Name it `ec2name-encrypted-volume`, check the AZ (both EC2 and Volume needs to be in the same AZ), and `Master Key`
 	
@@ -62,26 +62,30 @@ published: true
 		
 6. Detach the existing unencryoted volume from the EC2 and attach the encrypted volume
 
-	a. Go to `EC2 > Instances`, and select `Action > Instance State > Stop`
+	a. Go to `EC2 > Instances`, choose the instance and select `Action > Instance State > Stop`
 	
-	b. Go to `Volumes`, select the unencrypted volume (in-use state), select `Action > Detach Volume`
+	b. Go to `EC2 > Volumes`, choose the unencrypted volume (in-use state), select `Action > Detach Volume`
 	
-	c. Go to `Volumes`, select the encrypted volume, select `Action > Attach Volume`
+	c. Go to `EC2 > Volumes`, choose the encrypted volume, select `Action > Attach Volume`
 	
 	d. Choose the `Instance ID` to select the `Instance`, modify `Device` to `/dev/xvda` and click `Attach`
 		
 7. Start the instance
+
+	a. Go to `EC2 > Instances`, choose the instance
+
+	b. Select `Action > Instance State > Start`
 	
 8. Check the partition table
 
-	a. SSH to the EC2 instance and check curent volume;
+	a. SSH to the EC2 instance and check curent volume
 
 		# lsblk 
 		NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT 
 		xvda    202:0    0   8G  0 disk
 		└─xvda1 202:1    0   8G  0 part /
 		
-	b. Check if the previouslu created file exists;
+	b. Check if the previouslu created file exists
 	
 		# ls -la
 
