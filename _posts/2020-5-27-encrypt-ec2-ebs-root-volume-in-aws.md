@@ -44,9 +44,9 @@ published: true
 		
 4. Encrypt the new snapshot 
 
-	a. Go to `EC2 > Snapshots`, choose the the new snapshot, select `Action > Copy`
+	a. Go to `EC2 > Snapshots`, choose the new snapshot, select `Action > Copy`
 	
-	b. Check the `Destination Regoion` and name it as `ec2name-encrypted-snapshot`
+	b. Check the `Destination Region` and name it as `ec2name-encrypted-snapshot`
 	
 	c. Select `Encryption`, choose the `Master Key` that you have just created and click Finish
 	
@@ -60,7 +60,7 @@ published: true
 	
 	c. Click `Create Volume`
 		
-6. Detach the existing unencryoted volume from the EC2 and attach the encrypted volume
+6. Detach the existing unencrypted volume from the EC2 and attach the encrypted volume
 
 	a. Go to `EC2 > Instances`, choose the instance and select `Action > Instance State > Stop`
 	
@@ -78,14 +78,14 @@ published: true
 	
 8. Check the partition table
 
-	a. SSH to the EC2 instance and check curent volume
+	a. SSH to the EC2 instance and check current volume
 
 		# lsblk 
 		NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT 
 		xvda    202:0    0   8G  0 disk
 		└─xvda1 202:1    0   8G  0 part /
 		
-	b. Check if the previouslu created file exists
+	b. Check if the previously created file exists
 	
 		# ls -la
 
