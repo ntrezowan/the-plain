@@ -17,12 +17,15 @@ e. In the next page, verify the policy and click Finish.
 		
 2. Check the exisitng partition table
 a. SSH to the EC2 instance and check the curent partition;
-# lsblk 
-NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT 
-xvda    202:0    0   8G  0 disk
-└─xvda1 202:1    0   8G  0 part /
+
+	# lsblk 
+	NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT 
+	xvda    202:0    0   8G  0 disk
+	└─xvda1 202:1    0   8G  0 part /
+	
 b. Create a file and check later to see if all files are available after restore;
-touch abc.txt
+
+	touch abc.txt
 		
 3. Create snapshot of the root volume (/dev/xvda) 
 a. Select the unencrypted volume
@@ -50,12 +53,13 @@ d. Choose the original instance where you want to attach this volume, modify the
 	
 8. Check the partition table
 SSH to the EC2 instance and check the curent partition;
-# lsblk 
-NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT 
-xvda    202:0    0   8G  0 disk
-└─xvda1 202:1    0   8G  0 part /
+
+	# lsblk 
+	NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT 
+	xvda    202:0    0   8G  0 disk
+	└─xvda1 202:1    0   8G  0 part /
 		
-# ls -la
+	# ls -la
 
 9. Delete the old volume and the two snapshots (both unencrypted and encrypted)
 	
