@@ -87,7 +87,7 @@ published: true
 	
 	b. Go to `EC2 > Volumes`, choose the unencrypted volume (in-use state), select `Action > Detach Volume`
 	
-	c. Go to `EC2 > Volumes`, choose the encrypted volume, select `Action > Attach Volume`. Choose the `Instance ID` to select the `Instance`, modify `Device` to `/dev/xvda` and click `Attach`
+	c. Go to `EC2 > Volumes`, choose the encrypted volume, select `Action > Attach Volume`. Choose the `Instance ID` to select the instance, modify `Device` to `/dev/xvda` and click `Attach`
 		
 		
 7. Start the instance
