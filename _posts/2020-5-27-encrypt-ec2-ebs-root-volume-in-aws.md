@@ -61,27 +61,16 @@ published: true
 	c. Open the newly created snapshot and name it something as `ec2name-unencrypted-snapshot`
 		
 		
-4. Encrypt the new snapshot 
-
-	a. Go to `EC2 > Snapshots`, choose the new snapshot, select `Action > Copy`
-	
-	b. Check the `Destination Region` and name it as `ec2name-encrypted-snapshot`
-	
-	c. Select `Encryption`, choose the `Master Key` that you have just created and click Finish
-	
-	d. Verify that the snapshot is encrypted with the KMS key
-		
-		
-5. Create a new encrypted volume from the encrypted snapshot and attach to the instance
+4. Create a new encrypted volume from the unencrypted snapshot and attach to the instance
 
 	a. Go to `EC2 > Snapshots`, choose the encrypted snapshot, and select `Action > Create Volume`
 	
-	b. Name it `ec2name-encrypted-volume`, check the AZ (both EC2 and Volume needs to be in the same AZ), and `Master Key`
+	b. Check the AZ (both EC2 and Volume needs to be in the same AZ), tick `Encryption`, choose the `Master Key` that you have just created and click Finish
 	
-	c. Click `Create Volume`
+	c. Click `Create Volume`. Verify that the snapshot is encrypted with the KMS key and name is as `ec2name-encrypted-volume`
 		
 		
-6. Detach the existing unencrypted volume from the EC2 and attach the encrypted volume
+5. Detach the existing unencrypted volume from the EC2 and attach the encrypted volume
 
 	a. Go to `EC2 > Instances`, choose the instance and select `Action > Instance State > Stop`
 	
@@ -90,14 +79,14 @@ published: true
 	c. Go to `EC2 > Volumes`, choose the encrypted volume, select `Action > Attach Volume`. Choose the `Instance ID` to select the instance, modify `Device` to `/dev/xvda` and click `Attach`
 		
 		
-7. Start the instance
+6. Start the instance
 
 	a. Go to `EC2 > Instances`, choose the instance
 
 	b. Select `Action > Instance State > Start`
 	
 	
-8. Check the partition table
+7. Check the partition table
 
 	a. SSH to the EC2 instance and check current volume
 
@@ -111,4 +100,4 @@ published: true
 		# ls -la
 
 
-9. Delete the old volume and the two snapshots (both unencrypted and encrypted)
+8. Delete the old encrypted volume and the unencrypted snapshots
