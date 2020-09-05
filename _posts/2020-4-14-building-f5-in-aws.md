@@ -42,211 +42,98 @@ published: true
 
 	Click on Add Storage
 
-7.	Go to https://support.f5.com/csp/article/K14946 and check how much disk space you need for the version you want to install. Click on Encryption and choose an existing KMS or create a new one. Click on Add Tags
+7. Go to https://support.f5.com/csp/article/K14946 and check how much disk space you need for the version you want to install. Click on `Encryption` and choose an existing KMS or create a new one. Click on `Add Tags`
 
-8.	Use appropriate Tags and click on Configure Security Group. Either create a new group or use an existing security group which serves your purpose and click on Review and Launch
+8. Use appropriate Tags and click on `Configure Security Group`. Either create a new group or use an existing security group which serves your purpose and click on `Review and Launch`
 
-9.	Choose an existing Key Pair for SSH or create a new one (for example, f5-aws.pem) and click on Launce Instance
+9. Choose an existing Key Pair for SSH or create a new one (for example, f5-aws.pem) and click on `Launch Instance`
 
-10.	Click on View Instances and the EC2 will be deployed after 5-10 minutes. The instance will be ready to use when Status Checks shows as 2/2checks passed
+10. Click on `View Instances` and the EC2 will be deployed after 5-10 minutes. The instance will be ready to use when `Status Checks` shows as `2/2checks passed`
 
 ---
 
 ### Configure F5
 
-1.	SSH to the EC2 instance as following;
-ssh -i f5-aws.pem admin@MANAGEMENT_IP
+1. SSH to the EC2 instance as following;
 
-It will not ask for password since this is a new installation and no password is set for the admin account yet
+		# ssh -i f5-aws.pem admin@MANAGEMENT_IP
 
-2.	Run the following to set admin password;
-(tmos)# modify auth password admin
-changing password for admin
-new password:
-confirm password
+	It will not ask for password since this is a new installation and no password is set for the admin account yet
 
-3.	Save the configuration;
-(tmos)# save sys config
+2. Run the following to set admin password;
 
-4.	Browse to the management IP (https://MANAGEMENT_IP) and active the license. You cannot install the license using CLI because admin account does not have permission to Advanced Shell yet
-a.	Click Next on the Welcome Page
-b.	Click on Activate. In the next page, fill the Base Registration Key and choose Activation Method as Manual
-c.	Copy the Dossier, go to F5 licensing server (https://activate.f5.com/license/dossier.jsp), paste the Dossier you just copied in Enter Your Dossier field and click Next
-d.	Copy the license, paste it in License section of F5 and click on Next
+		(tmos)# modify auth password admin
+		changing password for admin
+		new password:
+		confirm password
 
-5.	After licensing is completed, Resource Provisioning page will show up. In the Platform, complete as following;
-Management Port Configuration: Automatic (DHCP) (If you specified the IP when you created the EC2 instance, then choose Manual and type the IP here)
-Host Name: f5aws.example.com
-Host IP Address: Use Management IP Address
-Time Zone: US/Eastern
+3. Save the configuration;
 
-6.	Create VLANs;
+		(tmos)# save sys config
+
+4. Browse to the management IP (https://MANAGEMENT_IP) and active the license. You cannot install the license using CLI because admin account does not have permission to Advanced Shell yet
+	a. Click Next on the Welcome Page
+	b. Click on Activate. In the next page, fill the Base Registration Key and choose Activation Method as Manual
+	c. Copy the Dossier, go to F5 licensing server (https://activate.f5.com/license/dossier.jsp), paste the Dossier you just copied in Enter Your Dossier field and click Next
+	d. Copy the license, paste it in License section of F5 and click on Next
+
+5. After licensing is completed, Resource Provisioning page will show up. In the Platform, complete as following;
+
+		Management Port Configuration: Automatic (DHCP) (If you specified the IP when you created the EC2 instance, then choose Manual and type the IP here)
+		Host Name: f5aws.example.com
+		Host IP Address: Use Management IP Address
+		Time Zone: US/Eastern
+
+6. Create VLANs;
 When we created the EC2, we added three tmm interfaces, so we need to create three VLANs. 
 To create the VLANs, go to Network > VLANs and click on Create. Configure as following;
-Name: vlanA
-Tag: 4090
-Interface: 1.1 
-Tagging: Untagged (Click Add so that it shows under Interfaces)
 
-Name: vlanB
-Tag: 4091
-Interface: 1.2 
-Tagging: Untagged (Click Add so that it shows under Interfaces)
+		Name: vlanA
+		Tag: 4090
+		Interface: 1.1 
+		Tagging: Untagged (Click Add so that it shows under Interfaces)
 
-Name: vlanC
-Tag: 4090
-Interface: 1.3 
-Tagging: Untagged (Click Add so that it shows under Interfaces)
+		Name: vlanB
+		Tag: 4091
+		Interface: 1.2 
+		Tagging: Untagged (Click Add so that it shows under Interfaces)
 
-7.	Create Self IP;
+		Name: vlanC
+		Tag: 4090
+		Interface: 1.3 
+		Tagging: Untagged (Click Add so that it shows under Interfaces)
+
+7. Create Self IP;
 
 Go to Network > Self IPs and click on Create. Configure as following;
-Name: 10.1.1.1
-IP Address: 10.1.1.1
-Netmask: 255.255.255.0
-VLAN: vlanA
-Port Lockdown: Allow None
-Traffic Group: None
 
-Name: 10.1.2.1
-IP Address: 10.1.2.1
-Netmask: 255.255.255.0
-VLAN: vlanB
-Port Lockdown: Allow None
-Traffic Group: None
+		Name: 10.1.1.1
+		IP Address: 10.1.1.1
+		Netmask: 255.255.255.0
+		VLAN: vlanA
+		Port Lockdown: Allow None
+		Traffic Group: None
 
-Name: 10.1.3.1
-IP Address: 10.1.3.1
-Netmask: 255.255.255.0
-VLAN: vlanC
-Port Lockdown: Allow None
-Traffic Group: None
+		Name: 10.1.2.1
+		IP Address: 10.1.2.1
+		Netmask: 255.255.255.0
+		VLAN: vlanB
+		Port Lockdown: Allow None
+		Traffic Group: None
 
-8.	All the configuration has been completed at this point. Reboot F5 and start creating virtual servers.
+		Name: 10.1.3.1
+		IP Address: 10.1.3.1
+		Netmask: 255.255.255.0
+		VLAN: vlanC
+		Port Lockdown: Allow None
+		Traffic Group: None
+
+8. All the configuration has been completed at this point. Reboot F5 and start creating virtual servers.
 
 NB: Do not use EC2 > Instance > Actions > Instance State > Stop to shutdown the instance. If you do that, then F5 configuration will be corrupted. The proper way is the shutdown F5 first by running the following and then use stop the instance
-# shutdown -H now
+
+	# shutdown -H now
+
 If you accidently stopped the instance without shutting down F5 first, run the following so that mcpd can load the configuration correctly;
-# bigstart restart mcpd
 
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### How EBS encrypts/decrypts a volume
-
-1. An encrypted EBS volume requests for `Data Encryption Key` to KMS upon creation
-
-2. KMS sends a `Data Encryption Key` encrypted by the `Customer Managed Key` which is stored in the EBS volume metadata
-
-3. When an EC2 instance is launched, the instance (not the EBS volume) sends a request to KMS to decrypt the  `Data Encryption Key`
-
-4. KMS decrypts the `Data Encryption Key` using the `Customer Managed Key` and sends it as plaintext to EC2 instance
-
-5. EC2 instance decrypts the volume using the Data Encryption Key
-
- 
----
-
-
-### Encrypting the Root Volume 
-
-1. Create a `Customer Managed Key`
-
-	a. Go to `KMS > Customer managed keys` and click `Create Key`
-
-	b. Choose `Key Type` as `Symmetric` and click Next
-
-	c. Set an `Alias` and click Next
-
-	d. Choose the `Key administrators` and click Next
-
-	e. Verify the policy and click Finish
-
-		
-2. Check existing volume
-
-	a. SSH to the EC2 instance and check current volumes
-
-		# lsblk
-		NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
-		xvda    202:0    0   8G  0 disk
-		└─xvda1 202:1    0   8G  0 part /
-
-	b. Create a file to check later if this file is available after restore
-
-		# touch abc.txt
-		
-		
-3. Create snapshot of the root volume
-
-	a. Go to `EC2 > Volumes`, and choose the unencrypted root volume
-	
-	b. Select `Action > Create Snapshot`
-	
-	c. Open the newly created snapshot and name it something as `ec2name-unencrypted-snapshot`
-		
-		
-4. Create a new encrypted volume from the unencrypted snapshot and attach to the instance
-
-	a. Go to `EC2 > Snapshots`, choose the encrypted snapshot, and select `Action > Create Volume`
-	
-	b. Check the AZ (both EC2 and Volume needs to be in the same AZ), tick `Encryption`, choose the `Master Key` that you have just created and click Finish
-	
-	c. Click `Create Volume`. Verify that the snapshot is encrypted with the KMS key and name is as `ec2name-encrypted-volume`
-		
-		
-5. Detach the existing unencrypted volume from the EC2 and attach the encrypted volume
-
-	a. Go to `EC2 > Instances`, choose the instance and select `Action > Instance State > Stop`
-	
-	b. Go to `EC2 > Volumes`, choose the unencrypted volume (in-use state), select `Action > Detach Volume`
-	
-	c. Go to `EC2 > Volumes`, choose the encrypted volume, select `Action > Attach Volume`. Choose the `Instance ID` to select the instance, modify `Device` to `/dev/xvda` and click `Attach`
-		
-		
-6. Start the instance
-
-	a. Go to `EC2 > Instances`, choose the instance
-
-	b. Select `Action > Instance State > Start`
-	
-	
-7. Check the partition table
-
-	a. SSH to the EC2 instance and check current volume
-
-		# lsblk 
-		NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT 
-		xvda    202:0    0   8G  0 disk
-		└─xvda1 202:1    0   8G  0 part /
-		
-	b. Check if the previously created file exists
-	
-		# ls -la
-
-
-8. Delete the old encrypted volume and the unencrypted snapshots
+	# bigstart restart mcpd
