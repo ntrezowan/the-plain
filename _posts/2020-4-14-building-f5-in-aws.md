@@ -105,7 +105,7 @@ To create the VLANs, go to `Network > VLANs` and click on `Create`. Configure tm
 
 7. Create Self IP;
 
-Go to `Network > Self IPs` and click on `Create`. Configure them as following;
+	Go to `Network > Self IPs` and click on `Create`. Configure them as following;
 
 		Name: 10.1.1.1
 		IP Address: 10.1.1.1
