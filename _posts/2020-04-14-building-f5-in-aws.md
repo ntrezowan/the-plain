@@ -89,8 +89,9 @@ published: true
 		Time Zone: US/Eastern
 
 6. Create VLANs;
-When we created the EC2, we added three tmm interfaces, so we need to create three VLANs. 
-To create the VLANs, go to `Network > VLANs` and click on `Create`. Configure tme as following;
+
+	When we created the EC2, we added three tmm interfaces, so we need to create three VLANs. 
+	To create the VLANs, go to `Network > VLANs` and click on `Create`. Configure tme as following;
 
 		Name: vlanA
 		Tag: 4090
