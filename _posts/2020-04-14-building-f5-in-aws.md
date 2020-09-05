@@ -77,7 +77,7 @@ published: true
 	
 	b. Click on `Activate`. In the next page, fill the `Base Registration Key` and choose `Activation Method` as `Manual`
 	
-	c. Copy the `Dossier`, go to F5 licensing server (https://activate.f5.com/license/dossier.jsp), paste the Dossier you just copied in `Enter Your Dossier` field and click `Next`
+	c. Copy the `Dossier`, go to F5 licensing server ([https://activate.f5.com/license/dossier.jsp](https://activate.f5.com/license/dossier.jsp)), paste the Dossier you just copied in `Enter Your Dossier` field and click `Next`
 	
 	d. Copy the license, paste it in `License` section of F5 and click on `Next`
 
