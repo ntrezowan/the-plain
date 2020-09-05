@@ -14,9 +14,9 @@ published: true
 
 		F5 BIG-IP VE - ALL (BYOL, 2 Boot Locations)
 
-	License Type: Choose BYOL (Bring Your Own License) if you already purchased a license from F5. Choose PAYG (Pay As You Go) if you want to be charged based on usage
+	License Type: Choose `BYOL` (Bring Your Own License) if you already purchased a license from F5. Choose `PAYG` (Pay As You Go) if you want to be charged based on usage
 	
-	Number of Boot Location: Choose 2 Boot Location if you have plan to upgrade F5 to a new version. Choose 1 Boot Location if you do not have any plan on upgrading in future
+	Number of Boot Location: Choose `2 Boot Locations` if you have plan to upgrade F5 to a new version. Choose `1 Boot Location` if you do not have any plan on upgrading in future
 	
 	ALL: This will allow you to provision all of the resources (LTM, ASM, AFM, APM etc.). You can also choose LTM/DNS only if you do not need to provision other modules
 
@@ -42,7 +42,7 @@ published: true
 
 	Click on `Add Storage`
 
-7. Go to https://support.f5.com/csp/article/K14946 and check how much disk space you need for the version you want to install. Click on `Encryption` and choose an existing KMS or create a new one. Click on `Add Tags`
+7. Go to [https://support.f5.com/csp/article/K14946](https://support.f5.com/csp/article/K14946) and check how much disk space you need for the version you want to install. Click on `Encryption` and choose an existing KMS or create a new one. Click on `Add Tags`
 
 8. Use appropriate Tags and click on `Configure Security Group`. Either create a new group or use an existing security group which serves your purpose and click on `Review and Launch`
 
