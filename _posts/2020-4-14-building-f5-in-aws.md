@@ -130,6 +130,8 @@ To create the VLANs, go to `Network > VLANs` and click on `Create`. Configure tm
 
 8. All the configuration has been completed at this point. Reboot F5 and start creating virtual servers.
 
+---
+
 NB: Do not use `EC2 > Instance > Actions > Instance State > Stop` to shutdown the F5 instance. If you do that, then F5 configuration will be corrupted. The proper way is the shutdown F5 first by running the following and then use stop the instance
 
 	# shutdown -H now
