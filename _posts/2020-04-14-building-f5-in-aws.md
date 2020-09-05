@@ -112,28 +112,28 @@ published: true
 
 	Go to `Network > Self IPs` and click on `Create`. Configure them as following;
 
-		Name: 10.1.1.1
-		IP Address: 10.1.1.1
+		Name: vlanA_selfIP
+		IP Address: 10.1.1.4
 		Netmask: 255.255.255.0
 		VLAN: vlanA
 		Port Lockdown: Allow None
 		Traffic Group: None
 
-		Name: 10.1.2.1
-		IP Address: 10.1.2.1
+		Name: vlanB_selfIP
+		IP Address: 10.1.2.4
 		Netmask: 255.255.255.0
 		VLAN: vlanB
 		Port Lockdown: Allow None
 		Traffic Group: None
 
-		Name: 10.1.3.1
-		IP Address: 10.1.3.1
+		Name: vlanC_selfIP
+		IP Address: 10.1.3.4
 		Netmask: 255.255.255.0
 		VLAN: vlanC
 		Port Lockdown: Allow None
 		Traffic Group: None
 
-8. All the configuration has been completed at this point. Reboot F5 and start creating virtual servers.
+8. All the necessary configuration has been completed at this point. Reboot F5 and start creating virtual servers.
 
 ---
 
