@@ -91,7 +91,7 @@ published: true
 6. Create VLANs;
 
 	When we created the EC2, we added three tmm interfaces, so we need to create three VLANs. 
-	To create the VLANs, go to `Network > VLANs` and click on `Create`. Configure tme as following;
+	To create the VLANs, go to `Network > VLANs` and click on `Create`. Configure tmm as following;
 
 		Name: vlanA
 		Tag: 4090
@@ -104,7 +104,7 @@ published: true
 		Tagging: Untagged (Click Add so that it shows under Interfaces)
 
 		Name: vlanC
-		Tag: 4090
+		Tag: 4092
 		Interface: 1.3 
 		Tagging: Untagged (Click Add so that it shows under Interfaces)
 
