@@ -8,7 +8,7 @@ published: true
 ---
 
 
-### Get the latest AMI list of F5 images
+### A. Get the latest AMI list of F5 images
 1. Go to [https://github.com/F5Networks/f5-aws-cloudformation](https://github.com/F5Networks/f5-aws-cloudformation)
 
 2. Browse to `AMI Maps` folder, choose the version you want to use and download the JSON file of either BYOL (Bring Your Own License) or PAYG (Pay As You Go). This is the AMI list that will be added in the CloudFormation template
@@ -17,7 +17,7 @@ published: true
 
 ---
 
-### Create CouldFormation Template
+### B. Create CouldFormation Template
 1. Go to [https://github.com/F5Networks/f5-aws-cloudformation](https://github.com/F5Networks/f5-aws-cloudformation)
 
 2. Browse to `supported` folder, choose either Standalone, Failover or Autoscale and then choose the number of network interfaces you needed for the F5. Now choose BYOL, or PAYG and save the template file (for example, f5-existing-stack-byol-n-nic-bigip.template which has been used for this configuration) as a local text file (f5-cf.txt)
@@ -26,7 +26,7 @@ published: true
 
 ---
 
-### Create EC2 instance
+### C. Create EC2 instance
 1. Go to `AWS Management Console > CloudFormation`. Click on `Create Stack`. Choose `Upload a template file` under `Specify Template`. Upload `f5-cf.txt`, click `Next` and configure as following;
 
         Stack Name: f5-cf
