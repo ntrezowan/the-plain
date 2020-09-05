@@ -71,7 +71,8 @@ published: true
 
 		(tmos)# save sys config
 
-4. Browse to the management IP ([https://MANAGEMENT_IP](https://MANAGEMENT_IP)) and active the license. You cannot install the license using CLI because admin account does not have permission to Advanced Shell yet
+4. Browse to the management IP ([https://MANAGEMENT_IP](https://MANAGEMENT_IP)) and install the license. You cannot install the license using CLI because admin account does not have permission to Advanced Shell yet
+
 	a. Click `Next` on the `Welcome Page` after you logged in using the newly configured `admin` account
 	b. Click on `Activate`. In the next page, fill the `Base Registration Key` and choose `Activation Method` as `Manual`
 	c. Copy the `Dossier`, go to F5 licensing server (https://activate.f5.com/license/dossier.jsp), paste the Dossier you just copied in `Enter Your Dossier` field and click `Next`
