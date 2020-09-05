@@ -8,7 +8,7 @@ published: true
 ---
 
 
-### Build F5 EC2 Instance
+### A. Build F5 EC2 Instance
 
 1. Go to [https://aws.amazon.com/marketplace](https://aws.amazon.com/marketplace) and search for `f5`. Here is an example AMI name;
 
@@ -52,7 +52,7 @@ published: true
 
 ---
 
-### Configure F5
+### B. Configure F5
 
 1. SSH to the EC2 instance as following;
 
