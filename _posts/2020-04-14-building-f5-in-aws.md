@@ -10,7 +10,7 @@ published: true
 
 ### Build F5 EC2 Instance
 
-1. Go to https://aws.amazon.com/marketplace and search for `f5`. Here is an example AMI name;
+1. Go to [https://aws.amazon.com/marketplace](https://aws.amazon.com/marketplace) and search for `f5`. Here is an example AMI name;
 
 		F5 BIG-IP VE - ALL (BYOL, 2 Boot Locations)
 
