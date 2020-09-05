@@ -10,7 +10,7 @@ published: true
 
 ### Build F5 EC2 Instance
 
-1. Go to https://aws.amazon.com/marketplace and search for “f5”. Here is an example AMI name;
+1. Go to https://aws.amazon.com/marketplace and search for `f5`. Here is an example AMI name;
 
 		F5 BIG-IP VE - ALL (BYOL, 2 Boot Locations)
 
@@ -18,31 +18,27 @@ published: true
 	Number of Boot Location: Choose 2 Boot Location if you have plan to upgrade F5 to a new version. Choose 1 Boot Location if you do not have any plan on upgrading in future
 	ALL: This will allow you to provision all of the resources (LTM, ASM, AFM, APM etc.). You can also choose LTM/DNS only if you do not need to provision other modules
 
-2. After you have decided on which version to install, click on it and then click on Continue to Subscribe
+2. After you have decided on which version to install, click on it and then click on `Continue to Subscribe`
 
-3. In the next page, Click on Continue to Configuration
+3. In the next page, Click on `Continue to Configuration`
 
-4. The following page will allow you to choose the Software Version and Region. Select the appropriate version/region and click on Continue to Launch
+4. The following page will allow you to choose the `Software Version` and `Region`. Select the appropriate version/region and click on `Continue to Launch`
 
-5. In the Launch this software page, choose Action as Launch through EC2 and click on Launch
+5. In the `Launch this software` page, choose `Action` as `Launch through EC2` and click on `Launch`
 
-6. In Choose an Instance Type page on the EC2 configuration, choose the instance type based on your network requirement (preferred m-type instance) and then click on Configure Instance Details and configure it as following;
+6. In `Choose an Instance Type` page on the EC2 configuration, choose the instance type based on your network requirement (preferred m-type instance) and then click on `Configure Instance Details` and configure it as following;
 
 	    Number of instances = 1 (if you are setting up a HA, choose more than 1 instance)
-
 	    Network = vpc-04835675974ectt (this is the VPC where F5 will reside)
-
 	    Subnet = subnet-00430005c1a2a133 (this is the subnet where F5 will reside)
-
 	    Auto-assign Public IP = Disable (if you prefer all of your interfaces to be publicly accessible, then choose Enable)
-
 	    Network Interface = (Add all the network interface that you need, you can also add them later when the instance is created. Here, we will have 4 interfaces with 1 management interface and 3 tmm interface and the IP will be automatically assigned by the VPC since it is configured to support DHCP. You can also put specific IP as Primary IP)
 	    Device=eth01 | subnet=subnet-00430005c1a2a134 | Primary IP=auto-assigned
 	    Device=eth02 | subnet=subnet-00430005c1a2a135 | Primary IP=auto-assigned
 	    Device=eth03 | subnet=subnet-00430005c1a2a136 | Primary IP=auto-assigned
 	    Device=eth04 | subnet=subnet-00430005c1a2a137 | Primary IP=auto-assigned
 
-Click on Add Storage
+	Click on Add Storage
 
 7.	Go to https://support.f5.com/csp/article/K14946 and check how much disk space you need for the version you want to install. Click on Encryption and choose an existing KMS or create a new one. Click on Add Tags
 
