@@ -40,7 +40,7 @@ published: true
 	    Device=eth03 | subnet=subnet-00430005c1a2a136 | Primary IP=auto-assigned
 	    Device=eth04 | subnet=subnet-00430005c1a2a137 | Primary IP=auto-assigned
 
-	Click on Add Storage
+	Click on `Add Storage`
 
 7. Go to https://support.f5.com/csp/article/K14946 and check how much disk space you need for the version you want to install. Click on `Encryption` and choose an existing KMS or create a new one. Click on `Add Tags`
 
@@ -58,9 +58,9 @@ published: true
 
 		# ssh -i f5-aws.pem admin@MANAGEMENT_IP
 
-	It will not ask for password since this is a new installation and no password is set for the admin account yet
+	It will not ask for password since this is a new installation and no password is set for the `admin` account yet
 
-2. Run the following to set admin password;
+2. Run the following to set `admin` password;
 
 		(tmos)# modify auth password admin
 		changing password for admin
@@ -72,12 +72,12 @@ published: true
 		(tmos)# save sys config
 
 4. Browse to the management IP (https://MANAGEMENT_IP) and active the license. You cannot install the license using CLI because admin account does not have permission to Advanced Shell yet
-	a. Click Next on the Welcome Page
-	b. Click on Activate. In the next page, fill the Base Registration Key and choose Activation Method as Manual
-	c. Copy the Dossier, go to F5 licensing server (https://activate.f5.com/license/dossier.jsp), paste the Dossier you just copied in Enter Your Dossier field and click Next
-	d. Copy the license, paste it in License section of F5 and click on Next
+	a. Click `Next` on the `Welcome Page` after you logged in using the newly configured `admin` account
+	b. Click on `Activate`. In the next page, fill the `Base Registration Key` and choose `Activation Method` as `Manual`
+	c. Copy the `Dossier`, go to F5 licensing server (https://activate.f5.com/license/dossier.jsp), paste the Dossier you just copied in `Enter Your Dossier` field and click `Next`
+	d. Copy the license, paste it in `License` section of F5 and click on `Next`
 
-5. After licensing is completed, Resource Provisioning page will show up. In the Platform, complete as following;
+5. After licensing is completed, `Resource Provisioning` page will show up. In the `Platform` section, complete as following;
 
 		Management Port Configuration: Automatic (DHCP) (If you specified the IP when you created the EC2 instance, then choose Manual and type the IP here)
 		Host Name: f5aws.example.com
@@ -86,7 +86,7 @@ published: true
 
 6. Create VLANs;
 When we created the EC2, we added three tmm interfaces, so we need to create three VLANs. 
-To create the VLANs, go to Network > VLANs and click on Create. Configure as following;
+To create the VLANs, go to `Network > VLANs` and click on `Create`. Configure tme as following;
 
 		Name: vlanA
 		Tag: 4090
@@ -105,7 +105,7 @@ To create the VLANs, go to Network > VLANs and click on Create. Configure as fol
 
 7. Create Self IP;
 
-Go to Network > Self IPs and click on Create. Configure as following;
+Go to `Network > Self IPs` and click on `Create`. Configure them as following;
 
 		Name: 10.1.1.1
 		IP Address: 10.1.1.1
@@ -130,10 +130,10 @@ Go to Network > Self IPs and click on Create. Configure as following;
 
 8. All the configuration has been completed at this point. Reboot F5 and start creating virtual servers.
 
-NB: Do not use EC2 > Instance > Actions > Instance State > Stop to shutdown the instance. If you do that, then F5 configuration will be corrupted. The proper way is the shutdown F5 first by running the following and then use stop the instance
+NB: Do not use `EC2 > Instance > Actions > Instance State > Stop` to shutdown the F5 instance. If you do that, then F5 configuration will be corrupted. The proper way is the shutdown F5 first by running the following and then use stop the instance
 
 	# shutdown -H now
 
-If you accidently stopped the instance without shutting down F5 first, run the following so that mcpd can load the configuration correctly;
+If you accidently stopped the instance without shutting down F5 first, run the following so that `mcpd` can reload the configuration correctly;
 
 	# bigstart restart mcpd
