@@ -44,7 +44,7 @@ published: true
 
 7. Go to [https://support.f5.com/csp/article/K14946](https://support.f5.com/csp/article/K14946) and check how much disk space you need for the version you want to install. Click on `Encryption` and choose an existing KMS or create a new one. Click on `Add Tags`
 
-8. Use appropriate Tags and click on `Configure Security Group`. Either create a new group or use an existing security group which serves your purpose and click on `Review and Launch`
+8. Use appropriate `Tags` and click on `Configure Security Group`. Either create a new group or use an existing security group which serves your purpose and click on `Review and Launch`
 
 9. Choose an existing Key Pair for SSH or create a new one (for example, f5-aws.pem) and click on `Launch Instance`
 
@@ -71,7 +71,7 @@ published: true
 
 		(tmos)# save sys config
 
-4. Browse to the management IP (https://MANAGEMENT_IP) and active the license. You cannot install the license using CLI because admin account does not have permission to Advanced Shell yet
+4. Browse to the management IP ([https://MANAGEMENT_IP](https://MANAGEMENT_IP)) and active the license. You cannot install the license using CLI because admin account does not have permission to Advanced Shell yet
 	a. Click `Next` on the `Welcome Page` after you logged in using the newly configured `admin` account
 	b. Click on `Activate`. In the next page, fill the `Base Registration Key` and choose `Activation Method` as `Manual`
 	c. Copy the `Dossier`, go to F5 licensing server (https://activate.f5.com/license/dossier.jsp), paste the Dossier you just copied in `Enter Your Dossier` field and click `Next`
