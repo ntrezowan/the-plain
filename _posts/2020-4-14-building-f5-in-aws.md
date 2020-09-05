@@ -15,7 +15,9 @@ published: true
 		F5 BIG-IP VE - ALL (BYOL, 2 Boot Locations)
 
 	License Type: Choose BYOL (Bring Your Own License) if you already purchased a license from F5. Choose PAYG (Pay As You Go) if you want to be charged based on usage
+	
 	Number of Boot Location: Choose 2 Boot Location if you have plan to upgrade F5 to a new version. Choose 1 Boot Location if you do not have any plan on upgrading in future
+	
 	ALL: This will allow you to provision all of the resources (LTM, ASM, AFM, APM etc.). You can also choose LTM/DNS only if you do not need to provision other modules
 
 2. After you have decided on which version to install, click on it and then click on `Continue to Subscribe`
