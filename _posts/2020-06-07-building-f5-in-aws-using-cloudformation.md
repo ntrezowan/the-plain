@@ -11,7 +11,7 @@ published: true
 ### Get the latest AMI list of F5 images
 1. Go to [https://github.com/F5Networks/f5-aws-cloudformation](https://github.com/F5Networks/f5-aws-cloudformation)
 
-2. Browse to `AMI Maps` folder, choose the version you want to use and down the JSON file of either BYOL (Bring Your Own License) or PAYG (Pay As You Go). This is the AMI list that will be add in the CloudFormation template
+2. Browse to `AMI Maps` folder, choose the version you want to use and download the JSON file of either BYOL (Bring Your Own License) or PAYG (Pay As You Go). This is the AMI list that will be add in the CloudFormation template
 
 3. If you want to use an older version, use the AWS Matrix (https://github.com/F5Networks/f5-aws-cloudformation/blob/master/aws-bigip-version-matrix.md) to find out the `Release Tags` of the version you want. Then go to https://github.com/F5Networks/f5-aws-cloudformation and use the `Tags` under `Master` branch to find the Release Tag. Now go to the `AMI Maps` folder and you will see the JSON file of the older version
 
