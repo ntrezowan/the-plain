@@ -13,7 +13,7 @@ published: true
 
 2. Browse to `AMI Maps` folder, choose the version you want to use and download the JSON file of either BYOL (Bring Your Own License) or PAYG (Pay As You Go). This is the AMI list that will be added in the CloudFormation template
 
-3. If you want to use an older version, use the AWS Matrix ([https://github.com/F5Networks/f5-aws-cloudformation/blob/master/aws-bigip-version-matrix.md](https://github.com/F5Networks/f5-aws-cloudformation/blob/master/aws-bigip-version-matrix.md)) to find out the `Release Tags` of the version you want. Then go to [https://github.com/F5Networks/f5-aws-cloudformation](https://github.com/F5Networks/f5-aws-cloudformation) and use the `Tags` under `Master` branch to find the Release Tag. Now go to the `AMI Maps` folder and you will see the JSON file of the older version
+3. If you want to use an older version, use the AWS Matrix ([https://github.com/F5Networks/f5-aws-cloudformation/blob/master/aws-bigip-version-matrix.md](https://github.com/F5Networks/f5-aws-cloudformation/blob/master/aws-bigip-version-matrix.md)) to find out the `Release Tags` of the version you want. Then go to [https://github.com/F5Networks/f5-aws-cloudformation](https://github.com/F5Networks/f5-aws-cloudformation) and use the `Tags` under `Master` branch to find the `Release Tag` you have chosen. Now go to the `AMI Maps` folder and you will see the JSON file of the older versions
 
 ---
 
@@ -31,6 +31,7 @@ published: true
 
         Stack Name: f5-cf
 
+
         VPC: vpc-0223567fe5974c63 (Choose the VPC where F5 will reside)
         Management Subnet AZ1: subnet-0d3a58dfc40277fa (Choose the subnet ID which will be used for management interface, AWS will dynamically assign the IP)
         Subnet1 in AZ1: subnet-0d3a58dfc40277fb (Choose the subnet ID or additional tmm interface, AWS will dynamically assign the IP)
@@ -38,6 +39,7 @@ published: true
         Number Of Additional NICs: 3 (Adding three more interfaces)
         Additional NIC Location: subnet-0d3a58dfc40277fd, subnet-0d3a58dfc40277fe, subnet-0d3a58dfc40277ff (adding 3 additional subnet ID to have three more tmm interfaces)
         Provision Public IP addresses for the BIG-IP interfaces: No (Choose Yes if you want these interfaces to have public IP)
+
 
         BIG-IP Image Name: AllTwoBootLocation (If you do not need to upgrade F5 in future, you can choose AllOneBootLocation. If you prefer only LTM, then choose the Image Name that starts with LTM*)
         AWS Instance Size: m5.4xlarge (You need m5.4xlarge or larger since this instance type supports up to 8 interfaces. Check instance type https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html to know what type of instance you need to support your required network interfaces)
