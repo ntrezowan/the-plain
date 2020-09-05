@@ -74,8 +74,11 @@ published: true
 4. Browse to the management IP ([https://MANAGEMENT_IP](https://MANAGEMENT_IP)) and install the license. You cannot install the license using CLI because admin account does not have permission to Advanced Shell yet
 
 	a. Click `Next` on the `Welcome Page` after you logged in using the newly configured `admin` account
+	
 	b. Click on `Activate`. In the next page, fill the `Base Registration Key` and choose `Activation Method` as `Manual`
+	
 	c. Copy the `Dossier`, go to F5 licensing server (https://activate.f5.com/license/dossier.jsp), paste the Dossier you just copied in `Enter Your Dossier` field and click `Next`
+	
 	d. Copy the license, paste it in `License` section of F5 and click on `Next`
 
 5. After licensing is completed, `Resource Provisioning` page will show up. In the `Platform` section, complete as following;
