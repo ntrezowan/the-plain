@@ -137,7 +137,7 @@ published: true
 
 ---
 
-NB: Do not use `EC2 > Instance > Actions > Instance State > Stop` to shutdown the F5 instance. If you do that, then F5 configuration will be corrupted. The proper way is the shutdown F5 first by running the following from `Advanced Shell` and then stop the instance;
+Note: Do not use `EC2 > Instance > Actions > Instance State > Stop` to shutdown the F5 instance. If you do that, then F5 configuration will be corrupted. The proper way is the shutdown F5 first by running the following from `Advanced Shell` and then stop the instance;
 
 	# shutdown -H now
 
