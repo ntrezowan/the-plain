@@ -12,7 +12,6 @@ published: true
 ### Install using USB media
 
 A. Create a bootable USB drive using your computer
-
 1. Download the image from [https://downloads.f5.com/](https://downloads.f5.com/) into you computer
 
 2. Mount the image;
