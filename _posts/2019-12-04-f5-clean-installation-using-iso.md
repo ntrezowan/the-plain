@@ -130,6 +130,6 @@ B. Boot F5 using the USB media
 
 ###  Install using existing ISO stored in F5
 
-If the system can still boot and if you can upload the ISO in `/shared/images`, then do the following to do a clean install;
+   If the system can still boot and if you can upload the ISO in `/shared/images`, then do the following to do a clean install;
 
         # image2disk --format=volumes --nosaveconfig /shared/images/BIGIP-13.1.1.5-0.0.3.iso
