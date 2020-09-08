@@ -20,7 +20,7 @@ A. Create a bootable USB drive using your computer
         # mount -o loop /shared/images/BIGIP-13.1.1.5-0.0.4.iso /mnt/cd
         mount: /shared/images/BIGIP-13.1.1.5-0.0.4.iso is write-protected, mounting read-only
 
-3. Insert a USB disk and run mkdisk script;
+3. Insert a USB disk and run `mkdisk` script;
 
         # cd /mnt/cd
         # ./mkdisk
@@ -53,11 +53,11 @@ A. Create a bootable USB drive using your computer
         21 FirePass 4100
         22 FirePass 4300
 
-        Please select a device by index (1 – 26) —>
+        Please select a device by index (1 – 26) —>7
 
         Index Device Product Size Notes
 
-        1 /dev/sdb SanDisk Cruzer Blade 3819 MB May hold 2 products
+        1 /dev/sdb SanDisk Cruzer Blade 3817 MB May hold 2 products
         Please select a device by index (1 – 1) —>1
 
         Chosen device /dev/sdb is SanDisk Cruzer Blade
@@ -71,17 +71,17 @@ A. Create a bootable USB drive using your computer
         copying ./isolinux/vmlinuz => /mnt/ozimLXTaYx
         copying ./isolinux/initrd.img => /mnt/ozimLXTaYx
         The following products are available for transfer:
-        BIG-IP version 10.2.0
+        BIG-IP version 13.1.1.5
 
-        Would you like to transfer BIG-IP version 10.2.0? (y|n) [y] –> y
-        Queueing BIG-IP version 10.2.0
+        Would you like to transfer BIG-IP version 13.1.1.5? (y|n) [y] –> y
+        Queueing BIG-IP version 13.1.1.5
         Ready to copy one product (this will take a while…).
         Creating repository ISO in /mnt/tm_install/16082.mJRdtt (this will take a while)…
-        Using TS_MN000.RPM;1 for ././BIGIP1020/i686/TS-mng-fbagent-10.2.0-1707.0.i686.rpm (TS-mng-fbloader-10.2.0-1707.0.i686.rpm)
-        Using TMM_V000.RPM;1 for ././BIGIP1020/i686/tmm-vadc-debug-10.2.0-1707.0.i686.rpm (tmm-vadc-10.2.0-1707.0.i686.rpm)
+        Using TS_MN000.RPM;1 for ././BIGIP13115/i686/TS-mng-fbagent-13.1.1.5-1707.0.i686.rpm (TS-mng-fbloader-13.1.1.5-1707.0.i686.rpm)
+        Using TMM_V000.RPM;1 for ././BIGIP13115/i686/tmm-vadc-debug-13.1.1.5-1707.0.i686.rpm (tmm-vadc-13.1.1.5-1707.0.i686.rpm)
 
-        1.25% done, estimate finish Sun Jun 26 21:58:00 2011
-        98.76% done, estimate finish Sun Jun 26 21:58:27 2011
+        1.25% done, estimate finish Sun Dec 01 09:58:00 2019
+        98.76% done, estimate finish Sun Dec 01 09:58:27 2019
         Total translation table size: 0
         Total rockridge attributes bytes: 72463
         Total directory bytes: 135168
@@ -99,7 +99,6 @@ A. Create a bootable USB drive using your computer
         Product setup complete.
         Flushing disk buffer (this may take a while)… done
 
-
 4. When the script completes, unmount the USB media;
 
         # umount /mnt/cd
@@ -115,17 +114,22 @@ B. Boot F5 using the USB media
 
 1. Boot F5 so that it can boot into Maintenance Operating System (MOS) from the USB
 
-2. Choose Install the image
+2. Select the default terminal emulation (vt100)
 
-3. Select the default terminal emulation (vt100)
-
-4. The following command will delete all data present in the F5 system;
+3. The following command will delete all data present in the F5 system;
 
         # diskinit --style volumes
 
-5. The following command will install the software;
+4. The following command will install the software;
 
         # image2disk --format=volumes --nosaveconfig --nosavelicense
 
-6. After the installation, remove the USB and reboot
+5. After the installation, remove the USB and reboot
 
+
+
+###  Install using existing ISO in /shared/images
+
+If the system can still boot and if you can upload the ISO in `/shared/images`, then do the following to do a clean install;
+
+        # image2disk --format=volumes --nosaveconfig /shared/images/BIGIP-13.1.1.5-0.0.3.iso
