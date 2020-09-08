@@ -13,7 +13,7 @@ published: true
 
 A. Create a bootable USB drive using your computer
 
-1. Download the image from https://downloads.f5.com/ into you computer
+1. Download the image from [https://downloads.f5.com/](https://downloads.f5.com/) into you computer
 
 2. Mount the image;
 
@@ -25,6 +25,7 @@ A. Create a bootable USB drive using your computer
 
         # cd /mnt/cd
         # ./mkdisk
+
 
 In the next step, F5 will ask you the following questions. Answer as appropriate to your environment;
 
