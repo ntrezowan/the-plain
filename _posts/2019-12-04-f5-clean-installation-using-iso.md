@@ -104,7 +104,7 @@ In the next step, F5 will ask you the following questions. Answer as appropriate
 
         # umount /mnt/cd
 
-If you are having trouble unmounting the disk, run the following to see which user is using it and then kill the process;
+    If you are having trouble unmounting the disk, run the following to see which user is using it and then kill the process;
 
         # fuser /mnt/cd
         # fuser -k /mnt/cd
