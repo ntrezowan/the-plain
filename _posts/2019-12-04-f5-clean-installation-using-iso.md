@@ -126,7 +126,7 @@ B. Boot F5 using the USB media
 
 5. After the installation, remove the USB and reboot
 
-
+---
 
 ###  Install using existing ISO in /shared/images
 
