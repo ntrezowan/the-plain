@@ -128,7 +128,7 @@ B. Boot F5 using the USB media
 
 ---
 
-###  Install using existing ISO in /shared/images
+###  Install using existing ISO stored in F5
 
 If the system can still boot and if you can upload the ISO in `/shared/images`, then do the following to do a clean install;
 
