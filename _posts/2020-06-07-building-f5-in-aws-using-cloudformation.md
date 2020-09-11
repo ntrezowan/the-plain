@@ -27,11 +27,7 @@ published: true
 ---
 
 ### C. Create EC2 instance
-1. Go to `AWS Management Console > CloudFormation`. Click on `Create Stack`. Choose `Upload a template file` under `Specify Template`. Upload `f5-cf.txt`, click `Next` and configure as following;
-
-
-  [Sample f5-cf.txt](http://ntrezowan.github.com/shared/f5-cf.txt)
-
+1. Go to `AWS Management Console > CloudFormation`. Click on `Create Stack`. Choose `Upload a template file` under `Specify Template`. Upload `f5-cf.txt` ([Sample f5-cf.txt](http://ntrezowan.github.com/shared/f5-cf.txt)), click `Next` and configure as following;
 
         Stack Name: f5-cf
 
