@@ -8,7 +8,7 @@ published: true
 ---
 
 
-### A. Install Ansible and F5 modules for Ansible
+### A. Install required packages
 1. Install Pip
 
         # curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
@@ -18,7 +18,7 @@ published: true
           
          # python -m pip install ansible
 
-5. Install F5 Modules (v1) for Ansible and F5 SDK for Python
+3. Install F5 Modules (v1) for Ansible and F5 SDK for Python
     
         # ansible-galaxy collection install f5networks.f5_modules
         # pip install f5-sdk
