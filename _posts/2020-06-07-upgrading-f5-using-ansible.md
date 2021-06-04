@@ -106,7 +106,7 @@ The following playbook will check if the unit is in standby state and if so, the
                 bigip_software_install:
                   image: "{{ 'BIGIP-' + version  + '.iso' }}"
                   state: activated
-                  volume: "HD1.3"                                     
+                  volume: "HD1.2"                                     
                   provider: "{{provider}}"
                 delegate_to: localhost
                 async: 45
