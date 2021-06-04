@@ -25,9 +25,9 @@ published: true
 
 ---
 
-### B. Creating the playbook
+### B. Create the playbook
 
-The following playbook will check if the unit is in standby state and if so, then it will do the following
+The following playbook will check if the unit is in standby state and if so, then it will do the following;
 1. Prompt for the BIGIP version that you want to install
 2. Verify the runnning configuration
 3. Download a configuration backup to user's Downloads folder
