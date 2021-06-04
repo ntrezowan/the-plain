@@ -94,7 +94,7 @@ published: true
                   prompt: "Press a key to continue upgrading F5..."
 
               # Upgrade
-              - name: "T 9: Install BIG-IP"
+              - name: "Task 9: Install BIG-IP"
                 bigip_software_install:
                   image: "{{ 'BIGIP-' + version  + '.iso' }}"
                   state: activated
