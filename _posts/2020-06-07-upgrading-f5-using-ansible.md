@@ -28,7 +28,7 @@ published: true
 ### B. Create the playbook
 
 The following playbook will check if the unit is in standby state and if so, then it will do the following;
-1. Prompt for the BIGIP version that you want to install ()
+1. Prompt for the BIGIP version that you want to install (assuming ISO is located in /Users/xxx/Downloads/)
 2. Verify the runnning configuration
 3. Download a configuration backup to user's Downloads folder
 4. Download a qkview to user's Downloads folder
