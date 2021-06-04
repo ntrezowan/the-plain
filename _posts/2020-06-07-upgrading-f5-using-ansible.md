@@ -40,7 +40,10 @@ The following playbook will check if the unit is in standby state and if so, the
         
         - name: Upgrade F5
           hosts: all
+          connection: local
           gather_facts: false
+          collections:
+            - f5networks.f5_modules
 
           vars:
             provider:
