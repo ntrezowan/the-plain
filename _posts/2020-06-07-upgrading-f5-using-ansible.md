@@ -29,11 +29,11 @@ published: true
 
 The following playbook will check if the unit is in standby state and if so, then it will do the following;
 1. Prompt for the BIGIP version that you want to install (assuming ISO is located in /Users/xxx/Downloads/)
-2. Verify the runnning configuration
+2. Verify the running configuration
 3. Download a configuration backup to user's Downloads folder
 4. Download a qkview to user's Downloads folder
 5. Upload the ISO image from user's Download folder to BIGIP (in /shared/images)
-6. Install the ISO to a paritition, make the partition as active on boot and then it will restart to the new version.
+6. Install the ISO to a partition, make the partition as active on boot and then it will restart to the new version.
 
         ---
         # upgrade.yaml
