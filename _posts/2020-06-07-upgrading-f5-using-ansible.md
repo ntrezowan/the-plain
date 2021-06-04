@@ -28,7 +28,7 @@ published: true
 ### B. Create the playbook
 
 The following playbook will check if the unit is in standby state and if so, then it will do the following;
-1. Prompt for the BIGIP version that you want to install
+1. Prompt for the BIGIP version that you want to install ()
 2. Verify the runnning configuration
 3. Download a configuration backup to user's Downloads folder
 4. Download a qkview to user's Downloads folder
@@ -78,7 +78,7 @@ The following playbook will check if the unit is in standby state and if so, the
                 bigip_ucs_fetch:
                   src: "{{ inventory_hostname + '-' + date.stdout +  '-backup.ucs' }}"
                   dest: "{{ '/Users/xxx/Downloads/' + inventory_hostname + '-' + date.stdout +  '.ucs' }}"
-                  provider: "{{ provider }}"
+                  provider: "{{provider}}"
                 delegate_to: localhost
 
               - name: "Task 6: Download a qkview"
@@ -94,7 +94,7 @@ The following playbook will check if the unit is in standby state and if so, the
               - name: "Task 7: Upload image to F5"
                 bigip_software_image:
                  image: "{{ '/Users/xxx/Downloads/BIGIP-' + version  + '.iso' }}"
-                 provider: "{{ provider }}"
+                 provider: "{{provider}}"
                 delegate_to: localhost
 
               - name: "Task 8: Wait For Confirmation"
@@ -107,7 +107,7 @@ The following playbook will check if the unit is in standby state and if so, the
                   image: "{{ 'BIGIP-' + version  + '.iso' }}"
                   state: activated
                   volume: "HD1.3"                                     
-                  provider: "{{ provider }}"
+                  provider: "{{provider}}"
                 delegate_to: localhost
                 async: 45
                 poll: 0
