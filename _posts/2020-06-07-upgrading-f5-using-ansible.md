@@ -109,4 +109,5 @@ published: true
 ---
 
 ### Run the playbook
-# ansible-playbook -i bigip_hosts upgrade.yaml 
+
+        # ansible-playbook -i bigip_hosts upgrade.yaml 
