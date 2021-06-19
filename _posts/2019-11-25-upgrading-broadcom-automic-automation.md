@@ -1,7 +1,7 @@
 ---
-title: "Upgrading Automic Automation to 12.3"
+title: "Upgrading Broadcom Automic Automation"
 comments: false
-description: "Upgrading Automic Automation to 12.3"
+description: "Upgrading Automic Automation"
 keywords: "upgrade, automic, automation, engine, workload, 12.3. ca, broadcom"
 published: true
 
