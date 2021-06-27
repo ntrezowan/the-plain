@@ -31,8 +31,8 @@ published: true
 
         $ vi inventory
 
-        admin_password='0'
-        pg_password='0'
+        admin_password=''
+        pg_password=''
 
 6. Install Ansible Tower (this will run install.yml playbook)
 
