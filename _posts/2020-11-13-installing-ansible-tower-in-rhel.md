@@ -38,5 +38,13 @@ published: true
 
         $ ./setup.sh
 
+7. Copy your certificate/key to the following location;
 
-7. Go to https://IP_ADDRESS and login with admin user and then use your Red Hat or Red Hat Satellite credentials to install the license.
+        site_certificate -> /etc/tower/tower/cert
+        site_key -> /etc/tower/tower.key
+
+8. Restart Ansible Tower;
+
+        $ ansible-tower-service restart
+
+9. Go to https://IP_ADDRESS and login with admin user and then use your Red Hat or Red Hat Satellite credentials to install the license.
