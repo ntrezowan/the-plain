@@ -37,7 +37,7 @@ published: true
 
 7. Copy your certificate/key to the following location;
 
-        site_certificate -> /etc/tower/tower/cert
+        site_certificate -> /etc/tower/tower.cert
         site_key -> /etc/tower/tower.key
 
 8. Restart Ansible Tower;
