@@ -24,11 +24,20 @@ published: true
         $ tar xvf ansible-tower-setup-latest.tar.gz
         $ cd /ansible-tower-setup-x.x.x-x
 
-5. Modify inventory file and add the following;
+5. Modify `inventory` file and add the following;
 
         $ vi inventory
-
+        
+        [tower]
+        server1.example.com
+        server2.example.com
+        
+        [all:vars]
         admin_password=''
+        
+        [database]
+        pg_database='awx'
+        pg_username='awx'
         pg_password=''
 
 6. Install Ansible Tower (this will run install.yml playbook)
