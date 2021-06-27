@@ -42,5 +42,4 @@ published: true
 
 
 7. Configure Ansible Tower;
-
 Go to https://IP_ADDRESS and login with admin user. After logged in, use your Red Hat or Red Hat Satellite credentials to fetch the license. Press Submit.
