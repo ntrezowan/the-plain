@@ -24,10 +24,8 @@ published: true
 
 4. Download Ansible Tower;
 
-        $ mkdir /opt/
         $ tar xvf ansible-tower-setup-latest.tar.gz -C /opt/
-        $ mv /opt/ansible-tower-setup-3.8.3-1 /opt/ansible-tower
-        $ cd /opt/ansible-tower
+        $ cd /ansible-tower-setup-x.x.x-x
 
 5. Modify inventory file and add the following;
 
