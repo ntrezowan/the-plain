@@ -41,5 +41,4 @@ published: true
         $ ./setup.sh
 
 
-7. Configure Ansible Tower;
-Go to https://IP_ADDRESS and login with admin user and then use your Red Hat or Red Hat Satellite credentials to install the license.
+7. Go to https://IP_ADDRESS and login with admin user and then use your Red Hat or Red Hat Satellite credentials to install the license.
