@@ -47,4 +47,4 @@ published: true
 
         $ ansible-tower-service restart
 
-9. Go to https://IP_ADDRESS and login with admin user and then use your Red Hat or Red Hat Satellite credentials to install the license.
+9. Go to https://IP_ADDRESS and login with admin user and use your Red Hat or Red Hat Satellite credentials to install the license.
