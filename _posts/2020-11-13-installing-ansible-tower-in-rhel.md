@@ -36,7 +36,7 @@ published: true
         admin_password='0'
         pg_password='0'
 
-6. Install Ansible Tower (this will run the install.yml playbook)
+6. Install Ansible Tower (this will run install.yml playbook)
 
         $ ./setup.sh
 
